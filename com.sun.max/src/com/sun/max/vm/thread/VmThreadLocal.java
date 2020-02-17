@@ -327,6 +327,9 @@ public class VmThreadLocal implements FormatWithToString {
         }
     }
 
+    public static VmThreadLocal ALLOC_BUFFER_PTR
+        = new VmThreadLocal("ALLOC_BUFFER_PTR", true, "points to a thread local allocation buffer", Nature.Single);
+
     private static VmThreadLocal[] valuesNeedingInitialization;
 
     /**
