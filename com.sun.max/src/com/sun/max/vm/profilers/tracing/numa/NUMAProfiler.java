@@ -443,14 +443,7 @@ public class NUMAProfiler {
      * Dump NUMAProfiler Buffer to Maxine's Log output.
      */
     private void dumpBuffer() {
-        final boolean lockDisabledSafepoints = lock();
-        if (NUMAProfilerVerbose) {
-            Log.print("==== Profiling Cycle ");
-            Log.print(profilingCycle);
-            Log.println(" ====");
-        }
-        newObjects.print(profilingCycle, 1);
-        unlock(lockDisabledSafepoints);
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printAllocationBuffer);
     }
 
     private void dumpSurvivors() {
@@ -789,7 +782,7 @@ public class NUMAProfiler {
     }
 
 
-    private static final Pointer.Predicate profilingPredicate = new Pointer.Predicate() {
+    public static final Pointer.Predicate profilingPredicate = new Pointer.Predicate() {
         @Override
         public boolean evaluate(Pointer tla) {
             VmThread vmThread = VmThread.fromTLA(tla);
@@ -861,6 +854,28 @@ public class NUMAProfiler {
      */
     public static void printProfilingCountersOfThread(Pointer tla) {
         printThreadLocalProfilingCounters.run(tla);
+    }
+
+    /**
+     * A {@link Pointer.Procedure} that prints a thread's Allocations Buffer}.
+     */
+    private static final Pointer.Procedure printAllocationBuffer = new Pointer.Procedure() {
+        @Override
+        public void run(Pointer tla) {
+            final boolean lockDisabledSafepoints = lock();
+            Pointer etla = ETLA.load(tla);
+            Log.println(VmThread.fromTLA(tla).id());
+            RecordBuffer.getForCurrentThread(etla).print(profilingCycle, 1);
+            unlock(lockDisabledSafepoints);
+        }
+    };
+
+    /**
+     * A method to print the Allocations Buffer of one specific thread.
+     * @param tla
+     */
+    public static void printAllocationBufferOfThread(Pointer tla) {
+        printAllocationBuffer.run(tla);
     }
 
     /**

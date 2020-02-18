@@ -720,7 +720,10 @@ public class VmThread {
         if (thread != mainThread) {
             // print the Access Profiling Counters before exit
             if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
-                NUMAProfiler.printProfilingCountersOfThread(thread.tla);
+                if (NUMAProfiler.profilingPredicate.evaluate(thread.tla)) {
+                    NUMAProfiler.printAllocationBufferOfThread(thread.tla);
+                    NUMAProfiler.printProfilingCountersOfThread(thread.tla);
+                }
             }
             // call Thread.exit()
             JDK_java_lang_Thread.exitThread(thread.javaThread());
