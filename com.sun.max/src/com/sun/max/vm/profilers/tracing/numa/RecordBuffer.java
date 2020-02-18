@@ -75,17 +75,23 @@ public class RecordBuffer {
     char[] readStringBuffer;
 
     /**
+     * A buffer to transform a String object to char array.
+     */
+    private char[] charArrayBuffer;
+
+    /**
      * A primitive representation of null string.
      */
     private static final char[] nullValue = {'n', 'u', 'l', 'l', '\0'};
 
     private long StringBufferSizeInBytes;
 
-    RecordBuffer(int bufSize, String name) {
+    public RecordBuffer(int bufSize, String name) {
         buffersName = name;
         bufferSize = bufSize;
 
         readStringBuffer = new char[MAX_CHARS];
+        charArrayBuffer = new char[MAX_CHARS];
 
         ids = allocateIntArrayOffHeap(bufSize);
         types = allocateStringArrayOffHeap(bufSize);
@@ -212,6 +218,16 @@ public class RecordBuffer {
 
     int readThreadId(int index) {
         return readInt(threadIds, index);
+    }
+
+    public char[] asCharArray(String str) {
+        int i = 0;
+        while (i < str.length()) {
+            charArrayBuffer[i] = str.charAt(i);
+            i++;
+        }
+        charArrayBuffer[i] = '\0';
+        return charArrayBuffer;
     }
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
