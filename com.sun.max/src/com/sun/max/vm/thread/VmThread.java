@@ -620,6 +620,8 @@ public class VmThread {
                 (!NUMAProfiler.NUMAProfilerFlareAllocationThresholds.equals("0") && NUMAProfiler.enableFlareObjectProfiler == true)) {
                 PROFILER_STATE.store(etla, Address.fromInt(NUMAProfiler.PROFILING_STATE.ENABLED.getValue()));
             }
+            // Initialize new Thread's Record Buffer
+            NUMAProfiler.initThreadLocalRecordBuffer.run(etla);
         }
 
         VM_THREAD.store3(etla, Reference.fromJava(thread));

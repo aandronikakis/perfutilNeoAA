@@ -87,10 +87,6 @@ public class NUMAProfiler {
 
     private static int          profilingCycle;
     private static int          uniqueId = 0;
-    /**
-     * The NUMAProfiler Buffer for newly allocated objects.
-     */
-    private static RecordBuffer newObjects;
 
     /**
      * The NUMAProfiler Buffers for survivor objects. We use two identical buffers because
@@ -174,6 +170,9 @@ public class NUMAProfiler {
 
     private static final int MINIMUMBUFFERSIZE = 500000;
 
+    public static int survivorBufferSize = MINIMUMBUFFERSIZE;
+    public static int allocatorBufferSize = MINIMUMBUFFERSIZE;
+
     /**
      * The underlying hardware configuration.
      */
@@ -246,9 +245,6 @@ public class NUMAProfiler {
 
         splitStringtoSortedIntegers();
 
-        int survivorBufferSize = MINIMUMBUFFERSIZE;
-        int allocatorBufferSize = MINIMUMBUFFERSIZE;
-
         if (NUMAProfilerBufferSize != 0) {
             if (NUMAProfilerBufferSize < MINIMUMBUFFERSIZE) {
                 Log.print("WARNING: Small Buffer Size. Minimum Buffer Size applied! (=");
@@ -262,7 +258,7 @@ public class NUMAProfiler {
             }
         }
 
-        newObjects = new RecordBuffer(allocatorBufferSize, "New Objects Buffer");
+        initAllThreadLocalRecordBuffers();
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Initialize the Survivor Objects NUMAProfiler Buffers.");
@@ -900,8 +896,27 @@ public class NUMAProfiler {
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalProfilingCounters);
     }
 
+    /**
+     * A {@link Pointer.Procedure} that initializes the Allocation Buffer of a thread.
+     * It is also used independently when a new thread is spawned.
+     */
+    public static final Pointer.Procedure initThreadLocalRecordBuffer = new Pointer.Procedure() {
+        public void run(Pointer tla) {
+            final RecordBuffer allocationsBuffer = new RecordBuffer(allocatorBufferSize, "allocations Buffer ");
+            // tla == etla at this point
+            RecordBuffer.setForCurrentThread(tla, allocationsBuffer);
+        }
+    };
+
+    /**
+     * Calls {@code initThreadLocalRecordBuffer} {@link Pointer.Procedure} for all ACTIVE threads.
+     * It is used in NUMAProfiler's initialization for VM Threads.
+     */
+    private void initAllThreadLocalRecordBuffers() {
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalRecordBuffer);
+    }
+
     private void releaseReservedMemory() {
-        newObjects.deallocateAll();
         survivors1.deallocateAll();
         survivors2.deallocateAll();
         heapPages.deallocateAll();
