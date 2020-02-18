@@ -19,6 +19,8 @@
  */
 package com.sun.max.vm.profilers.tracing.numa;
 
+import com.sun.max.annotate.INLINE;
+import com.sun.max.annotate.INTRINSIC;
 import com.sun.max.annotate.NEVER_INLINE;
 import com.sun.max.annotate.NO_SAFEPOINT_POLLS;
 import com.sun.max.lang.ISA;
@@ -29,7 +31,12 @@ import com.sun.max.unsafe.Size;
 import com.sun.max.vm.Intrinsics;
 import com.sun.max.vm.Log;
 import com.sun.max.vm.intrinsics.*;
+import com.sun.max.vm.reference.Reference;
 import com.sun.max.vm.runtime.FatalError;
+import com.sun.max.vm.thread.VmThread;
+
+import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
+import static com.sun.max.vm.thread.VmThreadLocal.ALLOC_BUFFER_PTR;
 
 /**
  * This class implements any buffer used by the Allocation Profiler to keep track of the objects.
@@ -42,7 +49,7 @@ import com.sun.max.vm.runtime.FatalError;
  * -Address: the object's address in the Heap.
  * -Node: the physical NUMA node where the object is placed.
  */
-class RecordBuffer {
+public class RecordBuffer {
 
     private Pointer ids;
     private Pointer types;
@@ -300,5 +307,23 @@ class RecordBuffer {
 
     void resetBuffer() {
         currentIndex = 0;
+    }
+
+    @INTRINSIC(UNSAFE_CAST)
+    private static native RecordBuffer asRecordBuffer(Object object);
+
+    @INLINE
+    public static RecordBuffer getForCurrentThread(Pointer etla) {
+        final Reference reference = ALLOC_BUFFER_PTR.loadRef(etla);
+        if (reference.isZero()) {
+            return null;
+        }
+        final RecordBuffer allocationsBuffer = asRecordBuffer(reference.toJava());
+        return allocationsBuffer;
+    }
+
+    @INLINE
+    public static void setForCurrentThread(Pointer etla, RecordBuffer buffer) {
+        ALLOC_BUFFER_PTR.store(etla, Reference.fromJava(buffer));
     }
 }
