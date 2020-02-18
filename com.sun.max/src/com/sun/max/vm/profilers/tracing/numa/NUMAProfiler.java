@@ -383,19 +383,7 @@ public class NUMAProfiler {
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
     public static void profileNew(int size, String type, long address) {
-        /* PROFILER_TLA is currently a thread local that has it's value maintained
-         * only in the {@linkplain VmThreadLocal#ETLA safepoints-enabled} TLA. That
-         * said if we lock and disable safepoints it is no longer accessible, thus
-         * we read it before locking. */
-        final boolean lockDisabledSafepoints = lock();
-        //transform the object type from String to char[] and pass the charArrayBuffer[] to record
-        final int threadId = VmThread.current().id();
-        //guard RecordBuffer from overflow
-        FatalError.check(newObjects.currentIndex < newObjects.bufferSize, "Allocations Buffer out of bounds. Increase the Buffer Size.");
-        newObjects.record(uniqueId, threadId, JDK_java_lang_String.getCharArray(type), size, address);
-        uniqueId++;
-        totalNewSize = totalNewSize + size;
-        unlock(lockDisabledSafepoints);
+        RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla())).profile(size, type, address);
     }
 
     /**

@@ -31,6 +31,7 @@ import com.sun.max.unsafe.Size;
 import com.sun.max.vm.Intrinsics;
 import com.sun.max.vm.Log;
 import com.sun.max.vm.intrinsics.*;
+import com.sun.max.vm.jdk.*;
 import com.sun.max.vm.reference.Reference;
 import com.sun.max.vm.runtime.FatalError;
 import com.sun.max.vm.thread.VmThread;
@@ -74,11 +75,6 @@ public class RecordBuffer {
     char[] readStringBuffer;
 
     /**
-     * A buffer to transform a String object to char array.
-     */
-    private char[] charArrayBuffer;
-
-    /**
      * A primitive representation of null string.
      */
     private static final char[] nullValue = {'n', 'u', 'l', 'l', '\0'};
@@ -90,7 +86,6 @@ public class RecordBuffer {
         bufferSize = bufSize;
 
         readStringBuffer = new char[MAX_CHARS];
-        charArrayBuffer = new char[MAX_CHARS];
 
         types = allocateStringArrayOffHeap(bufSize);
         sizes = allocateIntArrayOffHeap(bufSize);
@@ -213,16 +208,6 @@ public class RecordBuffer {
         return readInt(threadIds, index);
     }
 
-    public char[] asCharArray(String str) {
-        int i = 0;
-        while (i < str.length()) {
-            charArrayBuffer[i] = str.charAt(i);
-            i++;
-        }
-        charArrayBuffer[i] = '\0';
-        return charArrayBuffer;
-    }
-
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
     public void record(int threadId, char[] type, int size, long address) {
@@ -247,6 +232,13 @@ public class RecordBuffer {
         record(threadId, type, size, address);
     }
 
+    @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
+    @NEVER_INLINE
+    public void profile(int size, String type, long address) {
+        final int threadId = VmThread.current().id();
+        //guard RecordBuffer from overflow
+        FatalError.check(currentIndex < bufferSize, "Allocations Buffer out of bounds. Increase the Buffer Size.");
+        record(threadId, JDK_java_lang_String.getCharArray(type), size, address);
     }
 
     /**
