@@ -51,7 +51,6 @@ import static com.sun.max.vm.thread.VmThreadLocal.ALLOC_BUFFER_PTR;
  */
 public class RecordBuffer {
 
-    private Pointer ids;
     private Pointer types;
     private Pointer sizes;
     private Pointer addresses;
@@ -93,7 +92,6 @@ public class RecordBuffer {
         readStringBuffer = new char[MAX_CHARS];
         charArrayBuffer = new char[MAX_CHARS];
 
-        ids = allocateIntArrayOffHeap(bufSize);
         types = allocateStringArrayOffHeap(bufSize);
         sizes = allocateIntArrayOffHeap(bufSize);
         addresses = allocateLongArrayOffHeap(bufSize);
@@ -139,7 +137,6 @@ public class RecordBuffer {
     void deallocateAll() {
         final Size intSize = Size.fromInt(bufferSize).times(Integer.BYTES);
         final Size longSize = Size.fromInt(bufferSize).times(Long.BYTES);
-        VirtualMemory.deallocate(ids.asAddress(), intSize, VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(types.asAddress(), Size.fromLong(bufferSize).times(MAX_CHARS).times(Character.BYTES), VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(sizes.asAddress(), intSize, VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(addresses.asAddress(), longSize, VirtualMemory.Type.DATA);
@@ -182,10 +179,6 @@ public class RecordBuffer {
             readIndex = stringIndex + charIndex;
         } while (c != '\0');
         return readStringBuffer;
-    }
-
-    public int readId(int index) {
-        return readInt(ids, index);
     }
 
     int readSize(int index) {
@@ -232,7 +225,7 @@ public class RecordBuffer {
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
-    public void record(int id, int threadId, char[] type, int size, long address) {
+    public void record(int threadId, char[] type, int size, long address) {
         if (Platform.platform().isa != ISA.AMD64) {
             throw FatalError.unimplemented("RecordBuffer.record");
         }
@@ -240,7 +233,6 @@ public class RecordBuffer {
         final int  coreID    = Intrinsics.getCpuID() & MaxineIntrinsicIDs.CPU_MASK;
         writeLong(timestamps, currentIndex, timestamp);
         writeInt(coreIDs, currentIndex, coreID);
-        writeInt(ids, currentIndex, id);
         writeInt(threadIds, currentIndex, threadId);
         writeType(currentIndex, type);
         writeInt(sizes, currentIndex, size);
@@ -250,9 +242,11 @@ public class RecordBuffer {
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
-    public void record(int id, int threadId, char[] type, int size, long address, int node) {
+    public void record(int threadId, char[] type, int size, long address, int node) {
         writeNode(currentIndex, node);
-        record(id, threadId, type, size, address);
+        record(threadId, type, size, address);
+    }
+
     }
 
     /**
@@ -268,9 +262,6 @@ public class RecordBuffer {
             Log.print(';');
 
             Log.print(allocation);
-            Log.print(';');
-
-            Log.print(readInt(ids, i));
             Log.print(';');
 
             Log.print(readInt(threadIds, i));
@@ -312,7 +303,6 @@ public class RecordBuffer {
     }
 
     public void cleanBufferCell(int i) {
-        writeInt(ids, i, 0);
         writeType(i, nullValue);
         writeInt(sizes, i, 0);
         writeLong(addresses, i, 0L);

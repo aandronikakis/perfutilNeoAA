@@ -86,7 +86,6 @@ public class NUMAProfiler {
     static native void numaProfiler_unlock();
 
     private static int          profilingCycle;
-    private static int          uniqueId = 0;
 
     /**
      * The NUMAProfiler Buffers for survivor objects. We use two identical buffers because
@@ -631,7 +630,7 @@ public class NUMAProfiler {
                 //guard survivors RecordBuffer from overflow
                 FatalError.check(to.currentIndex < to.bufferSize, "Survivor Buffer out of bounds! Increase the Buffer Size.");
                 // write it to Buffer
-                to.record(from.readId(i), from.readThreadId(i), from.readType(i), from.readSize(i), newAddr, node);
+                to.record(from.readThreadId(i), from.readType(i), from.readSize(i), newAddr, node);
                 totalSurvSize = totalSurvSize + from.readSize(i);
             }
         }
