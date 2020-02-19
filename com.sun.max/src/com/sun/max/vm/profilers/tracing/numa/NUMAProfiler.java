@@ -862,11 +862,8 @@ public class NUMAProfiler {
     private static final Pointer.Procedure printAllocationBuffer = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            final boolean lockDisabledSafepoints = lock();
             Pointer etla = ETLA.load(tla);
-            Log.println(VmThread.fromTLA(tla).id());
             RecordBuffer.getForCurrentThread(etla).print(profilingCycle, 1);
-            unlock(lockDisabledSafepoints);
         }
     };
 

@@ -37,6 +37,8 @@ import com.sun.max.vm.runtime.FatalError;
 import com.sun.max.vm.thread.VmThread;
 
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
+import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.lock;
+import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.unlock;
 import static com.sun.max.vm.thread.VmThreadLocal.ALLOC_BUFFER_PTR;
 
 /**
@@ -250,6 +252,7 @@ public class RecordBuffer {
     public void print(int cycle, int allocation) {
         long start = readLong(timestamps, 0);
         for (int i = 0; i < currentIndex; i++) {
+            final boolean lockDisabledSafepoints = lock();
             Log.print(cycle);
             Log.print(';');
 
@@ -281,6 +284,7 @@ public class RecordBuffer {
             Log.print(readLong(timestamps, i) - start);
             Log.print(';');
             Log.println(readInt(coreIDs, i));
+            unlock(lockDisabledSafepoints);
         }
     }
 
