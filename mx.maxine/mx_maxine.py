@@ -693,6 +693,12 @@ def numaProfilerOutputProcessing(filename):
     # Object Accesses File Header
     objectAccessesFile.write('Cycle;ThreadId;AccessType;Count\n')
 
+    #open a new file for Thread Names
+    threadsFileName = path+'/'+benchmark+'_thread_names.csv'
+    threadsFile = open(threadsFileName, 'w')
+    # Threads File Header
+    threadsFile.write('Cycle;ThreadId;ThreadName\n')
+
     #object allocations regex
     #Cycle ; is New Allocation ; ID ; Thread id ; Class/Type ; Size ; NUMA Node ; Timestamp
     objectAllocationPattern = r'[0-9]+\;[0-9]+\;[0-9]+\;([0-9]+)\;[0-9]+\;[^\;.]*\;[0-9]+\;[0-9]+\;[0-9]+\;[0-9]'
@@ -704,6 +710,7 @@ def numaProfilerOutputProcessing(filename):
     #(accessCounter);Cycle;ThreadId;CounterName;Count
     objectAccessPattern = r'\(accessCounter\)+.'
 
+    profilingThreadPattern = r'\(profilingThread\)+.'
 
     print('\n=> Processing NUMAProfiler\'s Output:')
     print('Generating Object Allocation Trace, Heap Boundaries Trace and Object Access Trace...')
@@ -711,6 +718,7 @@ def numaProfilerOutputProcessing(filename):
         objectAllocationLineMatch = re.match(objectAllocationPattern, line)
         heapBoundariesLineMatch = re.match(heapBoundariesPattern, line)
         accessCounterLineMatch = re.match(objectAccessPattern, line)
+        profilingThreadLineMatch = re.match(profilingThreadPattern, line)
 
         if (objectAllocationLineMatch):
             # Allocation Profiler Output line found
@@ -750,6 +758,14 @@ def numaProfilerOutputProcessing(filename):
             count = int(fields[4])
             accessesNewLine = cycle + ';' + threadId + ';' + counterName + ';' + str(count)
             objectAccessesFile.write(accessesNewLine + '\n')
+
+        elif (profilingThreadLineMatch):
+            fields = line.split(';')
+            cycle = fields[1]
+            threadId = fields[2]
+            threadName = fields[3]
+            threadsNewLine = cycle + ';' + threadId + ';' + threadName
+            threadsFile.write(threadsNewLine + '\n')
             
     objectAllocationsFile.close
     heapBoundariesNewFile.close

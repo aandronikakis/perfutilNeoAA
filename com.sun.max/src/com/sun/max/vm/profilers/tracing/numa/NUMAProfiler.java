@@ -85,7 +85,7 @@ public class NUMAProfiler {
     @C_FUNCTION
     static native void numaProfiler_unlock();
 
-    private static int          profilingCycle;
+    public static int          profilingCycle;
 
     /**
      * The NUMAProfiler Buffers for survivor objects. We use two identical buffers because
