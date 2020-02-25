@@ -485,27 +485,6 @@ public class NUMAProfiler {
         return address.minus(heapStart).dividedBy(numaProfiler.memoryPageSize).toInt();
     }
 
-    /**
-     * Find the NUMA Node for each allocated Object.
-     * For every object, call the {@linkplain #getNumaNodeForAddress(long)} method to get its physical NUMA Node.
-     * Write the node in newObjects Buffer.
-     */
-    private void findNumaNodeForAllAllocatedObjects() {
-        long objectAddress;
-
-        for (int i = 0; i < newObjects.currentIndex; i++) {
-            objectAddress = newObjects.readAddr(i);
-            int node = getNumaNodeForAddress(objectAddress);
-
-            // compare the calculated object numa node with the libnuma system
-            // call returned value for validation (note: increased overhead)
-            assert node == NUMALib.numaNodeOfAddress(newObjects.readAddr(i));
-
-            // Write the node in the buffer
-            newObjects.writeNode(i, node);
-        }
-    }
-
     @INTRINSIC(UNSAFE_CAST)
     private static native MemoryRegion asMemoryRegion(Object object);
 
@@ -571,7 +550,7 @@ public class NUMAProfiler {
      * @param address
      * @return physical NUMA node id
      */
-    private static int getNumaNodeForAddress(long address) {
+    public static int getNumaNodeForAddress(long address) {
         int pageIndex = getHeapPagesIndexOfAddress(Address.fromLong(address));
 
         int objNumaNode = heapPages.readNumaNode(pageIndex);
@@ -669,7 +648,6 @@ public class NUMAProfiler {
         // guard libnuma sys call usage during non-profiling cycles
         if (newObjects.currentIndex > 0) {
             findNumaNodeForAllHeapMemoryPages();
-            findNumaNodeForAllAllocatedObjects();
         }
 
         if (NUMAProfilerVerbose) {
@@ -943,7 +921,6 @@ public class NUMAProfiler {
         // guard libnuma sys call usage during non-profiling cycles
         if (newObjects.currentIndex > 0) {
             findNumaNodeForAllHeapMemoryPages();
-            findNumaNodeForAllAllocatedObjects();
         }
 
         if (!NUMAProfilerDebug) {

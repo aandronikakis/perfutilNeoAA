@@ -28,6 +28,7 @@ import com.sun.max.memory.VirtualMemory;
 import com.sun.max.platform.Platform;
 import com.sun.max.unsafe.Pointer;
 import com.sun.max.unsafe.Size;
+import com.sun.max.util.NUMALib;
 import com.sun.max.vm.Intrinsics;
 import com.sun.max.vm.Log;
 import com.sun.max.vm.intrinsics.*;
@@ -37,8 +38,7 @@ import com.sun.max.vm.runtime.FatalError;
 import com.sun.max.vm.thread.VmThread;
 
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
-import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.lock;
-import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.unlock;
+import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.*;
 import static com.sun.max.vm.thread.VmThreadLocal.ALLOC_BUFFER_PTR;
 
 /**
@@ -212,7 +212,7 @@ public class RecordBuffer {
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
-    public void record(int threadId, char[] type, int size, long address) {
+    public void record(int threadId, char[] type, int size, long address, int node) {
         if (Platform.platform().isa != ISA.AMD64) {
             throw FatalError.unimplemented("RecordBuffer.record");
         }
@@ -224,23 +224,24 @@ public class RecordBuffer {
         writeType(currentIndex, type);
         writeInt(sizes, currentIndex, size);
         writeLong(addresses, currentIndex, address);
+        writeNode(currentIndex, node);
         currentIndex++;
     }
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
-    public void record(int threadId, char[] type, int size, long address, int node) {
-        writeNode(currentIndex, node);
-        record(threadId, type, size, address);
-    }
-
-    @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
-    @NEVER_INLINE
     public void profile(int size, String type, long address) {
-        final int threadId = VmThread.current().id();
         //guard RecordBuffer from overflow
         FatalError.check(currentIndex < bufferSize, "Allocations Buffer out of bounds. Increase the Buffer Size.");
-        record(threadId, JDK_java_lang_String.getCharArray(type), size, address);
+
+        // get threadId
+        final int threadId = VmThread.current().id();
+
+        //get the NUMA node where the object is physically placed
+        final int numaNode = getNumaNodeForAddress(address);
+        assert numaNode == NUMALib.numaNodeOfAddress(address);
+
+        record(threadId, JDK_java_lang_String.getCharArray(type), size, address, numaNode);
     }
 
     /**
