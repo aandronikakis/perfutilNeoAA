@@ -645,8 +645,9 @@ public class NUMAProfiler {
             Log.println(" Profiling Is Now Complete. [pre-GC phase]");
         }
 
-        // guard libnuma sys call usage during non-profiling cycles
-        if (newObjects.currentIndex > 0) {
+        // guard libnuma sys call usages during implicit GCs
+        // find numa nodes for all pages in the GC exactly before the first profiling cycle
+        if (isExplicitGC && iteration >= NUMAProfiler.NUMAProfilerExplicitGCThreshold - 1) {
             findNumaNodeForAllHeapMemoryPages();
         }
 
@@ -916,11 +917,6 @@ public class NUMAProfiler {
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Termination");
-        }
-
-        // guard libnuma sys call usage during non-profiling cycles
-        if (newObjects.currentIndex > 0) {
-            findNumaNodeForAllHeapMemoryPages();
         }
 
         if (!NUMAProfilerDebug) {
