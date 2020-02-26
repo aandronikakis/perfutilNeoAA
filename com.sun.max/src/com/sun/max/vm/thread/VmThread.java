@@ -728,6 +728,7 @@ public class VmThread {
             if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
                 if (NUMAProfiler.profilingPredicate.evaluate(thread.tla)) {
                     NUMAProfiler.printAllocationBufferOfThread(thread.tla);
+                    NUMAProfiler.resetAllocationBufferOfThread(thread.tla);
                     NUMAProfiler.printProfilingCountersOfThread(thread.tla);
                 }
             }

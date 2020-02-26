@@ -695,9 +695,9 @@ public class NUMAProfiler {
         }
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Clean-up NUMAProfiler Buffer. [post-gc phase]");
+            Log.println("(NUMA Profiler): Reset Allocation Thread Local Buffers. [post-gc phase]");
         }
-        newObjects.resetBuffer();
+        resetAllocationBuffers();
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Dump Survivors Buffer. [post-GC phase]");
@@ -852,6 +852,29 @@ public class NUMAProfiler {
      */
     public static void printAllocationBufferOfThread(Pointer tla) {
         printAllocationBuffer.run(tla);
+    }
+
+    private static final Pointer.Procedure resetAllocationBuffer = new Pointer.Procedure() {
+        @Override
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            RecordBuffer.getForCurrentThread(etla).resetBuffer();
+        }
+    };
+
+    /**
+     * It's for threads terminated before GC.
+     * @param tla
+     */
+    public static void resetAllocationBufferOfThread(Pointer tla) {
+        resetAllocationBuffer.run(tla);
+    }
+
+    /**
+     * It's for frozen threads during GC.
+     */
+    public static void resetAllocationBuffers() {
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetAllocationBuffer);
     }
 
     /**
