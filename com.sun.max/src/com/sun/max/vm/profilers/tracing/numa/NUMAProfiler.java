@@ -669,12 +669,12 @@ public class NUMAProfiler {
             if (NUMAProfilerVerbose) {
                 Log.println("(NUMA Profiler): Clean-up Survivor1 Buffer. [post-gc phase]");
             }
-            survivors1.resetBuffer();
+            resetSurvivors1Buffers();
         } else {
             if (NUMAProfilerVerbose) {
                 Log.println("(NUMA Profiler): Clean-up Survivor2 Buffer. [post-gc phase]");
             }
-            survivors2.resetBuffer();
+            resetSurvivors2Buffers();
         }
 
         if (NUMAProfilerVerbose) {
@@ -845,6 +845,22 @@ public class NUMAProfiler {
         }
     };
 
+    private static final Pointer.Procedure resetSurvivors1Buffer = new Pointer.Procedure() {
+        @Override
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            RecordBuffer.getForCurrentThread(etla, 2).resetBuffer();
+        }
+    };
+
+    private static final Pointer.Procedure resetSurvivors2Buffer = new Pointer.Procedure() {
+        @Override
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            RecordBuffer.getForCurrentThread(etla, 3).resetBuffer();
+        }
+    };
+
     /**
      * It's for threads terminated before GC.
      * @param tla
@@ -858,6 +874,14 @@ public class NUMAProfiler {
      */
     public static void resetAllocationBuffers() {
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetAllocationBuffer);
+    }
+
+    public static void resetSurvivors1Buffers() {
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetSurvivors1Buffer);
+    }
+
+    public static void resetSurvivors2Buffers() {
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetSurvivors2Buffer);
     }
 
     /**
