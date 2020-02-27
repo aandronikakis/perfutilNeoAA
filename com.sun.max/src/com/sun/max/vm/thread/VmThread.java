@@ -628,6 +628,7 @@ public class VmThread {
             }
             // Initialize new Thread's Record Buffer
             NUMAProfiler.initThreadLocalRecordBuffer.run(etla);
+            NUMAProfiler.initThreadLocalSurvivorBuffers.run(etla);
         }
 
         VM_THREAD.store3(etla, Reference.fromJava(thread));

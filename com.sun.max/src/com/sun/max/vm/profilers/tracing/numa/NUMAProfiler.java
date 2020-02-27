@@ -255,8 +255,7 @@ public class NUMAProfiler {
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Initialize the Survivor Objects NUMAProfiler Buffers.");
         }
-        survivors1 = new RecordBuffer(survivorBufferSize, "Survivors Buffer No1");
-        survivors2 = new RecordBuffer(survivorBufferSize, "Survivors Buffer No2");
+        initSurvivorBuffersForAllThreads();
 
         memoryPageSize = NUMALib.numaPageSize();
 
@@ -888,6 +887,23 @@ public class NUMAProfiler {
      */
     private static void initProfilingCounters() {
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalProfilingCounters);
+    }
+
+    /**
+     * A {@link Pointer.Procedure} that initializes the two Survivor Buffers of a thread.
+     * It is also used independently when a new thread is spawned.
+     */
+    public static final Pointer.Procedure initThreadLocalSurvivorBuffers = new Pointer.Procedure() {
+        public void run(Pointer tla) {
+            final RecordBuffer survivors1 = new RecordBuffer(survivorBufferSize, "Survivors Buffer No1");
+            RecordBuffer.setForCurrentThread(tla, survivors1, 2);
+            final RecordBuffer survivors2 = new RecordBuffer(survivorBufferSize, "Survivors Buffer No2");
+            RecordBuffer.setForCurrentThread(tla, survivors2, 3);
+        }
+    };
+
+    private void initSurvivorBuffersForAllThreads() {
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalSurvivorBuffers);
     }
 
     /**
