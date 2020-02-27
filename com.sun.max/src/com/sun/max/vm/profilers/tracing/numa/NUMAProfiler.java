@@ -964,6 +964,27 @@ public class NUMAProfiler {
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalRecordBuffer);
     }
 
+    public static final Pointer.Procedure deallocateAllocationsBuffer = new Pointer.Procedure() {
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            RecordBuffer.getForCurrentThread(etla, 1).deallocateAll();
+        }
+    };
+
+    public static final Pointer.Procedure deallocateSurvivors1Buffer = new Pointer.Procedure() {
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            RecordBuffer.getForCurrentThread(etla, 2).deallocateAll();
+        }
+    };
+
+    public static final Pointer.Procedure deallocateSurvivors2Buffer = new Pointer.Procedure() {
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            RecordBuffer.getForCurrentThread(etla, 3).deallocateAll();
+        }
+    };
+
     private void releaseReservedMemory() {
         survivors1.deallocateAll();
         survivors2.deallocateAll();
