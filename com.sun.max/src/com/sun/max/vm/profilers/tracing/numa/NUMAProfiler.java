@@ -995,6 +995,17 @@ public class NUMAProfiler {
         heapPages.deallocateAll();
     }
 
+    public static void onVmThreadExit(Pointer tla) {
+        if (NUMAProfiler.profilingPredicate.evaluate(tla)) {
+            NUMAProfiler.printAllocationBufferOfThread(tla);
+            NUMAProfiler.resetAllocationBufferOfThread(tla);
+            NUMAProfiler.printProfilingCountersOfThread(tla);
+            NUMAProfiler.deallocateAllocationsBuffer.run(tla);
+            NUMAProfiler.deallocateSurvivors1Buffer.run(tla);
+            NUMAProfiler.deallocateSurvivors2Buffer.run(tla);
+        }
+    }
+
     /**
      * This method can be used for actions need to take place right before
      * NUMA Profiler's termination. It is triggered when JavaRunScheme

@@ -727,14 +727,7 @@ public class VmThread {
         if (thread != mainThread) {
             // print the Access Profiling Counters before exit
             if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
-                if (NUMAProfiler.profilingPredicate.evaluate(thread.tla)) {
-                    NUMAProfiler.printAllocationBufferOfThread(thread.tla);
-                    NUMAProfiler.resetAllocationBufferOfThread(thread.tla);
-                    NUMAProfiler.printProfilingCountersOfThread(thread.tla);
-                    NUMAProfiler.deallocateAllocationsBuffer.run(thread.tla);
-                    NUMAProfiler.deallocateSurvivors1Buffer.run(thread.tla);
-                    NUMAProfiler.deallocateSurvivors2Buffer.run(thread.tla);
-                }
+                NUMAProfiler.onVmThreadExit(thread.tla);
             }
             // call Thread.exit()
             JDK_java_lang_Thread.exitThread(thread.javaThread());
