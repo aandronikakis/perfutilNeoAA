@@ -731,6 +731,9 @@ public class VmThread {
                     NUMAProfiler.printAllocationBufferOfThread(thread.tla);
                     NUMAProfiler.resetAllocationBufferOfThread(thread.tla);
                     NUMAProfiler.printProfilingCountersOfThread(thread.tla);
+                    NUMAProfiler.deallocateAllocationsBuffer.run(thread.tla);
+                    NUMAProfiler.deallocateSurvivors1Buffer.run(thread.tla);
+                    NUMAProfiler.deallocateSurvivors2Buffer.run(thread.tla);
                 }
             }
             // call Thread.exit()
