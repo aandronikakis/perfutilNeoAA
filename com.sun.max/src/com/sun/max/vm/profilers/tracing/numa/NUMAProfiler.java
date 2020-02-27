@@ -439,18 +439,7 @@ public class NUMAProfiler {
     }
 
     private void dumpSurvivors() {
-        final boolean lockDisabledSafepoints = lock();
-        if (NUMAProfilerVerbose) {
-            Log.print("==== Survivors Cycle ");
-            Log.print(profilingCycle);
-            Log.println(" ====");
-        }
-        if ((profilingCycle % 2) == 0) {
-            survivors2.print(profilingCycle, 0);
-        } else {
-            survivors1.print(profilingCycle, 0);
-        }
-        unlock(lockDisabledSafepoints);
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printSurvivorsBuffers);
     }
 
     private void dumpHeapBoundaries() {
@@ -836,6 +825,22 @@ public class NUMAProfiler {
     public static void printAllocationBufferOfThread(Pointer tla) {
         printAllocationBuffer.run(tla);
     }
+
+    private static final Pointer.Procedure printSurvivorsBuffers = new Pointer.Procedure() {
+        @Override
+        public void run(Pointer tla) {
+            if (NUMAProfilerVerbose) {
+                Log.print("==== Survivors Cycle ");
+                Log.print(profilingCycle);
+                Log.println(" ====");
+            }
+            if ((profilingCycle % 2) == 0) {
+                RecordBuffer.getForCurrentThread(tla, 3).print(profilingCycle, 0);
+            } else {
+                RecordBuffer.getForCurrentThread(tla, 2).print(profilingCycle, 0);
+            }
+        }
+    };
 
     private static final Pointer.Procedure resetAllocationBuffer = new Pointer.Procedure() {
         @Override
