@@ -88,13 +88,6 @@ public class NUMAProfiler {
     public static int          profilingCycle;
 
     /**
-     * The NUMAProfiler Buffers for survivor objects. We use two identical buffers because
-     * allocation is disabled at the point we need to move the data in a clean buffer.
-     */
-    private static RecordBuffer survivors1;
-    private static RecordBuffer survivors2;
-
-    /**
      * The Buffer who keeps track of the physical NUMA node of any virtual memory page allocated for the JVM Heap.
      */
     private static VirtualPagesBuffer heapPages;
