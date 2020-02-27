@@ -301,6 +301,22 @@ public class NUMAProfiler {
         }
     }
 
+    public static void onVmThreadStart(int threadId, String threadName, Pointer etla) {
+        if ((NUMAProfilerExplicitGCThreshold >= 0 && iteration >= NUMAProfiler.NUMAProfilerExplicitGCThreshold) ||
+            (!NUMAProfilerFlareAllocationThresholds.equals("0") && enableFlareObjectProfiler)) {
+            Log.print("(profilingThread);");
+            Log.print(profilingCycle);
+            Log.print(";");
+            Log.print(threadId);
+            Log.print(";");
+            Log.println(threadName);
+            PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
+        }
+        // Initialize new Thread's Record Buffer
+        initThreadLocalRecordBuffer.run(etla);
+        initThreadLocalSurvivorBuffers.run(etla);
+    }
+
     /**
      * Check if the given hub is a hub of a Flare object and increase the
      * {@link #flareObjectCounter} if so.

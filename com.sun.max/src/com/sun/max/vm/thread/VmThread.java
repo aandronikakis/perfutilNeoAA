@@ -616,19 +616,7 @@ public class VmThread {
 
         // Enable profiling for the new VM Thread if profiling should be enabled
         if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
-            if ((NUMAProfiler.NUMAProfilerExplicitGCThreshold >= 0 && NUMAProfiler.iteration >= NUMAProfiler.NUMAProfilerExplicitGCThreshold) ||
-                (!NUMAProfiler.NUMAProfilerFlareAllocationThresholds.equals("0") && NUMAProfiler.enableFlareObjectProfiler == true)) {
-                Log.print("(profilingThread);");
-                Log.print(NUMAProfiler.profilingCycle);
-                Log.print(";");
-                Log.print(thread.id);
-                Log.print(";");
-                Log.println(thread.name);
-                PROFILER_STATE.store(etla, Address.fromInt(NUMAProfiler.PROFILING_STATE.ENABLED.getValue()));
-            }
-            // Initialize new Thread's Record Buffer
-            NUMAProfiler.initThreadLocalRecordBuffer.run(etla);
-            NUMAProfiler.initThreadLocalSurvivorBuffers.run(etla);
+            NUMAProfiler.onVmThreadStart(id, thread.name, etla);
         }
 
         VM_THREAD.store3(etla, Reference.fromJava(thread));
