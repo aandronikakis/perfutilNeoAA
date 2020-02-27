@@ -323,11 +323,11 @@ public class RecordBuffer {
      * @return
      */
     private static VmThreadLocal getBufferPtr(int whichBuffer) {
-        if (whichBuffer == 1) {
+        if (whichBuffer == RECORD_BUFFER.ALLOCATIONS_BUFFER.value) {
             return ALLOC_BUFFER_PTR;
-        } else if (whichBuffer == 2) {
+        } else if (whichBuffer == RECORD_BUFFER.SURVIVORS_1_BUFFER.value) {
             return SURV1_BUFFER_PTR;
-        } else if (whichBuffer == 3) {
+        } else if (whichBuffer == RECORD_BUFFER.SURVIVORS_2_BUFFER.value) {
             return SURV2_BUFFER_PTR;
         }
         return null;
