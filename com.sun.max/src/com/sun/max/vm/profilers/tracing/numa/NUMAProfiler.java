@@ -986,8 +986,11 @@ public class NUMAProfiler {
     };
 
     private void releaseReservedMemory() {
-        survivors1.deallocateAll();
-        survivors2.deallocateAll();
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateAllocationsBuffer);
+        //survivors1.deallocateAll();
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateSurvivors1Buffer);
+        //survivors2.deallocateAll();
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateSurvivors2Buffer);
         heapPages.deallocateAll();
     }
 
