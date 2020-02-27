@@ -590,7 +590,7 @@ public class NUMAProfiler {
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, profileSurvivorsProcedure);
     }
 
-    private void printProfilingCyclyStats() {
+    /*private void printProfilingCyclyStats() {
         Log.print("Cycle ");
         Log.println(profilingCycle);
 
@@ -603,7 +603,7 @@ public class NUMAProfiler {
         Log.println(" MB");
 
         newObjects.printUsage();
-    }
+    }*/
 
     /**
      * This method is called by ProfilerGCCallbacks in every pre-gc callback phase.
@@ -629,8 +629,8 @@ public class NUMAProfiler {
 
         if (NUMAProfilerDebug) {
             //in validation mode don't dump buffer
-            printProfilingCyclyStats();
-            Log.println("Garbage Collection");
+            //printProfilingCyclyStats();
+            //Log.println("Garbage Collection");
         } else {
             dumpHeapBoundaries();
             dumpBuffer();
@@ -685,8 +685,9 @@ public class NUMAProfiler {
             Log.print((float) Heap.reportUsedSpace() / (1024 * 1024));
             Log.println(" MB\n");
 
-            survivors1.printUsage();
-            survivors2.printUsage();
+            // commented-out
+            //survivors1.printUsage();
+            //survivors2.printUsage();
         } else {
             dumpSurvivors();
         }
@@ -1018,7 +1019,7 @@ public class NUMAProfiler {
             dumpBuffer();
         } else {
             //in validation mode don't dump buffer
-            printProfilingCyclyStats();
+            //printProfilingCyclyStats();
         }
 
         printProfilingCounters();
