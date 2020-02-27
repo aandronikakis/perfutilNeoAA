@@ -376,7 +376,7 @@ public class NUMAProfiler {
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
     public static void profileNew(int size, String type, long address) {
-        RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla())).profile(size, type, address);
+        RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla()), 1).profile(size, type, address);
     }
 
     /**
@@ -835,7 +835,7 @@ public class NUMAProfiler {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            RecordBuffer.getForCurrentThread(etla).print(profilingCycle, 1);
+            RecordBuffer.getForCurrentThread(etla, 1).print(profilingCycle, 1);
         }
     };
 
@@ -851,7 +851,7 @@ public class NUMAProfiler {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            RecordBuffer.getForCurrentThread(etla).resetBuffer();
+            RecordBuffer.getForCurrentThread(etla, 1).resetBuffer();
         }
     };
 
@@ -898,7 +898,7 @@ public class NUMAProfiler {
         public void run(Pointer tla) {
             final RecordBuffer allocationsBuffer = new RecordBuffer(allocatorBufferSize, "allocations Buffer ");
             // tla == etla at this point
-            RecordBuffer.setForCurrentThread(tla, allocationsBuffer);
+            RecordBuffer.setForCurrentThread(tla, allocationsBuffer, 1);
         }
     };
 

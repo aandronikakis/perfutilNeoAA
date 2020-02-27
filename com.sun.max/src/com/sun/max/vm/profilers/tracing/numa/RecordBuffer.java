@@ -36,10 +36,11 @@ import com.sun.max.vm.jdk.*;
 import com.sun.max.vm.reference.Reference;
 import com.sun.max.vm.runtime.FatalError;
 import com.sun.max.vm.thread.VmThread;
+import com.sun.max.vm.thread.VmThreadLocal;
 
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
 import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.*;
-import static com.sun.max.vm.thread.VmThreadLocal.ALLOC_BUFFER_PTR;
+import static com.sun.max.vm.thread.VmThreadLocal.*;
 
 /**
  * This class implements any buffer used by the Allocation Profiler to keep track of the objects.
@@ -312,12 +313,33 @@ public class RecordBuffer {
         currentIndex = 0;
     }
 
+    /**
+     * Each VmThread holds as VmThreadLocal the pointers for 3 different buffers.
+     * The allocations buffer which stores the new object allocation records,
+     * the survivor1 buffer and the survivor2 buffer. The two survivor buffers store
+     * the survivor object records over the cycles. They are used in a round robin fashion
+     * from cycle to cycle.
+     * @param whichBuffer
+     * @return
+     */
+    private static VmThreadLocal getBufferPtr(int whichBuffer) {
+        if (whichBuffer == 1) {
+            return ALLOC_BUFFER_PTR;
+        } else if (whichBuffer == 2) {
+            return SURV1_BUFFER_PTR;
+        } else if (whichBuffer == 3) {
+            return SURV2_BUFFER_PTR;
+        }
+        return null;
+    }
+
     @INTRINSIC(UNSAFE_CAST)
     private static native RecordBuffer asRecordBuffer(Object object);
 
     @INLINE
-    public static RecordBuffer getForCurrentThread(Pointer etla) {
-        final Reference reference = ALLOC_BUFFER_PTR.loadRef(etla);
+    public static RecordBuffer getForCurrentThread(Pointer etla, int whichBuffer) {
+        final VmThreadLocal bufferPtr = getBufferPtr(whichBuffer);
+        final Reference reference = bufferPtr.loadRef(etla);
         if (reference.isZero()) {
             return null;
         }
@@ -326,7 +348,8 @@ public class RecordBuffer {
     }
 
     @INLINE
-    public static void setForCurrentThread(Pointer etla, RecordBuffer buffer) {
-        ALLOC_BUFFER_PTR.store(etla, Reference.fromJava(buffer));
+    public static void setForCurrentThread(Pointer etla, RecordBuffer buffer, int whichBuffer) {
+        final VmThreadLocal bufferPtr = getBufferPtr(whichBuffer);
+        bufferPtr.store(etla, Reference.fromJava(buffer));
     }
 }
