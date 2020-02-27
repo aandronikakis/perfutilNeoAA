@@ -561,7 +561,7 @@ public class NUMAProfiler {
      * @param from the source buffer in which we search for survivor objects.
      * @param to the destination buffer in which we store the survivor objects.
      */
-    private void storeSurvivors(RecordBuffer from, RecordBuffer to) {
+    private static void storeSurvivors(RecordBuffer from, RecordBuffer to) {
         if (NUMAProfilerVerbose) {
             Log.print("(NUMA Profiler): Copy Survived Objects from ");
             Log.print(from.buffersName);
@@ -598,16 +598,7 @@ public class NUMAProfiler {
      * In odd profiling cycles we use the survivor1 buffer.
      */
     private void profileSurvivors() {
-
-        if ((profilingCycle % 2) == 0) {
-            //even cycles
-            storeSurvivors(survivors1, survivors2);
-            storeSurvivors(newObjects, survivors2);
-        } else {
-            //odd cycles
-            storeSurvivors(survivors2, survivors1);
-            storeSurvivors(newObjects, survivors1);
-        }
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, profileSurvivorsProcedure);
     }
 
     private void printProfilingCyclyStats() {
@@ -888,6 +879,24 @@ public class NUMAProfiler {
     private static void initProfilingCounters() {
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalProfilingCounters);
     }
+
+    public static final Pointer.Procedure profileSurvivorsProcedure = new Pointer.Procedure() {
+        public void run(Pointer tla) {
+            if ((profilingCycle % 2) == 0) {
+                //even cycles
+                //storeSurvivors(survivors1, survivors2);
+                storeSurvivors(RecordBuffer.getForCurrentThread(tla, 2), RecordBuffer.getForCurrentThread(tla, 3));
+                //storeSurvivors(newObjects, survivors2);
+                storeSurvivors(RecordBuffer.getForCurrentThread(tla, 1), RecordBuffer.getForCurrentThread(tla, 3));
+            } else {
+                //odd cycles
+                //storeSurvivors(survivors2, survivors1);
+                storeSurvivors(RecordBuffer.getForCurrentThread(tla, 3), RecordBuffer.getForCurrentThread(tla, 2));
+                //storeSurvivors(newObjects, survivors1);
+                storeSurvivors(RecordBuffer.getForCurrentThread(tla, 1), RecordBuffer.getForCurrentThread(tla, 2));
+            }
+        }
+    };
 
     /**
      * A {@link Pointer.Procedure} that initializes the two Survivor Buffers of a thread.
