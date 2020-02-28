@@ -765,12 +765,24 @@ public class NUMAProfiler {
     }
 
 
+    /**
+     * This {@link Pointer.Predicate} confirms if an action requested from a VmThread
+     * should be allowed or not. We have chosen to disable profiling for:
+     * a) VmOperationThread [thread 2]
+     * b) Signal Dispacher [thread 3]
+     * c) Reference Handler [thread 4]
+     * d) Finalizer [thread 5]
+     * All the above VmThreads not only are not actively participating in application's execution
+     * but also, due to their nature they occasionally confuse the profiler. Therefore they are ignored.
+     */
     public static final Pointer.Predicate profilingPredicate = new Pointer.Predicate() {
         @Override
         public boolean evaluate(Pointer tla) {
             VmThread vmThread = VmThread.fromTLA(tla);
             return vmThread.javaThread() != null &&
                     !vmThread.isVmOperationThread() &&
+                    !vmThread.getName().equals("Signal Dispatcher") &&
+                    !vmThread.getName().equals("Reference Handler") &&
                     (NUMAProfilerIncludeFinalization || !vmThread.getName().equals("Finalizer"));
         }
     };
