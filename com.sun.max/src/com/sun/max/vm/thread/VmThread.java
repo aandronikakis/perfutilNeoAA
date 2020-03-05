@@ -713,10 +713,6 @@ public class VmThread {
             thread.terminationCause = throwable;
         }
         if (thread != mainThread) {
-            // print the Access Profiling Counters before exit
-            if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
-                NUMAProfiler.onVmThreadExit(thread.tla);
-            }
             // call Thread.exit()
             JDK_java_lang_Thread.exitThread(thread.javaThread());
         }
@@ -843,6 +839,11 @@ public class VmThread {
             // It is the monitor scheme's responsibility to ensure that this thread isn't
             // reset to RUNNABLE if it blocks here.
             VmThreadMap.ACTIVE.removeThreadLocals(thread);
+        }
+        // perform all actions related with NUMAProfiler VmThread's before exit
+        // onVmThreadExit should be called AFTER the VmThread has been removed from ACTIVE list
+        if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
+            NUMAProfiler.onVmThreadExit(thread.tla);
         }
         if (MaxineVM.isDebug()) {
             detached();
