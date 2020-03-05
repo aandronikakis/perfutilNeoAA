@@ -406,7 +406,11 @@ public class NUMAProfiler {
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
     public static void profileNew(int size, String type, long address) {
+        final boolean wasDisabled = SafepointPoll.disable();
         RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla()), RECORD_BUFFER.ALLOCATIONS_BUFFER.value).profile(size, type, address);
+        if (!wasDisabled) {
+            SafepointPoll.enable();
+        }
     }
 
     /**
