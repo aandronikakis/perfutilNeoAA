@@ -999,7 +999,7 @@ public class NUMAProfiler {
     public static final Pointer.Procedure initThreadLocalRecordBuffer = new Pointer.Procedure() {
         public void run(Pointer tla) {
             final RecordBuffer allocationsBuffer = new RecordBuffer(allocatorBufferSize, "allocations Buffer ");
-            // tla == etla at this point
+            assert tla.equals(ETLA.load(tla));
             RecordBuffer.setForCurrentThread(tla, allocationsBuffer, RECORD_BUFFER.ALLOCATIONS_BUFFER.value);
         }
     };
