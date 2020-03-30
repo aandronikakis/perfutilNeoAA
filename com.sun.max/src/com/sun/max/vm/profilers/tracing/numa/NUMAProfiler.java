@@ -604,7 +604,7 @@ public class NUMAProfiler {
                 // update NUMA Node
                 int node = NUMALib.numaNodeOfAddress(newAddr);
                 //guard survivors RecordBuffer from overflow
-                FatalError.check(to.currentIndex < to.bufferSize, "Survivor Buffer out of bounds! Increase the Buffer Size.");
+                assert to.currentIndex < to.bufferSize : "Survivor Buffer out of bounds! Increase the Buffer Size.";
                 // write it to Buffer
                 to.record(from.readThreadId(i), from.readType(i), from.readSize(i), newAddr, node);
                 totalSurvSize = totalSurvSize + from.readSize(i);

@@ -233,7 +233,7 @@ public class RecordBuffer {
     @NEVER_INLINE
     public void profile(int size, String type, long address) {
         //guard RecordBuffer from overflow
-        FatalError.check(currentIndex < bufferSize, "Allocations Buffer out of bounds. Increase the Buffer Size.");
+        assert currentIndex < bufferSize : "Allocations Buffer out of bounds. Increase the Buffer Size.";
 
         // get threadId
         final int threadId = VmThread.current().id();
