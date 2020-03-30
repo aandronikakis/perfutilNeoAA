@@ -1095,7 +1095,7 @@ public class NUMAProfiler {
         }
     }
 
-    private static VmThread lockOwner;
+    private static int lockOwner;
     private static int lockDepth;
 
     /**
@@ -1112,8 +1112,8 @@ public class NUMAProfiler {
         boolean wasDisabled = SafepointPoll.disable();
         NUMAProfiler.numaProfiler_lock();
         if (lockDepth == 0) {
-            FatalError.check(lockOwner == null, "numa profiler lock should have no owner with depth 0");
-            lockOwner = VmThread.current();
+            FatalError.check(lockOwner == 0, "numa profiler lock should have no owner with depth 0");
+            lockOwner = VmThread.current().id();
         }
         lockDepth++;
         return !wasDisabled;
@@ -1132,9 +1132,9 @@ public class NUMAProfiler {
 
         --lockDepth;
         FatalError.check(lockDepth >= 0, "mismatched lock/unlock");
-        FatalError.check(lockOwner == VmThread.current(), "numa profiler lock should be owned by current thread");
+        FatalError.check(lockOwner == VmThread.current().id(), "numa profiler lock should be owned by current thread");
         if (lockDepth == 0) {
-            lockOwner = null;
+            lockOwner = 0;
         }
         NUMAProfiler.numaProfiler_unlock();
         ProgramError.check(SafepointPoll.isDisabled(), "Safepoints must not be re-enabled in code surrounded by NUMAProfiler.lock() and NUMAProfiler.unlock()");
