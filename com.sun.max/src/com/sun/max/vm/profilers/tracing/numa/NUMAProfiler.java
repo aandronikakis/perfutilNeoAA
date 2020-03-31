@@ -998,7 +998,8 @@ public class NUMAProfiler {
     }
 
     public static void onVmThreadExit(Pointer tla) {
-        if (NUMAProfiler.profilingPredicate.evaluate(tla)) {
+        final boolean isThreadBeingProfiled = NUMAProfiler.profilingPredicate.evaluate(tla);
+        if (isThreadBeingProfiled) {
             NUMAProfiler.printAllocationBufferOfThread(tla);
             NUMAProfiler.resetAllocationBufferOfThread(tla);
             NUMAProfiler.printProfilingCountersOfThread(tla);
