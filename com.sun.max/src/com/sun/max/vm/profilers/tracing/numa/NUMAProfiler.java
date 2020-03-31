@@ -104,9 +104,6 @@ public class NUMAProfiler {
     @SuppressWarnings("unused")
     public static boolean NUMAProfilerIsolateDominantThread;
 
-    private static int totalNewSize  = 0;
-    private static int totalSurvSize = 0;
-
     /**
      * PROFILING POLICY 1: Explicit GC Driven
      * Trigger Event: An Application's System.gc() call.
@@ -581,7 +578,9 @@ public class NUMAProfiler {
     }
 
     /**
-     * Search "from" buffer for survivor objects and store them into "to" buffer.
+     * Search {@code from} buffer for survivor objects and store them into {@code to} buffer.
+     * If an object is alive, update both its Virtual Address and
+     * NUMA Node before coping it to the survivors buffer
      * @param from the source buffer in which we search for survivor objects.
      * @param to the destination buffer in which we store the survivor objects.
      */
@@ -594,10 +593,7 @@ public class NUMAProfiler {
         }
         for (int i = 0; i < from.currentIndex; i++) {
             long address = from.readAddr(i);
-            /*
-            if an object is alive, update both its Virtual Address and
-            NUMA Node before copy it to the survivors buffer
-             */
+
             if (Heap.isSurvivor(address)) {
                 // update Virtual Address
                 long newAddr = Heap.getForwardedAddress(address);
@@ -607,38 +603,17 @@ public class NUMAProfiler {
                 assert to.currentIndex < to.bufferSize : "Survivor Buffer out of bounds! Increase the Buffer Size.";
                 // write it to Buffer
                 to.record(from.readThreadId(i), from.readType(i), from.readSize(i), newAddr, node);
-                totalSurvSize = totalSurvSize + from.readSize(i);
             }
         }
     }
 
     /**
-     * This method is called from postGC actions. Given the profiling cycle,
-     * it decides in which buffer should we search for survivor objects.
-     * Firstly we search in the so far survivor objects (survivors<num> buffer)
-     * and then in the recently allocated objects (newObjects buffer).
-     * The found survivor objects are stored in a clean survivor buffer.
-     * In even profiling cycles we use the survivor2 buffer.
-     * In odd profiling cycles we use the survivor1 buffer.
+     * This method is called from postGC actions to profile the survivor objects.
+     * It calls the {@linkplain #profileSurvivorsProcedure}.
      */
     private void profileSurvivors() {
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, profileSurvivorsProcedure);
     }
-
-    /*private void printProfilingCyclyStats() {
-        Log.print("Cycle ");
-        Log.println(profilingCycle);
-
-        Log.print("=> (NUMAProfiler Reports): New Objects Size =");
-        Log.print((float) totalNewSize / (1024 * 1024));
-        Log.println(" MB");
-
-        Log.print("=> (VM Reports): Heap Used Space =");
-        Log.print((float) Heap.reportUsedSpace() / (1024 * 1024));
-        Log.println(" MB");
-
-        newObjects.printUsage();
-    }*/
 
     /**
      * This method is called by ProfilerGCCallbacks in every pre-gc callback phase.
@@ -662,14 +637,9 @@ public class NUMAProfiler {
             Log.println("(NUMA Profiler): Dump NUMAProfiler Buffer. [pre-GC phase]");
         }
 
-        if (NUMAProfilerDebug) {
-            //in validation mode don't dump buffer
-            //printProfilingCyclyStats();
-            //Log.println("Garbage Collection");
-        } else {
-            dumpHeapBoundaries();
-            dumpBuffer();
-        }
+        dumpHeapBoundaries();
+
+        dumpBuffer();
 
         printProfilingCounters();
 
@@ -710,25 +680,7 @@ public class NUMAProfiler {
             Log.println("(NUMA Profiler): Dump Survivors Buffer. [post-GC phase]");
         }
 
-        if (NUMAProfilerDebug) {
-            //in validation mode don't dump buffer
-            Log.print("=> (NUMAProfiler Reports): Survivor Objects Size =");
-            Log.print((float) totalSurvSize / (1024 * 1024));
-            Log.println(" MB");
-
-            Log.print("=> (VM Reports): Heap Used Space =");
-            Log.print((float) Heap.reportUsedSpace() / (1024 * 1024));
-            Log.println(" MB\n");
-
-            // commented-out
-            //survivors1.printUsage();
-            //survivors2.printUsage();
-        } else {
-            dumpSurvivors();
-        }
-
-        totalNewSize = totalSurvSize;
-        totalSurvSize = 0;
+        dumpSurvivors();
 
         // Check if the current GC is explicit. If yes, increase the iteration counter.
         if (isExplicitGC) {
@@ -915,7 +867,7 @@ public class NUMAProfiler {
     };
 
     /**
-     * It's for threads terminated before GC.
+     * Only for threads terminated before GC.
      * @param tla
      */
     public static void resetAllocationBufferOfThread(Pointer tla) {
@@ -923,7 +875,7 @@ public class NUMAProfiler {
     }
 
     /**
-     * It's for frozen threads during GC.
+     * Only for frozen threads during GC.
      */
     public static void resetAllocationBuffers() {
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetAllocationBuffer);
@@ -938,7 +890,7 @@ public class NUMAProfiler {
     }
 
     /**
-     * A {@link Pointer.Procedure} that initializes a thread's all Object Access Profiling Counters}.
+     * A {@link Pointer.Procedure} that initializes all Access Profiling Counters of a thread.
      */
     private static final Pointer.Procedure initThreadLocalProfilingCounters = new Pointer.Procedure() {
         public void run(Pointer tla) {
@@ -951,25 +903,30 @@ public class NUMAProfiler {
     };
 
     /**
-     * Call {@link #initThreadLocalProfilingCounters} for all ACTIVE threads.
+     * Call {@link #initThreadLocalProfilingCounters} for all {@linkplain VmThreadMap#ACTIVE} threads.
      */
     private static void initProfilingCounters() {
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalProfilingCounters);
     }
 
+    /**
+     * A procedure to profile the survivor objects.
+     * We use two {@linkplain RecordBuffer}s for the survivor objects, the {@code SURVIVORS_1_BUFFER} and {@code SURVIVORS_2_BUFFER}.
+     * One buffer contains the still surviving objects (old) from previous GC(s) -of the current cycle-
+     * and the other is empty and ready to store the old followed by the survivor objects from the last GC (new).
+     *
+     * The buffers swap their roles in an even/odd profiling cycle fashion.
+     *
+     */
     public static final Pointer.Procedure profileSurvivorsProcedure = new Pointer.Procedure() {
         public void run(Pointer tla) {
             if ((profilingCycle % 2) == 0) {
                 //even cycles
-                //storeSurvivors(survivors1, survivors2);
                 storeSurvivors(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value), RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value));
-                //storeSurvivors(newObjects, survivors2);
                 storeSurvivors(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value), RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value));
             } else {
                 //odd cycles
-                //storeSurvivors(survivors2, survivors1);
                 storeSurvivors(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value), RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value));
-                //storeSurvivors(newObjects, survivors1);
                 storeSurvivors(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value), RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value));
             }
         }
@@ -1035,9 +992,7 @@ public class NUMAProfiler {
 
     private void releaseReservedMemory() {
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateAllocationsBuffer);
-        //survivors1.deallocateAll();
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateSurvivors1Buffer);
-        //survivors2.deallocateAll();
         VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateSurvivors2Buffer);
         heapPages.deallocateAll();
     }
@@ -1055,9 +1010,8 @@ public class NUMAProfiler {
 
     /**
      * This method can be used for actions need to take place right before
-     * NUMA Profiler's termination. It is triggered when JavaRunScheme
-     * is being terminated. Dumps the final profiling cycle which is not
-     * followed by any GC.
+     * NUMA Profiler's termination. It is triggered when {@linkplain com.sun.max.vm.run.java.JavaRunScheme}
+     * is being terminated.
      */
     public void terminate() {
 
@@ -1072,13 +1026,9 @@ public class NUMAProfiler {
             Log.println("(NUMA Profiler): Termination");
         }
 
-        if (!NUMAProfilerDebug) {
-            dumpHeapBoundaries();
-            dumpBuffer();
-        } else {
-            //in validation mode don't dump buffer
-            //printProfilingCyclyStats();
-        }
+        dumpHeapBoundaries();
+
+        dumpBuffer();
 
         printProfilingCounters();
 
