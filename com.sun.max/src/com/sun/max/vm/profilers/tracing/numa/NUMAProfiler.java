@@ -610,13 +610,7 @@ public class NUMAProfiler {
             findNumaNodeForAllHeapMemoryPages();
         }
 
-        if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Dump NUMAProfiler Buffer. [pre-GC phase]");
-        }
-
         dumpHeapBoundaries();
-
-        dumpBuffer();
 
         printProfilingCounters();
 
@@ -647,6 +641,11 @@ public class NUMAProfiler {
             }
             resetSurvivors2Buffers();
         }
+
+        if (NUMAProfilerVerbose) {
+            Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers. [post-GC phase]");
+        }
+        dumpBuffer();
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Reset Allocation Thread Local Buffers. [post-gc phase]");
