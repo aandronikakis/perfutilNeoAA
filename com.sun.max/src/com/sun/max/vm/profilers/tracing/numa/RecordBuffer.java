@@ -162,6 +162,7 @@ public class RecordBuffer {
             charIndex++;
             writeIndex = stringIndex + charIndex;
         }
+        types.plus(writeIndex * Character.BYTES).setChar('\0');
     }
 
     char[] readType(int index) {
