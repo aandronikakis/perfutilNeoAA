@@ -1019,7 +1019,7 @@ public class NUMAProfiler {
         }
 
         // Disable profiling for shutdown
-        PROFILER_STATE.store(VmThread.currentTLA(), Address.fromInt(PROFILING_STATE.DISABLED.value));
+        disableProfiling();
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Termination");
