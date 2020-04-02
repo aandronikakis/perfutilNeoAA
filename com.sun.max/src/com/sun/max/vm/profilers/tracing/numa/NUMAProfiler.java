@@ -125,6 +125,11 @@ public class NUMAProfiler {
     public static int profilingCycle;
 
     /**
+     * A global boolean flag, to show when the profiler is ON under the Explicit GC Policy.
+     */
+    public static boolean explicitGCProflingEnabled = false;
+
+    /**
      * The Explicit GC Policy condition to decide if profiling should be enabled.
      * @return
      */
@@ -310,6 +315,7 @@ public class NUMAProfiler {
 
         if (isExplicitGCPolicyConditionTrue()) {
             enableProfiling();
+            explicitGCProflingEnabled = true;
         }
     }
 
@@ -623,6 +629,7 @@ public class NUMAProfiler {
                     Log.println("(NUMA Profiler): Enabling profiling. [post-GC phase]");
                 }
                 enableProfiling();
+                explicitGCProflingEnabled = true;
             }
         }
 
@@ -651,6 +658,20 @@ public class NUMAProfiler {
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Leaving Pre-GC Phase.");
+        }
+    }
+
+    /**
+     * A minimum/short version of {@linkplain #preGCActions()} to be called when profiling is disabled.
+     */
+    void preGCMinimumActions() {
+        if (NUMAProfilerVerbose) {
+            Log.println("(NUMA Profiler): Entering (Minimum) Pre-GC Phase.");
+        }
+        // guard libnuma sys call usages during implicit GCs
+        // find numa nodes for all pages in the GC exactly before the first profiling cycle
+        if (isExplicitGC && iteration >= NUMAProfiler.NUMAProfilerExplicitGCThreshold - 1) {
+            findNumaNodeForAllHeapMemoryPages();
         }
     }
 
@@ -706,6 +727,16 @@ public class NUMAProfiler {
             Log.println("]");
         }
 
+    }
+
+    /**
+     * A minimum/short version of {@linkplain #postGCActions()} to be called when profiling is disabled.
+     */
+    public void postGCMinimumActions() {
+        if (NUMAProfilerVerbose) {
+            Log.println("(NUMA Profiler): Entering (Minimum) Post-GC Phase.");
+        }
+        checkAndUpdateProfilingState();
     }
 
     /**
