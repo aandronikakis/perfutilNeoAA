@@ -720,6 +720,16 @@ public class NUMAProfiler {
         }
     };
 
+    /**
+     * A predicate to determine if profiling is enabled on the current thread.
+     */
+    public static final Pointer.Predicate isProfilingEnabledPredicate = new Pointer.Predicate() {
+        @Override
+        public boolean evaluate(Pointer tla) {
+            return PROFILER_STATE.load(tla).toInt() == 1;
+        }
+    };
+
     private static final Pointer.Procedure setProfilingTLA = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
@@ -975,7 +985,7 @@ public class NUMAProfiler {
     }
 
     public static void onVmThreadExit(Pointer tla) {
-        final boolean isThreadBeingProfiled = NUMAProfiler.profilingPredicate.evaluate(tla);
+        final boolean isThreadBeingProfiled = NUMAProfiler.profilingPredicate.evaluate(tla) && NUMAProfiler.isProfilingEnabledPredicate.evaluate(tla);
         if (isThreadBeingProfiled) {
             NUMAProfiler.printAllocationBufferOfThread(tla);
             NUMAProfiler.resetAllocationBufferOfThread(tla);
