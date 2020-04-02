@@ -91,7 +91,6 @@ public class NUMAProfiler {
      * The Buffer who keeps track of the physical NUMA node of any virtual memory page allocated for the JVM Heap.
      */
     private static VirtualPagesBuffer heapPages;
-    private static VirtualPagesBuffer previousHeapPages;
 
     @SuppressWarnings("unused")
     private static boolean NUMAProfilerVerbose;
@@ -175,10 +174,6 @@ public class NUMAProfiler {
     @CONSTANT_WHEN_NOT_ZERO
     private static Address heapStart;
 
-    public Address toStart;
-    public Address toEnd;
-    public Address fromStart;
-    public Address fromEnd;
     public final int memoryPageSize;
 
     /**
@@ -241,8 +236,6 @@ public class NUMAProfiler {
     public NUMAProfiler() {
         assert NUMALib.numalib_available() != -1 : "NUMAProfiler cannot be run without NUMA support";
 
-        float beforeAllocProfiler = (float) Heap.reportUsedSpace() / (1024 * 1024);
-
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): NUMAProfiler Initialization.");
         }
@@ -289,27 +282,11 @@ public class NUMAProfiler {
             Log.println("]");
         }
 
-        float afterAllocProfiler = (float) Heap.reportUsedSpace() / (1024 * 1024);
-
         //initialize thread local counters
         initProfilingCounters();
 
         if (NUMAProfilerExplicitGCThreshold == 0) {
             enableProfiling();
-        }
-
-        if (NUMAProfilerDebug) {
-            Log.println("*===================================================*\n" +
-                    "* NUMA Profiler is on validation mode.\n" +
-                    "*===================================================*\n" +
-                    "* You can use NUMA Profiler with confidence if:\n" +
-                    "* => a) VM Reported Heap Used Space = Initial Used Heap Space + NUMA Profiler Size + New Objects Size\n" +
-                    "* => b) VM Reported Heap Used Space after GC = Initial Used Heap Space + NUMA Profiler Size + Survivor Objects Size\n" +
-                    "* => c) Next Cycle's VM Reported Heap Used Space = Initial Used Heap Space + NUMA Profiler Size + Survivor Object Size\n" +
-                    "*===================================================*\n");
-            Log.println("Initial Used Heap Size = " + beforeAllocProfiler + " MB");
-            float allocProfilerSize = afterAllocProfiler - beforeAllocProfiler;
-            Log.println("NUMA Profiler Size = " + allocProfilerSize + " MB\n");
         }
     }
 
