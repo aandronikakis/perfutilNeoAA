@@ -254,7 +254,6 @@ public class RecordBuffer {
     public void print(int cycle, int allocation) {
         long start = readLong(timestamps, 0);
         for (int i = 0; i < currentIndex; i++) {
-            final boolean lockDisabledSafepoints = lock();
             Log.print(cycle);
             Log.print(';');
 
@@ -286,7 +285,6 @@ public class RecordBuffer {
             Log.print(readLong(timestamps, i) - start);
             Log.print(';');
             Log.println(readInt(coreIDs, i));
-            unlock(lockDisabledSafepoints);
         }
     }
 

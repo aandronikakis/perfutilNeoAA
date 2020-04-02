@@ -768,7 +768,6 @@ public class NUMAProfiler {
      */
     private static final Pointer.Procedure printThreadLocalProfilingCounters = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final boolean lockDisabledSafepoints = lock();
             Pointer etla = ETLA.load(tla);
             for (int i = 0; i < profilingCounters.length; i++) {
                 VmThreadLocal profilingCounter = profilingCounters[i];
@@ -786,7 +785,6 @@ public class NUMAProfiler {
                 //reset counter
                 profilingCounter.store(etla, Address.fromInt(0));
             }
-            unlock(lockDisabledSafepoints);
         }
     };
 
@@ -998,12 +996,14 @@ public class NUMAProfiler {
     public static void onVmThreadExit(Pointer tla) {
         final boolean isThreadBeingProfiled = NUMAProfiler.profilingPredicate.evaluate(tla) && NUMAProfiler.isProfilingEnabledPredicate.evaluate(tla);
         if (isThreadBeingProfiled) {
+            final boolean lockDisabledSafepoints = lock();
             NUMAProfiler.printAllocationBufferOfThread(tla);
             NUMAProfiler.resetAllocationBufferOfThread(tla);
             NUMAProfiler.printProfilingCountersOfThread(tla);
             NUMAProfiler.deallocateAllocationsBuffer.run(tla);
             NUMAProfiler.deallocateSurvivors1Buffer.run(tla);
             NUMAProfiler.deallocateSurvivors2Buffer.run(tla);
+            unlock(lockDisabledSafepoints);
         }
     }
 
