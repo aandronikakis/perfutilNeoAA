@@ -85,8 +85,6 @@ public class NUMAProfiler {
     @C_FUNCTION
     static native void numaProfiler_unlock();
 
-    public static int          profilingCycle;
-
     /**
      * The Buffer who keeps track of the physical NUMA node of any virtual memory page allocated for the JVM Heap.
      */
@@ -107,7 +105,7 @@ public class NUMAProfiler {
      * PROFILING POLICY 1: Explicit GC Driven
      * Trigger Event: An Application's System.gc() call.
      * The following two variables are used to help us ignore the application's
-     * warmup iterations in order to profile only the effective part. The iteration
+     * warmup iterations in order to profile only the effective part. The {@code iteration}
      * is calculated by the number of System.gc() calls. The MaxineVM.profileThatObject()
      * method returns false as long as the iteration counter is below the NUMAProfilerExplicitGCThreshold, which
      * is given by the user, ignoring any object allocation up to that point. Its default value
@@ -115,7 +113,16 @@ public class NUMAProfiler {
      */
     @SuppressWarnings("unused")
     public static int NUMAProfilerExplicitGCThreshold = -1;
+
+    /**
+     * The count of System.gc() calls.
+     */
     public static  int iteration = 0;
+
+    /**
+     * The count of profiling cycles.
+     */
+    public static int profilingCycle;
 
     /**
      * This field stores the GC type information (implicit or explicit).
@@ -593,6 +600,26 @@ public class NUMAProfiler {
     }
 
     /**
+     * A method to check and update the profiling state.
+     * NOTE: This only applies for ExplicitGC Driven profiling.
+     */
+    private void checkAndUpdateProfilingState() {
+        // Check if the current GC is explicit. If yes, increase the iteration counter.
+        if (isExplicitGC) {
+            iteration++;
+            isExplicitGC = false;
+            if (iteration == NUMAProfiler.NUMAProfilerExplicitGCThreshold) {
+                if (NUMAProfilerVerbose) {
+                    Log.println("(NUMA Profiler): Enabling profiling. [post-GC phase]");
+                }
+                enableProfiling();
+            }
+        }
+
+        profilingCycle++;
+    }
+
+    /**
      * This method is called by ProfilerGCCallbacks in every pre-gc callback phase.
      */
     void preGCActions() {
@@ -660,19 +687,7 @@ public class NUMAProfiler {
         }
         printProfilingCounters();
 
-        // Check if the current GC is explicit. If yes, increase the iteration counter.
-        if (isExplicitGC) {
-            iteration++;
-            isExplicitGC = false;
-            if (iteration == NUMAProfiler.NUMAProfilerExplicitGCThreshold) {
-                if (NUMAProfilerVerbose) {
-                    Log.println("(NUMA Profiler): Enabling profiling. [post-GC phase]");
-                }
-                enableProfiling();
-            }
-        }
-
-        profilingCycle++;
+        checkAndUpdateProfilingState();
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Leaving Post-GC Phase.");
