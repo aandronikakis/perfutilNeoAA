@@ -125,6 +125,14 @@ public class NUMAProfiler {
     public static int profilingCycle;
 
     /**
+     * The Explicit GC Policy condition to decide if profiling should be enabled.
+     * @return
+     */
+    public static boolean isExplicitGCPolicyConditionTrue() {
+        return NUMAProfilerExplicitGCThreshold >= 0 && iteration >= NUMAProfiler.NUMAProfilerExplicitGCThreshold;
+    }
+
+    /**
      * This field stores the GC type information (implicit or explicit).
      * By default is false. It is set to true, when an explicit GC is triggered
      * at JDK_java_lang_Runtime class. It is then accessed by the NUMAProfiler at the post-gc phase.
@@ -162,6 +170,14 @@ public class NUMAProfiler {
      * A boolean variable, to show when the profiler is ON for the Flare Object Policy.
      */
     public static boolean enableFlareObjectProfiler = false;
+
+    /**
+     * The Flare Object Policy condition to decide if profiling should be enabled.
+     * @return
+     */
+    public static boolean isFlareObjectPolicyConditionTrue() {
+        return !NUMAProfilerFlareAllocationThresholds.equals("0") && enableFlareObjectProfiler;
+    }
 
     private static final int MINIMUMBUFFERSIZE = 500000;
 
@@ -292,14 +308,13 @@ public class NUMAProfiler {
         //initialize thread local counters
         initProfilingCounters();
 
-        if (NUMAProfilerExplicitGCThreshold == 0) {
+        if (isExplicitGCPolicyConditionTrue()) {
             enableProfiling();
         }
     }
 
     public static void onVmThreadStart(int threadId, String threadName, Pointer etla) {
-        if ((NUMAProfilerExplicitGCThreshold >= 0 && iteration >= NUMAProfiler.NUMAProfilerExplicitGCThreshold) ||
-            (!NUMAProfilerFlareAllocationThresholds.equals("0") && enableFlareObjectProfiler)) {
+        if (isExplicitGCPolicyConditionTrue() || isFlareObjectPolicyConditionTrue()) {
             Log.println("(profilingThread);" + profilingCycle + ";" + threadId + ";" + threadName);
             PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
         }
@@ -603,7 +618,7 @@ public class NUMAProfiler {
         if (isExplicitGC) {
             iteration++;
             isExplicitGC = false;
-            if (iteration == NUMAProfiler.NUMAProfilerExplicitGCThreshold) {
+            if (isExplicitGCPolicyConditionTrue()) {
                 if (NUMAProfilerVerbose) {
                     Log.println("(NUMA Profiler): Enabling profiling. [post-GC phase]");
                 }
