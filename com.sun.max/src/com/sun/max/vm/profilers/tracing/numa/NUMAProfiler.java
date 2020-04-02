@@ -612,8 +612,6 @@ public class NUMAProfiler {
 
         dumpHeapBoundaries();
 
-        printProfilingCounters();
-
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Leaving Pre-GC Phase.");
         }
@@ -655,8 +653,12 @@ public class NUMAProfiler {
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Dump Survivors Buffer. [post-GC phase]");
         }
-
         dumpSurvivors();
+
+        if (NUMAProfilerVerbose) {
+            Log.println("(NUMA Profiler): Print Access Profiling Thread Local Counters. [post-GC phase]");
+        }
+        printProfilingCounters();
 
         // Check if the current GC is explicit. If yes, increase the iteration counter.
         if (isExplicitGC) {
