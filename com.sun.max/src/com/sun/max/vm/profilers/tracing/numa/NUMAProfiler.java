@@ -300,12 +300,7 @@ public class NUMAProfiler {
     public static void onVmThreadStart(int threadId, String threadName, Pointer etla) {
         if ((NUMAProfilerExplicitGCThreshold >= 0 && iteration >= NUMAProfiler.NUMAProfilerExplicitGCThreshold) ||
             (!NUMAProfilerFlareAllocationThresholds.equals("0") && enableFlareObjectProfiler)) {
-            Log.print("(profilingThread);");
-            Log.print(profilingCycle);
-            Log.print(";");
-            Log.print(threadId);
-            Log.print(";");
-            Log.println(threadName);
+            Log.println("(profilingThread);" + profilingCycle + ";" + threadId + ";" + threadName);
             PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
         }
         // Initialize new Thread's Record Buffer
