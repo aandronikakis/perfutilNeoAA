@@ -25,6 +25,7 @@ import com.sun.max.annotate.ALIAS;
 import com.sun.max.annotate.HOSTED_ONLY;
 import com.sun.max.program.ProgramError;
 import com.sun.max.program.Trace;
+import com.sun.max.util.PerfUtil;
 import com.sun.max.vm.*;
 import com.sun.max.vm.MaxineVM.Phase;
 import com.sun.max.vm.actor.holder.ClassActor;
@@ -68,8 +69,7 @@ import java.util.List;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-import static com.sun.max.vm.MaxineVM.useNUMAProfiler;
-import static com.sun.max.vm.MaxineVM.vm;
+import static com.sun.max.vm.MaxineVM.*;
 import static com.sun.max.vm.VMConfiguration.vmConfig;
 import static com.sun.max.vm.VMOptions.register;
 import static com.sun.max.vm.type.ClassRegistry.BOOT_CLASS_REGISTRY;
@@ -267,12 +267,20 @@ public class JavaRunScheme extends AbstractVMScheme implements RunScheme {
                             "NUMAProfilerExplicitGCThreshold and NUMAProfilerFlareAllocationThresholds");
                     }
                 }
+
+                //Initialize PerfUtil object
+                perfUtil = new PerfUtil();
+                perfUtil.cacheMissesPerfEvent.reset();
+                perfUtil.cacheMissesPerfEvent.enable();
                 break;
             }
 
             case TERMINATING: {
                 JniFunctions.printJniFunctionTimers();
                 terminateProfilers();
+                //Terminate PerfUtil and read counters
+                perfUtil.cacheMissesPerfEvent.disable();
+                perfUtil.cacheMissesPerfEvent.read();
                 break;
             }
             default: {

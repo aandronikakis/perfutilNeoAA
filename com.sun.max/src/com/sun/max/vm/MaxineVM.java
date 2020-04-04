@@ -136,6 +136,11 @@ public final class MaxineVM {
     public static boolean useNUMAProfiler;
 
     /**
+     * The {@link PerfUtil} instance object that enables perf functionality utilization by MaxineVM.
+     */
+    public static PerfUtil perfUtil;
+
+    /**
      * Allows the Inspector access to the thread locals block for the primordial thread.
      */
     @INSPECTED
