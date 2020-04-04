@@ -37,7 +37,7 @@ TARGETOS ?= $(shell uname -s)
 ifeq ($(TARGETOS),Linux)
     TARGETISA ?= $(shell uname -m)
     ifeq ($(TARGETISA), x86_64)
-		SOURCES += numa.c
+		SOURCES += numa.c perf.c
     endif # x86_64
 endif # Linux
 
