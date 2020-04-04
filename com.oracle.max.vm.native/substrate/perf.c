@@ -131,6 +131,13 @@ void perfEventEnable(int id) {
 	}
 }
 
+void perfEventEnableAll() {
+	printf("perfEventEnableAll\n");
+	if (ioctl(perf_event_fds[0], PERF_EVENT_IOC_ENABLE, PERF_IOC_FLAG_GROUP) == -1) {
+		errx(1, "error on ioctl at perfEventEnable [%d]: %s", errno, strerror(errno));
+	}
+}
+
 void perfEventDisable(int id) {
 	printf("perfEventDisable\n");
 	if (ioctl(perf_event_fds[id], PERF_EVENT_IOC_DISABLE, PERF_IOC_FLAG_GROUP) == -1) {
@@ -138,9 +145,23 @@ void perfEventDisable(int id) {
 	}
 }
 
+void perfEventDisableAll() {
+	printf("perfEventDisableAll\n");
+	if (ioctl(perf_event_fds[0], PERF_EVENT_IOC_DISABLE, PERF_IOC_FLAG_GROUP) == -1) {
+		errx(1, "error on ioctl at perfEventDisable [%d]: %s", errno, strerror(errno));
+	}
+}
+
 void perfEventReset(int id) {
 	printf("perfEventReset\n");
 	if (ioctl(perf_event_fds[id], PERF_EVENT_IOC_RESET, PERF_IOC_FLAG_GROUP) == -1) {
+		errx(1, "error on ioctl at perfEventReset [%d]: %s", errno, strerror(errno));
+	}
+}
+
+void perfEventResetAll() {
+	printf("perfEventResetAll\n");
+	if (ioctl(perf_event_fds[0], PERF_EVENT_IOC_RESET, PERF_IOC_FLAG_GROUP) == -1) {
 		errx(1, "error on ioctl at perfEventReset [%d]: %s", errno, strerror(errno));
 	}
 }

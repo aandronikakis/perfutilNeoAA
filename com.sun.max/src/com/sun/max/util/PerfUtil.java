@@ -94,8 +94,29 @@ public class PerfUtil {
         cacheMissesPerfEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.CACHE_MISSES.value, "CacheMisses", PERF_TYPE_ID.PERF_TYPE_HARDWARE.value, PERF_HW_EVENT_ID.PERF_COUNT_HW_CACHE_MISSES.value);
     }
 
+    public void enableAllEvents() {
+        perfEventEnableAll();
+    }
+
+    public void disableAllEvents() {
+        perfEventDisableAll();
+    }
+
+    public void resetAllEvents() {
+        perfEventResetAll();
+    }
+
     @C_FUNCTION
     public static native Pointer perfUtilInit(int numOfEvents);
+
+    @C_FUNCTION
+    public static native void perfEventEnableAll();
+
+    @C_FUNCTION
+    public static native void perfEventDisableAll();
+
+    @C_FUNCTION
+    public static native void perfEventResetAll();
 
 
 }
