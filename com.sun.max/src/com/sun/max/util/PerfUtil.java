@@ -153,20 +153,26 @@ public class PerfUtil {
 
     // list of supported perf events
     public PerfEvent cacheMissesPerfEvent;
+    public PerfEvent llcMissesPerfEvent;
+    public PerfEvent hwInstructionsEvent;
 
     public enum MAXINE_PERF_EVENT_ID {
-        CACHE_MISSES(0);
+        CACHE_MISSES(0),
+        LLC_MISSES(1),
+        INSTRUCTIONS(2);
         public final int value;
         MAXINE_PERF_EVENT_ID(int i) {
             value = i;
         }
     }
 
-    public final int numOfSupportedPerfEvents = 1;
+    public final int numOfSupportedPerfEvents = 3;
 
     public PerfUtil() {
         perfUtilInit(numOfSupportedPerfEvents);
         cacheMissesPerfEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.CACHE_MISSES.value, "CacheMisses", PERF_TYPE_ID.PERF_TYPE_HARDWARE.value, PERF_HW_EVENT_ID.PERF_COUNT_HW_CACHE_MISSES.value);
+        llcMissesPerfEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.LLC_MISSES.value, "LLC Misses", PERF_TYPE_ID.PERF_TYPE_HW_CACHE.value, PERF_HW_CACHE_EVENT_ID.PERF_COUNT_HW_CACHE_LL.value);
+        hwInstructionsEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.INSTRUCTIONS.value, "HW Instructions", PERF_TYPE_ID.PERF_TYPE_HARDWARE.value, PERF_HW_EVENT_ID.PERF_COUNT_HW_INSTRUCTIONS.value);
     }
 
     public void enableAllEvents() {
