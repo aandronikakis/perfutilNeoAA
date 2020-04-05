@@ -150,28 +150,38 @@ public class PerfUtil {
         }
     }
 
-
-    // list of supported perf events
-    public PerfEvent cacheMissesPerfEvent;
-    public PerfEvent llcMissesPerfEvent;
-    public PerfEvent hwInstructionsEvent;
-
+    /**
+     * A list of the currently supported {@link PerfEvent}s in MaxineVM.
+     * For a new implementation:
+     *  a) include a new {@link MAXINE_PERF_EVENT_ID} value,
+     *  b) declare the new {@link PerfEvent} as a {@link PerfUtil} field,
+     *  c) update {@link #numOfSupportedPerfEvents} value.
+     */
     public enum MAXINE_PERF_EVENT_ID {
         CACHE_MISSES(0),
-        LLC_MISSES(1),
-        INSTRUCTIONS(2);
+        LLC_READ_MISSES(1),
+        LLC_WRITE_MISSES(2),
+        INSTRUCTIONS(3);
+
         public final int value;
+
         MAXINE_PERF_EVENT_ID(int i) {
             value = i;
         }
     }
 
-    public final int numOfSupportedPerfEvents = 3;
+    public PerfEvent cacheMissesPerfEvent;
+    public PerfEvent llcReadMissesPerfEvent;
+    public PerfEvent llcWriteMissesPerfEvent;
+    public PerfEvent hwInstructionsEvent;
+
+    public final int numOfSupportedPerfEvents = 4;
 
     public PerfUtil() {
         perfUtilInit(numOfSupportedPerfEvents);
         cacheMissesPerfEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.CACHE_MISSES.value, "CacheMisses", PERF_TYPE_ID.PERF_TYPE_HARDWARE.value, PERF_HW_EVENT_ID.PERF_COUNT_HW_CACHE_MISSES.value);
-        llcMissesPerfEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.LLC_MISSES.value, "LLC Misses", PERF_TYPE_ID.PERF_TYPE_HW_CACHE.value, PERF_HW_CACHE_EVENT_ID.PERF_COUNT_HW_CACHE_LL.value);
+        llcReadMissesPerfEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.LLC_READ_MISSES.value, "LLC Read Misses", PERF_TYPE_ID.PERF_TYPE_HW_CACHE.value, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_READ_MISS.value);
+        llcWriteMissesPerfEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.LLC_WRITE_MISSES.value, "LLC Write Misses", PERF_TYPE_ID.PERF_TYPE_HW_CACHE.value, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_WRITE_MISS.value);
         hwInstructionsEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.INSTRUCTIONS.value, "HW Instructions", PERF_TYPE_ID.PERF_TYPE_HARDWARE.value, PERF_HW_EVENT_ID.PERF_COUNT_HW_INSTRUCTIONS.value);
     }
 
