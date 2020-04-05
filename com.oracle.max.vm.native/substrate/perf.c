@@ -112,11 +112,13 @@ void perfEventCreate(int id, const char *eventName, int type, int config) {
 	//  1,	 1	->	process 1, CPU 1
 	if (id == 0) {
 		if( (perf_event_fds[id] = syscall(__NR_perf_event_open, &perf_event_attrs[id], 0, -1, -1, 0)) == -1 ) {
-	    	errx(1, "error on __NR_perf_event_open at perfEventCreate [%d]: %s", errno, strerror(errno));
+	    	errx(1, "error on __NR_perf_event_open at perfEventCreate [%d]: %s\
+	    		\nHint: for more persmisions consider altering perf_event_paranoid value. ", errno, strerror(errno));
 		}
 	} else {
 		if( (perf_event_fds[id] = syscall(__NR_perf_event_open, &perf_event_attrs[id], 0, -1, perf_event_fds[0], 0)) == -1 ) {
-	    	errx(1, "error on __NR_perf_event_open at perfEventCreate [%d]: %s", errno, strerror(errno));
+	    	errx(1, "error on __NR_perf_event_open at perfEventCreate [%d]: %s\
+	    		\nHint: for more persmisions consider altering perf_event_paranoid value. ", errno, strerror(errno));
 		}
 	}
 	if (ioctl(perf_event_fds[id], PERF_EVENT_IOC_ID, &perf_event_ids[id]) == -1) {
