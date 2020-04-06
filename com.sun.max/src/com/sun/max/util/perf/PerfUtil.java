@@ -18,12 +18,10 @@
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package com.sun.max.util;
+package com.sun.max.util.perf;
 
 import com.sun.max.annotate.*;
 import com.sun.max.unsafe.Pointer;
-
-import com.sun.max.vm.reference.Reference;
 
 /**
  * A class that enables perf tool utilization into MaxineVM.

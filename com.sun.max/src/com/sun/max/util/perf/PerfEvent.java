@@ -18,7 +18,7 @@
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package com.sun.max.util;
+package com.sun.max.util.perf;
 
 import com.sun.max.annotate.C_FUNCTION;
 import com.sun.max.unsafe.CString;
