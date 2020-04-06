@@ -49,6 +49,9 @@ import com.sun.max.vm.reference.Reference;
 
 public class PerfUtil {
 
+    // false by default
+    public static final boolean usePerf = false;
+
     /**
      *  Available PerfEvent types.
      *  To be passed in type field of the perf_event_attribute
