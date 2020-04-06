@@ -26,6 +26,23 @@ import com.sun.max.unsafe.Pointer;
 import com.sun.max.vm.reference.Reference;
 
 /**
+ * A class that enables perf tool utilization into MaxineVM.
+ * Perf can be used with numerous of perf events, individually or in groups.
+ * Each perf event is modeled as a {@link PerfEvent} object instance.
+ * A {@link PerfEvent} has a "type" {@link PERF_TYPE_ID} and a "config".
+ * The currently available configs ({@link PERF_HW_EVENT_ID} and {@link PERF_HW_CACHE_EVENT_ID}) belong to
+ * the {@link PERF_TYPE_ID#PERF_TYPE_HARDWARE} and {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} types accordingly.
+ * All {@link PerfEvent}s are accessed through the single {@link PerfUtil} instance held by the VM.
+ *
+ * To enable perf tool utilization in MaxineVM simply add the following code during Maxine startup:
+ *      if (PerfUtil.usePerf) {
+ *          perfUtil = new PerfUtil();
+ *      }
+ *
+ *  TODO: document enable, disable, reset, read and close.
+ *
+ *  Make sure that the perf event you want to monitor is declared and initialized as a {@link PerfEvent}
+ *  in this class (see
  * See perf.h for more detailed documentation.
  * https://docs.huihoo.com/doxygen/linux/kernel/3.7/include_2uapi_2linux_2perf__event_8h_source.html
  */
@@ -34,7 +51,7 @@ public class PerfUtil {
 
     /**
      *  Available PerfEvent types.
-     *  attr.type
+     *  To be passed in type field of the perf_event_attribute
      *  from perf.h
      */
     public enum PERF_TYPE_ID {
@@ -53,7 +70,13 @@ public class PerfUtil {
     }
 
     /**
-     * Common hardware events.
+     *  Available PerfEvent configs.
+     *  To be passed in type field of the perf_event_attribute
+     *  from perf.h
+     */
+
+    /**
+     * Perf event "configs" available for the {@link PERF_TYPE_ID#PERF_TYPE_HARDWARE} "type".
      * attr.config
      */
     public enum PERF_HW_EVENT_ID {
@@ -75,46 +98,8 @@ public class PerfUtil {
         }
     }
 
-    public enum PERF_HW_CACHE_TYPE_ID {
-        PERF_COUNT_HW_CACHE_L1D(0),
-        PERF_COUNT_HW_CACHE_L1I(1),
-        PERF_COUNT_HW_CACHE_LL(2),
-        PERF_COUNT_HW_CACHE_DTLB(3),
-        PERF_COUNT_HW_CACHE_ITLB(4),
-        PERF_COUNT_HW_CACHE_BPU(5),
-        PERF_COUNT_HW_CACHE_NODE(6);
-
-        public final int value;
-
-        PERF_HW_CACHE_TYPE_ID(int i) {
-            value = i;
-        }
-    }
-
-    public enum PERF_HW_CACHE_OP_ID {
-        PERF_COUNT_HW_CACHE_OP_READ(0),
-        PERF_COUNT_HW_CACHE_OP_WRITE(1),
-        PERF_COUNT_HW_CACHE_OP_PREFETCH(2);
-
-        public final int value;
-
-        PERF_HW_CACHE_OP_ID(int i) {
-            value = i;
-        }
-    }
-
-    public enum PERF_HW_CACHE_OP_RESULT_ID {
-        PERF_COUNT_HW_CACHE_RESULT_ACCESS(0),
-        PERF_COUNT_HW_CACHE_RESULT_MISS(1);
-
-        public final int value;
-
-        PERF_HW_CACHE_OP_RESULT_ID(int i) {
-            value = i;
-        }
-    }
-
     /**
+     * Perf event "configs" available for the {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} "type".
      * For {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} events, the config is a bitmask.
      *      lowest 8 bits: a cache type from {@link PERF_HW_CACHE_TYPE_ID}
      *      bits 8 to 15: a cache operation from {@link PERF_HW_CACHE_OP_ID}
@@ -151,7 +136,58 @@ public class PerfUtil {
     }
 
     /**
-     * A list of the currently supported {@link PerfEvent}s in MaxineVM.
+     * The "cache type" building block of {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} config.
+     * !They are not configs by themselves!
+     */
+    public enum PERF_HW_CACHE_TYPE_ID {
+        PERF_COUNT_HW_CACHE_L1D(0),
+        PERF_COUNT_HW_CACHE_L1I(1),
+        PERF_COUNT_HW_CACHE_LL(2),
+        PERF_COUNT_HW_CACHE_DTLB(3),
+        PERF_COUNT_HW_CACHE_ITLB(4),
+        PERF_COUNT_HW_CACHE_BPU(5),
+        PERF_COUNT_HW_CACHE_NODE(6);
+
+        public final int value;
+
+        PERF_HW_CACHE_TYPE_ID(int i) {
+            value = i;
+        }
+    }
+
+    /**
+     * The "cache operation" building block of {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} config.
+     * !They are not configs by themselves!
+     */
+    public enum PERF_HW_CACHE_OP_ID {
+        PERF_COUNT_HW_CACHE_OP_READ(0),
+        PERF_COUNT_HW_CACHE_OP_WRITE(1),
+        PERF_COUNT_HW_CACHE_OP_PREFETCH(2);
+
+        public final int value;
+
+        PERF_HW_CACHE_OP_ID(int i) {
+            value = i;
+        }
+    }
+
+    /**
+     * The "cache result" building block of {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} config.
+     * !They are not configs by themselves!
+     */
+    public enum PERF_HW_CACHE_OP_RESULT_ID {
+        PERF_COUNT_HW_CACHE_RESULT_ACCESS(0),
+        PERF_COUNT_HW_CACHE_RESULT_MISS(1);
+
+        public final int value;
+
+        PERF_HW_CACHE_OP_RESULT_ID(int i) {
+            value = i;
+        }
+    }
+
+    /**
+     * A list of the currently implemented {@link PerfEvent}s in MaxineVM.
      * For a new implementation:
      *  a) include a new {@link MAXINE_PERF_EVENT_ID} value,
      *  b) declare the new {@link PerfEvent} as a {@link PerfUtil} field,
