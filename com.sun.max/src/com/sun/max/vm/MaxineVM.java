@@ -143,6 +143,12 @@ public final class MaxineVM {
      */
     public static PerfUtil perfUtil;
 
+    public static boolean UsePerf;
+
+    static {
+        VMOptions.addFieldOption("-XX:", "UsePerf", MaxineVM.class, "Use perf tool. (default: false)", MaxineVM.Phase.PRISTINE);
+    }
+
     /**
      * Allows the Inspector access to the thread locals block for the primordial thread.
      */
