@@ -229,9 +229,12 @@ public class PerfUtil {
 
     public PerfEventGroup[] perfEventGroups;
 
-    public final int numOfSupportedPerfEvents = 4;
+    public static int numOfSupportedPerfEvents;
+    public static int numOfGroups;
 
     public PerfUtil() {
+        numOfSupportedPerfEvents = MAXINE_PERF_EVENT_ID.values().length;
+        numOfGroups = MAXINE_PERF_EVENT_GROUP_ID.values().length;
         perfUtilInit(numOfSupportedPerfEvents);
         perfEventGroups = new PerfEventGroup[numOfGroups];
     }
