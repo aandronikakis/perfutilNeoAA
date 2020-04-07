@@ -188,11 +188,31 @@ public class PerfUtil {
     }
 
     /**
+     * The unit of scheduling in perf is not an individual {@link PerfEvent}, but rather a {@link PerfEventGroup},
+     * which may contain one or more {@link PerfEvent}s (potentially on different PMUs). The notion of
+     * a {@link PerfEventGroup} is useful for ensuring that a set of mathematically related events are all
+     * simultaneously measured for the same period of time.
+     *
+     * (Inspired by: https://hadibrais.wordpress.com/2019/09/06/the-linux-perf-event-scheduling-algorithm/)
+     *
+     */
+    public enum MAXINE_PERF_EVENT_GROUP_ID {
+        LLC_MISSES_GROUP(0),
+        MISC_GROUP(1);
+
+        public final int value;
+
+        MAXINE_PERF_EVENT_GROUP_ID(int i) {
+            value = i;
+        }
+    }
+
+    /**
      * A list of the currently implemented {@link PerfEvent}s in MaxineVM.
      * For a new implementation:
      *  a) include a new {@link MAXINE_PERF_EVENT_ID} value,
-     *  b) declare the new {@link PerfEvent} as a {@link PerfUtil} field,
-     *  c) update {@link #numOfSupportedPerfEvents} value.
+     *  b) declare the new {@link PerfEvent} as a {@link PerfUtil} field in a new or existing {@link PerfEventGroup}
+     *  c) initialize the {@link PerfEventGroup} if it is new.
      */
     public enum MAXINE_PERF_EVENT_ID {
         CACHE_MISSES(0),
@@ -207,31 +227,13 @@ public class PerfUtil {
         }
     }
 
-    public PerfEvent cacheMissesPerfEvent;
-    public PerfEvent llcReadMissesPerfEvent;
-    public PerfEvent llcWriteMissesPerfEvent;
-    public PerfEvent hwInstructionsEvent;
+    public PerfEventGroup[] perfEventGroups;
 
     public final int numOfSupportedPerfEvents = 4;
 
     public PerfUtil() {
         perfUtilInit(numOfSupportedPerfEvents);
-        cacheMissesPerfEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.CACHE_MISSES.value, "CacheMisses", PERF_TYPE_ID.PERF_TYPE_HARDWARE.value, PERF_HW_EVENT_ID.PERF_COUNT_HW_CACHE_MISSES.value);
-        llcReadMissesPerfEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.LLC_READ_MISSES.value, "LLC Read Misses", PERF_TYPE_ID.PERF_TYPE_HW_CACHE.value, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_READ_MISS.value);
-        llcWriteMissesPerfEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.LLC_WRITE_MISSES.value, "LLC Write Misses", PERF_TYPE_ID.PERF_TYPE_HW_CACHE.value, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_WRITE_MISS.value);
-        hwInstructionsEvent = new PerfEvent(MAXINE_PERF_EVENT_ID.INSTRUCTIONS.value, "HW Instructions", PERF_TYPE_ID.PERF_TYPE_HARDWARE.value, PERF_HW_EVENT_ID.PERF_COUNT_HW_INSTRUCTIONS.value);
-    }
-
-    public void enableAllEvents() {
-        perfEventEnableAll();
-    }
-
-    public void disableAllEvents() {
-        perfEventDisableAll();
-    }
-
-    public void resetAllEvents() {
-        perfEventResetAll();
+        perfEventGroups = new PerfEventGroup[numOfGroups];
     }
 
     @C_FUNCTION
