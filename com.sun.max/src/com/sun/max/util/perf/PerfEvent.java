@@ -17,68 +17,49 @@
  * 2 along with this work; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-
 package com.sun.max.util.perf;
 
 import com.sun.max.annotate.C_FUNCTION;
-import com.sun.max.unsafe.CString;
 import com.sun.max.unsafe.Pointer;
-import com.sun.max.vm.Log;
 import com.sun.max.vm.layout.Layout;
 import com.sun.max.vm.reference.Reference;
+
+import com.sun.max.util.perf.PerfUtil.*;
 
 
 public class PerfEvent {
 
-    int id;
-    String name;
-    long[] valuesBuffer;
+    MAXINE_PERF_EVENT_GROUP_ID groupId;
+    MAXINE_PERF_EVENT_ID eventId;
+    MAXINE_PERF_EVENT_ID groupLeaderId;
     long value;
-    static final int valuesBufferSize = 100;
 
-    public PerfEvent(int id, String name, int type, int config) {
-        this.id = id;
-        this.name = name;
-        this.valuesBuffer = new long[valuesBufferSize];
-        perfEventCreate(id, CString.utf8FromJava(name), type, config);
-
-        valuesBuffer[0] = 0;
-        valuesBuffer[1] = 1;
-        valuesBuffer[2] = 2;
-        valuesBuffer[3] = 3;
-        valuesBuffer[4] = 4;
-        valuesBuffer[5] = 5;
+    public PerfEvent(MAXINE_PERF_EVENT_GROUP_ID group, MAXINE_PERF_EVENT_ID eventId, PERF_TYPE_ID type, int config, MAXINE_PERF_EVENT_ID groupLeaderId) {
+        this.groupId = group;
+        this.eventId = eventId;
+        this.groupLeaderId = groupLeaderId;
+        perfEventCreate(eventId.value, type.value, config, groupLeaderId.value);
     }
 
     public void enable() {
-        perfEventEnable(id);
+        perfEventEnable(eventId.value);
     }
 
     public void disable() {
-        perfEventDisable(id);
+        perfEventDisable(eventId.value);
     }
 
     public void reset() {
-        perfEventReset(id);
+        perfEventReset(eventId.value);
     }
 
-    public void read() {
-        //int dataOffset = Layout.longArrayLayout().getElementOffsetFromOrigin(0).toInt();
-        //perfEventRead(id, Reference.fromJava(valuesBuffer).toOrigin().plus(dataOffset));
-        value = perfEventRead(id);
-        Log.println(value);
-        /*for(int i = 0; i < valuesBufferSize; i++) {
-            if (valuesBuffer[i] != 0) {
-                Log.print("Values [");
-                Log.print(i);
-                Log.print("] = ");
-                Log.println(valuesBuffer[i]);
-            }
-        }*/
+    public void read(long[] values) {
+        int dataOffset = Layout.longArrayLayout().getElementOffsetFromOrigin(0).toInt();
+        perfEventRead(eventId.value, Reference.fromJava(values).toOrigin().plus(dataOffset));
     }
 
     @C_FUNCTION
-    public static native void perfEventCreate(int id, Pointer eventName, int type, int config);
+    public static native void perfEventCreate(int id, int type, int config, int groupLeaderId);
 
     @C_FUNCTION
     public static native void perfEventEnable(int id);
@@ -90,9 +71,6 @@ public class PerfEvent {
     public static native void perfEventReset(int id);
 
     @C_FUNCTION
-    public static native long perfEventRead(int id);
-    //public static native void perfEventRead(int id, long values);
-    //public static native void perfEventRead(int id, Pointer values);
-    // long[] values
+    public static native void perfEventRead(int id, Pointer values);
 
 }

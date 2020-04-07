@@ -17,7 +17,6 @@
  * 2 along with this work; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-
 package com.sun.max.util.perf;
 
 import com.sun.max.annotate.*;
@@ -241,15 +240,5 @@ public class PerfUtil {
 
     @C_FUNCTION
     public static native Pointer perfUtilInit(int numOfEvents);
-
-    @C_FUNCTION
-    public static native void perfEventEnableAll();
-
-    @C_FUNCTION
-    public static native void perfEventDisableAll();
-
-    @C_FUNCTION
-    public static native void perfEventResetAll();
-
 
 }
