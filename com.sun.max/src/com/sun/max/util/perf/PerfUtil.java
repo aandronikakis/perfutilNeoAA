@@ -277,6 +277,18 @@ public class PerfUtil {
         perfEventGroups[groupIndex] = new PerfEventGroup(group, threadId, tid, core);
     }
 
+    /**
+     * Calls the native {@link VmThread#getTid()} method which returns the tid of the calling thread.
+     * Keeping and updating the tid map is essential for the whole PerfUtil functionality.
+     * Despite the fact that inside the JVM we deal with threadIds, perf needs the actual tid of the
+     * thread to be attached on.
+     * NOTE: this method is should only be called by the thread of which the tid is being updated.
+     * @param threadId
+     */
+    public static void updateTidMap(int threadId) {
+        tidMap[threadId] = getTid();
+    }
+
     }
 
     @C_FUNCTION
