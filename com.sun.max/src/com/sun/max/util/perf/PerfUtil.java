@@ -20,7 +20,14 @@
 package com.sun.max.util.perf;
 
 import com.sun.max.annotate.*;
+import com.sun.max.unsafe.Address;
 import com.sun.max.unsafe.Pointer;
+import com.sun.max.vm.Log;
+import com.sun.max.vm.MaxineVM;
+import com.sun.max.vm.thread.VmThread;
+import com.sun.max.vm.thread.VmThreadMap;
+
+import static com.sun.max.vm.thread.VmThread.getTid;
 
 /**
  * A class that enables perf tool utilization into MaxineVM.
@@ -223,16 +230,53 @@ public class PerfUtil {
         }
     }
 
-    public PerfEventGroup[] perfEventGroups;
+    public static PerfEventGroup[] perfEventGroups;
 
-    public static int numOfSupportedPerfEvents;
-    public static int numOfGroups;
+    public static int numOfSupportedPerfEventGroups = MAXINE_PERF_EVENT_GROUP_ID.values().length;
+    public static int numOfSupportedPerfEvents = MAXINE_PERF_EVENT_ID.values().length;
+    public static int numOfUniquePerfGroups;
+    public static int numOfUniquePerfEvents;
+
+    /**
+     * Max num of threads currently supported.
+     * This number is arbitrary. Theoretically it can be any number.
+     */
+    final static int numOfThreads = 64;
+
+    /**
+     * The num of cores of the machine.
+     */
+    final static int numOfCores = Runtime.getRuntime().availableProcessors();
+
+    public static boolean isInitialized = false;
+
+    /**
+     * This thread map holds the tid of each VmThread with {@link VmThread#id()} as index.
+     * A VmThread's tid write in the map should be injected in VmThread's creation method.
+     */
+    public static int[] tidMap = new int[numOfThreads];
+
+    public static int iteration = 0;
 
     public PerfUtil() {
-        numOfSupportedPerfEvents = MAXINE_PERF_EVENT_ID.values().length;
-        numOfGroups = MAXINE_PERF_EVENT_GROUP_ID.values().length;
-        perfUtilInit(numOfSupportedPerfEvents);
-        perfEventGroups = new PerfEventGroup[numOfGroups];
+        Log.print("[PerfUtil constructor] PerfUtil initialization by thread ");
+        Log.println(VmThread.current().id());
+
+        numOfUniquePerfGroups = PerfEventGroup.maxUniqueEventGroups(numOfCores, numOfThreads, numOfSupportedPerfEventGroups);
+        numOfUniquePerfEvents = PerfEvent.maxUniquePerfEvents(numOfCores, numOfThreads, numOfSupportedPerfEvents);
+
+        perfEventGroups = new PerfEventGroup[numOfUniquePerfGroups];
+        perfUtilInit(numOfUniquePerfEvents);
+
+        isInitialized = true;
+    }
+
+    public static void createGroup(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int tid, int core) {
+        //MaxineVM.perfUtil.perfEventGroups[threadId][group.value] = new PerfEventGroup(group, threadId, core);
+        int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
+        perfEventGroups[groupIndex] = new PerfEventGroup(group, threadId, tid, core);
+    }
+
     }
 
     @C_FUNCTION

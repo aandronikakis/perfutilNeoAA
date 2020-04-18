@@ -57,7 +57,9 @@ uint64_t *perf_event_ids;
 int enabled = 0;
 
 void perfUtilInit(int numOfEvents) {
-	if(!enabled) {	
+	if(!enabled) {
+
+		printf("initialize perfUtil for %d events\n", numOfEvents);	
 
 		// initialize fds
 		perf_event_fds = (int*)calloc(numOfEvents, sizeof(int));
@@ -87,7 +89,7 @@ void perfUtilInit(int numOfEvents) {
 	}
 }
 
-void perfEventCreate(int id, int type, int config, int groupLeaderEventId) {
+void perfEventCreate(int id, int type, int config, int thread, int tid, int core, int groupLeaderEventId) {
 	// if event name is needed add const char *eventName to header and pass a Pointer from java
 	int groupLeaderFd;
 
@@ -95,9 +97,10 @@ void perfEventCreate(int id, int type, int config, int groupLeaderEventId) {
 	perf_event_attrs[id].type = type;
 	perf_event_attrs[id].config = config;
 	perf_event_attrs[id].disabled = 1;
-	perf_event_attrs[id].inherit = 1;
+	//perf_event_attrs[id].inherit = 1; //does not work with PERF_FORMAT_GROUP
 	perf_event_attrs[id].exclude_kernel = 1;
 	perf_event_attrs[id].exclude_hv = 1;
+	perf_event_attrs[id].exclude_idle = 1;
 	perf_event_attrs[id].read_format = PERF_FORMAT_GROUP | PERF_FORMAT_ID;
 	// -1,	-1	-> 	invalid
 	//	1,	-1	->	process 1, all CPUs
@@ -116,7 +119,9 @@ void perfEventCreate(int id, int type, int config, int groupLeaderEventId) {
 		groupLeaderFd = perf_event_fds[groupLeaderEventId];
 	}
 
-	if( (perf_event_fds[id] = syscall(__NR_perf_event_open, &perf_event_attrs[id], 0, -1, groupLeaderFd, 0)) == -1 ) {
+	printf("Create perfEvent %d for thread %d tid %d pid: %d, (%ld, %d)\n", id, thread, tid, getpid(), syscall(SYS_gettid), core);
+
+	if( (perf_event_fds[id] = syscall(__NR_perf_event_open, &perf_event_attrs[id], tid, core, groupLeaderFd, 0)) == -1 ) {
 	    	errx(1, "error on __NR_perf_event_open at perfEventCreate [%d]: %s\
 	    		\nHint: for more persmisions consider altering perf_event_paranoid value. ", errno, strerror(errno));
 	}
