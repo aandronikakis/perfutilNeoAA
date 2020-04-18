@@ -289,6 +289,94 @@ public class PerfUtil {
         tidMap[threadId] = getTid();
     }
 
+    /**
+     * To be used for "specific thread and specific core" or "specific thread on any core" modes.
+     * For more accurate results, it should be called as earlier as possible during a {@link VmThread}'s init.
+     * In any case it should be injected BEFORE thread's runnable execution.
+     *
+     * Proposed point of injection: in {@link VmThread#add(int, boolean, Address, Pointer, Pointer, Pointer, Pointer)}
+     * exactly before the executeRunnable(thread) try/catch statement.
+     *
+     * @param group the perf group of choice
+     * @param threadId the threadId of the perf-ed thread
+     * @param core the coreId of choice for "specific thread and specific core" mode or -1 for "specific thread on any core"
+     */
+    public static void nonDaemonThreadPerfSet(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
+        if (MaxineVM.isRunning()) {
+            // with this check we apply only on application (non-daemon) threads
+            final boolean lock2 = Log.lock();
+            PerfUtil.createGroup(group, threadId, tidMap[threadId], core);
+            int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
+            PerfUtil.perfEventGroups[groupIndex].resetGroup();
+            PerfUtil.perfEventGroups[groupIndex].enableGroup();
+            Log.unlock(lock2);
+        }
+    }
+
+    /**
+     * To be used for "specific thread and specific core" or "specific thread on any core" modes.
+     * It should be injected AFTER a thread's runnable execution.
+     *
+     * Proposed point of injection: in {@link VmThread#add(int, boolean, Address, Pointer, Pointer, Pointer, Pointer)}
+     * exactly after the executeRunnable(thread) try/catch statement.
+     *
+     * Same parameters as {@link #nonDaemonThreadPerfReadAndReset(MAXINE_PERF_EVENT_GROUP_ID, int, int)}
+     */
+    public static void nonDaemonThreadPerfReadAndReset(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
+        if (!VmThread.current().javaThread().isDaemon()) {
+            // with this check we apply only on application (non-daemon) threads
+            final boolean lock = Log.lock();
+            int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
+            PerfUtil.perfEventGroups[groupIndex].disableGroup();
+            PerfUtil.perfEventGroups[groupIndex].readGroup();
+            PerfUtil.perfEventGroups[groupIndex].printGroup();
+            Log.unlock(lock);
+        }
+    }
+
+    public static void daemonThreadPerfSet(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
+        int tid = PerfUtil.tidMap[threadId];
+        PerfUtil.createGroup(group, threadId, tid, core);
+
+        int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
+        PerfUtil.perfEventGroups[groupIndex].resetGroup();
+        PerfUtil.perfEventGroups[groupIndex].enableGroup();
+    }
+
+    /**
+     * Call this method from JavaRunScheme phase RUNNING.
+     * @param group
+     * @param core
+     */
+    public static void setAllDaemonThreads(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
+        for (int threadId = 1; threadId <= 5; threadId++) {
+            Log.print("Set daemon thread ");
+            Log.println(threadId);
+            daemonThreadPerfSet(group, threadId, core);
+        }
+    }
+
+    /**
+     * place at.
+     * JDK_java_lang_Runtime.gc()
+     * MaxineVm.exit()
+     */
+    public static void groupReadAndResetForAllDaemonThreads() {
+        int liveThreadCount = VmThreadMap.getLiveTheadCount();
+
+        for (int threadId = 1; threadId <= 5; threadId++) {
+            /*if (threadId == 6) {
+                continue;
+            }*/
+            int tid = tidMap[threadId];
+            int groupIndex = PerfEventGroup.uniqueGroupId(-1, threadId, PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_MISSES_GROUP.value);
+            perfEventGroups[groupIndex].disableGroup();
+            perfEventGroups[groupIndex].readGroup();
+            perfEventGroups[groupIndex].printGroup();
+
+            perfEventGroups[groupIndex].resetGroup();
+            perfEventGroups[groupIndex].enableGroup();
+        }
     }
 
     @C_FUNCTION
