@@ -42,6 +42,7 @@
 #include "threads.h"
 #include "threadLocals.h"
 #include <sys/mman.h>
+#include <sys/syscall.h>
 
 #if (os_DARWIN || os_LINUX)
 #   include <pthread.h>
@@ -470,6 +471,15 @@ void nativeBlockOnThreadLock() {
  */
 Address nativeThreadCreate(jint id, Size stackSize, jint priority) {
     return (Address) thread_create(id, stackSize, priority);
+}
+
+/**
+ * Gets the caller's thread ID (TID) held by the OS.
+ * @C_FUNCTION - called from Java.
+ * Declared in VmThread.java
+ */
+int getTid() {
+    return (int) syscall(SYS_gettid);
 }
 
 JNIEXPORT void JNICALL

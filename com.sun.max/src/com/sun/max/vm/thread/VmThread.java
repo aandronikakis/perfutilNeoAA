@@ -459,6 +459,9 @@ public class VmThread {
     @C_FUNCTION
     protected static native Word nativeThreadCreate(int id, Size stackSize, int priority);
 
+    @C_FUNCTION
+    public static native int getTid();
+
     /**
      * Gets the current {@linkplain VmThreadLocal TLA}.
      *
