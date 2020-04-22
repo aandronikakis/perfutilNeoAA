@@ -271,7 +271,7 @@ public class JavaRunScheme extends AbstractVMScheme implements RunScheme {
 
                 //Initialize PerfUtil object
                 if (MaxineVM.UsePerf) {
-                    perfUtil = new PerfUtil();
+                    PerfUtil.initialize();
                 }
                 break;
             }

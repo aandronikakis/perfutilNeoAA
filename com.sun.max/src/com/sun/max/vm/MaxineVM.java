@@ -138,11 +138,6 @@ public final class MaxineVM {
     @CONSTANT
     public static boolean useNUMAProfiler;
 
-    /**
-     * The {@link PerfUtil} instance object that enables perf functionality utilization by MaxineVM.
-     */
-    public static PerfUtil perfUtil;
-
     public static boolean UsePerf;
 
     static {

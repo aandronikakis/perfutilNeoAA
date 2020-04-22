@@ -38,9 +38,11 @@ import static com.sun.max.vm.thread.VmThread.getTid;
  * the {@link PERF_TYPE_ID#PERF_TYPE_HARDWARE} and {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} types accordingly.
  * All {@link PerfEvent}s are accessed through the single {@link PerfUtil} instance held by the VM.
  *
- * To enable perf tool utilization in MaxineVM simply add the following code during Maxine startup:
+ * To enable perf tool utilization in MaxineVM simply add the following code
+ * at {@link com.sun.max.vm.run.java.JavaRunScheme#initialize(MaxineVM.Phase)} in case RUNNING:
+ *
  *      if (PerfUtil.usePerf) {
- *          perfUtil = new PerfUtil();
+ *          PerfUtil.initialize();
  *      }
  *
  *  TODO: document enable, disable, reset, read and close.
@@ -259,6 +261,9 @@ public class PerfUtil {
     public static int iteration = 0;
 
     public PerfUtil() {
+    }
+
+    public static void initialize() {
         Log.print("[PerfUtil constructor] PerfUtil initialization by thread ");
         Log.println(VmThread.current().id());
 
