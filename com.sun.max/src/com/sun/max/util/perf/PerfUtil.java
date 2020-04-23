@@ -428,16 +428,6 @@ public class PerfUtil {
         PerfUtil.perfEventGroups[groupIndex].enableGroup();
     }
 
-    /**
-     * Call this method from JavaRunScheme phase RUNNING.
-     * @param group
-     * @param core
-     */
-    public static void setAllDaemonThreads(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
-        for (int threadId = 1; threadId <= 5; threadId++) {
-            Log.print("Set daemon thread ");
-            Log.println(threadId);
-            daemonThreadPerfSet(group, threadId, core);
         }
     }
 
