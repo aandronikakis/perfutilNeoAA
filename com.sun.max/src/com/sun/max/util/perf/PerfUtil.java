@@ -318,6 +318,10 @@ public class PerfUtil {
     }
 
     /**
+     * PerfGroup Set Methods:
+     *
+     * Each method name indicates the mode it should be used for after the perfGroupSet prefix.
+     *
      * In "specific thread on specific core" and "specific thread on any core" modes we target a specific thread.
      * Given that, we should take under consideration each thread's nature.
      * In MaxineVM all threads are instances of VmThread class but they are classified in two categories, the daemon
@@ -330,6 +334,11 @@ public class PerfUtil {
      * So, for daemon threads:
      * It is suggested to inject a call of perfGroupSetSpecificThread* method at {@linkplain com.sun.max.vm.run.java.JavaRunScheme}
      * in case RUNNING. Alternatively, {@linkplain #setAllDaemonThreads(MAXINE_PERF_EVENT_GROUP_ID, int)} can be used to set all daemon threads.
+     * Hint: Wrap the method with as shown below for all daemon threads:
+     *
+     *  for (int threadId = 1; threadId <= 5; threadId++) {
+     *      perfGroupSetSpecificThread*(group, threadId, core);
+     *  }
      *
      * For non-daemon threads:
      * A Perf Event Group should have been set BEFORE thread's runnable execution, so it is suggested to inject a call
@@ -374,7 +383,7 @@ public class PerfUtil {
     }
 
     /**
-     * Is a wrapper method to set a perf Group in ATSC mode for all available cores.
+     * A wrapper method to set a Perf Group in AnyThreadSpecificCore mode for all available cores.
      * @param group
      */
     public static void perfGroupSetAnyThreadAllCores(MAXINE_PERF_EVENT_GROUP_ID group) {
@@ -384,73 +393,72 @@ public class PerfUtil {
     }
 
     /**
-     * Call this method from JavaRunScheme phase RUNNING.
-     * @param group
-     * @param core
-     */
-    public static void setAllDaemonThreads(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
-        for (int threadId = 1; threadId <= 5; threadId++) {
-            if (logPerf) {
-                Log.print("Set daemon thread ");
-                Log.println(threadId);
-            }
-            perfGroupSetSpecificThreadSpecificCore(group, threadId, core);
-        }
-    }
-
-    /**
-     * To be used for "specific thread and specific core" or "specific thread on any core" modes.
-     * It should be injected AFTER a thread's runnable execution.
+     * PerfGroup Read & Reset Methods:
+     *
+     * Each method name indicates the mode it should be used for after the perfGroupReadAndReset prefix.
+     * As for perfGroupSet methods, ReadAndReset methods need to be treated the same way.
+     * A call to readAndReset methods should be injected at the point a user wants to read the event's value
+     *
+     * For non-daemon threads:
+     * Inject AFTER a thread's runnable execution.
      *
      * Proposed point of injection: in {@link VmThread#add(int, boolean, Address, Pointer, Pointer, Pointer, Pointer)}
      * exactly after the executeRunnable(thread) try/catch statement.
      *
-     * Same parameters as {@link #nonDaemonThreadPerfReadAndReset(MAXINE_PERF_EVENT_GROUP_ID, int, int)}
+     *  if (!VmThread.current().javaThread().isDaemon()) {
+     *      // with this check we apply only on application (non-daemon) threads
+     *      final boolean lockDisabledSafepoints = Log.lock();
+     *      perfGroupReadAndResetSpecificThread*();
+     *      Log.unlock(lockDisabledSafepoints);
+     *
+     * Of course, the values of a Perf Group can be read at any later (or earlier) point, even if the thread has been terminated and detached.
+     * This depends on the perf event read frequency of choice.
+     * However, pay attention: The Perf Group is no longer be accessible if a new thread with the same thread id has been created.
+     *
+     * For daemon threads:
+     * Inject at JDK_java_lang_Runtime.gc() if the read frequency of choice is per explicit GC (System.gc()).
+     * Inject at MaxineVm.exit() to avoid missing the last part of vm's execution.
+     *
+     * Hint: Wrap the method with as shown below for all daemon threads:
+     *
+     *  for (int threadId = 1; threadId <= 5; threadId++) {
+     *      perfGroupReadAndResetSpecificThread*();
+     *  }
      */
-    public static void nonDaemonThreadPerfReadAndReset(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
-        if (!VmThread.current().javaThread().isDaemon()) {
-            // with this check we apply only on application (non-daemon) threads
-            final boolean lock = Log.lock();
-            int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
-            PerfUtil.perfEventGroups[groupIndex].disableGroup();
-            PerfUtil.perfEventGroups[groupIndex].readGroup();
-            PerfUtil.perfEventGroups[groupIndex].printGroup();
-            Log.unlock(lock);
-        }
-    }
-
-    public static void daemonThreadPerfSet(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
-        int tid = PerfUtil.tidMap[threadId];
-        PerfUtil.createGroup(group, threadId, tid, core);
-
+    public static void perfGroupReadAndResetSpecificThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
         int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
+        PerfUtil.perfEventGroups[groupIndex].disableGroup();
+        PerfUtil.perfEventGroups[groupIndex].readGroup();
+        PerfUtil.perfEventGroups[groupIndex].printGroup();
         PerfUtil.perfEventGroups[groupIndex].resetGroup();
         PerfUtil.perfEventGroups[groupIndex].enableGroup();
     }
 
-        }
+    public static void perfGroupReadAndResetSpecificThreadAnyCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId) {
+        int groupIndex = PerfEventGroup.uniqueGroupId(-1, threadId, group.value);
+        PerfUtil.perfEventGroups[groupIndex].disableGroup();
+        PerfUtil.perfEventGroups[groupIndex].readGroup();
+        PerfUtil.perfEventGroups[groupIndex].printGroup();
+        PerfUtil.perfEventGroups[groupIndex].resetGroup();
+        PerfUtil.perfEventGroups[groupIndex].enableGroup();
+    }
+
+    public static void perfGroupReadAndResetAnyThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
+        int groupIndex = PerfEventGroup.uniqueGroupId(core, -1, group.value);
+        PerfUtil.perfEventGroups[groupIndex].disableGroup();
+        PerfUtil.perfEventGroups[groupIndex].readGroup();
+        PerfUtil.perfEventGroups[groupIndex].printGroup();
+        PerfUtil.perfEventGroups[groupIndex].resetGroup();
+        PerfUtil.perfEventGroups[groupIndex].enableGroup();
     }
 
     /**
-     * place at.
-     * JDK_java_lang_Runtime.gc()
-     * MaxineVm.exit()
+     * A wrapper method to read and reset a Perf Group in AnyThreadSpecificCore mode for all available cores.
+     * @param group
      */
-    public static void groupReadAndResetForAllDaemonThreads() {
-        int liveThreadCount = VmThreadMap.getLiveTheadCount();
-
-        for (int threadId = 1; threadId <= 5; threadId++) {
-            /*if (threadId == 6) {
-                continue;
-            }*/
-            int tid = tidMap[threadId];
-            int groupIndex = PerfEventGroup.uniqueGroupId(-1, threadId, PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_MISSES_GROUP.value);
-            perfEventGroups[groupIndex].disableGroup();
-            perfEventGroups[groupIndex].readGroup();
-            perfEventGroups[groupIndex].printGroup();
-
-            perfEventGroups[groupIndex].resetGroup();
-            perfEventGroups[groupIndex].enableGroup();
+    public static void perfGroupReadAndResetAnyThreadAllCores(MAXINE_PERF_EVENT_GROUP_ID group) {
+        for (int core = 0; core < numOfCores; core++) {
+            perfGroupReadAndResetAnyThreadSpecificCore(group, core);
         }
     }
 
