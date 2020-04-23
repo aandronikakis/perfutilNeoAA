@@ -260,6 +260,24 @@ public class PerfUtil {
 
     public static int iteration = 0;
 
+    /**
+     * PerfUtil's modes.
+     *
+     * There are 3 available modes:
+     * 1) Specific thread on specific core mode - (STSC)
+     * 2) Specific thread on any core mode - (STAC)
+     * 3) Any thread on specific core mode - (ATSC)
+     *
+     * Each mode refers to the scope of a {@link PerfEventGroup}, thus a mode-specific method is available for each action might be needed from a group.
+     * The actions are classified to:
+     * 1) Set - initialize the group. Then reset it and enable it. Availabe methods:
+     *      {@link #perfGroupSetSpecificThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID, int, int)}
+     *      {@link #perfGroupSetSpecificThreadAnyCore(MAXINE_PERF_EVENT_GROUP_ID, int)}
+     *      {@link #perfGroupSetAnyThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID, int)}
+     * 2) Read & Reset - disable the group, read the values, reset and re-enable
+     * 3) Close -
+     */
+
     public PerfUtil() {
     }
 
@@ -287,7 +305,7 @@ public class PerfUtil {
      * Keeping and updating the tid map is essential for the whole PerfUtil functionality.
      * Despite the fact that inside the JVM we deal with threadIds, perf needs the actual tid of the
      * thread to be attached on.
-     * NOTE: this method is should only be called by the thread of which the tid is being updated.
+     * NOTE: this method is effective only if is being called by the thread of which the tid is being updated.
      * @param threadId
      */
     public static void updateTidMap(int threadId) {
@@ -295,26 +313,81 @@ public class PerfUtil {
     }
 
     /**
-     * To be used for "specific thread and specific core" or "specific thread on any core" modes.
-     * For more accurate results, it should be called as earlier as possible during a {@link VmThread}'s init.
-     * In any case it should be injected BEFORE thread's runnable execution.
+     * In "specific thread on specific core" and "specific thread on any core" modes we target a specific thread.
+     * Given that, we should take under consideration each thread's nature.
+     * In MaxineVM all threads are instances of VmThread class but they are classified in two categories, the daemon
+     * and non-daemon threads. Daemon threads are those dedicated to vm-internal tasks. Non-daemon are the application
+     * threads. Daemon and non-daemon threads are initialized during different vm states and thus they should be handled accordingly.
      *
-     * Proposed point of injection: in {@link VmThread#add(int, boolean, Address, Pointer, Pointer, Pointer, Pointer)}
+     * For more accurate results in any "specific thread" mode, it is suggested to set the perf group as soon as possible
+     * after a thread's spawn. However, this is not really possible for daemon threads.
+     *
+     * So, for daemon threads:
+     * It is suggested to inject a call of perfGroupSetSpecificThread* method at {@linkplain com.sun.max.vm.run.java.JavaRunScheme}
+     * in case RUNNING. Alternatively, {@linkplain #setAllDaemonThreads(MAXINE_PERF_EVENT_GROUP_ID, int)} can be used to set all daemon threads.
+     *
+     * For non-daemon threads:
+     * A Perf Event Group should have been set BEFORE thread's runnable execution, so it is suggested to inject a call
+     * of perfGroupSetSpecificThread* in {@link VmThread#add(int, boolean, Address, Pointer, Pointer, Pointer, Pointer)}
      * exactly before the executeRunnable(thread) try/catch statement.
+     *
+     * To guard the injected call from daemon threads:
+     *
+     * if (MaxineVM.isRunning()) {
+     *      final boolean lockDisabledSafepoints = Log.lock();
+     *      perfGroupSetSpecificThread*();
+     *      Log.unlock(lockDisabledSafepoints);
+     *  }
      *
      * @param group the perf group of choice
      * @param threadId the threadId of the perf-ed thread
-     * @param core the coreId of choice for "specific thread and specific core" mode or -1 for "specific thread on any core"
+     * @param core the coreId of choice for "specific thread on specific core" mode. Hardcoded to -1 for "specific thread on any core"
      */
-    public static void nonDaemonThreadPerfSet(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
-        if (MaxineVM.isRunning()) {
-            // with this check we apply only on application (non-daemon) threads
-            final boolean lock2 = Log.lock();
-            PerfUtil.createGroup(group, threadId, tidMap[threadId], core);
-            int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
-            PerfUtil.perfEventGroups[groupIndex].resetGroup();
-            PerfUtil.perfEventGroups[groupIndex].enableGroup();
-            Log.unlock(lock2);
+    public static void perfGroupSetSpecificThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
+        int tid = tidMap[threadId];
+        PerfUtil.createGroup(group, threadId, tid, core);
+
+        int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
+        PerfUtil.perfEventGroups[groupIndex].resetGroup();
+        PerfUtil.perfEventGroups[groupIndex].enableGroup();
+    }
+
+    public static void perfGroupSetSpecificThreadAnyCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId) {
+        int tid = tidMap[threadId];
+        PerfUtil.createGroup(group, threadId, tid, -1);
+
+        int groupIndex = PerfEventGroup.uniqueGroupId(-1, threadId, group.value);
+        PerfUtil.perfEventGroups[groupIndex].resetGroup();
+        PerfUtil.perfEventGroups[groupIndex].enableGroup();
+    }
+
+    public static void perfGroupSetAnyThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
+        PerfUtil.createGroup(group, -1, -1, core);
+        int groupIndex = PerfEventGroup.uniqueGroupId(core, -1, group.value);
+        PerfUtil.perfEventGroups[groupIndex].resetGroup();
+        PerfUtil.perfEventGroups[groupIndex].enableGroup();
+    }
+
+    /**
+     * Is a wrapper method to set a perf Group in ATSC mode for all available cores.
+     * @param group
+     */
+    public static void perfGroupSetAnyThreadAllCores(MAXINE_PERF_EVENT_GROUP_ID group) {
+        for (int core = 0; core < numOfCores; core++) {
+            perfGroupSetAnyThreadSpecificCore(group, core);
+        }
+    }
+
+    /**
+     * Call this method from JavaRunScheme phase RUNNING.
+     * @param group
+     * @param core
+     */
+    public static void setAllDaemonThreads(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
+        for (int threadId = 1; threadId <= 5; threadId++) {
+            Log.print("Set daemon thread ");
+            Log.println(threadId);
+            perfGroupSetSpecificThreadSpecificCore(group, threadId, core);
         }
     }
 
