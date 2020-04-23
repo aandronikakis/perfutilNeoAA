@@ -86,6 +86,7 @@ extern void log_flush(void);
 #define log_MMAP (log_ALL || 0)
 // log_NUMA_THREADS can be used only on non-ARM architectures
 #define log_NUMA_THREADS (!isa_ARM && 0)
+#define log_PERF (log_ALL || 0)
 
 #if log_JVMNI
 #define jvmni_log_println log_println

@@ -32,6 +32,7 @@
 #include <linux/perf_event.h>
 
 #include "vm.h"
+#include "log.h"
 
 /*
  *	Perf tool wrappers for MaxineVM
@@ -59,7 +60,9 @@ int enabled = 0;
 void perfUtilInit(int numOfEvents) {
 	if(!enabled) {
 
-		printf("initialize perfUtil for %d events\n", numOfEvents);	
+		#if log_PERF
+			printf("initialize perfUtil for %d events\n", numOfEvents);
+		#endif
 
 		// initialize fds
 		perf_event_fds = (int*)calloc(numOfEvents, sizeof(int));
@@ -85,7 +88,9 @@ void perfUtilInit(int numOfEvents) {
 	    }
 	    enabled = 1;
 	} else {
-		printf("perf utils already enabled");
+		#if log_PERF
+			printf("perf utils already enabled");
+		#endif
 	}
 }
 
@@ -119,7 +124,9 @@ void perfEventCreate(int id, int type, int config, int thread, int tid, int core
 		groupLeaderFd = perf_event_fds[groupLeaderEventId];
 	}
 
-	printf("Create perfEvent %d for thread %d tid %d pid: %d, (%ld, %d)\n", id, thread, tid, getpid(), syscall(SYS_gettid), core);
+	#if log_PERF
+		printf("Create perfEvent %d for thread %d tid %d, on core %d, pid %d\n", id, thread, tid, core, getpid());
+	#endif
 
 	if( (perf_event_fds[id] = syscall(__NR_perf_event_open, &perf_event_attrs[id], tid, core, groupLeaderFd, 0)) == -1 ) {
 	    	errx(1, "error on __NR_perf_event_open at perfEventCreate [%d]: %s\
