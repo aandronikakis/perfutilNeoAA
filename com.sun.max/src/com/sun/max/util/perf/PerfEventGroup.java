@@ -37,14 +37,16 @@ public class PerfEventGroup {
     public static int groupBits = 0;
 
     public PerfEventGroup(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int tid, int core) {
-        /*Log.print("[PerfEventGroup] create ");
-        Log.print(group);
-        Log.print(" for thread ");
-        Log.print(threadId);
-        Log.print(" with tid ");
-        Log.print(tid);
-        Log.print(" on core ");
-        Log.println(core);*/
+        if (PerfUtil.logPerf) {
+            Log.print("[PerfEventGroup] create ");
+            Log.print(group);
+            Log.print(" for thread ");
+            Log.print(threadId);
+            Log.print(" with tid ");
+            Log.print(tid);
+            Log.print(" on core ");
+            Log.println(core);
+        }
         this.thread = threadId;
         this.tid = tid;
         this.core = core;
@@ -100,15 +102,28 @@ public class PerfEventGroup {
 
         // store the read values to their dedicated PerfEvent objects
         for (int i = 0; i < numOfEvents; i++) {
+            if (PerfUtil.logPerf) {
+                Log.print("  ==> Value read = ");
+                Log.println(valuesBuffer[i]);
+            }
             perfEvents[i].value = valuesBuffer[i];
         }
     }
 
     public void printGroup() {
-        Log.print("Print ");
-        Log.println(groupId);
+        if (PerfUtil.logPerf) {
+            Log.print("Print group ");
+            Log.print(groupId);
+        }
 
         for (int i = 0; i < numOfEvents; i++) {
+            Log.print("== Iteration ");
+            Log.print(PerfUtil.iteration);
+            Log.print(", thread ");
+            Log.print(thread);
+            Log.print(", core ");
+            Log.print(core);
+            Log.print(" : ");
             Log.print(perfEvents[i].eventId);
             Log.print(" = ");
             Log.println(perfEvents[i].value);

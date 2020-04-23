@@ -55,6 +55,9 @@ import static com.sun.max.vm.thread.VmThread.getTid;
 
 public class PerfUtil {
 
+    @CONSTANT
+    public static final boolean logPerf = false;
+
     /**
      *  Available PerfEvent types.
      *  To be passed in type field of the perf_event_attribute
@@ -282,8 +285,10 @@ public class PerfUtil {
     }
 
     public static void initialize() {
-        Log.print("[PerfUtil constructor] PerfUtil initialization by thread ");
-        Log.println(VmThread.current().id());
+        if (logPerf) {
+            Log.print("[PerfUtil constructor] PerfUtil initialization by thread ");
+            Log.println(VmThread.current().id());
+        }
 
         numOfUniquePerfGroups = PerfEventGroup.maxUniqueEventGroups(numOfCores, numOfThreads, numOfSupportedPerfEventGroups);
         numOfUniquePerfEvents = PerfEvent.maxUniquePerfEvents(numOfCores, numOfThreads, numOfSupportedPerfEvents);
@@ -385,8 +390,10 @@ public class PerfUtil {
      */
     public static void setAllDaemonThreads(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
         for (int threadId = 1; threadId <= 5; threadId++) {
-            Log.print("Set daemon thread ");
-            Log.println(threadId);
+            if (logPerf) {
+                Log.print("Set daemon thread ");
+                Log.println(threadId);
+            }
             perfGroupSetSpecificThreadSpecificCore(group, threadId, core);
         }
     }
