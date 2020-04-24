@@ -91,7 +91,6 @@ public class PerfEventGroup {
     public void resetGroup() {
         // reset the group leader
         perfEvents[0].reset();
-        //readGroup();
     }
 
     public void readGroup() {
@@ -117,18 +116,17 @@ public class PerfEventGroup {
         }
 
         for (int i = 0; i < numOfEvents; i++) {
-            Log.print("== Iteration ");
+            Log.print("(PerfUtil);");
             Log.print(PerfUtil.iteration);
-            Log.print(", thread ");
+            Log.print(";");
             Log.print(thread);
-            Log.print(", core ");
+            Log.print(";");
             Log.print(core);
-            Log.print(" : ");
+            Log.print(";");
             Log.print(perfEvents[i].eventId);
-            Log.print(" = ");
+            Log.print(";");
             Log.println(perfEvents[i].value);
         }
-        //Log.unlock(lock);
     }
 
     public void closeGroup() {
