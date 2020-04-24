@@ -845,6 +845,62 @@ def numaprofiler(args):
     print('The execution is finished.')
     numaProfilerOutputProcessing(os.path.basename(os.getenv('MAXINE_LOG_FILE')))
 
+def perfUtilOutputProcessing(filename):
+    if type(filename) == list:
+        oldFileName = os.path.abspath(filename[0])
+    else:
+        oldFileName = os.path.abspath(filename)
+
+    #extract the benchmark name
+    #we assume that the file name follows the following format
+    #benchmark_perfutil_out.csv
+    benchmark = os.path.basename(oldFileName).split('.')[0].split('_')[0]
+    path = os.path.dirname(oldFileName)
+
+    #open the perfUtil output file
+    oldFile = open(oldFileName, 'r')
+    lines = oldFile.readlines()
+    oldFile.close
+
+    #open a new file for perf util
+    perfUtilFileName = path+'/tmp.csv'
+    #print(perfUtilFileName)
+    #exit()
+    perfUtilFile = open(perfUtilFileName, 'a')
+    # Object Allocations File Header
+    perfUtilFile.write('Iteration;Thread;Core;EventName;Value\n')
+
+    #heap boundaries regex
+    perfUtilPattern = r'\(PerfUtil\)+\;[0-9]+\;-?[0-9]+\;-?[0-9]+\;[^\;.]*\;[0-9]'
+
+    for line in lines:
+        perfUtilLineMatch = re.match(perfUtilPattern, line)
+
+        if (perfUtilLineMatch):
+            # Perf Util Output line found
+            #index = int(perfUtilLineMatch.group(1))
+            fields = line.split(';')
+
+            print(fields)
+            iteration = fields[1]
+            thread = fields[2]
+            core = fields[3]
+            eventName = fields[4]
+            value = int(fields[5])
+
+            # Create the New Line
+            newLine = iteration + ';' + thread + ';' + core + ';' + eventName + ';' + str(value) + '\n'
+            perfUtilFile.write(newLine)
+
+    print(perfUtilFileName)
+    perfUtilFile.close
+
+    # delete the old output
+    #os.unlink(oldFileName)
+    # replace with the new output
+    #shutil.move(perfUtilFileName, oldFileName)
+
+
 def site(args):
     """creates a website containing javadoc and the project dependency graph"""
 
@@ -1055,6 +1111,7 @@ def mx_init(suite):
         'nm': [nm, '[options] [boot image file]', _vm_image],
         'objecttree': [objecttree, '[options]'],
         'olc': [olc, '[-cp classpath] [options] patterns...', _patternHelp],
+        'perfUtilOutputProcessing': [perfUtilOutputProcessing, ''],
         'site': [site, '[options]'],
         't1x': [t1x, '[options] patterns...'],
         't1xgen': [t1xgen, ''],
