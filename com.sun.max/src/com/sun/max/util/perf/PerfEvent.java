@@ -76,6 +76,10 @@ public class PerfEvent {
         perfEventRead(uniqueEventId(core, thread, eventId.value), Reference.fromJava(values).toOrigin().plus(dataOffset));
     }
 
+    public void close() {
+        perfEventClose(uniqueEventId(core, thread, eventId.value));
+    }
+
     /**
      * A unique perf event id is a bitmask.
      * The bitmask is the concatenation of: eventId, threadId, anyThreadBit, coreId, anyCoreBit.
@@ -148,5 +152,8 @@ public class PerfEvent {
 
     @C_FUNCTION
     public static native void perfEventRead(int id, Pointer values);
+
+    @C_FUNCTION
+    public static native void perfEventClose(int id);
 
 }

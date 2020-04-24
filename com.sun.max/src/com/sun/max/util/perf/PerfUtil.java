@@ -462,6 +462,18 @@ public class PerfUtil {
         }
     }
 
+    /**
+     * PerfGroup Close Method:
+     *
+     * Pass the MAXINE_PERF_EVENT_GROUP_ID, the threadId and the core to specify which group should be closed.
+     * This method chain ends up by calling the native close function of each perf event contained in the group.
+     * The native close function uses the "close" system call to close the file descriptor of the event.
+     */
+    public static void perfGroupClose(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
+        int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
+        perfEventGroups[groupIndex].closeGroup();
+    }
+
     @C_FUNCTION
     public static native Pointer perfUtilInit(int numOfEvents);
 

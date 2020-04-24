@@ -131,6 +131,16 @@ public class PerfEventGroup {
         //Log.unlock(lock);
     }
 
+    public void closeGroup() {
+        if (PerfUtil.logPerf) {
+            Log.print("Close group ");
+            Log.print(groupId);
+        }
+        for (int i = 0; i < numOfEvents; i++) {
+            perfEvents[i].close();
+        }
+    }
+
     /**
      * A unique perf event group id is a bitmask.
      * The bitmask is the concatenation of: groupId, threadId, anyThreadBit, coreId, anyCoreBit.

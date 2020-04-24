@@ -172,3 +172,12 @@ void perfEventRead(int groupLeaderEventId, long *values) {
 		values[i] = (long)rf->values[i].value;
 	}
 }
+
+void perfEventClose(int id) {
+	#if log_PERF
+		printf("Closing Perf Event %d\n", id);
+	#endif
+	if (close(perf_event_fds[id]) == -1) {
+		errx(1, "error on close at perfEventClose [%d]: %s", errno, strerror(errno));
+	}
+}
