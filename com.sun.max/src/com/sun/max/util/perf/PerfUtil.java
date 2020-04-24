@@ -31,25 +31,64 @@ import static com.sun.max.vm.thread.VmThread.getTid;
 
 /**
  * A class that enables perf tool utilization into MaxineVM.
- * Perf can be used with numerous of perf events, individually or in groups.
- * Each perf event is modeled as a {@link PerfEvent} object instance.
- * A {@link PerfEvent} has a "type" {@link PERF_TYPE_ID} and a "config".
- * The currently available configs ({@link PERF_HW_EVENT_ID} and {@link PERF_HW_CACHE_EVENT_ID}) belong to
- * the {@link PERF_TYPE_ID#PERF_TYPE_HARDWARE} and {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} types accordingly.
- * All {@link PerfEvent}s are accessed through the single {@link PerfUtil} instance held by the VM.
  *
- * To enable perf tool utilization in MaxineVM simply add the following code
- * at {@link com.sun.max.vm.run.java.JavaRunScheme#initialize(MaxineVM.Phase)} in case RUNNING:
+ * Perf can be used with numerous of perf events, individually or in groups. Each perf event is
+ * modeled as a {@link PerfEvent} object instance. Each perf event group is modeled as a
+ * {@link PerfEventGroup} object instance.
+ * A {@link PerfEvent} has a "type" {@link PERF_TYPE_ID} and a "config". The currently available
+ * configs ({@link PERF_HW_EVENT_ID} and {@link PERF_HW_CACHE_EVENT_ID}) belong to the
+ * {@link PERF_TYPE_ID#PERF_TYPE_HARDWARE} and {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} types
+ * accordingly.
+ * TODO: extend perf events (more hw and cache events as well as sw events).
+ * TODO: can we support that the current implementation enables every possible perf event utilization?
  *
- *      if (PerfUtil.usePerf) {
- *          PerfUtil.initialize();
- *      }
+ * Event Granularity:
+ * Typically, each {@link PerfEvent} should be part of a {@link PerfEventGroup}.
+ * This approach ensures that a set of mathematically related events are all simultaneously set,
+ * reset, enabled, disabled and read so that measurements cover the same period of time. However,
+ * the current implementation is not restrictive by providing the freedom of choice over the
+ * granularity, with very few changes. Groups with one single {@link PerfEvent} are also allowed.
+ * All {@link PerfEventGroup}s are accessed through the {@link #perfEventGroups} array held by the
+ * {@link PerfUtil} class.
  *
- *  TODO: document enable, disable, reset, read and close.
+ * Enable PerfUtil:
+ * To enable perf tool utilization in MaxineVM simply add the following code at
+ * {@link com.sun.max.vm.run.java.JavaRunScheme#initialize(MaxineVM.Phase)} in case RUNNING:
  *
- *  Make sure that the perf event you want to monitor is declared and initialized as a {@link PerfEvent}
- *  in this class (see
- * See perf.h for more detailed documentation.
+ *  if (PerfUtil.usePerf) {
+ *      PerfUtil.initialize();
+ *  }
+ *
+ * PerfUtil's modes:
+ * There are 3 available modes:
+ *  1) Specific thread on specific core mode - (STSC)
+ *  2) Specific thread on any core mode - (STAC)
+ *  3) Any thread on specific core mode - (ATSC)
+ * Each mode refers to the scope of a {@link PerfEventGroup}, thus a mode-specific method is available
+ * for each *Action* might be needed by a group. The Actions define the PerfUtil's API!
+ * The actions are classified to:
+ *  1) Set - initialize the group. Then reset it and enable it. Available methods:
+ *      {@link #perfGroupSetSpecificThreadSpecificCore}
+ *      {@link #perfGroupSetSpecificThreadAnyCore}
+ *      {@link #perfGroupSetAnyThreadSpecificCore}
+ *      {@link #perfGroupSetAnyThreadAllCores}
+ *  2) Read & Reset - disable the group, read the values, reset and re-enable. Available methods:
+ *      {@link #perfGroupReadAndResetSpecificThreadSpecificCore}
+ *      {@link #perfGroupReadAndResetSpecificThreadAnyCore}
+ *      {@link #perfGroupReadAndResetAnyThreadSpecificCore}
+ *      {@link #perfGroupReadAndResetAnyThreadAllCores}
+ *  3) Close - close the group. Available methods:
+ *      {@link #perfGroupClose}
+ *
+ * Implement a new {@link PerfEvent}:
+ * Make sure that the perf event you want to monitor has its {@link PERF_TYPE_ID} and config defined
+ * under the proper enum in this class. Also define a unique Maxine-internal {@link MAXINE_PERF_EVENT_GROUP_ID}.
+ * Then include the event into one of the already existing {@link MAXINE_PERF_EVENT_GROUP_ID}s.
+ * In case it cannot be co-located with any of the already defined groups, define a new one.
+ *
+ * TODO: include (where?) use-case examples
+ *
+ * To define a new perf event or for more detailed documentation, see perf.h:
  * https://docs.huihoo.com/doxygen/linux/kernel/3.7/include_2uapi_2linux_2perf__event_8h_source.html
  */
 
@@ -263,24 +302,6 @@ public class PerfUtil {
 
     public static int iteration = 0;
 
-    /**
-     * PerfUtil's modes.
-     *
-     * There are 3 available modes:
-     * 1) Specific thread on specific core mode - (STSC)
-     * 2) Specific thread on any core mode - (STAC)
-     * 3) Any thread on specific core mode - (ATSC)
-     *
-     * Each mode refers to the scope of a {@link PerfEventGroup}, thus a mode-specific method is available for each action might be needed from a group.
-     * The actions are classified to:
-     * 1) Set - initialize the group. Then reset it and enable it. Availabe methods:
-     *      {@link #perfGroupSetSpecificThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID, int, int)}
-     *      {@link #perfGroupSetSpecificThreadAnyCore(MAXINE_PERF_EVENT_GROUP_ID, int)}
-     *      {@link #perfGroupSetAnyThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID, int)}
-     * 2) Read & Reset - disable the group, read the values, reset and re-enable
-     * 3) Close -
-     */
-
     public PerfUtil() {
     }
 
@@ -300,7 +321,6 @@ public class PerfUtil {
     }
 
     public static void createGroup(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int tid, int core) {
-        //MaxineVM.perfUtil.perfEventGroups[threadId][group.value] = new PerfEventGroup(group, threadId, core);
         int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
         perfEventGroups[groupIndex] = new PerfEventGroup(group, threadId, tid, core);
     }
