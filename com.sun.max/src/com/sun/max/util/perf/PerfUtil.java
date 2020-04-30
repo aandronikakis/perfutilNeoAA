@@ -279,21 +279,21 @@ public class PerfUtil {
 
     public static PerfEventGroup[] perfEventGroups;
 
-    public static int numOfSupportedPerfEventGroups = MAXINE_PERF_EVENT_GROUP_ID.values().length;
-    public static int numOfSupportedPerfEvents = MAXINE_PERF_EVENT_ID.values().length;
-    public static int numOfUniquePerfGroups;
-    public static int numOfUniquePerfEvents;
-
     /**
      * Max num of threads currently supported.
      * This number is arbitrary. Theoretically it can be any number.
      */
-    final static int numOfThreads = 64;
+    final static int NUM_OF_THREADS = 64;
 
     /**
      * The num of cores of the machine.
      */
-    final static int numOfCores = Runtime.getRuntime().availableProcessors();
+    final static int NUM_OF_CORES = Runtime.getRuntime().availableProcessors();
+
+    final static int NUM_OF_SUPPORTED_PERF_EVENT_GROUPS = MAXINE_PERF_EVENT_GROUP_ID.values().length;
+    final static int NUM_OF_SUPPORTED_PERF_EVENTS = MAXINE_PERF_EVENT_ID.values().length;
+    final static int NUM_OF_UNIQUE_PERF_GROUPS = PerfEventGroup.maxUniqueEventGroups(NUM_OF_CORES, NUM_OF_THREADS, NUM_OF_SUPPORTED_PERF_EVENT_GROUPS);
+    final static int NUM_OF_UNIQUE_PERF_EVENTS = PerfEvent.maxUniquePerfEvents(NUM_OF_CORES, NUM_OF_THREADS, NUM_OF_SUPPORTED_PERF_EVENTS);
 
     public static boolean isInitialized = false;
 
@@ -301,7 +301,7 @@ public class PerfUtil {
      * This thread map holds the tid of each VmThread with {@link VmThread#id()} as index.
      * A VmThread's tid write in the map should be injected in VmThread's creation method.
      */
-    public static int[] tidMap = new int[numOfThreads];
+    public static int[] tidMap = new int[NUM_OF_THREADS];
 
     public static int iteration = 0;
 
@@ -315,11 +315,8 @@ public class PerfUtil {
             Log.println(VmThread.current().id());
         }
 
-        numOfUniquePerfGroups = PerfEventGroup.maxUniqueEventGroups(numOfCores, numOfThreads, numOfSupportedPerfEventGroups);
-        numOfUniquePerfEvents = PerfEvent.maxUniquePerfEvents(numOfCores, numOfThreads, numOfSupportedPerfEvents);
-
-        perfEventGroups = new PerfEventGroup[numOfUniquePerfGroups];
-        perfUtilInit(numOfUniquePerfEvents);
+        perfEventGroups = new PerfEventGroup[NUM_OF_UNIQUE_PERF_GROUPS];
+        perfUtilInit(NUM_OF_UNIQUE_PERF_EVENTS);
 
         isInitialized = true;
     }
@@ -411,7 +408,7 @@ public class PerfUtil {
      * @param group
      */
     public static void perfGroupSetAnyThreadAllCores(MAXINE_PERF_EVENT_GROUP_ID group) {
-        for (int core = 0; core < numOfCores; core++) {
+        for (int core = 0; core < NUM_OF_CORES; core++) {
             perfGroupSetAnyThreadSpecificCore(group, core);
         }
     }
@@ -481,7 +478,7 @@ public class PerfUtil {
      * @param group
      */
     public static void perfGroupReadAndResetAnyThreadAllCores(MAXINE_PERF_EVENT_GROUP_ID group) {
-        for (int core = 0; core < numOfCores; core++) {
+        for (int core = 0; core < NUM_OF_CORES; core++) {
             perfGroupReadAndResetAnyThreadSpecificCore(group, core);
         }
     }
