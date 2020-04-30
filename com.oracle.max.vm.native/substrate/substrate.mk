@@ -35,9 +35,10 @@ SOURCES = c.c condition.c log.c image.c $(ISA).c jni.c jvm.c maxine.c memory.c m
 
 TARGETOS ?= $(shell uname -s)
 ifeq ($(TARGETOS),Linux)
+	SOURCES += perf.c
     TARGETISA ?= $(shell uname -m)
     ifeq ($(TARGETISA), x86_64)
-		SOURCES += numa.c perf.c
+		SOURCES += numa.c
     endif # x86_64
 endif # Linux
 

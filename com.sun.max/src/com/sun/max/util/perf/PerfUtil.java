@@ -20,10 +20,13 @@
 package com.sun.max.util.perf;
 
 import com.sun.max.annotate.*;
+import com.sun.max.platform.OS;
+import com.sun.max.platform.Platform;
 import com.sun.max.unsafe.Address;
 import com.sun.max.unsafe.Pointer;
 import com.sun.max.vm.Log;
 import com.sun.max.vm.MaxineVM;
+import com.sun.max.vm.runtime.FatalError;
 import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadMap;
 
@@ -306,6 +309,7 @@ public class PerfUtil {
     }
 
     public static void initialize() {
+        FatalError.check(Platform.platform().os == OS.LINUX, "PerfUtil is only available for Linux.");
         if (logPerf) {
             Log.print("[PerfUtil constructor] PerfUtil initialization by thread ");
             Log.println(VmThread.current().id());
