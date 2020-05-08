@@ -150,6 +150,30 @@ public class PerfUtil {
     }
 
     /**
+     * Perf event "configs" available for the {@link PERF_TYPE_ID#PERF_TYPE_SOFTWARE} "type".
+     * attr.config
+     */
+    public enum PERF_SW_EVENT_ID {
+        PERF_COUNT_SW_CPU_CLOCK(0),
+        PERF_COUNT_SW_TASK_CLOCK(1),
+        PERF_COUNT_SW_PAGE_FAULTS(2),
+        PERF_COUNT_SW_CONTEXT_SWITCHES(3),
+        PERF_COUNT_SW_CPU_MIGRATIONS(4),
+        PERF_COUNT_SW_PAGE_FAULTS_MIN(5),
+        PERF_COUNT_SW_PAGE_FAULTS_MAJ(6),
+        PERF_COUNT_SW_ALIGNMENT_FAULTS(7),
+        PERF_COUNT_SW_EMULATION_FAULTS(8),
+        PERF_COUNT_SW_DUMMY(9),
+        PERF_COUNT_SW_BPF_OUTPUT(10);
+
+        public final int value;
+
+        PERF_SW_EVENT_ID(int i) {
+            value = i;
+        }
+    }
+
+    /**
      * Perf event "configs" available for the {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} "type".
      * For {@link PERF_TYPE_ID#PERF_TYPE_HW_CACHE} events, the config is a bitmask.
      *      lowest 8 bits: a cache type from {@link PERF_HW_CACHE_TYPE_ID}
