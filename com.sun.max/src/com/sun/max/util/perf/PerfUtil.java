@@ -289,10 +289,21 @@ public class PerfUtil {
      *  c) initialize the {@link PerfEventGroup} if it is new.
      */
     public enum MAXINE_PERF_EVENT_ID {
-        CACHE_MISSES(0),
-        LLC_READ_MISSES(1),
-        LLC_WRITE_MISSES(2),
-        INSTRUCTIONS(3);
+        HW_CPU_CYCLES(0),
+        HW_INSTRUCTIONS(1),
+        HW_CACHE_REFERENCES(2),
+        HW_CACHE_MISSES(3),
+        HW_BRANCH_INSTRUCTIONS(4),
+        HW_BRANCH_MISSES(5),
+        HW_BUS_CYCLES(6),
+        HW_STALLED_CYCLES_FRONTEND(7),
+        HW_STALLED_CYCLES_BACKEND(8),
+        HW_REF_CPU_CYCLES(9),
+
+        CACHE_MISSES(10),
+        LLC_READ_MISSES(11),
+        LLC_WRITE_MISSES(12),
+        INSTRUCTIONS(13);
 
         public final int value;
 
