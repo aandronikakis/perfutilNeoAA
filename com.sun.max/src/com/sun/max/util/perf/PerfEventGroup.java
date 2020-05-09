@@ -111,8 +111,8 @@ public class PerfEventGroup {
 
     public void printGroup() {
         if (PerfUtil.logPerf) {
-            Log.print("Print group ");
-            Log.print(groupId);
+            Log.print("[PerfEventGroup] Print group ");
+            Log.println(groupId);
         }
 
         for (int i = 0; i < numOfEvents; i++) {
@@ -131,8 +131,10 @@ public class PerfEventGroup {
 
     public void closeGroup() {
         if (PerfUtil.logPerf) {
-            Log.print("Close group ");
+            Log.print("[PerfEventGroup] Close group ");
             Log.print(groupId);
+            Log.print(" for thread ");
+            Log.println(thread);
         }
         for (int i = 0; i < numOfEvents; i++) {
             perfEvents[i].close();

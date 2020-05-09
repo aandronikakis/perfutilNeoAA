@@ -471,6 +471,10 @@ public class PerfUtil {
      *  }
      */
     public static void perfGroupReadAndResetSpecificThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
+        if (PerfUtil.logPerf) {
+            Log.print("[PerfUtil] perfGroupReadAndResetSpecificThreadSpecificCore() for thread ");
+            Log.println(threadId);
+        }
         int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
         PerfUtil.perfEventGroups[groupIndex].disableGroup();
         PerfUtil.perfEventGroups[groupIndex].readGroup();
@@ -480,6 +484,10 @@ public class PerfUtil {
     }
 
     public static void perfGroupReadAndResetSpecificThreadAnyCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId) {
+        if (PerfUtil.logPerf) {
+            Log.print("[PerfUtil] perfGroupReadAndResetSpecificThreadAnyCore() for thread ");
+            Log.println(threadId);
+        }
         int groupIndex = PerfEventGroup.uniqueGroupId(-1, threadId, group.value);
         PerfUtil.perfEventGroups[groupIndex].disableGroup();
         PerfUtil.perfEventGroups[groupIndex].readGroup();
@@ -489,6 +497,10 @@ public class PerfUtil {
     }
 
     public static void perfGroupReadAndResetAnyThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
+        if (PerfUtil.logPerf) {
+            Log.print("[PerfUtil] perfGroupReadAndResetAnyThreadSpecificCore() for core ");
+            Log.println(core);
+        }
         int groupIndex = PerfEventGroup.uniqueGroupId(core, -1, group.value);
         PerfUtil.perfEventGroups[groupIndex].disableGroup();
         PerfUtil.perfEventGroups[groupIndex].readGroup();

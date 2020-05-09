@@ -21,6 +21,7 @@ package com.sun.max.util.perf;
 
 import com.sun.max.annotate.C_FUNCTION;
 import com.sun.max.unsafe.Pointer;
+import com.sun.max.vm.Log;
 import com.sun.max.vm.layout.Layout;
 import com.sun.max.vm.reference.Reference;
 
@@ -77,6 +78,10 @@ public class PerfEvent {
     }
 
     public void close() {
+        if (PerfUtil.logPerf) {
+            Log.print("[PerfEvent] Closing Perf Event ");
+            Log.println(uniqueEventId(core, thread, eventId.value));
+        }
         perfEventClose(uniqueEventId(core, thread, eventId.value));
     }
 

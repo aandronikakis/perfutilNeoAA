@@ -59,7 +59,7 @@ void perfUtilInit(int numOfEvents) {
     if(!enabled) {
 
 #if log_PERF
-        printf("initialize perfUtil for %d events\n", numOfEvents);
+        printf("Initialize perfUtil for %d events\n", numOfEvents);
 #endif
 
         // initialize fds
@@ -86,9 +86,12 @@ void perfUtilInit(int numOfEvents) {
         enabled = 1;
     } else {
 #if log_PERF
-        printf("perf utils already enabled");
+        printf("perf utils already enabled\n");
 #endif
     }
+#if log_PERF
+    printf("Initialization completed\n");
+#endif
 }
 
 void perfEventCreate(int id, int type, int config, int thread, int tid, int core, int groupLeaderEventId) {
@@ -135,24 +138,36 @@ void perfEventCreate(int id, int type, int config, int thread, int tid, int core
 }
 
 void perfEventEnable(int groupLeaderEventId) {
+#if log_PERF
+    printf("Enabling Group Leader Perf Event %d\n", groupLeaderEventId);
+#endif
     if (ioctl(perf_event_fds[groupLeaderEventId], PERF_EVENT_IOC_ENABLE, PERF_IOC_FLAG_GROUP) == -1) {
         errx(1, "error on ioctl at perfEventEnable [%d]: %s", errno, strerror(errno));
     }
 }
 
 void perfEventDisable(int groupLeaderEventId) {
+#if log_PERF
+    printf("Disabling Group Leader Perf Event %d\n", groupLeaderEventId);
+#endif
     if (ioctl(perf_event_fds[groupLeaderEventId], PERF_EVENT_IOC_DISABLE, PERF_IOC_FLAG_GROUP) == -1) {
         errx(1, "error on ioctl at perfEventDisable [%d]: %s", errno, strerror(errno));
     }
 }
 
 void perfEventReset(int groupLeaderEventId) {
+#if log_PERF
+    printf("Reseting Group Leader Perf Event %d\n", groupLeaderEventId);
+#endif
     if (ioctl(perf_event_fds[groupLeaderEventId], PERF_EVENT_IOC_RESET, PERF_IOC_FLAG_GROUP) == -1) {
         errx(1, "error on ioctl at perfEventReset [%d]: %s", errno, strerror(errno));
     }
 }
 
 void perfEventRead(int groupLeaderEventId, long *values) {
+#if log_PERF
+    printf("Reading Group Leader Perf Event %d\n", groupLeaderEventId);
+#endif
     char buf[4096];
     struct read_format* rf = (struct read_format*) buf;
     uint64_t i;
