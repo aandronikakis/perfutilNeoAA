@@ -44,6 +44,8 @@
 
 struct read_format {
     uint64_t nr;
+    uint64_t time_enabled;
+    uint64_t time_running;
     struct {
         uint64_t value;
         uint64_t id;
@@ -106,7 +108,7 @@ void perfEventCreate(int id, int type, int config, int thread, int tid, int core
     perf_event_attrs[id].exclude_kernel = 1;
     perf_event_attrs[id].exclude_hv = 1;
     perf_event_attrs[id].exclude_idle = 1;
-    perf_event_attrs[id].read_format = PERF_FORMAT_GROUP | PERF_FORMAT_ID;
+    perf_event_attrs[id].read_format = PERF_FORMAT_TOTAL_TIME_ENABLED | PERF_FORMAT_TOTAL_TIME_RUNNING | PERF_FORMAT_GROUP | PERF_FORMAT_ID;
     // -1,	-1	-> 	invalid
     //	1,	-1	->	process 1, all CPUs
     // -1,	 0	->	all processes, current CPU
@@ -164,7 +166,7 @@ void perfEventReset(int groupLeaderEventId) {
     }
 }
 
-void perfEventRead(int groupLeaderEventId, long *values) {
+void perfEventRead(int groupLeaderEventId, long *times, long *values) {
 #if log_PERF
     printf("Reading Group Leader Perf Event %d\n", groupLeaderEventId);
 #endif
@@ -177,6 +179,10 @@ void perfEventRead(int groupLeaderEventId, long *values) {
     if (read(groupLeaderFd, buf, sizeof(buf)) == -1) {
         errx(1, "error on read at perfEventRead [%d]: %s", errno, strerror(errno));
     }
+
+    // store time enabled and time running
+    times[0] = (long)rf -> time_enabled;
+    times[1] = (long)rf -> time_running;
 
     // loop through the result buffer
     for (i = 0; i < rf -> nr; i++) {

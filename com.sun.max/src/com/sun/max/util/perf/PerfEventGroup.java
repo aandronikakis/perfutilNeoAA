@@ -31,6 +31,8 @@ public class PerfEventGroup {
     int tid;
     int core;
     int numOfEvents;
+    long timeEnabled;
+    long timeRunning;
 
     public static int coreBits = 0;
     public static int threadBits = 0;
@@ -50,6 +52,8 @@ public class PerfEventGroup {
         this.thread = threadId;
         this.tid = tid;
         this.core = core;
+        this.timeEnabled = 0;
+        this.timeRunning = 0;
         switch (group) {
             case LLC_MISSES_GROUP:
                 createLLCMissesGroup();
@@ -94,10 +98,21 @@ public class PerfEventGroup {
     }
 
     public void readGroup() {
+        long[] timesBuffer = new long[2];
         long[] valuesBuffer = new long[numOfEvents];
 
         // call read from group leader
-        perfEvents[0].read(valuesBuffer);
+        perfEvents[0].read(timesBuffer, valuesBuffer);
+
+        if (PerfUtil.logPerf) {
+            Log.print(" Group Time Enabled = ");
+            Log.println(timesBuffer[0]);
+            Log.print(" Group Time Running = ");
+            Log.println(timesBuffer[1]);
+        }
+        // store the time values to their dedicated PerfEventGroup instance fields
+        timeEnabled = timesBuffer[0];
+        timeRunning = timesBuffer[1];
 
         // store the read values to their dedicated PerfEvent objects
         for (int i = 0; i < numOfEvents; i++) {

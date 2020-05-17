@@ -72,9 +72,9 @@ public class PerfEvent {
         perfEventReset(uniqueEventId(core, thread, eventId.value));
     }
 
-    public void read(long[] values) {
+    public void read(long[] times, long[] values) {
         int dataOffset = Layout.longArrayLayout().getElementOffsetFromOrigin(0).toInt();
-        perfEventRead(uniqueEventId(core, thread, eventId.value), Reference.fromJava(values).toOrigin().plus(dataOffset));
+        perfEventRead(uniqueEventId(core, thread, eventId.value), Reference.fromJava(times).toOrigin().plus(dataOffset), Reference.fromJava(values).toOrigin().plus(dataOffset));
     }
 
     public void close() {
@@ -156,7 +156,7 @@ public class PerfEvent {
     public static native void perfEventReset(int id);
 
     @C_FUNCTION
-    public static native void perfEventRead(int id, Pointer values);
+    public static native void perfEventRead(int id, Pointer times, Pointer values);
 
     @C_FUNCTION
     public static native void perfEventClose(int id);
