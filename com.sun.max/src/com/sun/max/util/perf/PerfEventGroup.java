@@ -61,6 +61,9 @@ public class PerfEventGroup {
             case MISC_GROUP:
                 createMiscGroup();
                 break;
+            case HW_GROUP:
+                createHWGroup();
+                break;
         }
     }
 
@@ -80,6 +83,19 @@ public class PerfEventGroup {
         perfEvents = new PerfEvent[numOfEvents];
         //hwInstructionsEvent
         perfEvents[0] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.MISC_GROUP, MAXINE_PERF_EVENT_ID.INSTRUCTIONS, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_INSTRUCTIONS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createHWGroup() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.HW_GROUP;
+        final MAXINE_PERF_EVENT_ID groupLeaderId = MAXINE_PERF_EVENT_ID.HW_CPU_CYCLES;
+        numOfEvents = 6;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.HW_GROUP, MAXINE_PERF_EVENT_ID.HW_CPU_CYCLES, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_CPU_CYCLES.value, thread, tid, core, groupLeaderId);
+        perfEvents[1] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.HW_GROUP, MAXINE_PERF_EVENT_ID.HW_INSTRUCTIONS, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_INSTRUCTIONS.value, thread, tid, core, groupLeaderId);
+        perfEvents[2] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.HW_GROUP, MAXINE_PERF_EVENT_ID.HW_CACHE_REFERENCES, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_CACHE_REFERENCES.value, thread, tid, core, groupLeaderId);
+        perfEvents[3] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.HW_GROUP, MAXINE_PERF_EVENT_ID.HW_CACHE_MISSES, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_CACHE_MISSES.value, thread, tid, core, groupLeaderId);
+        perfEvents[4] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.HW_GROUP, MAXINE_PERF_EVENT_ID.HW_STALLED_CYCLES_BACKEND, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_BRANCH_INSTRUCTIONS.value, thread, tid, core, groupLeaderId);
+        perfEvents[5] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.HW_GROUP, MAXINE_PERF_EVENT_ID.HW_REF_CPU_CYCLES, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_BRANCH_MISSES.value, thread, tid, core, groupLeaderId);
     }
 
     public void enableGroup() {

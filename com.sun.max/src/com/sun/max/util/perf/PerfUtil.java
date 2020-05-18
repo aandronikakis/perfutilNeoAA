@@ -272,7 +272,8 @@ public class PerfUtil {
      */
     public enum MAXINE_PERF_EVENT_GROUP_ID {
         LLC_MISSES_GROUP(0),
-        MISC_GROUP(1);
+        MISC_GROUP(1),
+        HW_GROUP(2);
 
         public final int value;
 
