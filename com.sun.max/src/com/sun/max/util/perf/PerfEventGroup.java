@@ -55,8 +55,8 @@ public class PerfEventGroup {
         this.timeEnabled = 0;
         this.timeRunning = 0;
         switch (group) {
-            case LLC_MISSES_GROUP:
-                createLLCMissesGroup();
+            case LLC_GROUP:
+                createLLCGroup();
                 break;
             case SW_GROUP:
                 createSWGroup();
@@ -67,13 +67,15 @@ public class PerfEventGroup {
         }
     }
 
-    public void createLLCMissesGroup() {
-        groupId = MAXINE_PERF_EVENT_GROUP_ID.LLC_MISSES_GROUP;
-        final MAXINE_PERF_EVENT_ID groupLeaderId = MAXINE_PERF_EVENT_ID.LLC_READ_MISSES;
+    public void createLLCGroup() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.LLC_GROUP;
+        final MAXINE_PERF_EVENT_ID groupLeaderId = MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_READ_MISSES;
         numOfEvents = 2;
         perfEvents = new PerfEvent[numOfEvents];
-        perfEvents[0] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.LLC_MISSES_GROUP, MAXINE_PERF_EVENT_ID.LLC_READ_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_READ_MISS.value, thread, tid, core, groupLeaderId);
-        perfEvents[1] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.LLC_MISSES_GROUP, MAXINE_PERF_EVENT_ID.LLC_WRITE_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_WRITE_MISS.value, thread, tid, core, groupLeaderId);
+        perfEvents[0] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.LLC_GROUP, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_READ_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_READ_MISS.value, thread, tid, core, groupLeaderId);
+        perfEvents[1] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.LLC_GROUP, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_WRITE_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_WRITE_MISS.value, thread, tid, core, groupLeaderId);
+        perfEvents[2] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.LLC_GROUP, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_READS, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_READ.value, thread, tid, core, groupLeaderId);
+        perfEvents[3] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.LLC_GROUP, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_WRITES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_WRITE.value, thread, tid, core, groupLeaderId);
     }
 
     public void createSWGroup() {
