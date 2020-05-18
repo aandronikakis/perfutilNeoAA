@@ -272,7 +272,7 @@ public class PerfUtil {
      */
     public enum MAXINE_PERF_EVENT_GROUP_ID {
         LLC_MISSES_GROUP(0),
-        MISC_GROUP(1),
+        SW_GROUP(1),
         HW_GROUP(2);
 
         public final int value;
@@ -301,10 +301,22 @@ public class PerfUtil {
         HW_STALLED_CYCLES_BACKEND(8),
         HW_REF_CPU_CYCLES(9),
 
-        CACHE_MISSES(10),
-        LLC_READ_MISSES(11),
-        LLC_WRITE_MISSES(12),
-        INSTRUCTIONS(13);
+        SW_CPU_CLOCK(10),
+        SW_TASK_CLOCK(11),
+        SW_PAGE_FAULTS(12),
+        SW_CONTEXT_SWITCHES(13),
+        SW_CPU_MIGRATIONS(14),
+        SW_PAGE_FAULTS_MIN(15),
+        SW_PAGE_FAULTS_MAJ(16),
+        SW_ALIGNMENT_FAULTS(17),
+        SW_EMULATION_FAULTS(18),
+        SW_DUMMY(19),
+        SW_BPF_OUTPUT(20),
+
+        CACHE_MISSES(21),
+        LLC_READ_MISSES(22),
+        LLC_WRITE_MISSES(23),
+        INSTRUCTIONS(24);
 
         public final int value;
 

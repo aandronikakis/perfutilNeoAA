@@ -58,8 +58,8 @@ public class PerfEventGroup {
             case LLC_MISSES_GROUP:
                 createLLCMissesGroup();
                 break;
-            case MISC_GROUP:
-                createMiscGroup();
+            case SW_GROUP:
+                createSWGroup();
                 break;
             case HW_GROUP:
                 createHWGroup();
@@ -76,13 +76,16 @@ public class PerfEventGroup {
         perfEvents[1] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.LLC_MISSES_GROUP, MAXINE_PERF_EVENT_ID.LLC_WRITE_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_WRITE_MISS.value, thread, tid, core, groupLeaderId);
     }
 
-    public void createMiscGroup() {
-        groupId = MAXINE_PERF_EVENT_GROUP_ID.MISC_GROUP;
-        final MAXINE_PERF_EVENT_ID groupLeaderId = MAXINE_PERF_EVENT_ID.INSTRUCTIONS;
-        numOfEvents = 1;
+    public void createSWGroup() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP;
+        final MAXINE_PERF_EVENT_ID groupLeaderId = MAXINE_PERF_EVENT_ID.SW_PAGE_FAULTS;
+        numOfEvents = 5;
         perfEvents = new PerfEvent[numOfEvents];
-        //hwInstructionsEvent
-        perfEvents[0] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.MISC_GROUP, MAXINE_PERF_EVENT_ID.INSTRUCTIONS, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_INSTRUCTIONS.value, thread, tid, core, groupLeaderId);
+        perfEvents[0] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, MAXINE_PERF_EVENT_ID.SW_PAGE_FAULTS, PERF_TYPE_ID.PERF_TYPE_SOFTWARE, PERF_SW_EVENT_ID.PERF_COUNT_SW_PAGE_FAULTS.value, thread, tid, core, groupLeaderId);
+        perfEvents[1] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, MAXINE_PERF_EVENT_ID.SW_CONTEXT_SWITCHES, PERF_TYPE_ID.PERF_TYPE_SOFTWARE, PERF_SW_EVENT_ID.PERF_COUNT_SW_CONTEXT_SWITCHES.value, thread, tid, core, groupLeaderId);
+        perfEvents[2] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, MAXINE_PERF_EVENT_ID.SW_CPU_MIGRATIONS, PERF_TYPE_ID.PERF_TYPE_SOFTWARE, PERF_SW_EVENT_ID.PERF_COUNT_SW_CPU_MIGRATIONS.value, thread, tid, core, groupLeaderId);
+        perfEvents[3] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, MAXINE_PERF_EVENT_ID.SW_PAGE_FAULTS_MIN, PERF_TYPE_ID.PERF_TYPE_SOFTWARE, PERF_SW_EVENT_ID.PERF_COUNT_SW_PAGE_FAULTS_MIN.value, thread, tid, core, groupLeaderId);
+        perfEvents[4] = new PerfEvent(MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, MAXINE_PERF_EVENT_ID.SW_PAGE_FAULTS_MAJ, PERF_TYPE_ID.PERF_TYPE_SOFTWARE, PERF_SW_EVENT_ID.PERF_COUNT_SW_PAGE_FAULTS_MAJ.value, thread, tid, core, groupLeaderId);
     }
 
     public void createHWGroup() {
