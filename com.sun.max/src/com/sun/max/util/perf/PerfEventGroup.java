@@ -169,6 +169,8 @@ public class PerfEventGroup {
             Log.print("(PerfUtil);");
             Log.print(PerfUtil.iteration);
             Log.print(";");
+            Log.print(perfEvents[i].groupId);
+            Log.print(";");
             Log.print(thread);
             Log.print(";");
             Log.print(core);

@@ -352,7 +352,7 @@ public class PerfUtil {
     final static int NUM_OF_SUPPORTED_PERF_EVENT_GROUPS = MAXINE_PERF_EVENT_GROUP_ID.values().length;
     final static int NUM_OF_SUPPORTED_PERF_EVENTS = MAXINE_PERF_EVENT_ID.values().length;
     final static int NUM_OF_UNIQUE_PERF_GROUPS = PerfEventGroup.maxUniqueEventGroups(NUM_OF_CORES, NUM_OF_THREADS, NUM_OF_SUPPORTED_PERF_EVENT_GROUPS);
-    final static int NUM_OF_UNIQUE_PERF_EVENTS = PerfEvent.maxUniquePerfEvents(NUM_OF_CORES, NUM_OF_THREADS, NUM_OF_SUPPORTED_PERF_EVENTS);
+    final static int NUM_OF_UNIQUE_PERF_EVENTS = PerfEvent.maxUniquePerfEvents(NUM_OF_CORES, NUM_OF_THREADS, NUM_OF_SUPPORTED_PERF_EVENTS, NUM_OF_SUPPORTED_PERF_EVENT_GROUPS);
 
     public static boolean isInitialized = false;
 

@@ -40,6 +40,7 @@ public class PerfEvent {
     public static int coreBits = 0;
     public static int threadBits = 0;
     public static int eventBits = 0;
+    public static int groupBits = 0;
 
     /**
      *
@@ -57,32 +58,32 @@ public class PerfEvent {
         this.groupLeaderId = groupLeaderId;
         this.thread = thread;
         this.core = core;
-        perfEventCreate(uniqueEventId(core, thread, eventId.value), type.value, config, thread, tid, core, uniqueEventId(core, thread, groupLeaderId.value));
+        perfEventCreate(uniqueEventId(core, thread, eventId.value, groupId.value), type.value, config, thread, tid, core, uniqueEventId(core, thread, groupLeaderId.value, groupId.value));
     }
 
     public void enable() {
-        perfEventEnable(uniqueEventId(core, thread, eventId.value));
+        perfEventEnable(uniqueEventId(core, thread, eventId.value, groupId.value));
     }
 
     public void disable() {
-        perfEventDisable(uniqueEventId(core, thread, eventId.value));
+        perfEventDisable(uniqueEventId(core, thread, eventId.value, groupId.value));
     }
 
     public void reset() {
-        perfEventReset(uniqueEventId(core, thread, eventId.value));
+        perfEventReset(uniqueEventId(core, thread, eventId.value, groupId.value));
     }
 
     public void read(long[] times, long[] values) {
         int dataOffset = Layout.longArrayLayout().getElementOffsetFromOrigin(0).toInt();
-        perfEventRead(uniqueEventId(core, thread, eventId.value), Reference.fromJava(times).toOrigin().plus(dataOffset), Reference.fromJava(values).toOrigin().plus(dataOffset));
+        perfEventRead(uniqueEventId(core, thread, eventId.value, groupId.value), Reference.fromJava(times).toOrigin().plus(dataOffset), Reference.fromJava(values).toOrigin().plus(dataOffset));
     }
 
     public void close() {
         if (PerfUtil.logPerf) {
             Log.print("[PerfEvent] Closing Perf Event ");
-            Log.println(uniqueEventId(core, thread, eventId.value));
+            Log.println(uniqueEventId(core, thread, eventId.value, groupId.value));
         }
-        perfEventClose(uniqueEventId(core, thread, eventId.value));
+        perfEventClose(uniqueEventId(core, thread, eventId.value, groupId.value));
     }
 
     /**
@@ -92,6 +93,7 @@ public class PerfEvent {
      * @param coreId the core that the perf event should be attached on ( -1 for any core)
      * @param threadId the thread that the perf event should be attached on (-1 for any thread)
      * @param eventId the {@link MAXINE_PERF_EVENT_ID} value of the perf event
+     * @param groupId the {@link MAXINE_PERF_EVENT_GROUP_ID} value of the perf event
      * NOTE: coreId = -1 and threadId = -1 configuration is invalid.
      *
      * The {@code anyCoreBit} is a flag for the "measure on ANY core" configuration.
@@ -102,15 +104,16 @@ public class PerfEvent {
      * end bit = start bit + ( length - 1)
      * start bit = previous end + 1
      *
-     *                      length (in bits)            start bit                                       end bit
-     * coreAnyBit:                  1                       0                                               0
-     * coreId:              {@link #coreBits}               1                                       {@link #coreBits}
-     * threadAnyBit:                1               {@link #coreBits} + 1                           {@link #coreBits} + 1
-     * threadId:            {@link #threadBits}     {@link #coreBits} + 2                           {@link #coreBits} + {@link #threadBits} + 1
-     * eventId:             {@link #eventBits}      {@link #coreBits} + {@link #threadBits} + 2     {@link #coreBits} + {@link #threadBits} + {@link #eventBits} + 1
+     *                      length (in bits)            start bit                                                           end bit
+     * coreAnyBit:                  1                       0                                                                   0
+     * coreId:              {@link #coreBits}               1                                                           {@link #coreBits}
+     * threadAnyBit:                1               {@link #coreBits} + 1                                               {@link #coreBits} + 1
+     * threadId:            {@link #threadBits}     {@link #coreBits} + 2                                               {@link #coreBits} + {@link #threadBits} + 1
+     * eventId:             {@link #eventBits}      {@link #coreBits} + {@link #threadBits} + 2                         {@link #coreBits} + {@link #threadBits} + {@link #eventBits} + 1
+     * groupId:             {@link #groupBits}      {@link #coreBits} + {@link #threadBits} + {@link #eventBits} + 2    {@link #coreBits} + {@link #threadBits} + {@link #eventBits} + {@link #groupBits} + 1
      *
      */
-    public static int uniqueEventId(int coreId, int threadId, int eventId) {
+    public static int uniqueEventId(int coreId, int threadId, int eventId, int groupId) {
         int coreAnyBit = 0;
         int threadAnyBit = 0;
         if (coreId == -1) {
@@ -121,10 +124,10 @@ public class PerfEvent {
             threadId = 0;
             threadAnyBit = 1;
         }
-        return coreAnyBit | coreId << 1 | threadAnyBit << (coreBits + 1) | threadId << (coreBits + 2) | eventId << (coreBits + threadBits + 2);
+        return coreAnyBit | coreId << 1 | threadAnyBit << (coreBits + 1) | threadId << (coreBits + 2) | eventId << (coreBits + threadBits + 2) | groupId << (coreBits + threadBits + eventBits + 2);
     }
 
-    public static int maxUniquePerfEvents(int cores, int maxThreads, int maxEvents) {
+    public static int maxUniquePerfEvents(int cores, int maxThreads, int maxEvents, int maxGroups) {
         cores = cores - 1;
         while (cores != 0) {
             coreBits++;
@@ -140,7 +143,11 @@ public class PerfEvent {
             eventBits++;
             maxEvents = maxEvents >> 1;
         }
-        return (int) Math.pow(2, coreBits + threadBits + eventBits + 2);
+        while (maxGroups != 0) {
+            groupBits++;
+            maxGroups = maxGroups >> 1;
+        }
+        return (int) Math.pow(2, coreBits + threadBits + eventBits + groupBits + 2);
     }
 
     @C_FUNCTION
