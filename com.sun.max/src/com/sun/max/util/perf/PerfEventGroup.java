@@ -33,6 +33,7 @@ public class PerfEventGroup {
     int numOfEvents;
     long timeEnabled;
     long timeRunning;
+    int timeRunningPercentage;
 
     public static int coreBits = 0;
     public static int threadBits = 0;
@@ -172,15 +173,27 @@ public class PerfEventGroup {
         // call read from group leader
         perfEvents[0].read(timesBuffer, valuesBuffer);
 
-        if (PerfUtil.logPerf) {
-            Log.print(" Group Time Enabled = ");
-            Log.println(timesBuffer[0]);
-            Log.print(" Group Time Running = ");
-            Log.println(timesBuffer[1]);
-        }
         // store the time values to their dedicated PerfEventGroup instance fields
         timeEnabled = timesBuffer[0];
         timeRunning = timesBuffer[1];
+        //calculate the percentage of time the group has been actually monitored
+        //timeRunningPercentage = (int) (timeRunning / timeEnabled) * 100;
+        if (timeEnabled != timeRunning) {
+            timeRunningPercentage = (int) (timeRunning / timeEnabled) * 100;
+        } else {
+            timeRunningPercentage = 100;
+        }
+        if (PerfUtil.logPerf) {
+            Log.print(groupId);
+            Log.print(" of thread ");
+            Log.print(thread);
+            Log.print(" | time Enabled: ");
+            Log.print(timeEnabled);
+            Log.print(" time Running: ");
+            Log.print(timeRunning);
+            Log.print(" ");
+            Log.println(timeRunningPercentage);
+        }
 
         // store the read values to their dedicated PerfEvent objects
         for (int i = 0; i < numOfEvents; i++) {
@@ -210,7 +223,9 @@ public class PerfEventGroup {
             Log.print(";");
             Log.print(perfEvents[i].eventId);
             Log.print(";");
-            Log.println(perfEvents[i].value);
+            Log.print(perfEvents[i].value);
+            Log.print(";");
+            Log.println(timeRunningPercentage);
         }
     }
 
