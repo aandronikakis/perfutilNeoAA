@@ -279,8 +279,10 @@ public class PerfUtil {
     public enum MAXINE_PERF_EVENT_GROUP_ID {
         SW_GROUP(0),
         HW_GROUP(1),
-        LLC_GROUP(2),
-        NODE_GROUP(3);
+        LLC_READS_GROUP(2),
+        LLC_WRITES_GROUP(3),
+        NODE_READS_GROUP(4),
+        NODE_WRITES_GROUP(5);
 
         public final int value;
 
@@ -327,7 +329,11 @@ public class PerfUtil {
         HW_CACHE_NODE_READ_MISSES(25),
         HW_CACHE_NODE_WRITE_MISSES(26),
         HW_CACHE_NODE_READS(27),
-        HW_CACHE_NODE_WRITES(28);
+        HW_CACHE_NODE_WRITES(28),
+        HW_CACHE_L1D_READS(29),
+        HW_CACHE_L1D_READ_MISSES(30),
+        HW_CACHE_L1D_WRITES(31),
+        HW_CACHE_L1D_WRITE_MISSES(32);
 
         public final int value;
 
