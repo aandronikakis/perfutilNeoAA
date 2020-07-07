@@ -161,9 +161,11 @@ public abstract class ClassMethodActor extends MethodActor {
      * Precondition: exception handlers must be cached when this method is called.
      */
     public CiExceptionHandler findCachedHandlerForException(int bci, Throwable exception) {
-        FatalError.check(exceptionHandlers != null ||
-                         compilee != null && (codeAttribute == null || codeAttribute.getExceptionHandlerTableOffset() == -1),
-                         "exception handlers were not cached");
+        // The following appears to be a little heavy handed. The sole caller tests for the
+        // null return value anyway.
+//        FatalError.check(exceptionHandlers != null ||
+//                         compilee != null && (codeAttribute == null || codeAttribute.getExceptionHandlerTableOffset() == -1),
+//                         "exception handlers were not cached");
         if (exceptionHandlers != null) {
             return findHandlerForExceptionInHandlersArray(bci, exception, exceptionHandlers);
         } else {
