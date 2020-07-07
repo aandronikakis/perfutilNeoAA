@@ -20,26 +20,52 @@
 
 package com.sun.max.vm.methodhandle;
 
-import static com.oracle.max.cri.intrinsics.IntrinsicIDs.*;
-import static com.sun.max.vm.MaxineVM.*;
-import static com.sun.max.vm.actor.Actor.*;
-import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.*;
-import static com.sun.max.vm.jdk.JDK_java_lang_invoke_MethodHandleNatives.*;
-import static com.sun.max.vm.methodhandle.MaxMethodHandles.MethodHandleIntrinsicID.*;
+import static com.oracle.max.cri.intrinsics.IntrinsicIDs.INVOKE;
+import static com.oracle.max.cri.intrinsics.IntrinsicIDs.INVOKEBASIC;
+import static com.oracle.max.cri.intrinsics.IntrinsicIDs.LINKTOINTERFACE;
+import static com.oracle.max.cri.intrinsics.IntrinsicIDs.LINKTOSPECIAL;
+import static com.oracle.max.cri.intrinsics.IntrinsicIDs.LINKTOSTATIC;
+import static com.oracle.max.cri.intrinsics.IntrinsicIDs.LINKTOVIRTUAL;
+import static com.sun.max.vm.MaxineVM.vm;
+import static com.sun.max.vm.actor.Actor.ACC_FINAL;
+import static com.sun.max.vm.actor.Actor.ACC_NATIVE;
+import static com.sun.max.vm.actor.Actor.ACC_STATIC;
+import static com.sun.max.vm.actor.Actor.ACC_SYNTHETIC;
+import static com.sun.max.vm.actor.Actor.ACC_VARARGS;
+import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
+import static com.sun.max.vm.jdk.JDK_java_lang_invoke_MethodHandleNatives.JVM_REF_invokeVirtual;
+import static com.sun.max.vm.methodhandle.MaxMethodHandles.MethodHandleIntrinsicID.InvokeBasic;
+import static com.sun.max.vm.methodhandle.MaxMethodHandles.MethodHandleIntrinsicID.InvokeGeneric;
+import static com.sun.max.vm.methodhandle.MaxMethodHandles.MethodHandleIntrinsicID.None;
+import static com.sun.max.vm.methodhandle.MaxMethodHandles.MethodHandleIntrinsicID.fromName;
+import static com.sun.max.vm.methodhandle.MaxMethodHandles.MethodHandleIntrinsicID.isSignaturePolymorphicIntrinsic;
+import static com.sun.max.vm.methodhandle.MaxMethodHandles.MethodHandleIntrinsicID.isSignaturePolymorphicStatic;
 
-import java.lang.invoke.*;
-import java.util.concurrent.*;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodType;
+import java.util.concurrent.ConcurrentHashMap;
 
-import com.sun.max.annotate.*;
-import com.sun.max.program.*;
-import com.sun.max.unsafe.*;
-import com.sun.max.vm.actor.holder.*;
-import com.sun.max.vm.actor.member.*;
-import com.sun.max.vm.classfile.*;
-import com.sun.max.vm.classfile.constant.*;
-import com.sun.max.vm.compiler.target.*;
-import com.sun.max.vm.jdk.*;
-import com.sun.max.vm.type.*;
+import com.sun.max.annotate.ALIAS;
+import com.sun.max.annotate.INTRINSIC;
+import com.sun.max.program.Trace;
+import com.sun.max.unsafe.UnsafeCast;
+import com.sun.max.vm.actor.holder.ClassActor;
+import com.sun.max.vm.actor.member.ClassMethodActor;
+import com.sun.max.vm.actor.member.MethodActor;
+import com.sun.max.vm.actor.member.StaticMethodActor;
+import com.sun.max.vm.actor.member.VirtualMethodActor;
+import com.sun.max.vm.classfile.CodeAttribute;
+import com.sun.max.vm.classfile.LineNumberTable;
+import com.sun.max.vm.classfile.LocalVariableTable;
+import com.sun.max.vm.classfile.constant.ConstantPool;
+import com.sun.max.vm.classfile.constant.ConstantPoolEditor;
+import com.sun.max.vm.classfile.constant.PoolConstantFactory;
+import com.sun.max.vm.classfile.constant.SymbolTable;
+import com.sun.max.vm.classfile.constant.Utf8Constant;
+import com.sun.max.vm.compiler.target.Compilations;
+import com.sun.max.vm.jdk.JDK_java_lang_invoke_MethodHandleNatives;
+import com.sun.max.vm.runtime.FatalError;
+import com.sun.max.vm.type.SignatureDescriptor;
 
 /**
  * Various JSR292 implementation static methods, most of which have analogues in the
@@ -270,21 +296,23 @@ public final class MaxMethodHandles {
      * @param appendix
      * @return
      */
-    public static MethodActor lookupPolymorphicMethod(ClassActor classActor, String name, SignatureDescriptor signature, Class< ? > caller, Object [] appendix) {
+    public static MethodActor lookupPolymorphicMethod(ClassActor classActor, String name, SignatureDescriptor signature, Class<?> caller, Object [] appendix) {
         Trace.line(1, "MaxMethodHandles.lookupPolymorphicMethod() : " +
                         "classActor: " + classActor +
                         ", name: " + name +
                         ", signatureDescriptor: " + signature +
                         ", caller: " + caller +
                         ", appendix: " + appendix);
+
+        ClassLoader cl = caller == null ? null : caller.getClassLoader();
         try {
-            MethodType methodType = MethodType.fromMethodDescriptorString(signature.asString(), null);
+            MethodType methodType = MethodType.fromMethodDescriptorString(signature.asString(), cl);
             return lookupPolymorphicMethod(classActor, name, methodType, caller, appendix);
         } catch (TypeNotPresentException ex) {
-            Trace.line(1, "MaxMethodHandles.lookupPolymorphicMethod() : MethodType not found for "
-                    + signature.asString());
-            return null;
+            FatalError.unexpected("Failed to find method", ex);
         }
+        // not reached
+        return null;
     }
 
     /**
