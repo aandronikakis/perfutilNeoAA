@@ -161,6 +161,17 @@ public abstract class ClassMethodActor extends MethodActor {
      * Precondition: exception handlers must be cached when this method is called.
      */
     public CiExceptionHandler findCachedHandlerForException(int bci, Throwable exception) {
+        /*
+         * The following check ensures some consistency between the exceptionHandlers array and the bytecode of the method.
+         * Specifically if there are no handlers in the array, that there are also none defined in the bytecode.
+         * The compilee field is set (always to non null) as a side effect of calling the compilee() method, which
+         * is in turn called when the exceptionHandlers array is initialised. Thus if compilee is null there is
+         * the possibility that the exceptionHandlers array may not have been initialised.
+         */
+        FatalError.check(!(exceptionHandlers == null && compilee == null
+                && codeAttribute != null && codeAttribute.getExceptionHandlerTableOffset() != -1),
+                "exceptionHandlers has not been initialised");
+
         if (exceptionHandlers != null) {
             return findHandlerForExceptionInHandlersArray(bci, exception, exceptionHandlers);
         } else {
