@@ -770,7 +770,7 @@ public class T1XTargetMethod extends TargetMethod {
          * bytecode. The call may involve an extra appendix argument.
          */
         if (isInvokedynamic) {
-            InvokeDynamicConstant idc = (InvokeDynamicConstant)methodRef;
+            InvokeDynamicConstant idc = (InvokeDynamicConstant) methodRef;
             sig = idc.resolve(constantPool, bci).descriptor();
         } else {
             sig = methodRef.signature(constantPool);
