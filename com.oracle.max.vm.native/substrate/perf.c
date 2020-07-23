@@ -127,7 +127,7 @@ void perfEventCreate(int id, int type, int config, int thread, int tid, int core
     }
 
 #if log_PERF
-    printf("Create perfEvent %d for thread %d tid %d, on core %d, pid %d\n", id, thread, tid, core, getpid());
+    printf("Create perfEvent(%d,%d) %d for thread %d tid %d, on core %d, pid %d\n", type, config, id, thread, tid, core, getpid());
 #endif
 
     if( (perf_event_fds[id] = syscall(__NR_perf_event_open, &perf_event_attrs[id], tid, core, groupLeaderFd, 0)) == -1 ) {

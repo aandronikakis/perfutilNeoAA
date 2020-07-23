@@ -282,7 +282,10 @@ public class PerfUtil {
         LLC_READS_GROUP(2),
         LLC_WRITES_GROUP(3),
         NODE_READS_GROUP(4),
-        NODE_WRITES_GROUP(5);
+        NODE_WRITES_GROUP(5),
+        CACHE_ACCESSES_GROUP(6),
+        CACHE_MISSES_GROUP(7),
+        NODE_MISSES_GROUP(8);
 
         public final int value;
 

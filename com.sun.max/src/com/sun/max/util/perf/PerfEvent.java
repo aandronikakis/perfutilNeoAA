@@ -31,7 +31,7 @@ import com.sun.max.util.perf.PerfUtil.*;
 public class PerfEvent {
 
     MAXINE_PERF_EVENT_GROUP_ID groupId;
-    MAXINE_PERF_EVENT_ID groupLeaderId;
+    int groupLeaderId;
     MAXINE_PERF_EVENT_ID eventId;
     int core;
     int thread;
@@ -52,13 +52,13 @@ public class PerfEvent {
      * @param core the physical core the event is measured on
      * @param groupLeaderId the group leader event (-1 if the current event is the leader)
      */
-    public PerfEvent(MAXINE_PERF_EVENT_GROUP_ID group, MAXINE_PERF_EVENT_ID eventId, PERF_TYPE_ID type, int config, int thread, int tid, int core, MAXINE_PERF_EVENT_ID groupLeaderId) {
+    public PerfEvent(MAXINE_PERF_EVENT_GROUP_ID group, MAXINE_PERF_EVENT_ID eventId, PERF_TYPE_ID type, int config, int thread, int tid, int core, int groupLeaderId) {
         this.groupId = group;
         this.eventId = eventId;
         this.groupLeaderId = groupLeaderId;
         this.thread = thread;
         this.core = core;
-        perfEventCreate(uniqueEventId(core, thread, eventId.value, groupId.value), type.value, config, thread, tid, core, uniqueEventId(core, thread, groupLeaderId.value, groupId.value));
+        perfEventCreate(uniqueEventId(core, thread, eventId.value, groupId.value), type.value, config, thread, tid, core, groupLeaderId);
     }
 
     public void enable() {
