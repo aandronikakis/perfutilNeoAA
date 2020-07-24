@@ -158,6 +158,8 @@ public class MaxineTesterConfiguration {
         output(Classes.forName("test.output.WeakReferenceTest04"), RAND_ALL);
         output(Classes.forName("test.output.GCTest8"), RAND_ALL);
         output(Classes.forName("test.output.CatchOutOfMemory"), RAND_ALL);
+        // JDK8 specific output tests
+        output(findOutputTests("uk.ac.manchester.tests.jdk8.java.lang"));
 
         vmoutput(findOutputTests("com.sun.max.vm.tests.vm.output."));
 
