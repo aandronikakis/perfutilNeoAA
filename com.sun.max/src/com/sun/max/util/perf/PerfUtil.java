@@ -389,7 +389,7 @@ public class PerfUtil {
      * Max num of threads currently supported.
      * This number is arbitrary. Theoretically it can be any number.
      */
-    final static int NUM_OF_THREADS = 64;
+    final static int NUM_OF_THREADS = 128;
 
     /**
      * The num of cores of the machine.
