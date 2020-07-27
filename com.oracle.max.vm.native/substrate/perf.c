@@ -120,22 +120,37 @@ void perfEventCreate(int id, int type, int config, int thread, int tid, int core
 
     // check if is group leader
     if (id == groupLeaderEventId) {
+        //printf("-- Is group Leader --\n");
         // if group leader, set to -1
         groupLeaderFd = -1;
     } else {
+        //printf("groupLeaderEventId = %d\n", groupLeaderEventId);
         groupLeaderFd = perf_event_fds[groupLeaderEventId];
     }
 
 #if log_PERF
-    printf("Create perfEvent(%d,%d) %d for thread %d tid %d, on core %d, pid %d\n", type, config, id, thread, tid, core, getpid());
+    printf("Create perfEvent(%d,%d) id %d for thread %d tid %d, on core %d, pid %d\n", type, config, id, thread, tid, core, getpid());
 #endif
 
+    // is uncore event
+    if (type > 5) {
+        perf_event_attrs[id].disabled = 1;
+        perf_event_attrs[id].inherit = 1;
+        perf_event_attrs[id].exclude_kernel = 0;
+        perf_event_attrs[id].exclude_hv = 0;
+        perf_event_attrs[id].exclude_idle = 0;
+        //perf_event_attrs[id].exclude_guest = 0;
+
+        //perf_event_attrs[id].read_format = PERF_FORMAT_TOTAL_TIME_ENABLED | PERF_FORMAT_TOTAL_TIME_RUNNING | PERF_FORMAT_GROUP | PERF_FORMAT_ID;
+        
+    }
     if( (perf_event_fds[id] = syscall(__NR_perf_event_open, &perf_event_attrs[id], tid, core, groupLeaderFd, 0)) == -1 ) {
-        errx(1, "error on __NR_perf_event_open at perfEventCreate [%d]: %s\
-                \nHint: for more persmisions consider altering perf_event_paranoid value. ", errno, strerror(errno));
+        errx(1, "error: %s:%d: perf_event_open() [%d]: %s\n",
+                __FILE__, __LINE__, errno, strerror(errno));
     }
     if (ioctl(perf_event_fds[id], PERF_EVENT_IOC_ID, &perf_event_ids[id]) == -1) {
-        errx(1, "error on ioctl at perfEventCreate [%d]: %s", errno, strerror(errno));
+        errx(1, "error: %s:%d: error on ioctl at perfEventCreate() [%d]: %s\n",
+                __FILE__, __LINE__, errno, strerror(errno));
     }
 }
 

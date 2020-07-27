@@ -111,7 +111,12 @@ public class PerfUtil {
         PERF_TYPE_TRACEPOINT(2),
         PERF_TYPE_HW_CACHE(3),
         PERF_TYPE_RAW(4),
-        PERF_TYPE_BREAKPOINT(5);
+        PERF_TYPE_BREAKPOINT(5),
+
+        PERF_TYPE_UNCORE_IMC_0(8),
+        PERF_TYPE_UNCORE_IMC_1(9),
+        PERF_TYPE_UNCORE_IMC_2(10),
+        PERF_TYPE_UNCORE_IMC_3(11);
 
         public final int value;
 
@@ -267,6 +272,17 @@ public class PerfUtil {
         }
     }
 
+    public enum PERF_UNCORE_IMC_EVENT_ID{
+        MEM_READ(0x304),        //0x304
+        MEM_WRITE(0xc04);       //0xc04
+
+        public final int value;
+
+        PERF_UNCORE_IMC_EVENT_ID(int i) {
+            value = i;
+        }
+    }
+
     /**
      * The unit of scheduling in perf is not an individual {@link PerfEvent}, but rather a {@link PerfEventGroup},
      * which may contain one or more {@link PerfEvent}s (potentially on different PMUs). The notion of
@@ -285,7 +301,17 @@ public class PerfUtil {
         NODE_WRITES_GROUP(5),
         CACHE_ACCESSES_GROUP(6),
         CACHE_MISSES_GROUP(7),
-        NODE_MISSES_GROUP(8);
+        NODE_MISSES_GROUP(8),
+        // All the Uncore Groups are Intel Xeon E5-2690, dual socket machine specific.
+        // They may work in other microarchitectures as well but they are not tested.
+        UNCORE_IMC_0_CPU_0_GROUP(9),
+        UNCORE_IMC_1_CPU_0_GROUP(10),
+        UNCORE_IMC_2_CPU_0_GROUP(11),
+        UNCORE_IMC_3_CPU_0_GROUP(12),
+        UNCORE_IMC_0_CPU_1_GROUP(13),
+        UNCORE_IMC_1_CPU_1_GROUP(14),
+        UNCORE_IMC_2_CPU_1_GROUP(15),
+        UNCORE_IMC_3_CPU_1_GROUP(16);
 
         public final int value;
 
@@ -336,7 +362,19 @@ public class PerfUtil {
         HW_CACHE_L1D_READS(29),
         HW_CACHE_L1D_READ_MISSES(30),
         HW_CACHE_L1D_WRITES(31),
-        HW_CACHE_L1D_WRITE_MISSES(32);
+        HW_CACHE_L1D_WRITE_MISSES(32),
+
+        // All the Uncore Events are Intel Xeon E5-2690, dual socket machine specific.
+        // They may in other microarchitectures as well but they are not tested.
+        UNCORE_IMC_0_MEM_READ(33),
+        UNCORE_IMC_1_MEM_READ(34),
+        UNCORE_IMC_2_MEM_READ(35),
+        UNCORE_IMC_3_MEM_READ(36),
+
+        UNCORE_IMC_0_MEM_WRITE(37),
+        UNCORE_IMC_1_MEM_WRITE(38),
+        UNCORE_IMC_2_MEM_WRITE(39),
+        UNCORE_IMC_3_MEM_WRITE(40);
 
         public final int value;
 

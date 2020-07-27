@@ -85,6 +85,30 @@ public class PerfEventGroup {
             case NODE_MISSES_GROUP:
                 createNodeMissesGroup();
                 break;
+            case UNCORE_IMC_0_CPU_0_GROUP:
+                createUncoreiMC0GroupCPU0();
+                break;
+            case UNCORE_IMC_1_CPU_0_GROUP:
+                createUncoreiMC1GroupCPU0();
+                break;
+            case UNCORE_IMC_2_CPU_0_GROUP:
+                createUncoreiMC2GroupCPU0();
+                break;
+            case UNCORE_IMC_3_CPU_0_GROUP:
+                createUncoreiMC3GroupCPU0();
+                break;
+            case UNCORE_IMC_0_CPU_1_GROUP:
+                createUncoreiMC0GroupCPU1();
+                break;
+            case UNCORE_IMC_1_CPU_1_GROUP:
+                createUncoreiMC1GroupCPU1();
+                break;
+            case UNCORE_IMC_2_CPU_1_GROUP:
+                createUncoreiMC2GroupCPU1();
+                break;
+            case UNCORE_IMC_3_CPU_1_GROUP:
+                createUncoreiMC3GroupCPU1();
+                break;
         }
     }
 
@@ -197,6 +221,81 @@ public class PerfEventGroup {
         perfEvents[1] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_INSTRUCTIONS, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_INSTRUCTIONS.value, thread, tid, core, groupLeaderId);
         perfEvents[2] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_READ_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_NODE_READ_MISS.value, thread, tid, core, groupLeaderId);
         perfEvents[3] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_WRITE_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_NODE_WRITE_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+    /**
+     * Intel Xeon E5-2690, dual socket machine specific.
+     */
+    public void createUncoreiMC0GroupCPU0() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_0_GROUP;
+        final int groupLeaderId = uniqueEventId(0, -1, MAXINE_PERF_EVENT_ID.UNCORE_IMC_0_MEM_READ.value, groupId.value);
+        numOfEvents = 2;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_0_MEM_READ, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_0, PERF_UNCORE_IMC_EVENT_ID.MEM_READ.value, -1, -1, 0, groupLeaderId);
+        perfEvents[1] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_0_MEM_WRITE, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_0, PERF_UNCORE_IMC_EVENT_ID.MEM_WRITE.value, -1, -1, 0, groupLeaderId);
+    }
+
+    public void createUncoreiMC0GroupCPU1() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_1_GROUP;
+        final int groupLeaderId = uniqueEventId(1, -1, MAXINE_PERF_EVENT_ID.UNCORE_IMC_0_MEM_READ.value, groupId.value);
+        numOfEvents = 2;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_0_MEM_READ, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_0, PERF_UNCORE_IMC_EVENT_ID.MEM_READ.value, -1, -1, 1, groupLeaderId);
+        perfEvents[1] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_0_MEM_WRITE, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_0, PERF_UNCORE_IMC_EVENT_ID.MEM_WRITE.value, -1, -1, 1, groupLeaderId);
+    }
+
+    public void createUncoreiMC1GroupCPU0() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_0_GROUP;
+        final int groupLeaderId = uniqueEventId(0, -1, MAXINE_PERF_EVENT_ID.UNCORE_IMC_1_MEM_READ.value, groupId.value);
+        numOfEvents = 2;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_1_MEM_READ, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_1, PERF_UNCORE_IMC_EVENT_ID.MEM_READ.value, -1, -1, 0, groupLeaderId);
+        perfEvents[1] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_1_MEM_WRITE, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_1, PERF_UNCORE_IMC_EVENT_ID.MEM_WRITE.value, -1, -1, 0, groupLeaderId);
+    }
+
+    public void createUncoreiMC1GroupCPU1() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_1_GROUP;
+        final int groupLeaderId = uniqueEventId(1, -1, MAXINE_PERF_EVENT_ID.UNCORE_IMC_1_MEM_READ.value, groupId.value);
+        numOfEvents = 2;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_1_MEM_READ, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_1, PERF_UNCORE_IMC_EVENT_ID.MEM_READ.value, -1, -1, 1, groupLeaderId);
+        perfEvents[1] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_1_MEM_WRITE, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_1, PERF_UNCORE_IMC_EVENT_ID.MEM_WRITE.value, -1, -1, 1, groupLeaderId);
+    }
+
+    public void createUncoreiMC2GroupCPU0() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_0_GROUP;
+        final int groupLeaderId = uniqueEventId(0, -1, MAXINE_PERF_EVENT_ID.UNCORE_IMC_2_MEM_READ.value, groupId.value);
+        numOfEvents = 2;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_2_MEM_READ, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_2, PERF_UNCORE_IMC_EVENT_ID.MEM_READ.value, -1, -1, 0, groupLeaderId);
+        perfEvents[1] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_2_MEM_WRITE, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_2, PERF_UNCORE_IMC_EVENT_ID.MEM_WRITE.value, -1, -1, 0, groupLeaderId);
+    }
+
+    public void createUncoreiMC2GroupCPU1() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_1_GROUP;
+        final int groupLeaderId = uniqueEventId(1, -1, MAXINE_PERF_EVENT_ID.UNCORE_IMC_2_MEM_READ.value, groupId.value);
+        numOfEvents = 2;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_2_MEM_READ, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_2, PERF_UNCORE_IMC_EVENT_ID.MEM_READ.value, -1, -1, 1, groupLeaderId);
+        perfEvents[1] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_2_MEM_WRITE, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_2, PERF_UNCORE_IMC_EVENT_ID.MEM_WRITE.value, -1, -1, 1, groupLeaderId);
+    }
+
+    public void createUncoreiMC3GroupCPU0() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_0_GROUP;
+        final int groupLeaderId = uniqueEventId(0, -1, MAXINE_PERF_EVENT_ID.UNCORE_IMC_3_MEM_READ.value, groupId.value);
+        numOfEvents = 2;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_3_MEM_READ, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_3, PERF_UNCORE_IMC_EVENT_ID.MEM_READ.value, -1, -1, 0, groupLeaderId);
+        perfEvents[1] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_3_MEM_WRITE, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_3, PERF_UNCORE_IMC_EVENT_ID.MEM_WRITE.value, -1, -1, 0, groupLeaderId);
+    }
+
+    public void createUncoreiMC3GroupCPU1() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_1_GROUP;
+        final int groupLeaderId = uniqueEventId(1, -1, MAXINE_PERF_EVENT_ID.UNCORE_IMC_3_MEM_READ.value, groupId.value);
+        numOfEvents = 2;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_3_MEM_READ, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_3, PERF_UNCORE_IMC_EVENT_ID.MEM_READ.value, -1, -1, 1, groupLeaderId);
+        perfEvents[1] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.UNCORE_IMC_3_MEM_WRITE, PERF_TYPE_ID.PERF_TYPE_UNCORE_IMC_3, PERF_UNCORE_IMC_EVENT_ID.MEM_WRITE.value, -1, -1, 1, groupLeaderId);
     }
 
     public void enableGroup() {
