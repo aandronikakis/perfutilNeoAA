@@ -613,6 +613,22 @@ public class PerfUtil {
         perfEventGroups[groupIndex].closeGroup();
     }
 
+    /**
+     * An call to Read and Reset All remaining Perf Event Groups explicitly.
+     * Useful for applications that keep their threads running during the whole execution.
+     * Might be slower since it iterates through the whole perfEventGroups array.
+     */
+    public static void explicitPerfGroupReadAndReset() {
+        for (int i = 0; i < perfEventGroups.length; i++) {
+            if (perfEventGroups[i] != null && !perfEventGroups[i].isClosed()) {
+                MAXINE_PERF_EVENT_GROUP_ID groupId = perfEventGroups[i].groupId;
+                int thread = perfEventGroups[i].thread;
+                int core = perfEventGroups[i].core;
+                perfGroupReadAndResetSpecificThreadSpecificCore(groupId, thread, core);
+            }
+        }
+    }
+
     @C_FUNCTION
     public static native Pointer perfUtilInit(int numOfEvents);
 

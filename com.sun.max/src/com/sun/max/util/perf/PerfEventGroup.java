@@ -36,6 +36,7 @@ public class PerfEventGroup {
     long timeEnabled;
     long timeRunning;
     int timeRunningPercentage;
+    boolean isClosed;
 
     public static int coreBits = 0;
     public static int threadBits = 0;
@@ -57,6 +58,7 @@ public class PerfEventGroup {
         this.core = core;
         this.timeEnabled = 0;
         this.timeRunning = 0;
+        this.isClosed = false;
         switch (group) {
             case SW_GROUP:
                 createSWGroup();
@@ -110,6 +112,10 @@ public class PerfEventGroup {
                 createUncoreiMC3GroupCPU1();
                 break;
         }
+    }
+
+    public boolean isClosed() {
+        return isClosed;
     }
 
     public void createLLCReadsGroup() {
@@ -377,6 +383,7 @@ public class PerfEventGroup {
     }
 
     public void closeGroup() {
+        isClosed = true;
         if (PerfUtil.logPerf) {
             Log.print("[PerfEventGroup] Close group ");
             Log.print(groupId);
