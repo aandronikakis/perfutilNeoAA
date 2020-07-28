@@ -61,6 +61,17 @@ final class JDK_java_lang_Class {
         return ClassActor.fromJava(UnsafeCast.asClass(this));
     }
 
+    /**
+     * Class.getSimpleName() throws an InternalError when producing a simple name for a class that
+     * has a non-JLS compliant name. Currently causing problems with non-Java JVM hosted languages
+     * especially Scala.
+     * @return the simple name of the class
+     */
+    @SUBSTITUTE
+    public String getSimpleName() {
+        return thisClassActor().getSimpleName();
+    }
+
     @SUBSTITUTE
     private static Class<?> forName0(String name, boolean initialize, ClassLoader loader, Class<?> caller) throws ClassNotFoundException {
         // loader may be null if invoked from VM (@see JDK_sun_reflect_Reflection.getCallerClass)

@@ -1528,6 +1528,46 @@ public abstract class ClassActor extends Actor implements RiResolvedType {
         return javaClass;
     }
 
+    /**
+     * From Class.java
+     * @param c
+     * @return
+     */
+    private static boolean isAsciiDigit(char c) {
+        return '0' <= c && c <= '9';
+    }
+
+    /**
+     * Analog of Class.getSimpleName that doesn't raise an InternalError for class names that do not
+     * conform to JLS.
+     * @return
+     */
+    public String getSimpleName() {
+        if (isArrayClass()) {
+            return this.componentClassActor().getSimpleName() + "[]";
+        }
+        TypeDescriptor outer = outerClassDescriptor();
+
+        if (outer == null) {
+            return javaSignature(false);
+        }
+        // 'Subtract' the outer class name from ours.
+        String simpleName = typeDescriptor.toJavaString().substring(outer.toJavaString().length());
+
+        // Remove $[0-9]+ (anonymous) if present.
+        int index = 0;
+        int len = simpleName.length();
+
+        if (simpleName.charAt(index) == '$') {
+            index++;
+            while(index < len && isAsciiDigit(simpleName.charAt(index))) {
+                index++;
+            }
+        }
+        return simpleName.substring(index);
+    }
+
+
     @NEVER_INLINE
     private Class noninlineCreateJavaClass() {
         // Non-blocking synchronization is used here to swap in the mirror reference.
