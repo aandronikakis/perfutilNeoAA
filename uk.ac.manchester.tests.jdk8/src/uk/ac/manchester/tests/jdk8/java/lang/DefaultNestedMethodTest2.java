@@ -49,13 +49,29 @@ public class DefaultNestedMethodTest2 {
         }
     }
 
+    /**
+     * Tests:
+     *  Miranda -> default
+     *  default super -> default sub
+     */
     private class C implements I0, I1, I2 {
     }
+
+    /**
+     *  Note the interface order, tests as above but also ensures
+     *  that the sub interface has priority over its super.
+     */
+    private class D implements I0, I2, I1 {
+    }
+
 
     @Test
     public void defaultMethodInvocation() {
         C temp = new C();
+        D d = new D();
         assertEquals(temp.get1(), 1);
         assertEquals(temp.get3(), 3);
+        assertEquals(d.get1(), 1);
+        assertEquals(d.get3(), 3);
     }
 }

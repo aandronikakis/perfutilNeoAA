@@ -46,10 +46,16 @@ public class DefaultMethod {
 
     public class TestMe implements If0,If1 {
     }
+
+    public class TestMeMore implements If1,If0 {
+    }
   
     public static void main(String [] args) {
         TestMe t = new DefaultMethod().new TestMe();
+        TestMeMore t2 = new DefaultMethod().new TestMeMore();
         t.sayHello();
         t.sayOne();
+        t2.sayHello();
+        t2.sayOne();
     }
 }
