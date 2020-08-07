@@ -394,10 +394,10 @@ public final class Aarch64LIRAssembler extends LIRAssembler {
         int highKey = op.lowKey + op.targets.length - 1;
         if (op.lowKey != 0) {
             // subtract the low value from the switch value
-            masm.sub(64, value, value, (long) op.lowKey);
-            masm.cmp(64, value, highKey - op.lowKey);
+            masm.sub(32, value, value, (long) op.lowKey);
+            masm.cmp(32, value, highKey - op.lowKey);
         } else {
-            masm.cmp(64, value, highKey);
+            masm.cmp(32, value, highKey);
         }
 
         // Jump to default target if index is not within the jump table
