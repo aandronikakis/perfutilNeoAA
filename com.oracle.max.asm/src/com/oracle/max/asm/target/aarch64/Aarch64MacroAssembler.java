@@ -297,37 +297,37 @@ public class Aarch64MacroAssembler extends Aarch64Assembler {
      */
     public void membar(int barriers) {
         switch (barriers) {
-        case MemoryBarriers.JMM_PRE_VOLATILE_READ:
-            return; // no barriers required
-        case MemoryBarriers.JMM_POST_VOLATILE_READ: // == LOAD_FENCE
-            /*
-             * LOAD_LOAD + LOAD_STORE is obtained by dmb ishld guaranteeing that loads
-             * initiated before the barrier cannot re-ordered past loads or stores after it.
-             */
-            dmb(BarrierKind.ISHLD);
-            break;
-        case MemoryBarriers.JMM_PRE_VOLATILE_WRITE:
-        case MemoryBarriers.JMM_POST_VOLATILE_WRITE: // == STORE_FENCE
-        case MemoryBarriers.FULL_FENCE:
-        case MemoryBarriers.STORE_LOAD:
-            /*
-             * STORE_STORE + LOAD_STORE, and any STORE_LOAD all require dmb ish.
-             */
-            dmb(BarrierKind.ISH);
-            break;
+            case MemoryBarriers.JMM_PRE_VOLATILE_READ:
+                return; // no barriers required
+            case MemoryBarriers.JMM_POST_VOLATILE_READ: // == LOAD_FENCE
+                /*
+                 * LOAD_LOAD + LOAD_STORE is obtained by dmb ishld guaranteeing that loads
+                 * initiated before the barrier cannot re-ordered past loads or stores after it.
+                 */
+                dmb(BarrierKind.ISHLD);
+                break;
+            case MemoryBarriers.JMM_PRE_VOLATILE_WRITE:
+            case MemoryBarriers.JMM_POST_VOLATILE_WRITE: // == STORE_FENCE
+            case MemoryBarriers.FULL_FENCE:
+            case MemoryBarriers.STORE_LOAD:
+                /*
+                 * STORE_STORE + LOAD_STORE, and any STORE_LOAD all require dmb ish.
+                 */
+                dmb(BarrierKind.ISH);
+                break;
             /*
              * Although that concludes all currently used barriers the following are
              * provided for completeness should they be required in future.
              */
-        case MemoryBarriers.LOAD_LOAD:
-        case MemoryBarriers.LOAD_STORE:
-            dmb(BarrierKind.ISHLD);
-            break;
-        case MemoryBarriers.STORE_STORE:
-            dmb(BarrierKind.ISHST);
-            break;
-        default:
-            throw new Error("Invalid barrier specified");
+            case MemoryBarriers.LOAD_LOAD:
+            case MemoryBarriers.LOAD_STORE:
+                dmb(BarrierKind.ISHLD);
+                break;
+            case MemoryBarriers.STORE_STORE:
+                dmb(BarrierKind.ISHST);
+                break;
+            default:
+                throw new Error("Invalid barrier specified");
         }
     }
 
