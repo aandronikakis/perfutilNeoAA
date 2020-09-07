@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2019, APT Group, School of Computer Science,
+ * Copyright (c) 2017-2020, APT Group, School of Computer Science,
  * The University of Manchester. All rights reserved.
  * Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
@@ -31,6 +31,7 @@ import java.util.*;
 import com.oracle.max.asm.NumUtil;
 import com.oracle.max.asm.target.aarch64.*;
 import com.oracle.max.asm.target.aarch64.Aarch64Assembler.*;
+import com.oracle.max.cri.intrinsics.MemoryBarriers;
 import com.oracle.max.vm.ext.maxri.*;
 import com.oracle.max.vm.ext.t1x.*;
 import com.sun.cri.bytecode.*;
@@ -39,7 +40,6 @@ import com.sun.cri.ci.CiTargetMethod.*;
 import com.sun.max.annotate.*;
 import com.sun.max.vm.actor.member.*;
 import com.sun.max.vm.classfile.*;
-import com.sun.max.vm.compiler.DebugMethodWriter;
 import com.sun.max.vm.compiler.target.*;
 import com.sun.max.vm.runtime.*;
 import com.sun.max.vm.stack.aarch64.*;
@@ -436,26 +436,24 @@ public class Aarch64T1XCompilation extends T1XCompilation {
 
     /*
      * According to JSR133:
-     *  for a volatile store we need to issue StoreStore then StoreLoad
-     *  for a volatile read we need to issue LoadLoad then LoadStore.
+     *  For a volatile store we need to issue StoreStore and LoadStore before the write and a StoreLoad after the write.
+     *  For a volatile read we need to issue LoadLoad and LoadStore after the read.
      * (non-Javadoc)
      * @see com.oracle.max.vm.ext.t1x.T1XCompilation#do_preVolatileFieldAccess(com.oracle.max.vm.ext.t1x.T1XTemplateTag, com.sun.max.vm.actor.member.FieldActor)
      */
     @Override
     protected void do_preVolatileFieldAccess(T1XTemplateTag tag, FieldActor fieldActor) {
-        // XXX Test me
         if (fieldActor.isVolatile()) {
             boolean isWrite = tag.opcode == Bytecodes.PUTFIELD || tag.opcode == Bytecodes.PUTSTATIC;
-            asm.dmb(isWrite ? BarrierKind.STORE_STORE : BarrierKind.LOAD_LOAD);
+            asm.membar(isWrite ? MemoryBarriers.JMM_PRE_VOLATILE_WRITE : MemoryBarriers.JMM_PRE_VOLATILE_READ);
         }
     }
 
     @Override
     protected void do_postVolatileFieldAccess(T1XTemplateTag tag, FieldActor fieldActor) {
-        // XXX Test me
         if (fieldActor.isVolatile()) {
             boolean isWrite = tag.opcode == Bytecodes.PUTFIELD || tag.opcode == Bytecodes.PUTSTATIC;
-            asm.dmb(isWrite ? BarrierKind.STORE_LOAD : BarrierKind.LOAD_STORE);
+            asm.membar(isWrite ? MemoryBarriers.JMM_POST_VOLATILE_WRITE : MemoryBarriers.JMM_POST_VOLATILE_READ);
         }
     }
 
