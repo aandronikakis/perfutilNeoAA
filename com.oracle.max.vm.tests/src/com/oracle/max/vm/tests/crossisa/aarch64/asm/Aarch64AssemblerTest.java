@@ -268,6 +268,7 @@ public class Aarch64AssemblerTest {
             tester.setExpectedValue(Aarch64.cpuRegisters[i], ans[i]);
         }
         // perform the last calculation again where dst != src
+        i--;
         masm.movz(VARIANT_64, Aarch64.cpuRegisters[i + 2], min[i], 0);
         masm.sub(VARIANT_64, Aarch64.cpuRegisters[i + 1], Aarch64.cpuRegisters[i + 2], sub[i]);
         tester.setExpectedValue(Aarch64.cpuRegisters[i + 1], ans[i]);
