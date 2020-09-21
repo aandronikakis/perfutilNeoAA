@@ -253,6 +253,27 @@ public class Aarch64AssemblerTest {
     }
 
     @Test
+    public void sub_big_imm() throws Exception {
+        /* The following arrays are for the minuend, subtrahend and expected result
+         * for the test cases. Test cases necessary to exercise the code for a 12 to
+         * 24bit subtrahend, and a > 24bit subtrahend.
+         */
+        int [] min = {65535, 65535};
+        int [] sub = {32767, 33554432};
+        int [] ans = {32768, -33488897};
+        int i = 0;
+        for (i = 0; i < min.length; i++) {
+            masm.movz(VARIANT_64, Aarch64.cpuRegisters[i], min[i], 0);
+            masm.sub(VARIANT_64, Aarch64.cpuRegisters[i], Aarch64.cpuRegisters[i], sub[i]);
+            tester.setExpectedValue(Aarch64.cpuRegisters[i], ans[i]);
+        }
+        // perform the last calculation again where dst != src
+        masm.movz(VARIANT_64, Aarch64.cpuRegisters[i + 2], min[i], 0);
+        masm.sub(VARIANT_64, Aarch64.cpuRegisters[i + 1], Aarch64.cpuRegisters[i + 2], sub[i]);
+        tester.setExpectedValue(Aarch64.cpuRegisters[i + 1], ans[i]);
+    }
+
+    @Test
     public void and_imm() throws Exception {
         // AND Xi, Xi, 0x1
         for (int i = 0; i < 10; i++) {
