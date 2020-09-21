@@ -38,7 +38,7 @@ public class LightweightLockword extends HashableLockword {
      *
      * bit [63........................................ 1  0]     Shape
      *
-     *     [ r. count ][ util  ][  thread ID ][ hash ][m][0]     Lightweight
+     *     [ r. count ][util][misc][thread ID][ hash ][m][0]     Lightweight
      *     [                 Undefined               ][m][1]     Inflated
      *
      *
@@ -46,16 +46,17 @@ public class LightweightLockword extends HashableLockword {
      *
      * bit [32........................................ 1  0]     Shape
      *
-     *     [ r. count ][ util  ][  thread ID         ][m][0]     Lightweight
+     *     [ r. count ][  util  ][ misc ][ thread ID ][m][0]     Lightweight
      *     [                 Undefined               ][m][1]     Inflated
      *
      */
 
     protected static final int RCOUNT_FIELD_WIDTH = 5;
     protected static final int UTIL_FIELD_WIDTH = 9;
-    public static final int THREADID_FIELD_WIDTH = 16;
+    public static final int MISC_FIELD_WIDTH = 8;
+    public static final int THREADID_FIELD_WIDTH = 8;
     protected static final int THREADID_SHIFT = Platform.target().arch.is64bit() ? (HASHCODE_SHIFT + HASH_FIELD_WIDTH) : NUMBER_OF_MODE_BITS;
-    protected static final int UTIL_SHIFT = THREADID_SHIFT + THREADID_FIELD_WIDTH;
+    protected static final int UTIL_SHIFT = THREADID_SHIFT + THREADID_FIELD_WIDTH + MISC_FIELD_WIDTH;
     protected static final int RCOUNT_SHIFT = UTIL_SHIFT + UTIL_FIELD_WIDTH;
     protected static final int NUM_BITS = Word.width();
     protected static final Address THREADID_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - THREADID_FIELD_WIDTH);
@@ -65,9 +66,9 @@ public class LightweightLockword extends HashableLockword {
 
     static {
         if (Platform.target().arch.is64bit()) {
-            assert NUM_BITS == RCOUNT_FIELD_WIDTH + UTIL_FIELD_WIDTH + THREADID_FIELD_WIDTH + HASH_FIELD_WIDTH + NUMBER_OF_MODE_BITS;
+            assert NUM_BITS == RCOUNT_FIELD_WIDTH + UTIL_FIELD_WIDTH + MISC_FIELD_WIDTH + THREADID_FIELD_WIDTH + HASH_FIELD_WIDTH + NUMBER_OF_MODE_BITS;
         } else {
-            assert NUM_BITS == RCOUNT_FIELD_WIDTH + UTIL_FIELD_WIDTH + THREADID_FIELD_WIDTH + NUMBER_OF_MODE_BITS;
+            assert NUM_BITS == RCOUNT_FIELD_WIDTH + UTIL_FIELD_WIDTH + MISC_FIELD_WIDTH + THREADID_FIELD_WIDTH + NUMBER_OF_MODE_BITS;
         }
     }
 
