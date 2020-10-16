@@ -36,9 +36,9 @@ public class LightweightLockword extends HashableLockword {
     /*
      * Field layout for 64 bit:
      *
-     * bit [63........................................ 1  0]     Shape
+     * bit [63.....59....50........42.........34.....2  1 0]     Shape
      *
-     *     [ r. count ][util][misc][thread ID][ hash ][m][0]     Lightweight
+     *     [r. count][util][alloc ID][thread ID][hash][m][0]     Lightweight
      *     [                 Undefined               ][m][1]     Inflated
      *
      *
@@ -46,29 +46,36 @@ public class LightweightLockword extends HashableLockword {
      *
      * bit [32........................................ 1  0]     Shape
      *
-     *     [ r. count ][  util  ][ misc ][ thread ID ][m][0]     Lightweight
+     *     [ r. count ][ util ][alloc ID][ thread ID ][m][0]     Lightweight
      *     [                 Undefined               ][m][1]     Inflated
      *
      */
 
     protected static final int RCOUNT_FIELD_WIDTH = 5;
     protected static final int UTIL_FIELD_WIDTH = 9;
-    public static final int MISC_FIELD_WIDTH = 8;
+    public static final int ALLOCATORID_FIELD_WIDTH = 8;
     public static final int THREADID_FIELD_WIDTH = 8;
     protected static final int THREADID_SHIFT = Platform.target().arch.is64bit() ? (HASHCODE_SHIFT + HASH_FIELD_WIDTH) : NUMBER_OF_MODE_BITS;
-    protected static final int UTIL_SHIFT = THREADID_SHIFT + THREADID_FIELD_WIDTH + MISC_FIELD_WIDTH;
+    protected static final int ALLOCATORID_SHIFT = THREADID_SHIFT + THREADID_FIELD_WIDTH;
+    protected static final int UTIL_SHIFT = ALLOCATORID_SHIFT + ALLOCATORID_FIELD_WIDTH;
     protected static final int RCOUNT_SHIFT = UTIL_SHIFT + UTIL_FIELD_WIDTH;
     protected static final int NUM_BITS = Word.width();
     protected static final Address THREADID_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - THREADID_FIELD_WIDTH);
+    protected static final Address ALLOCATORID_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - ALLOCATORID_FIELD_WIDTH);
     protected static final Address UTIL_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - UTIL_FIELD_WIDTH);
     protected static final Address RCOUNT_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - RCOUNT_FIELD_WIDTH);
     protected static final Address RCOUNT_INC_WORD = Address.zero().bitSet(NUM_BITS - RCOUNT_FIELD_WIDTH);
 
+    /**
+     * A mask of 1s containing 0s only in the allocator id bits.
+     */
+    protected static final Address ALLOCATORID_CLEAR_MASK = ALLOCATORID_SHIFTED_MASK.or(Address.zero()).shiftedLeft(ALLOCATORID_SHIFT).not();
+
     static {
         if (Platform.target().arch.is64bit()) {
-            assert NUM_BITS == RCOUNT_FIELD_WIDTH + UTIL_FIELD_WIDTH + MISC_FIELD_WIDTH + THREADID_FIELD_WIDTH + HASH_FIELD_WIDTH + NUMBER_OF_MODE_BITS;
+            assert NUM_BITS == RCOUNT_FIELD_WIDTH + UTIL_FIELD_WIDTH + ALLOCATORID_FIELD_WIDTH + THREADID_FIELD_WIDTH + HASH_FIELD_WIDTH + NUMBER_OF_MODE_BITS;
         } else {
-            assert NUM_BITS == RCOUNT_FIELD_WIDTH + UTIL_FIELD_WIDTH + MISC_FIELD_WIDTH + THREADID_FIELD_WIDTH + NUMBER_OF_MODE_BITS;
+            assert NUM_BITS == RCOUNT_FIELD_WIDTH + UTIL_FIELD_WIDTH + ALLOCATORID_FIELD_WIDTH + THREADID_FIELD_WIDTH + NUMBER_OF_MODE_BITS;
         }
     }
 
@@ -91,10 +98,12 @@ public class LightweightLockword extends HashableLockword {
             Log.print(lockword.getRecursionCount());
             Log.print(" util=");
             Log.print(lockword.getUtil());
+            Log.print(" allocatorID=");
+            Log.print(lockword.getAllocatorID());
             Log.print(" threadID=");
             Log.print(lockword.getThreadID());
             Log.print(" hash=");
-            Log.print(lockword.getHashcode());
+            Log.println(lockword.getHashcode());
         }
     }
 
@@ -117,6 +126,16 @@ public class LightweightLockword extends HashableLockword {
     @INLINE
     protected final int getThreadID() {
         return asAddress().unsignedShiftedRight(THREADID_SHIFT).and(THREADID_SHIFTED_MASK).toInt();
+    }
+
+    /**
+     * Gets the value of this lock word's allocator thread ID field.
+     *
+     * @return the allocator id field value
+     */
+    @INLINE
+    public final int getAllocatorID() {
+        return asAddress().unsignedShiftedRight(ALLOCATORID_SHIFT).and(ALLOCATORID_SHIFTED_MASK).toInt();
     }
 
     /**
@@ -180,5 +199,29 @@ public class LightweightLockword extends HashableLockword {
     @INLINE
     public final int getRecursionCount() {
         return asAddress().unsignedShiftedRight(RCOUNT_SHIFT).toInt();
+    }
+
+    /**
+     * Sets the value of this lock word's allocator id field.
+     *
+     * First clear the allocator id field ("and" operation with the {@link #ALLOCATORID_CLEAR_MASK}).
+     * Then set with the new allocator id value ("or" operation with {@param allocatorID} left shifted by {@link #ALLOCATORID_SHIFT}).
+     */
+    @INLINE
+    public final LightweightLockword asAllocatedBy(int allocatorID) {
+        //Log.println("== LightweightLockword asAllocatedBy ==");
+        //Log.print(" word: ");
+        //Log.println(LightweightLockword.from(asAddress()));
+        //Log.print(" clear mask: ");
+        //Log.println(ALLOCATORID_CLEAR_MASK);
+        //Log.print(" left operand: ");
+        //Log.println(LightweightLockword.from(asAddress().and(ALLOCATORID_CLEAR_MASK)));
+        //Log.print(" right operand: ");
+        //Log.println(Address.fromInt(allocatorID).shiftedLeft(ALLOCATORID_SHIFT));
+        //Log.print(" left or right: ");
+        //Log.println(LightweightLockword.from(asAddress().and(ALLOCATORID_CLEAR_MASK).or(Address.fromInt(allocatorID).shiftedLeft(ALLOCATORID_SHIFT))));
+        //Log.print(" getAllocID: ");
+        //Log.println(LightweightLockword.from(asAddress().and(ALLOCATORID_CLEAR_MASK).or(Address.fromInt(allocatorID).shiftedLeft(ALLOCATORID_SHIFT))).getAllocatorID());
+        return LightweightLockword.from(asAddress().and(ALLOCATORID_CLEAR_MASK).or(Address.fromInt(allocatorID).shiftedLeft(ALLOCATORID_SHIFT)));
     }
 }
