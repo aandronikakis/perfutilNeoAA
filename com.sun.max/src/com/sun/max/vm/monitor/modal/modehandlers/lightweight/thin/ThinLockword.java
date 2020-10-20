@@ -41,10 +41,10 @@ public class ThinLockword extends LightweightLockword {
 
     /*
      * For 64 bit:
-     * bit [63........................................ 1  0]     Shape         Lock-state
+     * bit [63.....59....50........42.........34.....2  1 0]     Shape         Lock-state
      *
-     *     [     0    ][ util  ][     0      ][ hash ][m][0]     Lightweight   Unlocked
-     *     [ r. count ][ util  ][  thread ID ][ hash ][m][0]     Lightweight   Locked (rcount >= 1)
+     *     [    0   ][util][alloc ID][    0    ][hash][m][0]     Lightweight   Unlocked
+     *     [r. count][util][alloc ID][thread ID][hash][m][0]     Lightweight   Locked (rcount >= 1)
      *     [                 Undefined               ][m][1]     Inflated
      *
      * For 32 bit:
@@ -62,9 +62,18 @@ public class ThinLockword extends LightweightLockword {
      */
 
 
+    /**
+     * The following masks used to maintain the corresponding bit-fields when applying the {@linkplain #UNLOCKED_MASK} to the ThinLockword.
+     */
     private static final Address UTIL_MASK = UTIL_SHIFTED_MASK.shiftedLeft(UTIL_SHIFT);
+    private static final Address ALLOCATOR_MASK = ALLOCATORID_SHIFTED_MASK.shiftedLeft(ALLOCATORID_SHIFT);
+
+    /**
+     * This mask is used by {@link #asUnlocked()} to reset the thread id bit-field in the ThinLockword.
+     * Consequently, the rest of the fields should be maintained and thus they are included in the mask.
+     */
     private static final Address UNLOCKED_MASK = Platform.target().arch.is32bit() ? Word.zero().asAddress().bitSet(MISC_BIT_INDEX).or(UTIL_MASK)
-                    : HASHCODE_SHIFTED_MASK.shiftedLeft(HASHCODE_SHIFT).bitSet(MISC_BIT_INDEX).or(UTIL_MASK);
+                    : HASHCODE_SHIFTED_MASK.shiftedLeft(HASHCODE_SHIFT).bitSet(MISC_BIT_INDEX).or(ALLOCATOR_MASK).or(UTIL_MASK);
 
     @HOSTED_ONLY
     public ThinLockword(long value) {
@@ -89,7 +98,7 @@ public class ThinLockword extends LightweightLockword {
             Log.print(" threadID=");
             Log.print(lockword.getThreadID());
             Log.print(" hash=");
-            Log.print(lockword.getHashcode());
+            Log.println(lockword.getHashcode());
         }
     }
 
