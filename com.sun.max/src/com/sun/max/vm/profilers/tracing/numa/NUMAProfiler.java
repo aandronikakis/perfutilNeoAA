@@ -36,6 +36,9 @@ import com.sun.max.vm.actor.holder.*;
 import com.sun.max.vm.heap.*;
 import com.sun.max.vm.heap.sequential.semiSpace.*;
 import com.sun.max.vm.intrinsics.*;
+import com.sun.max.vm.jdk.*;
+import com.sun.max.vm.layout.Layout;
+import com.sun.max.vm.monitor.modal.modehandlers.lightweight.LightweightLockword;
 import com.sun.max.vm.reference.*;
 import com.sun.max.vm.runtime.*;
 import com.sun.max.vm.thread.*;
@@ -561,6 +564,17 @@ public class NUMAProfiler {
         }
 
         final int accessCounter = assessAccessLocality(address, counter.value);
+
+        final int allocatorId = LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(Pointer.fromLong(address)))).getAllocatorID();
+        if (allocatorId != 0) {
+            //Log.print("(NUMAProfiler.profileAccess): ");
+            //Hub hub = (Hub) Reference.fromOrigin(Pointer.fromLong(address)).readHubReference().toJava();
+            //Log.print(hub.classActor.name());
+            //Log.print(", misc word : ");
+            //Log.print(LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(Pointer.fromLong(address)))));
+            //Log.print(", allocator id: ");
+            //Log.println(LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(Pointer.fromLong(address)))).getAllocatorID());
+        }
 
         // increment local or remote writes
         increaseAccessCounter(accessCounter);
