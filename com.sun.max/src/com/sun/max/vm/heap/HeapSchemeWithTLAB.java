@@ -597,13 +597,20 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
             Object result = Cell.plantTuple(cell, hub);
             return result;
         } else {
-            NUMAProfiler.checkForFlareObject(hub);
+            Object initializedTuple = Cell.plantTuple(cell, hub);
+            //NUMAProfiler.checkForFlareObject(hub);
             if (NUMAProfiler.shouldProfile()) {
                 final String objectType = hub.classActor.name();
                 final long address = cell.toLong();
                 //NUMAProfiler.profileNew(false, 0, hub.tupleSize.toInt(), objectType, address);
+
+                //Log.print("(HeapSchemeWithTLAB.createTuple): ");
+                //Log.println(objectType);
+                //Log.println("(HeapSchemeWithTLAB before engrave): ");
+                Cell.engraveAllocID(cell, VmThread.current().id());
+                //Log.println("(HeapSchemeWithTLAB after engrave): ");
             }
-            return Cell.plantTuple(cell, hub);
+            return initializedTuple;
         }
     }
 
