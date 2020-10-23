@@ -489,6 +489,10 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final String objectType = hub.classActor.name();
         final long address = cell.toLong();
         //NUMAProfiler.profileNew(false, 0, size, objectType, address);
+
+        //Log.print("(C1X newTuple): ");
+        //Log.println(hub.classActor.name());
+        Cell.engraveAllocID(cell, VmThread.current().id());
     }
 
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")
