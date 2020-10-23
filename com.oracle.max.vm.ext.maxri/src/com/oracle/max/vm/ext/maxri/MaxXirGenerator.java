@@ -1217,7 +1217,7 @@ public class MaxXirGenerator implements RiXirGenerator {
         asm.mov(result, cell);
 
         if (MaxineVM.useNUMAProfiler) {
-            callRuntimeThroughStub(asm, "callProfileNewTuple", null, arraySize, hub, cell);
+            callRuntimeThroughStub(asm, "callProfileNewArray", null, arraySize, hub, cell);
         }
 
         asm.bindOutOfLine(reportNegativeIndexError);
