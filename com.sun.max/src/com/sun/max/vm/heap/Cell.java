@@ -27,6 +27,7 @@ import com.sun.max.unsafe.*;
 import com.sun.max.vm.actor.holder.*;
 import com.sun.max.vm.heap.debug.*;
 import com.sun.max.vm.layout.*;
+import com.sun.max.vm.monitor.modal.modehandlers.lightweight.LightweightLockword;
 import com.sun.max.vm.object.*;
 import com.sun.max.vm.reference.*;
 
@@ -131,5 +132,21 @@ public class Cell {
     @NO_SAFEPOINT_POLLS("avoid inconsistent object contents")
     public static Object plantClone(Pointer cell, Object object) {
         return plantClone(cell, Layout.size(Reference.fromJava(object)), object);
+    }
+
+    /**
+     * Write the allocator thread id into the object's misc word.
+     * This is done once for each profiled object after planting.
+     */
+    public static void engraveAllocID(Pointer cell, int id) {
+        final Pointer origin = Layout.tupleCellToOrigin(cell);
+        LightweightLockword miscWord = LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(origin)));
+        //Log.print("(Cell.engraveAllocID): ");
+        //Log.print(" misc before: ");
+        //Log.print(miscWord.asAddress());
+        Layout.writeMisc(origin, miscWord.asAllocatedBy(id));
+        //Layout.compareAndSwapMisc(Reference.fromOrigin(origin), miscWord, miscWord.asAllocatedBy(id));
+        //Log.print(", misc word after: ");
+        //Log.println(LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(origin))).asAddress());
     }
 }
