@@ -21,6 +21,7 @@ package com.sun.max.util.perf;
 
 import com.sun.max.vm.Log;
 import com.sun.max.util.perf.PerfUtil.*;
+import com.sun.max.vm.heap.Heap;
 
 import static com.sun.max.util.perf.PerfEvent.uniqueEventId;
 
@@ -43,7 +44,10 @@ public class PerfEventGroup {
     public static int threadBits = 0;
     public static int groupBits = 0;
 
+    public long[] valuesBuffer;
+    public long[] timesBuffer;
     public PerfEventGroup(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int tid, String threadName, int core) {
+
         if (PerfUtil.logPerf) {
             Log.print("[PerfEventGroup] create ");
             Log.print(group);
@@ -180,6 +184,8 @@ public class PerfEventGroup {
                 createNodePrefetchMissesSingle();
                 break;
         }
+        timesBuffer = new long[2];
+        valuesBuffer = new long[numOfEvents];
     }
 
     public boolean isClosed() {
@@ -564,9 +570,6 @@ public class PerfEventGroup {
     }
 
     public void readGroup() {
-        long[] timesBuffer = new long[2];
-        long[] valuesBuffer = new long[numOfEvents];
-
         // call read from group leader
         perfEvents[0].read(timesBuffer, valuesBuffer);
 
