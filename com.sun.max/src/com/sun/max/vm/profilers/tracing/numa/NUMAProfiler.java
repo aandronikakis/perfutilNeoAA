@@ -325,7 +325,7 @@ public class NUMAProfiler {
 
     public NUMAProfiler() {
         assert NUMALib.numalib_available() != -1 : "NUMAProfiler cannot be run without NUMA support";
-        if (MaxineVM.usePerf){
+        if (MaxineVM.usePerf) {
             return;
         }
 
