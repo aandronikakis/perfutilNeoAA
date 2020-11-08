@@ -614,6 +614,19 @@ public class PerfUtil {
         PerfUtil.perfEventGroups[groupIndex].enableGroup();
     }
 
+    public static void perfGroupReadAndResetWithoutEnableSpecificThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
+        if (PerfUtil.LogPerf) {
+            Log.print("[PerfUtil] perfGroupReadAndResetSpecificThreadSpecificCore() for thread ");
+            Log.println(threadId);
+        }
+        int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
+        PerfUtil.perfEventGroups[groupIndex].disableGroup();
+        PerfUtil.perfEventGroups[groupIndex].readGroup();
+        PerfUtil.perfEventGroups[groupIndex].printGroup();
+        PerfUtil.perfEventGroups[groupIndex].resetGroup();
+    }
+
+
     public static void perfGroupReadAndResetSpecificThreadAnyCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId) {
         if (PerfUtil.LogPerf) {
             Log.print("[PerfUtil] perfGroupReadAndResetSpecificThreadAnyCore() for thread ");
@@ -627,6 +640,18 @@ public class PerfUtil {
         PerfUtil.perfEventGroups[groupIndex].enableGroup();
     }
 
+    public static void perfGroupReadAndResetWithoutEnableSpecificThreadAnyCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId) {
+        if (PerfUtil.LogPerf) {
+            Log.print("[PerfUtil] perfGroupReadAndResetSpecificThreadAnyCore() for thread ");
+            Log.println(threadId);
+        }
+        int groupIndex = PerfEventGroup.uniqueGroupId(-1, threadId, group.value);
+        PerfUtil.perfEventGroups[groupIndex].disableGroup();
+        PerfUtil.perfEventGroups[groupIndex].readGroup();
+        PerfUtil.perfEventGroups[groupIndex].printGroup();
+        PerfUtil.perfEventGroups[groupIndex].resetGroup();
+    }
+
     public static void perfGroupReadAndResetAnyThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
         if (PerfUtil.LogPerf) {
             Log.print("[PerfUtil] perfGroupReadAndResetAnyThreadSpecificCore() for core ");
@@ -638,6 +663,18 @@ public class PerfUtil {
         PerfUtil.perfEventGroups[groupIndex].printGroup();
         PerfUtil.perfEventGroups[groupIndex].resetGroup();
         PerfUtil.perfEventGroups[groupIndex].enableGroup();
+    }
+
+    public static void perfGroupReadAndResetWithoutEnableAnyThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
+        if (PerfUtil.LogPerf) {
+            Log.print("[PerfUtil] perfGroupReadAndResetAnyThreadSpecificCore() for core ");
+            Log.println(core);
+        }
+        int groupIndex = PerfEventGroup.uniqueGroupId(core, -1, group.value);
+        PerfUtil.perfEventGroups[groupIndex].disableGroup();
+        PerfUtil.perfEventGroups[groupIndex].readGroup();
+        PerfUtil.perfEventGroups[groupIndex].printGroup();
+        PerfUtil.perfEventGroups[groupIndex].resetGroup();
     }
 
     /**
@@ -663,7 +700,7 @@ public class PerfUtil {
     }
 
     /**
-     * An call to Read and Reset All remaining Perf Event Groups explicitly.
+     * A call to Read and Reset All remaining Perf Event Groups explicitly.
      * Useful for applications that keep their threads running during the whole execution.
      * Might be slower since it iterates through the whole perfEventGroups array.
      */
@@ -677,6 +714,41 @@ public class PerfUtil {
             }
         }
     }
+
+    /**
+     * A call to Read and Reset without enabling all remaining Perf Event Groups explicitly.
+     * Useful for applications that keep their threads running during the whole execution.
+     * Might be slower since it iterates through the whole perfEventGroups array.
+     */
+    public static void explicitPerfGroupReadAndResetWithoutEnable() {
+        for (int i = 0; i < perfEventGroups.length; i++) {
+            if (perfEventGroups[i] != null && !perfEventGroups[i].isClosed()) {
+                MAXINE_PERF_EVENT_GROUP_ID groupId = perfEventGroups[i].groupId;
+                int thread = perfEventGroups[i].thread;
+                int core = perfEventGroups[i].core;
+                perfGroupReadAndResetWithoutEnableSpecificThreadSpecificCore(groupId, thread, core);
+            }
+        }
+    }
+
+    /**
+     * PerfGroup Close Method explicitly:
+     *
+     * Pass the MAXINE_PERF_EVENT_GROUP_ID, the threadId and the core to specify which group should be closed.
+     * This method chain ends up by calling the native close function of each perf event contained in the groups.
+     * The native close function uses the "close" system call to close the file descriptor of the event.
+     */
+    public static void explicitPerfGroupClose() {
+        for (int i = 0; i < perfEventGroups.length; i++) {
+            if (perfEventGroups[i] != null && !perfEventGroups[i].isClosed()) {
+                MAXINE_PERF_EVENT_GROUP_ID groupId = perfEventGroups[i].groupId;
+                int thread = perfEventGroups[i].thread;
+                int core = perfEventGroups[i].core;
+                perfGroupClose(groupId, thread, core);
+            }
+        }
+    }
+
 
     @C_FUNCTION
     public static native Pointer perfUtilInit(int numOfEvents);
