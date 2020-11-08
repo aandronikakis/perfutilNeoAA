@@ -20,17 +20,21 @@
 package com.sun.max.util.perf;
 
 import com.sun.max.annotate.*;
+import com.sun.max.vm.profilers.tracing.numa.*;
 import com.sun.max.platform.OS;
 import com.sun.max.platform.Platform;
 import com.sun.max.unsafe.Address;
 import com.sun.max.unsafe.Pointer;
 import com.sun.max.vm.Log;
-import com.sun.max.vm.MaxineVM;
 import com.sun.max.vm.runtime.FatalError;
 import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadMap;
 
 import static com.sun.max.vm.thread.VmThread.getTid;
+
+import static com.sun.max.vm.VMOptions.*;
+import static com.sun.max.vm.MaxineVM.*;
+import com.sun.max.vm.*;
 
 /**
  * A class that enables perf tool utilization into MaxineVM.
@@ -96,9 +100,6 @@ import static com.sun.max.vm.thread.VmThread.getTid;
  */
 
 public class PerfUtil {
-
-    @CONSTANT
-    public static final boolean logPerf = false;
 
     /**
      *  Available PerfEvent types.
@@ -453,12 +454,20 @@ public class PerfUtil {
 
     public static int iteration = 0;
 
+    public static boolean LogPerf = false;
+
+    static {
+        VMOptions.addFieldOption("-XX:", "LogPerf", PerfUtil.class, "Verbose perfUtil output. (default: false)", MaxineVM.Phase.PRISTINE);
+    }
+
+    //public static boolean logPerf = PerfUtil.LogPerf;
+
     public PerfUtil() {
     }
 
     public static void initialize() {
         FatalError.check(Platform.platform().os == OS.LINUX, "PerfUtil is only available for Linux.");
-        if (logPerf) {
+        if (PerfUtil.LogPerf) {
             Log.print("[PerfUtil constructor] PerfUtil initialization by thread ");
             Log.println(VmThread.current().id());
         }
@@ -593,7 +602,7 @@ public class PerfUtil {
      *  }
      */
     public static void perfGroupReadAndResetSpecificThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
-        if (PerfUtil.logPerf) {
+        if (PerfUtil.LogPerf) {
             Log.print("[PerfUtil] perfGroupReadAndResetSpecificThreadSpecificCore() for thread ");
             Log.println(threadId);
         }
@@ -606,7 +615,7 @@ public class PerfUtil {
     }
 
     public static void perfGroupReadAndResetSpecificThreadAnyCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId) {
-        if (PerfUtil.logPerf) {
+        if (PerfUtil.LogPerf) {
             Log.print("[PerfUtil] perfGroupReadAndResetSpecificThreadAnyCore() for thread ");
             Log.println(threadId);
         }
@@ -619,7 +628,7 @@ public class PerfUtil {
     }
 
     public static void perfGroupReadAndResetAnyThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
-        if (PerfUtil.logPerf) {
+        if (PerfUtil.LogPerf) {
             Log.print("[PerfUtil] perfGroupReadAndResetAnyThreadSpecificCore() for core ");
             Log.println(core);
         }

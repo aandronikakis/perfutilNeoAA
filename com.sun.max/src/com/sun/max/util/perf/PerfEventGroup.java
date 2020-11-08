@@ -583,7 +583,7 @@ public class PerfEventGroup {
         } else {
             timeRunningPercentage = 0;
         }
-        if (PerfUtil.logPerf) {
+        if (PerfUtil.LogPerf) {
             Log.print(groupId);
             Log.print(" of thread ");
             Log.print(thread);
@@ -597,7 +597,7 @@ public class PerfEventGroup {
 
         // store the read values to their dedicated PerfEvent objects
         for (int i = 0; i < numOfEvents; i++) {
-            if (PerfUtil.logPerf) {
+            if (PerfUtil.LogPerf) {
                 Log.print("  ==> Value read = ");
                 Log.println(valuesBuffer[i]);
             }
@@ -606,7 +606,7 @@ public class PerfEventGroup {
     }
 
     public void printGroup() {
-        if (PerfUtil.logPerf) {
+        if (PerfUtil.LogPerf) {
             Log.print("[PerfEventGroup] Print group ");
             Log.println(groupId);
         }
@@ -633,7 +633,7 @@ public class PerfEventGroup {
 
     public void closeGroup() {
         isClosed = true;
-        if (PerfUtil.logPerf) {
+        if (PerfUtil.LogPerf) {
             Log.print("[PerfEventGroup] Close group ");
             Log.print(groupId);
             Log.print(" for thread ");

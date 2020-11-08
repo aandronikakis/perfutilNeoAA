@@ -79,7 +79,7 @@ public class PerfEvent {
     }
 
     public void close() {
-        if (PerfUtil.logPerf) {
+        if (PerfUtil.LogPerf) {
             Log.print("[PerfEvent] Closing Perf Event ");
             Log.println(uniqueEventId(core, thread, eventId.value, groupId.value));
         }
