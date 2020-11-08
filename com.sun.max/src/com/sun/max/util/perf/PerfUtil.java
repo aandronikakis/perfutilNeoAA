@@ -475,6 +475,8 @@ public class PerfUtil {
         perfEventGroups = new PerfEventGroup[NUM_OF_UNIQUE_PERF_GROUPS];
         perfUtilInit(NUM_OF_UNIQUE_PERF_EVENTS);
 
+        NUMAProfiler.splitStringtoSortedIntegers(); //we need it only for the flare object policy
+
         isInitialized = true;
     }
 

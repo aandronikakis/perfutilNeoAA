@@ -26,6 +26,8 @@ import static com.sun.max.vm.MaxineVM.*;
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.*;
 import static com.sun.max.vm.thread.VmThreadLocal.*;
 
+import com.sun.max.util.perf.PerfUtil;
+
 import com.sun.max.annotate.*;
 import com.sun.max.lang.ISA;
 import com.sun.max.memory.*;
@@ -80,6 +82,7 @@ public class NUMAProfiler {
     }
 
     public static int flareObjectCounter = 0;
+    public static int perfUtilflareObjectCounter = 0;
 
     public static int start_counter = 0;
     public static int end_counter = 0;
@@ -233,7 +236,11 @@ public class NUMAProfiler {
     @CONSTANT_WHEN_NOT_ZERO
     private static Address heapStart;
 
-    public final int memoryPageSize;
+    public Address toStart;
+    public Address toEnd;
+    public Address fromStart;
+    public Address fromEnd;
+    public int memoryPageSize = 0;
 
     public static boolean isTerminating = false;
 
@@ -318,6 +325,9 @@ public class NUMAProfiler {
 
     public NUMAProfiler() {
         assert NUMALib.numalib_available() != -1 : "NUMAProfiler cannot be run without NUMA support";
+        if (MaxineVM.usePerf){
+            return;
+        }
 
         if (NUMAProfilerVerbose) {
             Log.println("[VerboseMsg @ NUMAProfiler.NUMAProfiler()]: NUMAProfiler Initialization.");
@@ -483,11 +493,12 @@ public class NUMAProfiler {
      *
      * @param hub
      */
+    @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     public static void checkForFlareObject(Hub hub) {
         final boolean lockDisabledSafepoints = lock();
-        if (MaxineVM.useNUMAProfiler && !NUMAProfilerFlareAllocationThresholds.equals("0")) {
-            String type = hub.classActor.name();
-            final int currentThreadID = VmThread.current().id();
+        String type = hub.classActor.name();
+        final int currentThreadID = VmThread.current().id();
+        if (MaxineVM.useNUMAProfiler && !NUMAProfilerFlareAllocationThresholds.equals("0") && !MaxineVM.usePerf) {
             if (type.contains(NUMAProfilerFlareObjectStart)) {
                 flareObjectCounter++;
                 if (NUMAProfilerVerbose) {
@@ -527,7 +538,44 @@ public class NUMAProfiler {
                 }
                 enableFlareObjectProfiler = false;
             }
+        } else if (MaxineVM.usePerf && !NUMAProfilerFlareAllocationThresholds.equals("0")) {
+            if (type.contains(NUMAProfilerFlareObjectStart)) {
+                perfUtilflareObjectCounter++;
+                if (PerfUtil.LogPerf) {
+                    Log.print("[PerfUtil] Start Flare-Object Counter: ");
+                    Log.println(perfUtilflareObjectCounter);
+                }
+                if (perfUtilflareObjectCounter == flareAllocationThresholds[start_counter]) {
+                    if (enableFlareObjectProfiler) {
+                        throw FatalError.unexpected("The PerfUtil supports only a single profiling instance a time. " +
+                            "It seams that there is already an ongoing Flare-Object profiling");
+                    }
+                    flareObjectThreadIdBuffer[start_counter] = currentThreadID;
+                    if (PerfUtil.LogPerf) {
+                        Log.print("[PerfUtil] Enable profiling due to flare object allocation for id ");
+                        Log.println(currentThreadID);
+                    }
+                    if (start_counter < flareAllocationThresholds.length - 1) {
+                        start_counter++;
+                    }
+
+                    //Set here the PerfGRoups you want to use
+                    PerfUtil.iteration++;
+                    enableFlareObjectProfiler = true;
+                }
+            } else if (enableFlareObjectProfiler == true && flareObjectThreadIdBuffer[end_counter] == currentThreadID && type.contains(NUMAProfilerFlareObjectEnd)) {
+                if (PerfUtil.LogPerf) {
+                    Log.print("[PerfUtil] Disable profiling due to flare end object allocation for id ");
+                    Log.println(currentThreadID);
+                    Log.println(PerfUtil.isInitialized);
+                }
+                end_counter++;
+
+                //Reset and close here the PerfGRoups you've used
+                enableFlareObjectProfiler = false;
+            }
         }
+
         unlock(lockDisabledSafepoints);
     }
 
@@ -1100,7 +1148,7 @@ public class NUMAProfiler {
     /**
      *  A method to transform a string of that form "int0,int1,int2" into an integer array [int0, int1, int2].
      */
-    private void splitStringtoSortedIntegers() {
+    public static void splitStringtoSortedIntegers() {
 
         String[] thresholds = NUMAProfilerFlareAllocationThresholds.split(",");
         flareObjectThreadIdBuffer = new int[thresholds.length];
