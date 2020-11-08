@@ -42,6 +42,7 @@ import com.sun.max.vm.jdk.*;
 import com.sun.max.vm.runtime.*;
 import com.sun.max.vm.type.*;
 import com.sun.max.vm.verifier.*;
+import com.sun.max.util.perf.PerfUtil;
 
 import static com.sun.max.platform.Platform.platform;
 
@@ -109,6 +110,9 @@ public final class BootImageGenerator {
      */
     private static final Option<Boolean> recursiveThreadInstancesSupport = options.newBooleanOption("recursive-threads", false,
             "Increases misc word's allocId bit-field length to support profiling in applications with recursive thread instances creation.");
+
+    private static final Option<Boolean> usePerf = options.newBooleanOption("use-perf-util", false,
+            "Uses PerfUtil.");
 
     // Options shared with the Inspector
     public static final OptionSet inspectorSharedOptions = new OptionSet();
@@ -234,6 +238,7 @@ public final class BootImageGenerator {
             }
 
             MaxineVM.useNUMAProfiler = useNumaProfiler.getValue();
+            MaxineVM.usePerf = usePerf.getValue();
 
             if (MaxineVM.useNUMAProfiler && !platform().target.arch.isX86()) {
                 FatalError.unimplemented("NUMA memory profiler not supported on non-x86 Architectures.");

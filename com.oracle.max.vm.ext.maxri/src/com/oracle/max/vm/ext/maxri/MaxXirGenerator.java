@@ -1175,7 +1175,7 @@ public class MaxXirGenerator implements RiXirGenerator {
         engraveAllocatorId(cell, etla);
         asm.mov(result, cell);
 
-        if (MaxineVM.useNUMAProfiler) {
+        if (MaxineVM.useNUMAProfiler || MaxineVM.usePerf) {
             callRuntimeThroughStub(asm, "callProfileNewArray", null, length, arraySize, hub, cell);
         }
 
@@ -1226,7 +1226,7 @@ public class MaxXirGenerator implements RiXirGenerator {
         engraveAllocatorId(cell, etla);
         asm.mov(result, cell);
 
-        if (MaxineVM.useNUMAProfiler) {
+        if (MaxineVM.useNUMAProfiler || MaxineVM.usePerf) {
             callRuntimeThroughStub(asm, "callProfileNewArray", null, length, arraySize, hub, cell);
         }
 
@@ -1373,8 +1373,7 @@ public class MaxXirGenerator implements RiXirGenerator {
         }
         engraveAllocatorId(cell, etla);
         asm.mov(result, cell);
-
-        if (MaxineVM.useNUMAProfiler) {
+        if (MaxineVM.useNUMAProfiler || MaxineVM.usePerf) {
             callRuntimeThroughStub(asm, "callProfileNewTuple", null, tupleSize, hub, cell);
         }
     }
@@ -1444,8 +1443,7 @@ public class MaxXirGenerator implements RiXirGenerator {
         // TODO: as a configuration option (where?)
         engraveAllocatorId(cell, etla);
         asm.mov(result, cell);
-
-        if (MaxineVM.useNUMAProfiler) {
+        if (MaxineVM.useNUMAProfiler || MaxineVM.usePerf) {
             callRuntimeThroughStub(asm, "callProfileNewTuple", null, tupleSize, hub, cell);
         }
 
@@ -1610,7 +1608,7 @@ public class MaxXirGenerator implements RiXirGenerator {
 
     @HOSTED_ONLY
     private void maybeInvokeNUMAProfiler(CiKind kind, XirParameter object, String runtimeMethod, boolean isTemplate) {
-        if (MaxineVM.useNUMAProfiler && !isTemplate && kind == CiKind.Object) {
+        if ((MaxineVM.useNUMAProfiler  || MaxineVM.usePerf) && (!isTemplate && kind == CiKind.Object)) {
             final XirLabel    skip                = asm.createInlineLabel("skip");
             final XirOperand  tla                 = asm.createRegisterTemp("TLA", WordUtil.archKind(), this.LATCH_REGISTER);
             final XirOperand  profilingTlaAddress = asm.createTemp("TLAAddress", WordUtil.archKind());

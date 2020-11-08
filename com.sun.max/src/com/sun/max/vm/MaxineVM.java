@@ -160,6 +160,16 @@ public final class MaxineVM {
      */
     public static PerfUtil perfUtil;
 
+    public static boolean UsePerf;
+    /**
+     * The {@link #usePerf} static variable is a flag which takes its value from the {@link BootImageGenerator#usePerf}
+     * Option during {@link BootImageGenerator}. If set to true then it allows MaxineVM to inject the NUMA Profiler
+     * calls into the precompiled C1X Snippets for New Object Allocation (buildTLABAllocate, buildTLABAllocateArray),
+     * Object Write (buildPutFieldTemplate, buildArrayStore) and Object Read (buildGetFieldTemplate, buildArrayLoad).
+     */
+    @CONSTANT
+    public static boolean usePerf;
+
     /**
      * Allows the Inspector access to the thread locals block for the primordial thread.
      */
@@ -581,11 +591,11 @@ public final class MaxineVM {
      * From the documentation for this builtin function:
      *      "This function is used to flush the processor’s instruction cache for the region of memory between
      *      begin inclusive and end exclusive."
-     *      
+     *
      * In order to ensure the instruction at the upper bound of the address range is cleaned from the cache
      * it is necessary to include it's size in the length parameter. On ARMv7 and ARMv8 that is 4bytes (we don't support Thumb)
      * so for example to clean 2 instructions from the address at start the length parameter should be +8 bytes.
-     * 
+     *
      * @param start the address of the first modified instruction
      * @param length the number of instructions * sizeof one instruction
      */
