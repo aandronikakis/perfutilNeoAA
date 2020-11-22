@@ -1102,6 +1102,7 @@ public class NUMAProfiler {
      * is being terminated.
      */
     public void terminate() {
+        final boolean lockDisabledSafepoints = lock();
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Disable profiling for termination");
@@ -1131,6 +1132,7 @@ public class NUMAProfiler {
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Terminating... Bye!");
         }
+        unlock(lockDisabledSafepoints);
     }
 
     private static int lockOwner;
