@@ -614,11 +614,6 @@ public class VmThread {
         thread.stackDumpStackFrameWalker.setTLA(etla);
         thread.yellowZone = yellowZone;
 
-        // Enable profiling for the new VM Thread if profiling should be enabled
-        if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
-            NUMAProfiler.onVmThreadStart(id, thread.name, etla);
-        }
-
         VM_THREAD.store3(etla, Reference.fromJava(thread));
         VmThreadMap.addThreadLocals(thread, etla, daemon);
 
@@ -697,6 +692,14 @@ public class VmThread {
 
         // for NUMA optimizations
         enableOnlineProfiling(thread);
+
+        // Enable profiling for the new VM Thread if profiling should be enabled
+        if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
+            final boolean isProfilingCandidateThread = NUMAProfiler.profilingPredicate.evaluate(thread.tla);
+            if (isProfilingCandidateThread) {
+                NUMAProfiler.onVmThreadStart(thread.id, thread.name, etla);
+            }
+        }
 
         try {
             executeRunnable(thread);
@@ -843,7 +846,10 @@ public class VmThread {
         // perform all actions related with NUMAProfiler VmThread's before exit
         // onVmThreadExit should be called AFTER the VmThread has been removed from ACTIVE list
         if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
-            NUMAProfiler.onVmThreadExit(thread.tla);
+            final boolean isProfilingCandidateThread = NUMAProfiler.profilingPredicate.evaluate(thread.tla);
+            if (isProfilingCandidateThread) {
+                NUMAProfiler.onVmThreadExit(thread.tla);
+            }
         }
         if (MaxineVM.isDebug()) {
             detached();
