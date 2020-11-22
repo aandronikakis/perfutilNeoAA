@@ -644,10 +644,11 @@ public class NUMAProfiler {
     void preGCActions() {
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Entering Pre-GC Phase.");
-            Log.print("(NUMA Profiler): Cycle ");
+            Log.println("(NUMA Profiler): Mutation Stopped. Entering Pre-GC Phase.");
+            Log.print("(NUMA Profiler): Profiling Cycle = ");
             Log.print(profilingCycle);
-            Log.println(" Profiling Is Now Complete. [pre-GC phase]");
+            Log.print(" Iteration = ");
+            Log.println(iteration);
         }
 
         // guard libnuma sys call usages during implicit GCs
@@ -668,7 +669,11 @@ public class NUMAProfiler {
      */
     void preGCMinimumActions() {
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Entering (Minimum) Pre-GC Phase.");
+            Log.println("(NUMA Profiler): Mutation Stopped. Entering [Minimum] Pre-GC Phase.");
+            Log.print("(NUMA Profiler): Profiling Cycle = ");
+            Log.print(profilingCycle);
+            Log.print(" Iteration = ");
+            Log.println(iteration);
         }
         // guard libnuma sys call usages during implicit GCs
         // find numa nodes for all pages in the GC exactly before the first profiling cycle
@@ -724,9 +729,17 @@ public class NUMAProfiler {
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Leaving Post-GC Phase.");
-            Log.print("(NUMA Profiler): Start Profiling. [Cycle ");
-            Log.print(profilingCycle);
-            Log.println("]");
+            Log.print("(NUMA Profiler): Start Mutation");
+            if (explicitGCProflingEnabled) {
+                Log.print(" & Profiling. [Profiling Cycle ");
+                Log.print(profilingCycle);
+                Log.print("]");
+                Log.print(", iteration = ");
+                Log.println(iteration);
+            } else {
+                Log.print(", iteration = ");
+                Log.println(iteration);
+            }
         }
 
     }
@@ -736,9 +749,23 @@ public class NUMAProfiler {
      */
     public void postGCMinimumActions() {
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Entering (Minimum) Post-GC Phase.");
+            Log.println("(NUMA Profiler): Entering [Minimum] Post-GC Phase.");
         }
         checkAndUpdateProfilingState();
+        if (NUMAProfilerVerbose) {
+            Log.println("(NUMA Profiler): Leaving [Minimum] Post-GC Phase.");
+            Log.print("(NUMA Profiler): Start Mutation");
+            if (explicitGCProflingEnabled) {
+                Log.print(" & Profiling. [Profiling Cycle ");
+                Log.print(profilingCycle);
+                Log.print("]");
+                Log.print(", iteration = ");
+                Log.println(iteration);
+            } else {
+                Log.print(", iteration = ");
+                Log.println(iteration);
+            }
+        }
     }
 
     /**
