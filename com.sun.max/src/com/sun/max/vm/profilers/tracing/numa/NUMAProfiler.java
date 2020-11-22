@@ -320,6 +320,7 @@ public class NUMAProfiler {
     }
 
     public static void onVmThreadStart(int threadId, String threadName, Pointer etla) {
+        final boolean lockDisabledSafepoints = lock();
         if (isExplicitGCPolicyConditionTrue() || isFlareObjectPolicyConditionTrue()) {
             Log.println("(profilingThread);" + profilingCycle + ";" + threadId + ";" + threadName);
             PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
@@ -327,6 +328,7 @@ public class NUMAProfiler {
         // Initialize new Thread's Record Buffer
         initThreadLocalRecordBuffer.run(etla);
         initThreadLocalSurvivorBuffers.run(etla);
+        unlock(lockDisabledSafepoints);
     }
 
     /**
