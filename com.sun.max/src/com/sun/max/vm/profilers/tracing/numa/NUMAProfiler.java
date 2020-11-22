@@ -889,6 +889,17 @@ public class NUMAProfiler {
         }
     };
 
+    private static final Pointer.Procedure printThreadId = new Pointer.Procedure() {
+        @Override
+        public void run(Pointer tla) {
+            VmThread thread = VmThread.fromTLA(tla);
+            Log.print("I am thread ");
+            Log.print(thread.id());
+            Log.print(". My state: ");
+            Log.println(thread.state().name());
+        }
+    };
+
     /**
      * A method to print the Allocations Buffer of one specific thread.
      * @param tla
