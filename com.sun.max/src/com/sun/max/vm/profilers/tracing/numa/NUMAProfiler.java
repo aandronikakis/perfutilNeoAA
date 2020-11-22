@@ -1042,17 +1042,20 @@ public class NUMAProfiler {
     }
 
     public static void onVmThreadExit(Pointer tla) {
-        final boolean isThreadBeingProfiled = NUMAProfiler.profilingPredicate.evaluate(tla) && NUMAProfiler.isProfilingEnabledPredicate.evaluate(tla);
-        if (isThreadBeingProfiled) {
-            final boolean lockDisabledSafepoints = lock();
+        final boolean lockDisabledSafepoints = lock();
+        final boolean isThreadActivelyProfiled = NUMAProfiler.isProfilingEnabledPredicate.evaluate(tla);
+        if (isThreadActivelyProfiled) {
+            PROFILER_STATE.store(tla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
+            FatalError.check(RecordBuffer.getForCurrentThread(tla, 0) != null, "A Thread Local Record Buffer is null.");
             NUMAProfiler.printAllocationBufferOfThread(tla);
             NUMAProfiler.resetAllocationBufferOfThread(tla);
             NUMAProfiler.printProfilingCountersOfThread(tla);
-            NUMAProfiler.deallocateAllocationsBuffer.run(tla);
-            NUMAProfiler.deallocateSurvivors1Buffer.run(tla);
-            NUMAProfiler.deallocateSurvivors2Buffer.run(tla);
-            unlock(lockDisabledSafepoints);
         }
+        // TL RBuffers are allocated in any case, so do the same for de-allocation
+        NUMAProfiler.deallocateAllocationsBuffer.run(tla);
+        NUMAProfiler.deallocateSurvivors1Buffer.run(tla);
+        NUMAProfiler.deallocateSurvivors2Buffer.run(tla);
+        unlock(lockDisabledSafepoints);
     }
 
     /**
