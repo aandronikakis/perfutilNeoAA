@@ -36,7 +36,6 @@ import com.sun.max.vm.actor.holder.*;
 import com.sun.max.vm.heap.*;
 import com.sun.max.vm.heap.sequential.semiSpace.*;
 import com.sun.max.vm.intrinsics.*;
-import com.sun.max.vm.jdk.*;
 import com.sun.max.vm.reference.*;
 import com.sun.max.vm.runtime.*;
 import com.sun.max.vm.thread.*;
@@ -186,8 +185,11 @@ public class NUMAProfiler {
 
     private static final int MINIMUMBUFFERSIZE = 500000;
 
-    public static int survivorBufferSize = MINIMUMBUFFERSIZE;
-    public static int allocatorBufferSize = MINIMUMBUFFERSIZE;
+    /**
+     * Size of the Thread Local Allocations and Survivors Record Buffers.
+     */
+    public static int TLSRBSize = MINIMUMBUFFERSIZE;
+    public static int TLARBSize = MINIMUMBUFFERSIZE;
 
     /**
      * The underlying hardware configuration.
@@ -275,20 +277,20 @@ public class NUMAProfiler {
                 Log.print("WARNING: Small Buffer Size. Minimum Buffer Size applied! (=");
                 Log.print(MINIMUMBUFFERSIZE);
                 Log.println(")");
-                allocatorBufferSize = MINIMUMBUFFERSIZE;
-                survivorBufferSize = MINIMUMBUFFERSIZE;
+                TLARBSize = MINIMUMBUFFERSIZE;
+                TLSRBSize = MINIMUMBUFFERSIZE;
             } else {
-                allocatorBufferSize = NUMAProfilerBufferSize;
-                survivorBufferSize = NUMAProfilerBufferSize;
+                TLARBSize = NUMAProfilerBufferSize;
+                TLSRBSize = NUMAProfilerBufferSize;
             }
         }
 
-        initAllThreadLocalRecordBuffers();
+        initTLARBufferForAllThreads();
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Initialize the Survivor Objects NUMAProfiler Buffers.");
         }
-        initSurvivorBuffersForAllThreads();
+        initTLSRBuffersForAllThreads();
 
         memoryPageSize = NUMALib.numaPageSize();
 
@@ -326,8 +328,8 @@ public class NUMAProfiler {
             PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
         }
         // Initialize new Thread's Record Buffer
-        initThreadLocalRecordBuffer.run(etla);
-        initThreadLocalSurvivorBuffers.run(etla);
+        initTLARB.run(etla);
+        initTLSRB.run(etla);
         unlock(lockDisabledSafepoints);
     }
 
@@ -468,12 +470,12 @@ public class NUMAProfiler {
     /**
      * Dump NUMAProfiler Buffer to Maxine's Log output.
      */
-    private void dumpBuffer() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printAllocationBuffer);
+    private void dumpAllTLARBs() {
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLARB);
     }
 
-    private void dumpSurvivors() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printSurvivorsBuffers);
+    private void dumpAllTLSRBs() {
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLSRBs);
     }
 
     private void dumpHeapBoundaries() {
@@ -708,7 +710,7 @@ public class NUMAProfiler {
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers. [post-GC phase]");
         }
-        dumpBuffer();
+        dumpAllTLARBs();
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Reset Allocation Thread Local Buffers. [post-gc phase]");
@@ -718,7 +720,7 @@ public class NUMAProfiler {
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Dump Survivors Buffer. [post-GC phase]");
         }
-        dumpSurvivors();
+        dumpAllTLSRBs();
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Print Access Profiling Thread Local Counters. [post-GC phase]");
@@ -839,7 +841,7 @@ public class NUMAProfiler {
     }
 
     /**
-     * A {@link Pointer.Procedure} that prints a thread's all Object Access Profiling Counters}.
+     * A {@link Pointer.Procedure} that prints a thread's all Object Access Profiling Counters.
      */
     private static final Pointer.Procedure printThreadLocalProfilingCounters = new Pointer.Procedure() {
         public void run(Pointer tla) {
@@ -879,9 +881,9 @@ public class NUMAProfiler {
     }
 
     /**
-     * A {@link Pointer.Procedure} that prints a thread's Allocations Buffer}.
+     * A {@link Pointer.Procedure} that prints a Thread Local Allocations Record Buffer (TLARB).
      */
-    private static final Pointer.Procedure printAllocationBuffer = new Pointer.Procedure() {
+    private static final Pointer.Procedure printTLARB = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
@@ -901,14 +903,9 @@ public class NUMAProfiler {
     };
 
     /**
-     * A method to print the Allocations Buffer of one specific thread.
-     * @param tla
+     * A {@link Pointer.Procedure} that prints a Thread Local Survivors Record Buffer (TLSRB).
      */
-    public static void printAllocationBufferOfThread(Pointer tla) {
-        printAllocationBuffer.run(tla);
-    }
-
-    private static final Pointer.Procedure printSurvivorsBuffers = new Pointer.Procedure() {
+    private static final Pointer.Procedure printTLSRBs = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
             if (NUMAProfilerVerbose) {
@@ -924,7 +921,10 @@ public class NUMAProfiler {
         }
     };
 
-    private static final Pointer.Procedure resetAllocationBuffer = new Pointer.Procedure() {
+    /**
+     * A set of {@link Pointer.Procedure}s to reset Thread Local Allocations & Survivors Record Buffers (TLARB & TLSRBs).
+     */
+    private static final Pointer.Procedure resetTLARB = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
@@ -932,7 +932,7 @@ public class NUMAProfiler {
         }
     };
 
-    private static final Pointer.Procedure resetSurvivors1Buffer = new Pointer.Procedure() {
+    private static final Pointer.Procedure resetTLSRB1 = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
@@ -940,35 +940,27 @@ public class NUMAProfiler {
         }
     };
 
-    private static final Pointer.Procedure resetSurvivors2Buffer = new Pointer.Procedure() {
+    private static final Pointer.Procedure resetTLSRB2 = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value).resetBuffer();
         }
     };
-
-    /**
-     * Only for threads terminated before GC.
-     * @param tla
-     */
-    public static void resetAllocationBufferOfThread(Pointer tla) {
-        resetAllocationBuffer.run(tla);
-    }
 
     /**
      * Only for frozen threads during GC.
      */
     public static void resetAllocationBuffers() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetAllocationBuffer);
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLARB);
     }
 
     public static void resetSurvivors1Buffers() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetSurvivors1Buffer);
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLSRB1);
     }
 
     public static void resetSurvivors2Buffers() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetSurvivors2Buffer);
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLSRB2);
     }
 
     /**
@@ -1015,57 +1007,60 @@ public class NUMAProfiler {
     };
 
     /**
-     * A {@link Pointer.Procedure} that initializes the two Survivor Buffers of a thread.
+     * A {@link Pointer.Procedure} that initializes the two Thread Local Survivors Record Buffers (TLSRB) of a thread.
      * It is also used independently when a new thread is spawned.
      */
-    public static final Pointer.Procedure initThreadLocalSurvivorBuffers = new Pointer.Procedure() {
+    public static final Pointer.Procedure initTLSRB = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final RecordBuffer survivors1 = new RecordBuffer(survivorBufferSize, "Survivors Buffer No1");
+            final RecordBuffer survivors1 = new RecordBuffer(TLSRBSize, "Survivors Buffer No1");
             RecordBuffer.setForCurrentThread(tla, survivors1, RECORD_BUFFER.SURVIVORS_1_BUFFER.value);
-            final RecordBuffer survivors2 = new RecordBuffer(survivorBufferSize, "Survivors Buffer No2");
+            final RecordBuffer survivors2 = new RecordBuffer(TLSRBSize, "Survivors Buffer No2");
             RecordBuffer.setForCurrentThread(tla, survivors2, RECORD_BUFFER.SURVIVORS_2_BUFFER.value);
         }
     };
 
-    private void initSurvivorBuffersForAllThreads() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalSurvivorBuffers);
+    private void initTLSRBuffersForAllThreads() {
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initTLSRB);
     }
 
     /**
-     * A {@link Pointer.Procedure} that initializes the Allocation Buffer of a thread.
+     * A {@link Pointer.Procedure} that initializes the Thread Local Allocations Record Buffer (TLARB) of a thread.
      * It is also used independently when a new thread is spawned.
      */
-    public static final Pointer.Procedure initThreadLocalRecordBuffer = new Pointer.Procedure() {
+    public static final Pointer.Procedure initTLARB = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final RecordBuffer allocationsBuffer = new RecordBuffer(allocatorBufferSize, "allocations Buffer ");
+            final RecordBuffer allocationsBuffer = new RecordBuffer(TLARBSize, "allocations Buffer ");
             assert tla.equals(ETLA.load(tla));
             RecordBuffer.setForCurrentThread(tla, allocationsBuffer, RECORD_BUFFER.ALLOCATIONS_BUFFER.value);
         }
     };
 
     /**
-     * Calls {@code initThreadLocalRecordBuffer} {@link Pointer.Procedure} for all ACTIVE threads.
+     * Calls {@code initTLARB} {@link Pointer.Procedure} for all ACTIVE threads.
      * It is used in NUMAProfiler's initialization for VM Threads.
      */
-    private void initAllThreadLocalRecordBuffers() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalRecordBuffer);
+    private void initTLARBufferForAllThreads() {
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initTLARB);
     }
 
-    public static final Pointer.Procedure deallocateAllocationsBuffer = new Pointer.Procedure() {
+    /**
+     * A set of {@link Pointer.Procedure}s for Thread Local Record Buffer de-allocation.
+     */
+    public static final Pointer.Procedure deallocateTLARB = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value).deallocateAll();
         }
     };
 
-    public static final Pointer.Procedure deallocateSurvivors1Buffer = new Pointer.Procedure() {
+    public static final Pointer.Procedure deallocateTLSRB1 = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value).deallocateAll();
         }
     };
 
-    public static final Pointer.Procedure deallocateSurvivors2Buffer = new Pointer.Procedure() {
+    public static final Pointer.Procedure deallocateTLSRB2 = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value).deallocateAll();
@@ -1073,9 +1068,9 @@ public class NUMAProfiler {
     };
 
     private void releaseReservedMemory() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateAllocationsBuffer);
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateSurvivors1Buffer);
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateSurvivors2Buffer);
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLARB);
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLSRB1);
+        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLSRB2);
         heapPages.deallocateAll();
     }
 
@@ -1085,14 +1080,14 @@ public class NUMAProfiler {
         if (isThreadActivelyProfiled) {
             PROFILER_STATE.store(tla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
             FatalError.check(RecordBuffer.getForCurrentThread(tla, 0) != null, "A Thread Local Record Buffer is null.");
-            NUMAProfiler.printAllocationBufferOfThread(tla);
-            NUMAProfiler.resetAllocationBufferOfThread(tla);
+            NUMAProfiler.printTLARB.run(tla);
+            NUMAProfiler.resetTLARB.run(tla);
             NUMAProfiler.printProfilingCountersOfThread(tla);
         }
         // TL RBuffers are allocated in any case, so do the same for de-allocation
-        NUMAProfiler.deallocateAllocationsBuffer.run(tla);
-        NUMAProfiler.deallocateSurvivors1Buffer.run(tla);
-        NUMAProfiler.deallocateSurvivors2Buffer.run(tla);
+        NUMAProfiler.deallocateTLARB.run(tla);
+        NUMAProfiler.deallocateTLSRB1.run(tla);
+        NUMAProfiler.deallocateTLSRB2.run(tla);
         unlock(lockDisabledSafepoints);
     }
 
@@ -1117,7 +1112,7 @@ public class NUMAProfiler {
 
         dumpHeapBoundaries();
 
-        dumpBuffer();
+        dumpAllTLARBs();
 
         printProfilingCounters();
 
