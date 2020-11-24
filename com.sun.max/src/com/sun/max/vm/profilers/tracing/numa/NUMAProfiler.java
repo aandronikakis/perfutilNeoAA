@@ -831,7 +831,8 @@ public class NUMAProfiler {
     public static final Pointer.Predicate isProfilingEnabledPredicate = new Pointer.Predicate() {
         @Override
         public boolean evaluate(Pointer tla) {
-            return PROFILER_STATE.load(tla).toInt() == 1;
+            Pointer etla = ETLA.load(tla);
+            return PROFILER_STATE.load(etla).toInt() == 1;
         }
     };
 
@@ -908,15 +909,16 @@ public class NUMAProfiler {
     private static final Pointer.Procedure printTLSRBs = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
             if (NUMAProfilerVerbose) {
                 Log.print("==== Survivors Cycle ");
                 Log.print(profilingCycle);
                 Log.println(" ====");
             }
             if ((profilingCycle % 2) == 0) {
-                RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value).print(profilingCycle, 0);
+                RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value).print(profilingCycle, 0);
             } else {
-                RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value).print(profilingCycle, 0);
+                RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value).print(profilingCycle, 0);
             }
         }
     };
@@ -924,7 +926,8 @@ public class NUMAProfiler {
     private static final Pointer.Procedure printThreadId = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            VmThread thread = VmThread.fromTLA(tla);
+            Pointer etla = ETLA.load(tla);
+            VmThread thread = VmThread.fromTLA(etla);
             Log.print("I am thread ");
             Log.print(thread.id());
             Log.print(". My state: ");
@@ -1076,14 +1079,15 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure profileSurvivorsProcedure = new Pointer.Procedure() {
         public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
             if ((profilingCycle % 2) == 0) {
                 //even cycles
-                storeSurvivors(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value), RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value));
-                storeSurvivors(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value), RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value));
+                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value));
+                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value));
             } else {
                 //odd cycles
-                storeSurvivors(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value), RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value));
-                storeSurvivors(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value), RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value));
+                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value));
+                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value));
             }
         }
     };
