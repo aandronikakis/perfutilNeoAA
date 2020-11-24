@@ -107,7 +107,7 @@ public final class CodeCacheMetricsPrinter {
         for (TargetMethod targetMethod : cr.copyOfTargetMethods()) {
             ClassMethodActor methodActor = targetMethod.classMethodActor();
             int bcSize = methodActor == null ? 0 : methodActor.codeSize();
-            int mcSize = targetMethod.codeLength();
+            int mcSize = targetMethod.trampolinesLength() + targetMethod.codeLength();
             MethodProfile profile = targetMethod.profile();
             int invocations = 0;
             if (profile != null) {
