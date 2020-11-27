@@ -488,11 +488,15 @@ public class NUMAProfiler {
      * Dump NUMAProfiler Buffer to Maxine's Log output.
      */
     private void dumpAllTLARBs() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLARB);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLARB);
+        }
     }
 
     private void dumpAllTLSRBs() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLSRBs);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLSRBs);
+        }
     }
 
     private void dumpHeapBoundaries() {
@@ -633,7 +637,9 @@ public class NUMAProfiler {
      * It calls the {@linkplain #profileSurvivorsProcedure}.
      */
     private void profileSurvivors() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, profileSurvivorsProcedure);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, profileSurvivorsProcedure);
+        }
     }
 
     /**
@@ -844,7 +850,9 @@ public class NUMAProfiler {
     };
 
     private static void enableProfiling() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, setProfilingTLA);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, setProfilingTLA);
+        }
     }
 
     private static final Pointer.Procedure resetProfilingTLA = new Pointer.Procedure() {
@@ -855,7 +863,9 @@ public class NUMAProfiler {
     };
 
     private static void disableProfiling() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetProfilingTLA);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetProfilingTLA);
+        }
     }
 
     /**
@@ -872,7 +882,9 @@ public class NUMAProfiler {
     };
 
     private void initTLSRBuffersForAllThreads() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initTLSRB);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initTLSRB);
+        }
     }
 
     /**
@@ -892,7 +904,9 @@ public class NUMAProfiler {
      * It is used in NUMAProfiler's initialization for VM Threads.
      */
     private void initTLARBufferForAllThreads() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initTLARB);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initTLARB);
+        }
     }
 
     private static final Pointer.Procedure printTLARB = new Pointer.Procedure() {
@@ -966,15 +980,21 @@ public class NUMAProfiler {
      * Only for frozen threads during GC.
      */
     public static void resetTLARBs() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLARB);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLARB);
+        }
     }
 
     public static void resetTLS1RBs() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLSRB1);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLSRB1);
+        }
     }
 
     public static void resetTLS2RBs() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLSRB2);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLSRB2);
+        }
     }
 
     /**
@@ -1002,9 +1022,11 @@ public class NUMAProfiler {
     };
 
     private void releaseReservedMemory() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLARB);
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLSRB1);
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLSRB2);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLARB);
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLSRB1);
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLSRB2);
+        }
         heapPages.deallocateAll();
     }
 
@@ -1025,7 +1047,9 @@ public class NUMAProfiler {
      * Call {@link #initThreadLocalProfilingCounters} for all {@linkplain VmThreadMap#ACTIVE} threads.
      */
     private static void initProfilingCounters() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalProfilingCounters);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalProfilingCounters);
+        }
     }
 
     /**
@@ -1057,7 +1081,9 @@ public class NUMAProfiler {
      * Call {@link #initThreadLocalProfilingCounters} for all ACTIVE threads.
      */
     private static void printProfilingCounters() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printThreadLocalProfilingCounters);
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printThreadLocalProfilingCounters);
+        }
     }
 
     /**
