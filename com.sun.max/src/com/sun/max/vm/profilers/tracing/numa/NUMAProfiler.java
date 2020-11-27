@@ -831,6 +831,13 @@ public class NUMAProfiler {
         }
     };
 
+    public static final Pointer.Predicate allThreads = new Pointer.Predicate() {
+        @Override
+        public boolean evaluate(Pointer pointer) {
+            return true;
+        }
+    };
+
     /**
      * A predicate to determine if profiling is enabled on the current thread.
      */
