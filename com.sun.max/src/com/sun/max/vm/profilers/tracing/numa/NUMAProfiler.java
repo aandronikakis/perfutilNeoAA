@@ -94,6 +94,8 @@ public class NUMAProfiler {
     @SuppressWarnings("unused")
     private static int     NUMAProfilerBufferSize;
     @SuppressWarnings("unused")
+    private static boolean NUMAProfilerPrintOutput;
+    @SuppressWarnings("unused")
     private static boolean NUMAProfilerDebug;
     @SuppressWarnings("unused")
     private static boolean NUMAProfilerIncludeFinalization;
@@ -241,6 +243,7 @@ public class NUMAProfiler {
     static {
         VMOptions.addFieldOption("-XX:", "NUMAProfilerVerbose", NUMAProfiler.class, "Verbose numa profiler output. (default: false)", MaxineVM.Phase.PRISTINE);
         VMOptions.addFieldOption("-XX:", "NUMAProfilerBufferSize", NUMAProfiler.class, "NUMAProfiler's Buffer Size.");
+        VMOptions.addFieldOption("-XX:", "NUMAProfilerPrintOutput", NUMAProfiler.class, "Print NUMAProfiler's Output. (default: false)", MaxineVM.Phase.PRISTINE);
         VMOptions.addFieldOption("-XX:", "NUMAProfilerExplicitGCThreshold", NUMAProfiler.class,
                 "The number of the Explicit GCs to be performed before the NUMAProfiler starts recording. " +
                 "It cannot be used in combination with \"NUMAProfilerFlareAllocationThresholds\". (default: -1)");
@@ -339,9 +342,10 @@ public class NUMAProfiler {
         if (isThreadActivelyProfiled) {
             PROFILER_STATE.store(tla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
             FatalError.check(RecordBuffer.getForCurrentThread(tla, 0) != null, "A Thread Local Record Buffer is null.");
-            NUMAProfiler.printTLARB.run(tla);
-            NUMAProfiler.resetTLARB.run(tla);
-            NUMAProfiler.printProfilingCountersOfThread(tla);
+            if (NUMAProfilerPrintOutput) {
+                NUMAProfiler.printTLARB.run(tla);
+                NUMAProfiler.printProfilingCountersOfThread(tla);
+            }
         }
         // TL RBuffers are allocated in any case, so do the same for de-allocation
         NUMAProfiler.deallocateTLARB.run(tla);
@@ -682,7 +686,9 @@ public class NUMAProfiler {
             findNumaNodeForAllHeapMemoryPages();
         }
 
-        dumpHeapBoundaries();
+        if (NUMAProfilerPrintOutput) {
+            dumpHeapBoundaries();
+        }
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Leaving Pre-GC Phase.");
@@ -718,6 +724,28 @@ public class NUMAProfiler {
 
         profileSurvivors();
 
+        if (NUMAProfilerPrintOutput) {
+            if (NUMAProfilerVerbose) {
+                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers. [post-GC phase]");
+            }
+            dumpAllTLARBs();
+
+            if (NUMAProfilerVerbose) {
+                Log.println("(NUMA Profiler): Dump Survivors Buffer. [post-GC phase]");
+            }
+            dumpAllTLSRBs();
+
+            if (NUMAProfilerVerbose) {
+                Log.println("(NUMA Profiler): Print Access Profiling Thread Local Counters. [post-GC phase]");
+            }
+            printProfilingCounters();
+        }
+
+        if (NUMAProfilerVerbose) {
+            Log.println("(NUMA Profiler): Reset Allocation Thread Local Buffers. [post-gc phase]");
+        }
+        resetTLARBs();
+
         if ((profilingCycle % 2) == 0) {
             if (NUMAProfilerVerbose) {
                 Log.println("(NUMA Profiler): Clean-up Survivor1 Buffer. [post-gc phase]");
@@ -729,26 +757,6 @@ public class NUMAProfiler {
             }
             resetTLS2RBs();
         }
-
-        if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers. [post-GC phase]");
-        }
-        dumpAllTLARBs();
-
-        if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Reset Allocation Thread Local Buffers. [post-gc phase]");
-        }
-        resetTLARBs();
-
-        if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Dump Survivors Buffer. [post-GC phase]");
-        }
-        dumpAllTLSRBs();
-
-        if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Print Access Profiling Thread Local Counters. [post-GC phase]");
-        }
-        printProfilingCounters();
 
         checkAndUpdateProfilingState();
 
@@ -772,7 +780,7 @@ public class NUMAProfiler {
     /**
      * A minimum/short version of {@linkplain #postGCActions()} to be called when profiling is disabled.
      */
-    public void postGCMinimumActions() {
+    void postGCMinimumActions() {
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Entering [Minimum] Post-GC Phase.");
         }
@@ -1144,11 +1152,22 @@ public class NUMAProfiler {
             Log.println("(NUMA Profiler): Termination");
         }
 
-        dumpHeapBoundaries();
+        if (NUMAProfilerPrintOutput) {
+            if (NUMAProfilerVerbose) {
+                Log.println("(NUMA Profiler): Print Heap Boundaries. [termination]");
+            }
+            dumpHeapBoundaries();
 
-        dumpAllTLARBs();
+            if (NUMAProfilerVerbose) {
+                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers. [termination]");
+            }
+            dumpAllTLARBs();
 
-        printProfilingCounters();
+            if (NUMAProfilerVerbose) {
+                Log.println("(NUMA Profiler): Print Access Profiling Thread Local Counters. [termination]");
+            }
+            printProfilingCounters();
+        }
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Release Reserved Memory.");
