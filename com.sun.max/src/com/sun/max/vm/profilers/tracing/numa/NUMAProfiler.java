@@ -341,7 +341,7 @@ public class NUMAProfiler {
         final boolean isThreadActivelyProfiled = NUMAProfiler.isProfilingEnabledPredicate.evaluate(tla);
         if (isThreadActivelyProfiled) {
             PROFILER_STATE.store(tla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
-            FatalError.check(RecordBuffer.getForCurrentThread(tla, 0) != null, "A Thread Local Record Buffer is null.");
+            FatalError.check(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.ALLOCATIONS_BUFFER) != null, "A Thread Local Record Buffer is null.");
             if (NUMAProfilerPrintOutput) {
                 NUMAProfiler.printTLARB.run(tla);
                 NUMAProfiler.printProfilingCountersOfThread(tla);
@@ -429,7 +429,7 @@ public class NUMAProfiler {
     @NEVER_INLINE
     public static void profileNew(int size, String type, long address) {
         final boolean wasDisabled = SafepointPoll.disable();
-        RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla()), RECORD_BUFFER.ALLOCATIONS_BUFFER.value).profile(size, type, address);
+        RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla()), RECORD_BUFFER.ALLOCATIONS_BUFFER).profile(size, type, address);
         if (!wasDisabled) {
             SafepointPoll.enable();
         }
@@ -892,9 +892,9 @@ public class NUMAProfiler {
     public static final Pointer.Procedure initTLSRB = new Pointer.Procedure() {
         public void run(Pointer tla) {
             final RecordBuffer survivors1 = new RecordBuffer(TLSRBSize, "Survivors Buffer No1");
-            RecordBuffer.setForCurrentThread(tla, survivors1, RECORD_BUFFER.SURVIVORS_1_BUFFER.value);
+            RecordBuffer.setForCurrentThread(tla, survivors1, RECORD_BUFFER.SURVIVORS_1_BUFFER);
             final RecordBuffer survivors2 = new RecordBuffer(TLSRBSize, "Survivors Buffer No2");
-            RecordBuffer.setForCurrentThread(tla, survivors2, RECORD_BUFFER.SURVIVORS_2_BUFFER.value);
+            RecordBuffer.setForCurrentThread(tla, survivors2, RECORD_BUFFER.SURVIVORS_2_BUFFER);
         }
     };
 
@@ -912,7 +912,7 @@ public class NUMAProfiler {
         public void run(Pointer tla) {
             final RecordBuffer allocationsBuffer = new RecordBuffer(TLARBSize, "allocations Buffer ");
             assert tla.equals(ETLA.load(tla));
-            RecordBuffer.setForCurrentThread(tla, allocationsBuffer, RECORD_BUFFER.ALLOCATIONS_BUFFER.value);
+            RecordBuffer.setForCurrentThread(tla, allocationsBuffer, RECORD_BUFFER.ALLOCATIONS_BUFFER);
         }
     };
 
@@ -930,7 +930,7 @@ public class NUMAProfiler {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value).print(profilingCycle, 1);
+            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER).print(profilingCycle, 1);
         }
     };
 
@@ -947,9 +947,9 @@ public class NUMAProfiler {
                 Log.println(" ====");
             }
             if ((profilingCycle % 2) == 0) {
-                RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value).print(profilingCycle, 0);
+                RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER).print(profilingCycle, 0);
             } else {
-                RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value).print(profilingCycle, 0);
+                RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER).print(profilingCycle, 0);
             }
         }
     };
@@ -992,7 +992,7 @@ public class NUMAProfiler {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value).resetBuffer();
+            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER).resetBuffer();
         }
     };
 
@@ -1000,7 +1000,7 @@ public class NUMAProfiler {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value).resetBuffer();
+            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER).resetBuffer();
         }
     };
 
@@ -1008,7 +1008,7 @@ public class NUMAProfiler {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value).resetBuffer();
+            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER).resetBuffer();
         }
     };
 
@@ -1039,21 +1039,21 @@ public class NUMAProfiler {
     public static final Pointer.Procedure deallocateTLARB = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value).deallocateAll();
+            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER).deallocateAll();
         }
     };
 
     public static final Pointer.Procedure deallocateTLSRB1 = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value).deallocateAll();
+            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER).deallocateAll();
         }
     };
 
     public static final Pointer.Procedure deallocateTLSRB2 = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value).deallocateAll();
+            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER).deallocateAll();
         }
     };
 
@@ -1144,12 +1144,12 @@ public class NUMAProfiler {
             Pointer etla = ETLA.load(tla);
             if ((profilingCycle % 2) == 0) {
                 //even cycles
-                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value));
-                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value));
+                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER));
+                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER));
             } else {
                 //odd cycles
-                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER.value), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value));
-                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER.value), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER.value));
+                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER));
+                storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER));
             }
         }
     };

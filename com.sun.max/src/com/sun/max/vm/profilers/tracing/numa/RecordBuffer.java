@@ -321,12 +321,12 @@ public class RecordBuffer {
      * @param whichBuffer
      * @return
      */
-    private static VmThreadLocal getBufferPtr(int whichBuffer) {
-        if (whichBuffer == RECORD_BUFFER.ALLOCATIONS_BUFFER.value) {
+    private static VmThreadLocal getBufferPtr(RECORD_BUFFER whichBuffer) {
+        if (whichBuffer == RECORD_BUFFER.ALLOCATIONS_BUFFER) {
             return ALLOC_BUFFER_PTR;
-        } else if (whichBuffer == RECORD_BUFFER.SURVIVORS_1_BUFFER.value) {
+        } else if (whichBuffer == RECORD_BUFFER.SURVIVORS_1_BUFFER) {
             return SURV1_BUFFER_PTR;
-        } else if (whichBuffer == RECORD_BUFFER.SURVIVORS_2_BUFFER.value) {
+        } else if (whichBuffer == RECORD_BUFFER.SURVIVORS_2_BUFFER) {
             return SURV2_BUFFER_PTR;
         }
         return null;
@@ -336,7 +336,7 @@ public class RecordBuffer {
     private static native RecordBuffer asRecordBuffer(Object object);
 
     @INLINE
-    public static RecordBuffer getForCurrentThread(Pointer etla, int whichBuffer) {
+    public static RecordBuffer getForCurrentThread(Pointer etla, RECORD_BUFFER whichBuffer) {
         final VmThreadLocal bufferPtr = getBufferPtr(whichBuffer);
         final Reference reference = bufferPtr.loadRef(etla);
         if (reference.isZero()) {
@@ -347,7 +347,7 @@ public class RecordBuffer {
     }
 
     @INLINE
-    public static void setForCurrentThread(Pointer etla, RecordBuffer buffer, int whichBuffer) {
+    public static void setForCurrentThread(Pointer etla, RecordBuffer buffer, RECORD_BUFFER whichBuffer) {
         final VmThreadLocal bufferPtr = getBufferPtr(whichBuffer);
         bufferPtr.store(etla, Reference.fromJava(buffer));
     }
