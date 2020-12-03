@@ -208,6 +208,8 @@ public class NUMAProfiler {
 
     public final int memoryPageSize;
 
+    public static boolean isTerminating = false;
+
     /**
      * An enum that maps each Object Access Counter name with a {@link VmThreadLocal#profilingCounters} index.
      */
@@ -326,13 +328,15 @@ public class NUMAProfiler {
 
     public static void onVmThreadStart(int threadId, String threadName, Pointer etla) {
         final boolean lockDisabledSafepoints = lock();
-        if (isExplicitGCPolicyConditionTrue() || isFlareObjectPolicyConditionTrue()) {
-            Log.println("(profilingThread);" + profilingCycle + ";" + threadId + ";" + threadName);
-            PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
+        if (!isTerminating) {
+            if (isExplicitGCPolicyConditionTrue() || isFlareObjectPolicyConditionTrue()) {
+                Log.println("(profilingThread);" + profilingCycle + ";" + threadId + ";" + threadName);
+                PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
+            }
+            // Initialize new Thread's Record Buffer
+            initTLARB.run(etla);
+            initTLSRB.run(etla);
         }
-        // Initialize new Thread's Record Buffer
-        initTLARB.run(etla);
-        initTLSRB.run(etla);
         unlock(lockDisabledSafepoints);
     }
 
@@ -1161,6 +1165,8 @@ public class NUMAProfiler {
      */
     public void terminate() {
         final boolean lockDisabledSafepoints = lock();
+
+        isTerminating = true;
 
         if (NUMAProfilerVerbose) {
             Log.println("(NUMA Profiler): Disable profiling for termination");
