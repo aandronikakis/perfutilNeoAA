@@ -769,6 +769,7 @@ public class NUMAProfiler {
                 Log.print("]");
                 Log.print(", iteration = ");
                 Log.println(iteration);
+                printProfilingThreadNames();
             } else {
                 Log.print(", iteration = ");
                 Log.println(iteration);
@@ -794,6 +795,7 @@ public class NUMAProfiler {
                 Log.print("]");
                 Log.print(", iteration = ");
                 Log.println(iteration);
+                printProfilingThreadNames();
             } else {
                 Log.print(", iteration = ");
                 Log.println(iteration);
@@ -963,6 +965,25 @@ public class NUMAProfiler {
             Log.println(thread.state().name());
         }
     };
+
+    private static final Pointer.Procedure printThreadName = new Pointer.Procedure() {
+        @Override
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            Log.print("(profilingThread);");
+            Log.print(profilingCycle);
+            Log.print(";");
+            Log.print(VmThread.fromTLA(etla).id());
+            Log.print(";");
+            Log.println(VmThread.fromTLA(etla).getName());
+        }
+    };
+
+    private static void printProfilingThreadNames() {
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printThreadName);
+        }
+    }
 
     /**
      * A set of {@link Pointer.Procedure}s to reset Thread Local Allocations & Survivors Record Buffers (TLARB & TLSRBs).
