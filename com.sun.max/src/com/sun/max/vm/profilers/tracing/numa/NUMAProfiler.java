@@ -874,7 +874,7 @@ public class NUMAProfiler {
         @Override
         public boolean evaluate(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            return PROFILER_STATE.load(etla).toInt() == 1;
+            return PROFILER_STATE.load(etla).toInt() != PROFILING_STATE.DISABLED.value;
         }
     };
 
