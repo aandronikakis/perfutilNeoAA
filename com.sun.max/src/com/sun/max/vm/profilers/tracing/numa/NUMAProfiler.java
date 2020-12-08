@@ -358,14 +358,15 @@ public class NUMAProfiler {
 
     public static void onVmThreadExit(Pointer tla) {
         final boolean lockDisabledSafepoints = lock();
-        final boolean isThreadActivelyProfiled = NUMAProfiler.isProfilingEnabledPredicate.evaluate(tla);
+        final Pointer etla = ETLA.load(tla);
+        final boolean isThreadActivelyProfiled = NUMAProfiler.isProfilingEnabledPredicate.evaluate(etla);
         if (isThreadActivelyProfiled) {
-            PROFILER_STATE.store(tla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
-            FatalError.check(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.ALLOCATIONS_BUFFER) != null, "A Thread Local Record Buffer is null.");
+            PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
+            FatalError.check(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER) != null, "A Thread Local Record Buffer is null.");
             if (NUMAProfilerPrintOutput) {
                 // store the buffer Reference into the queue to be accessed after the thread's termination
-                allocationBuffersQueue.add(tla, RecordBuffer.getBufferReference(tla, RECORD_BUFFER.ALLOCATIONS_BUFFER));
-                NUMAProfiler.printProfilingCountersOfThread(tla);
+                allocationBuffersQueue.add(etla, RecordBuffer.getBufferReference(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER));
+                NUMAProfiler.printProfilingCountersOfThread(etla);
             }
             unlock(lockDisabledSafepoints);
             return;
