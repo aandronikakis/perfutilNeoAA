@@ -363,9 +363,12 @@ public class NUMAProfiler {
             PROFILER_STATE.store(tla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
             FatalError.check(RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.ALLOCATIONS_BUFFER) != null, "A Thread Local Record Buffer is null.");
             if (NUMAProfilerPrintOutput) {
-                NUMAProfiler.printTLARB.run(tla);
+                // store the buffer Reference into the queue to be accessed after the thread's termination
+                allocationBuffersQueue.add(tla, RecordBuffer.getBufferReference(tla, RECORD_BUFFER.ALLOCATIONS_BUFFER));
                 NUMAProfiler.printProfilingCountersOfThread(tla);
             }
+            unlock(lockDisabledSafepoints);
+            return;
         }
         // TL RBuffers are allocated in any case, so do the same for de-allocation
         NUMAProfiler.deallocateTLARB.run(tla);

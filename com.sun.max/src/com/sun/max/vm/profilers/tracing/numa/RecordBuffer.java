@@ -333,7 +333,7 @@ public class RecordBuffer {
     }
 
     @INTRINSIC(UNSAFE_CAST)
-    private static native RecordBuffer asRecordBuffer(Object object);
+    public static native RecordBuffer asRecordBuffer(Object object);
 
     @INLINE
     public static RecordBuffer getForCurrentThread(Pointer etla, RECORD_BUFFER whichBuffer) {
@@ -350,5 +350,10 @@ public class RecordBuffer {
     public static void setForCurrentThread(Pointer etla, RecordBuffer buffer, RECORD_BUFFER whichBuffer) {
         final VmThreadLocal bufferPtr = getBufferPtr(whichBuffer);
         bufferPtr.store(etla, Reference.fromJava(buffer));
+    }
+
+    public static Reference getBufferReference(Pointer etla, RECORD_BUFFER whichBuffer) {
+        Log.println("getBufferReference");
+        return getBufferPtr(whichBuffer).loadRef(etla);
     }
 }
