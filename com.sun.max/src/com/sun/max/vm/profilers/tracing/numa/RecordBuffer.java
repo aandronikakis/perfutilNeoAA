@@ -276,6 +276,7 @@ public class RecordBuffer {
                 j++;
             }
             // print a semicolon only for primitive types because the rest are already followed by one.
+            FatalError.check(j > 0, "No recorded type for object.");
             if (type[j - 1] != ';') {
                 Log.print(';');
             }
