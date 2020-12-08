@@ -757,6 +757,11 @@ public class NUMAProfiler {
             }
             dumpAllTLARBs();
 
+            if (NUMAProfilerVerbose) {
+                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers for Queued Threads. [termination]");
+            }
+            allocationBuffersQueue.print(profilingCycle);
+
             if (NUMAProfilerSurvivors) {
                 if (NUMAProfilerVerbose) {
                     Log.println("(NUMA Profiler): Dump Survivors Buffer. [post-GC phase]");
@@ -1218,6 +1223,11 @@ public class NUMAProfiler {
                 Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers. [termination]");
             }
             dumpAllTLARBs();
+
+            if (NUMAProfilerVerbose) {
+                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers for Queued Threads. [termination]");
+            }
+            allocationBuffersQueue.print(profilingCycle);
 
             if (NUMAProfilerVerbose) {
                 Log.println("(NUMA Profiler): Print Access Profiling Thread Local Counters. [termination]");
