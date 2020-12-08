@@ -27,12 +27,18 @@ import com.sun.max.vm.Log;
 import com.sun.max.vm.reference.Reference;
 import com.sun.max.vm.thread.VmThread;
 
+/**
+ * A LIFO queue to store the {@link Reference}s of the {@link RecordBuffer}s of the threads that have already been terminated.
+ * It uses an off-heap {@link Pointer} array to store the {@link Reference}s.
+ * It works as a LIFO queue.
+ */
+
 public class RecordBufferQueue {
 
     public Pointer queue;
     public int index;
-    public int length;
-    public int size;
+    public int length; // The maximum item capacity of the queue (arbitrary).
+    public int size; // The maximum size of the queue in bytes.
 
     final static int sizeOfReference = Word.size();
 
@@ -46,6 +52,17 @@ public class RecordBufferQueue {
         index = 0;
     }
 
+    public boolean isEmpty() {
+        if (index == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * The method to insert an element in the end of the queue.
+     */
     public void add(Pointer tla, Reference buffer) {
         Log.print("[RecordBufferQueue] add(): Thread ");
         Log.print(VmThread.fromTLA(tla).id());
@@ -55,13 +72,22 @@ public class RecordBufferQueue {
         index++;
     }
 
-    public void print(int profilingCycle) {
-        Log.print("[RecordBufferQueue] print(): index = ");
-        Log.println(index);
+    /**
+     * The method to remove from the queue.
+     */
+    public RecordBuffer remove() {
+        index--;
+        return RecordBuffer.asRecordBuffer(queue.getReference(index).toJava());
+    }
 
-        for (int i = 0; i < index; i++) {
-            Log.println(queue.getReference(i));
-            RecordBuffer.asRecordBuffer(queue.getReference(i).toJava()).print(profilingCycle, 1);
+    /**
+     * Walk the queue in a LIFO manner, print and de-allocate each removed buffer.
+     */
+    public void print(int profilingCycle) {
+        while (!isEmpty()) {
+            RecordBuffer buffer = remove();
+            buffer.print(profilingCycle, 1);
+            buffer.deallocateAll();
         }
     }
 }
