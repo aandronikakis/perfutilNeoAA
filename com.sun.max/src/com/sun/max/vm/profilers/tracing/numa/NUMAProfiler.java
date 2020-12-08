@@ -243,6 +243,12 @@ public class NUMAProfiler {
         }
     }
 
+    /**
+     * A queue to maintain the {@link VmThreadLocal#ALLOC_BUFFER_PTR} {@link Reference} of a thread after the latter has been terminated.
+     * This way, only key-actions of the NUMAProfiler take place during mutation reducing the interference with the application.
+     */
+    public static RecordBufferQueue allocationBuffersQueue;
+
     // The options a user can pass to the NUMA Profiler.
     static {
         VMOptions.addFieldOption("-XX:", "NUMAProfilerVerbose", NUMAProfiler.class, "Verbose numa profiler output. (default: false)", MaxineVM.Phase.PRISTINE);
@@ -329,6 +335,9 @@ public class NUMAProfiler {
             enableProfiling();
             explicitGCProflingEnabled = true;
         }
+
+        // initialize a new record buffer queue
+        allocationBuffersQueue = new RecordBufferQueue();
     }
 
     public static void onVmThreadStart(int threadId, String threadName, Pointer etla) {
