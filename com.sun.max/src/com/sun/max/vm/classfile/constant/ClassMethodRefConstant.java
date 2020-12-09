@@ -165,7 +165,7 @@ public interface ClassMethodRefConstant extends PoolConstant<ClassMethodRefConst
             } else if (!isHosted()) {
                 Trace.line(1, "ClassMethodRefConstant handle? class=" + classActor.name() + ", poolHolder=" + pool.holder() + ", index=" + index);
                 Object [] appendix = new Object[1];
-                methodActor = MaxMethodHandles.lookupPolymorphicMethod(classActor, name.toString(), signature, null, appendix);
+                methodActor = MaxMethodHandles.lookupPolymorphicMethod(classActor, name.toString(), signature, pool.holder().javaClass(), appendix);
                 Trace.line(1, "ClassMethodRefConstant.resolved (Handle) :" + methodActor + ", appendix: " + appendix[0]);
                 if (methodActor != null) {
                     pool.updateAt(index, new Resolved(methodActor, appendix[0]));
