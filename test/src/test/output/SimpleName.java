@@ -25,14 +25,14 @@
 package test.output;
 
 public class SimpleName {
-
-    public static void main (String [] args) {
+    public static void main(String [] args) {
         System.out.println(SimpleName.class.getSimpleName());
         System.out.println(Inner$.class.getSimpleName());
         System.out.println(new SimpleName[10].getClass().getSimpleName());
         System.out.println(new Inner$[10].getClass().getSimpleName());
     }
-
+    // Checkstyle: stop
     private class Inner$ {
     }
+    // Checkstyle: resume
 }

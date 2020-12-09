@@ -50,7 +50,7 @@ public class DefaultNestedMethodTest2 {
     }
 
     /**
-     * Tests:
+     * Tests:.
      *  Miranda -> default
      *  default super -> default sub
      */

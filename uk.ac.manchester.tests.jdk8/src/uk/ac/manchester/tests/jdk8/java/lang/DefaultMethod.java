@@ -26,8 +26,8 @@ package uk.ac.manchester.tests.jdk8.java.lang;
 
 public class DefaultMethod {
 
-    public interface If0 {
-        public void sayHello();
+    interface If0 {
+        void sayHello();
 
         default void sayOne() {
             System.out.println("dos");
@@ -44,12 +44,12 @@ public class DefaultMethod {
         }
     }
 
-    public class TestMe implements If0,If1 {
+    public class TestMe implements If0, If1 {
     }
 
-    public class TestMeMore implements If1,If0 {
+    public class TestMeMore implements If1, If0 {
     }
-  
+
     public static void main(String [] args) {
         TestMe t = new DefaultMethod().new TestMe();
         TestMeMore t2 = new DefaultMethod().new TestMeMore();

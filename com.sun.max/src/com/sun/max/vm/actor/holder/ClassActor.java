@@ -1204,20 +1204,19 @@ public abstract class ClassActor extends Actor implements RiResolvedType {
                         lookup.put(proxyToDefaultMethodActor, proxyToDefaultMethodActor);
                         result.add(proxyToDefaultMethodActor);
                         proxyToDefaultMethodActor.setVTableIndex(vTableIndex);
-                    }
-                    else {
-                      final MirandaMethodActor mirandaMethodActor = new MirandaMethodActor(interfaceMethodActor);
-                      mirandaMethodActor.assignHolder(this, memberIndex);
-                      lookup.put(mirandaMethodActor, mirandaMethodActor);
-                      result.add(mirandaMethodActor);
-                      mirandaMethodActor.setVTableIndex(vTableIndex);
+                    } else {
+                        final MirandaMethodActor mirandaMethodActor = new MirandaMethodActor(interfaceMethodActor);
+                        mirandaMethodActor.assignHolder(this, memberIndex);
+                        lookup.put(mirandaMethodActor, mirandaMethodActor);
+                        result.add(mirandaMethodActor);
+                        mirandaMethodActor.setVTableIndex(vTableIndex);
                     }
                     memberIndex++;
                     vTableIndex++;
                     numberOfLocalMirandaMethods++;
                 } else if (current.isMiranda() && haveDefaultMethod
-                    // 2. We already have a Miranda, update with the default.
-                    || (current.isProxyToDefault() && haveDefaultMethod && interfaceMethodActor.holder().isSubtypeOf(current.holder()))) {
+                        // 2. We already have a Miranda, update with the default.
+                        || (current.isProxyToDefault() && haveDefaultMethod && interfaceMethodActor.holder().isSubtypeOf(current.holder()))) {
                     // or 3. We already have a default from a super, update with the subinterface default.
                     final ProxyToDefaultMethodActor proxyToDefaultMethodActor =
                             new ProxyToDefaultMethodActor(interfaceMethodActor);
@@ -1529,7 +1528,7 @@ public abstract class ClassActor extends Actor implements RiResolvedType {
     }
 
     /**
-     * From Class.java
+     * From Class.java.
      * @param c
      * @return
      */
@@ -1560,7 +1559,7 @@ public abstract class ClassActor extends Actor implements RiResolvedType {
 
         if (simpleName.charAt(index) == '$') {
             index++;
-            while(index < len && isAsciiDigit(simpleName.charAt(index))) {
+            while (index < len && isAsciiDigit(simpleName.charAt(index))) {
                 index++;
             }
         }
