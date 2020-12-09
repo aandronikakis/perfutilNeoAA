@@ -33,6 +33,7 @@ import com.oracle.max.asm.*;
 import com.sun.cri.ci.*;
 import com.sun.cri.ri.*;
 
+import com.oracle.max.cri.intrinsics.MemoryBarriers;
 public class Aarch64MacroAssembler extends Aarch64Assembler {
 
     public static final int PLACEHOLDER_INSTRUCTIONS_FOR_LONG_OFFSETS = 5;
@@ -289,11 +290,45 @@ public class Aarch64MacroAssembler extends Aarch64Assembler {
         }
     }
 
+    /**
+     * Emits barriers to ensure memory accesses conform to the Java Memory Model.
+     *
+     * @param barriers - or'd values from {@link MemoryBarriers}
+     */
     public void membar(int barriers) {
-        int instruction = 0xd5033f9f; // DSB SY
-        emitInt(instruction);
-        instruction = 0xd5033fdf; // ISB SY
-        emitInt(instruction);
+        switch (barriers) {
+            case MemoryBarriers.JMM_PRE_VOLATILE_READ:
+                return; // no barriers required
+            case MemoryBarriers.JMM_POST_VOLATILE_READ: // == LOAD_FENCE
+                /*
+                 * LOAD_LOAD + LOAD_STORE is obtained by dmb ishld guaranteeing that loads
+                 * initiated before the barrier cannot re-ordered past loads or stores after it.
+                 */
+                dmb(BarrierKind.ISHLD);
+                break;
+            case MemoryBarriers.JMM_PRE_VOLATILE_WRITE:
+            case MemoryBarriers.JMM_POST_VOLATILE_WRITE: // == STORE_FENCE
+            case MemoryBarriers.FULL_FENCE:
+            case MemoryBarriers.STORE_LOAD:
+                /*
+                 * STORE_STORE + LOAD_STORE, and any STORE_LOAD all require dmb ish.
+                 */
+                dmb(BarrierKind.ISH);
+                break;
+            /*
+             * Although that concludes all currently used barriers the following are
+             * provided for completeness should they be required in future.
+             */
+            case MemoryBarriers.LOAD_LOAD:
+            case MemoryBarriers.LOAD_STORE:
+                dmb(BarrierKind.ISHLD);
+                break;
+            case MemoryBarriers.STORE_STORE:
+                dmb(BarrierKind.ISHST);
+                break;
+            default:
+                throw new Error("Invalid barrier specified");
+        }
     }
 
     /**
@@ -322,7 +357,7 @@ public class Aarch64MacroAssembler extends Aarch64Assembler {
         cbnz(64, scratchRegister, atomicFail);
         mov(64, scratchRegister, cmpValue); // stxr succeeded, set scratch register to the cmp value to indicate success
         bind(notEqualTocmpValue);
-        dmb(BarrierKind.ANY_ANY);
+        dmb(BarrierKind.ISH);
     }
 
     /**

@@ -43,7 +43,7 @@ public class Aarch64AssemblerTest {
         asm = new Aarch64Assembler(aarch64, null);
     }
 
-    private int assemble(String instruction) {
+    static int assemble(String instruction) {
         try {
             String[] cmd = {"/bin/sh", "-c", "echo \"" + instruction + "\" | aarch64-linux-gnu-as -- && aarch64-linux-gnu-objdump -D a.out | tail -n 1 | awk '{print $2}'"};
             Process p = Runtime.getRuntime().exec(cmd);
@@ -99,7 +99,7 @@ public class Aarch64AssemblerTest {
         for (Aarch64Assembler.BarrierKind bkind : Aarch64Assembler.BarrierKind.values()) {
             asm.codeBuffer.reset();
             asm.dsb(bkind);
-            assertEquals(assemble("dsb " + bkind.optionName), asm.codeBuffer.getInt(0));
+            assertEquals(assemble("dsb " + bkind.name()), asm.codeBuffer.getInt(0));
         }
     }
 
@@ -114,7 +114,7 @@ public class Aarch64AssemblerTest {
         for (Aarch64Assembler.BarrierKind bkind : Aarch64Assembler.BarrierKind.values()) {
             asm.codeBuffer.reset();
             asm.dmb(bkind);
-            assertEquals(assemble("dmb " + bkind.optionName), asm.codeBuffer.getInt(0));
+            assertEquals(assemble("dmb " + bkind.name()), asm.codeBuffer.getInt(0));
         }
     }
 

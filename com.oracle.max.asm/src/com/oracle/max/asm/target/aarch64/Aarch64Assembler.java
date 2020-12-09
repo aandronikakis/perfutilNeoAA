@@ -2794,41 +2794,47 @@ public class Aarch64Assembler extends AbstractAssembler {
     }
 
     /**
-     * Possible barrier definitions for Aarch64. LOAD_LOAD and LOAD_STORE map to the same underlying barrier.
+     * The following definitions contain the shareability domain and required access types
+     * for barrier instructions DMB and DSB. The relevant bits are encoded into the coprocessor
+     * operand typically represented by the mnemonic CRm in the ARM ARM.
      *
-     * We only need synchronization across the inner shareable domain (see B2-90 in the Reference documentation).
+     * We only need synchronization across the inner shareable domain, from the Arm Architecture
+     * Reference Manual:
+     * "This architecture assumes that all PEs that use the same operating system or hypervisor
+     * are in the same Inner Shareable shareability domain."
      */
-    public enum BarrierKind {
-        LOAD_LOAD(0x9, "ISHLD"),
-        LOAD_STORE(0x9, "ISHLD"),
-        STORE_STORE(0xA, "ISHST"),
-        STORE_LOAD(0xA, "ISHST"), /* not too sure about this */
-        ANY_ANY(0xB, "ISH"),
-        SY(0xF, "SY");
+    protected enum BarrierKind {
+        /** Full system barrier for reads and writes before and after the barrier. */
+        SY(0xF),
+        /** Inner shareable orders reads before with reads and writes after the barrier. */
+        ISHLD(0x9),
+        /** Inner shareable orders writes before and after the barrier. */
+        ISHST(0xA),
+        /** Inner shareable orders reads and writes before and after the barrier. */
+        ISH(0xB);
 
-        public final int encoding;
-        public final String optionName;
+        public final int encoding; // for CRm operand
 
-        BarrierKind(int encoding, String optionName) {
+        BarrierKind(int encoding) {
             this.encoding = encoding;
-            this.optionName = optionName;
         }
     }
+
 
     /**
      * Data Memory Barrier.
      *
      * @param barrierKind barrier that is issued. May not be null.
      */
-    public void dmb(BarrierKind barrierKind) {
+    protected void dmb(BarrierKind barrierKind) {
         barrierInstruction(barrierKind, Instruction.DMB);
     }
 
-    public void dsb(BarrierKind barrierKind) {
+    protected void dsb(BarrierKind barrierKind) {
         barrierInstruction(barrierKind, Instruction.DSB);
     }
 
-    public void isb() {
+    protected void isb() {
         barrierInstruction(BarrierKind.SY, Instruction.ISB);
     }
 
