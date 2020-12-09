@@ -40,6 +40,7 @@ public class RecordBufferQueue {
     public int length; // The maximum item capacity of the queue (arbitrary).
 
     final static int sizeOfReference = Word.size();
+    final static int expandStep = 100; // arbitrary
 
     public RecordBufferQueue() {
         length = 200;
@@ -66,6 +67,9 @@ public class RecordBufferQueue {
         Log.print(VmThread.fromTLA(tla).id());
         Log.print(" Reference: ");
         Log.println(buffer);
+        if (index >= length) {
+            expand();
+        }
         queue.setReference(index, buffer);
         index++;
     }
@@ -87,5 +91,27 @@ public class RecordBufferQueue {
             buffer.print(profilingCycle, 1);
             buffer.deallocateAll();
         }
+    }
+
+    /**
+     * Dynamic self-expand of the queue.
+     */
+    public void expand() {
+        int newLength = length + expandStep;
+        Pointer newQueue = VirtualMemory.allocate(Size.fromInt(newLength).times(sizeOfReference), VirtualMemory.Type.DATA);
+        // copy old
+        for (int i = 0; i < length; i++) {
+            newQueue.setReference(i, queue.getReference(i));
+        }
+        // set new
+        for (int i = length; i < newLength; i++) {
+            newQueue.setReference(i, Reference.zero());
+        }
+        // swap old queue with new
+        Pointer oldQueue = queue;
+        queue = newQueue;
+        // de-allocate old
+        VirtualMemory.deallocate(oldQueue.asAddress(), Size.fromInt(length).times(sizeOfReference), VirtualMemory.Type.DATA);
+        length = newLength;
     }
 }
