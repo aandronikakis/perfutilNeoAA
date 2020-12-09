@@ -855,17 +855,29 @@ public class Aarch64MacroAssembler extends Aarch64Assembler {
      * dst = src - immediate.
      *
      * @param size register size. Has to be 32 or 64.
-     * @param dst general purpose register. May not be null or stackpointer.
-     * @param src general purpose register. May not be null or stackpointer.
-     * @param immediate arithmetic immediate
+     * @param dst general purpose register. May not be null.
+     * @param src general purpose register. May not be null.
+     * @param immediate 32-bit arithmetic immediate
      */
     @Override
     public void sub(int size, CiRegister dst, CiRegister src, int immediate) {
-        assert immediate != Integer.MIN_VALUE;
         if (immediate < 0) {
             add(size, dst, src, -immediate);
-        } else if (!dst.equals(src) || immediate != 0) {
-            super.sub(size, dst, src, immediate);
+        } else if (isAimm(immediate)) {
+            if (!(dst.equals(src) && immediate == 0)) {
+                super.sub(size, dst, src, immediate);
+            }
+        } else if (immediate >= -(1 << 24) && immediate < (1 << 24)) {
+            super.sub(size, dst, src, immediate & -(1 << 12));
+            super.sub(size, dst, dst, immediate & ((1 << 12) - 1));
+        } else if (!dst.equals(src)) {
+            mov32BitConstant(dst, immediate);
+            sub(size, dst, src, dst);
+        } else if (!scratchRegister.equals(src)) {
+            mov32BitConstant(scratchRegister, immediate);
+            sub(size, dst, src, scratchRegister);
+        } else {
+            throw new Error("Failed to subtract");
         }
     }
 
