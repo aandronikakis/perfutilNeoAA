@@ -38,15 +38,13 @@ public class RecordBufferQueue {
     public Pointer queue;
     public int index;
     public int length; // The maximum item capacity of the queue (arbitrary).
-    public int size; // The maximum size of the queue in bytes.
 
     final static int sizeOfReference = Word.size();
 
     public RecordBufferQueue() {
         length = 200;
-        size = length * sizeOfReference;
-        queue = VirtualMemory.allocate(Size.fromInt(size).times(sizeOfReference), VirtualMemory.Type.DATA);
-        for (int i = 0; i < size; i += sizeOfReference) {
+        queue = VirtualMemory.allocate(Size.fromInt(length).times(sizeOfReference), VirtualMemory.Type.DATA);
+        for (int i = 0; i < length; i++) {
             queue.setReference(i, Reference.zero());
         }
         index = 0;
