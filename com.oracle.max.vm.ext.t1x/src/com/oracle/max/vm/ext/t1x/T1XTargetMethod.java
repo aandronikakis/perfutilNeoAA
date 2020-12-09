@@ -762,9 +762,21 @@ public class T1XTargetMethod extends TargetMethod {
         byte[] code = codeAttribute.code();
         MethodRefConstant methodRef = constantPool.methodAt(getInvokeCPI(code, bci));
         boolean isInvokestatic = (code[bci] & 0xFF) == Bytecodes.INVOKESTATIC;
-        SignatureDescriptor sig = methodRef.signature(constantPool);
+        boolean isInvokedynamic = (code[bci] & 0xFF) == Bytecodes.INVOKEDYNAMIC;
+        SignatureDescriptor sig;
 
-        int numberOfSlots = sig.computeNumberOfSlots() + (isInvokestatic ? 0 : 1);
+        /* At an invokedynamic call-site the arguments on the call stack correspond to the
+         * signature of the method resolved at the call-site, rather than the signature in the
+         * bytecode. The call may involve an extra appendix argument.
+         */
+        if (isInvokedynamic) {
+            InvokeDynamicConstant idc = (InvokeDynamicConstant) methodRef;
+            sig = idc.resolve(constantPool, bci).descriptor();
+        } else {
+            sig = methodRef.signature(constantPool);
+        }
+
+        int numberOfSlots = sig.computeNumberOfSlots() + ((isInvokestatic || isInvokedynamic) ? 0 : 1);
 
         if (numberOfSlots != 0) {
             // Handle the parameters in reverse order as caller.sp() is currently
@@ -784,7 +796,7 @@ public class T1XTargetMethod extends TargetMethod {
             }
 
             // Finally deal with the receiver (if any)
-            if (!isInvokestatic) {
+            if (!isInvokestatic && !isInvokedynamic) {
                 // Mark the slot for the receiver as it is not covered by the method signature:
                 if (logStackRootScanning()) {
                     StackReferenceMapPreparer.stackRootScanLogger.logReceiver(methodRef.holder(constantPool));
