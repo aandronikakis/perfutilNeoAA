@@ -1181,33 +1181,52 @@ public abstract class ClassActor extends Actor implements RiResolvedType {
 
         int memberIndex = localVirtualMethodActors().length;
         int numberOfLocalMirandaMethods = 0;
-        // Add Miranda methods for interface methods which lack any implementing dynamic class actor:
+        /*
+         *  Add Miranda methods for interface methods which lack any implementing dynamic class actor.
+         *  Add default methods to a maximally-specific super-interface implementation, see 5.4.3.3(.3)
+         *  i.e.
+         *  1). If there is no implementation in this class add a Miranda or default as necessary.
+         *  2). If we have a Miranda and subsequently discover a default then replace the Miranda.
+         *  3). It we have a default from a superinterface and find one from a subinterface, then
+         *      replace the superinterface version.
+         */
         for (InterfaceActor interfaceActor : allInterfaceActors) {
             for (InterfaceMethodActor interfaceMethodActor : interfaceActor.localInterfaceMethodActors()) {
-                if (lookup.get(interfaceMethodActor) == null) {
-                    if (interfaceMethodActor.codeAttribute() != null) {
-                        numberOfLocalMirandaMethods++;
+                boolean haveDefaultMethod = interfaceMethodActor.codeAttribute() != null ? true : false;
+                VirtualMethodActor current = lookup.get(interfaceMethodActor);
+                if (current == null) {
+                    // 1. We don't have an implementation, add a Miranda or default accordingly.
+                    if (haveDefaultMethod) {
                         final ProxyToDefaultMethodActor proxyToDefaultMethodActor =
                                 new ProxyToDefaultMethodActor(interfaceMethodActor);
                         proxyToDefaultMethodActor.assignHolder(interfaceMethodActor.holder(),
-                                                              interfaceMethodActor.memberIndex());
-                        memberIndex++;
+                                interfaceMethodActor.memberIndex());
                         lookup.put(proxyToDefaultMethodActor, proxyToDefaultMethodActor);
-
                         result.add(proxyToDefaultMethodActor);
                         proxyToDefaultMethodActor.setVTableIndex(vTableIndex);
-                        vTableIndex++;
-                    } else {
-                        numberOfLocalMirandaMethods++;
-                        final MirandaMethodActor mirandaMethodActor = new MirandaMethodActor(interfaceMethodActor);
-                        mirandaMethodActor.assignHolder(this, memberIndex);
-                        memberIndex++;
-                        lookup.put(mirandaMethodActor, mirandaMethodActor);
-
-                        result.add(mirandaMethodActor);
-                        mirandaMethodActor.setVTableIndex(vTableIndex);
-                        vTableIndex++;
                     }
+                    else {
+                      final MirandaMethodActor mirandaMethodActor = new MirandaMethodActor(interfaceMethodActor);
+                      mirandaMethodActor.assignHolder(this, memberIndex);
+                      lookup.put(mirandaMethodActor, mirandaMethodActor);
+                      result.add(mirandaMethodActor);
+                      mirandaMethodActor.setVTableIndex(vTableIndex);
+                    }
+                    memberIndex++;
+                    vTableIndex++;
+                    numberOfLocalMirandaMethods++;
+                } else if (current.isMiranda() && haveDefaultMethod
+                    // 2. We already have a Miranda, update with the default.
+                    || (current.isProxyToDefault() && haveDefaultMethod && interfaceMethodActor.holder().isSubtypeOf(current.holder()))) {
+                    // or 3. We already have a default from a super, update with the subinterface default.
+                    final ProxyToDefaultMethodActor proxyToDefaultMethodActor =
+                            new ProxyToDefaultMethodActor(interfaceMethodActor);
+                    proxyToDefaultMethodActor.assignHolder(interfaceMethodActor.holder(),
+                            interfaceMethodActor.memberIndex());
+                    final VirtualMethodActor superMethod;
+                    superMethod = lookup.put(proxyToDefaultMethodActor, proxyToDefaultMethodActor);
+                    result.set(superMethod.vTableIndex() - Hub.vTableStartIndex(), proxyToDefaultMethodActor);
+                    proxyToDefaultMethodActor.setVTableIndex(superMethod.vTableIndex());
                 }
             }
         }
@@ -1508,6 +1527,46 @@ public abstract class ClassActor extends Actor implements RiResolvedType {
         }
         return javaClass;
     }
+
+    /**
+     * From Class.java
+     * @param c
+     * @return
+     */
+    private static boolean isAsciiDigit(char c) {
+        return '0' <= c && c <= '9';
+    }
+
+    /**
+     * Analog of Class.getSimpleName that doesn't raise an InternalError for class names that do not
+     * conform to JLS.
+     * @return
+     */
+    public String getSimpleName() {
+        if (isArrayClass()) {
+            return this.componentClassActor().getSimpleName() + "[]";
+        }
+        TypeDescriptor outer = outerClassDescriptor();
+
+        if (outer == null) {
+            return javaSignature(false);
+        }
+        // 'Subtract' the outer class name from ours.
+        String simpleName = typeDescriptor.toJavaString().substring(outer.toJavaString().length());
+
+        // Remove $[0-9]+ (anonymous) if present.
+        int index = 0;
+        int len = simpleName.length();
+
+        if (simpleName.charAt(index) == '$') {
+            index++;
+            while(index < len && isAsciiDigit(simpleName.charAt(index))) {
+                index++;
+            }
+        }
+        return simpleName.substring(index);
+    }
+
 
     @NEVER_INLINE
     private Class noninlineCreateJavaClass() {
