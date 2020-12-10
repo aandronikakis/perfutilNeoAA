@@ -213,6 +213,11 @@ public class NUMAProfiler {
     public static boolean isTerminating = false;
 
     /**
+     * VM exit code.
+     */
+    public int exitCode;
+
+    /**
      * An enum that maps each Object Access Counter name with a {@link VmThreadLocal#profilingCounters} index.
      */
     public enum ACCESS_COUNTER {
@@ -359,6 +364,11 @@ public class NUMAProfiler {
     public static void onVmThreadExit(Pointer tla) {
         final boolean lockDisabledSafepoints = lock();
         final Pointer etla = ETLA.load(tla);
+        if (NUMAProfilerVerbose) {
+            Log.print("Thread ");
+            Log.print(VmThread.fromTLA(etla).id());
+            Log.println(" is exiting.");
+        }
         final boolean isThreadActivelyProfiled = NUMAProfiler.isProfilingEnabledPredicate.evaluate(etla);
         if (isThreadActivelyProfiled) {
             PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
@@ -569,6 +579,9 @@ public class NUMAProfiler {
      * Currently implemented only for the {@link SemiSpaceHeapScheme}.
      */
     private void findNumaNodeForAllHeapMemoryPages() {
+        if (NUMAProfilerVerbose) {
+            Log.println(" ==> Find Numa Node For All Heap Memory Pages");
+        }
         vm().config.heapScheme().forAllSpaces(findNumaNodeForSpace);
     }
 
@@ -754,7 +767,7 @@ public class NUMAProfiler {
 
         if (NUMAProfilerPrintOutput) {
             if (NUMAProfilerVerbose) {
-                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers. [post-GC phase]");
+                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers for Live Threads. [post-GC phase]");
             }
             dumpAllTLARBs();
 
@@ -967,6 +980,11 @@ public class NUMAProfiler {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
+            if (NUMAProfilerVerbose) {
+                Log.print("Thread ");
+                Log.print(VmThread.fromTLA(etla).id());
+                Log.println(" is printing.");
+            }
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER).print(profilingCycle, 1);
         }
     };
@@ -981,6 +999,8 @@ public class NUMAProfiler {
             if (NUMAProfilerVerbose) {
                 Log.print("==== Survivors Cycle ");
                 Log.print(profilingCycle);
+                Log.print(" | Thread ");
+                Log.print(VmThread.fromTLA(etla).id());
                 Log.println(" ====");
             }
             if ((profilingCycle % 2) == 0) {
@@ -999,7 +1019,9 @@ public class NUMAProfiler {
             Log.print("I am thread ");
             Log.print(thread.id());
             Log.print(". My state: ");
-            Log.println(thread.state().name());
+            Log.print(thread.state().name());
+            Log.print(". My Profiling State: ");
+            Log.println(PROFILER_STATE.load(etla));
         }
     };
 
@@ -1204,6 +1226,13 @@ public class NUMAProfiler {
         isTerminating = true;
 
         if (NUMAProfilerVerbose) {
+            Log.print("Vm termination code: ");
+            Log.println(exitCode);
+
+            synchronized (VmThreadMap.THREAD_LOCK) {
+                Log.println("Active threads in terminate()");
+                VmThreadMap.ACTIVE.forAllThreadLocals(allThreads, printThreadId);
+            }
             Log.println("(NUMA Profiler): Disable profiling for termination");
         }
 
@@ -1221,7 +1250,7 @@ public class NUMAProfiler {
             dumpHeapBoundaries();
 
             if (NUMAProfilerVerbose) {
-                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers. [termination]");
+                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers for Live Threads. [termination]");
             }
             dumpAllTLARBs();
 
