@@ -184,7 +184,7 @@ public class NUMAProfiler {
      * @return
      */
     public static boolean isFlareObjectPolicyConditionTrue() {
-        return !NUMAProfilerFlareAllocationThresholds.equals("0") && enableFlareObjectProfiler;
+        return enableFlareObjectProfiler && !NUMAProfilerFlareAllocationThresholds.equals("0");
     }
 
     private static final int MIN_BUFFER_SIZE = 500000;
