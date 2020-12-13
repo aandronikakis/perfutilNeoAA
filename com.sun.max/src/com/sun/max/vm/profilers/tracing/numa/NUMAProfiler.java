@@ -187,13 +187,13 @@ public class NUMAProfiler {
         return !NUMAProfilerFlareAllocationThresholds.equals("0") && enableFlareObjectProfiler;
     }
 
-    private static final int MINIMUMBUFFERSIZE = 500000;
+    private static final int MIN_BUFFER_SIZE = 500000;
 
     /**
      * Size of the Thread Local Allocations and Survivors Record Buffers.
      */
-    public static int TLSRBSize = MINIMUMBUFFERSIZE;
-    public static int TLARBSize = MINIMUMBUFFERSIZE;
+    public static int TLSRBSize = MIN_BUFFER_SIZE;
+    public static int TLARBSize = MIN_BUFFER_SIZE;
 
     /**
      * The underlying hardware configuration.
@@ -292,12 +292,12 @@ public class NUMAProfiler {
         splitStringtoSortedIntegers();
 
         if (NUMAProfilerBufferSize != 0) {
-            if (NUMAProfilerBufferSize < MINIMUMBUFFERSIZE) {
+            if (NUMAProfilerBufferSize < MIN_BUFFER_SIZE) {
                 Log.print("WARNING: Small Buffer Size. Minimum Buffer Size applied! (=");
-                Log.print(MINIMUMBUFFERSIZE);
+                Log.print(MIN_BUFFER_SIZE);
                 Log.println(")");
-                TLARBSize = MINIMUMBUFFERSIZE;
-                TLSRBSize = MINIMUMBUFFERSIZE;
+                TLARBSize = MIN_BUFFER_SIZE;
+                TLSRBSize = MIN_BUFFER_SIZE;
             } else {
                 TLARBSize = NUMAProfilerBufferSize;
                 TLSRBSize = NUMAProfilerBufferSize;
