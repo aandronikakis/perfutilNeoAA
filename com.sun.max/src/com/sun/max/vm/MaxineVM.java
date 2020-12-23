@@ -726,6 +726,10 @@ public final class MaxineVM {
         // Trace main thread before termination
         VmThread.traceMainThreadBeforeTermination();
 
+        // Close here the PerfGRoups you've used
+        if (MaxineVM.usePerf) {
+            PerfUtil.explicitPerfGroupClose();
+        }
         native_exit(code);
     }
 }

@@ -48,7 +48,10 @@ import com.sun.max.vm.reference.*;
 import com.sun.max.vm.runtime.*;
 import com.sun.max.vm.thread.*;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.*;
 
 public class NUMAProfiler {
 
@@ -86,6 +89,13 @@ public class NUMAProfiler {
 
     public static int start_counter = 0;
     public static int end_counter = 0;
+
+    public static int  newLength = 0;
+    public static int  startInt = 0;
+    public static int[] dushThresholds;
+    public static int[] s1;
+
+    public static Vector<Integer> newflareAllocationThresholds = new Vector<Integer>();
 
     @C_FUNCTION
     static native void numaProfiler_lock();
@@ -208,6 +218,7 @@ public class NUMAProfiler {
     public static boolean enableFlareObjectProfiler = false;
 
     /**
+<<<<<<< e142eef0022698609da4fd5d5bd83097c786dc24
      * The Flare Object Policy condition to decide if profiling should be enabled.
      * @return
      */
@@ -222,6 +233,13 @@ public class NUMAProfiler {
      */
     public static int TLSRBSize = MIN_BUFFER_SIZE;
     public static int TLARBSize = MIN_BUFFER_SIZE;
+=======
+     * An int variable, whten it's > 0, it means that perfUtil is enabled for the Flare Object Policy.
+     */
+    public static int enablePerfUtilFlareObject = 0;
+
+    private static final int MINIMUMBUFFERSIZE = 500000;
+>>>>>>> [perf][feat][fix] Add mulitple perfUtil FlareObject profile funtionality
 
     /**
      * The underlying hardware configuration.
@@ -546,10 +564,6 @@ public class NUMAProfiler {
                     Log.println(perfUtilflareObjectCounter);
                 }
                 if (perfUtilflareObjectCounter == flareAllocationThresholds[start_counter]) {
-                    if (enableFlareObjectProfiler) {
-                        throw FatalError.unexpected("The PerfUtil supports only a single profiling instance a time. " +
-                            "It seams that there is already an ongoing Flare-Object profiling");
-                    }
                     flareObjectThreadIdBuffer[start_counter] = currentThreadID;
                     if (PerfUtil.LogPerf) {
                         Log.print("[PerfUtil] Enable profiling due to flare object allocation for id ");
@@ -561,9 +575,9 @@ public class NUMAProfiler {
 
                     //Set here the PerfGRoups you want to use
                     PerfUtil.iteration++;
-                    enableFlareObjectProfiler = true;
+                    enablePerfUtilFlareObject++;
                 }
-            } else if (enableFlareObjectProfiler == true && flareObjectThreadIdBuffer[end_counter] == currentThreadID && type.contains(NUMAProfilerFlareObjectEnd)) {
+            } else if (enablePerfUtilFlareObject > 0 && flareObjectThreadIdBuffer[end_counter] == currentThreadID && type.contains(NUMAProfilerFlareObjectEnd)) {
                 if (PerfUtil.LogPerf) {
                     Log.print("[PerfUtil] Disable profiling due to flare end object allocation for id ");
                     Log.println(currentThreadID);
@@ -571,8 +585,9 @@ public class NUMAProfiler {
                 }
                 end_counter++;
 
-                //Reset and close here the PerfGRoups you've used
-                enableFlareObjectProfiler = false;
+                //Reset here the PerfGRoups you've used
+                PerfUtil.explicitPerfGroupReadAndResetWithoutEnable();
+                enablePerfUtilFlareObject--;
             }
         }
 
@@ -1146,20 +1161,52 @@ public class NUMAProfiler {
     }
 
     /**
-     *  A method to transform a string of that form "int0,int1,int2" into an integer array [int0, int1, int2].
+     *  A method to transform a string of that form "int0,int1,int2-int4" into an integer array [int0, int1, int2, int3, int4, int5].
      */
     public static void splitStringtoSortedIntegers() {
 
         String[] thresholds = NUMAProfilerFlareAllocationThresholds.split(",");
-        flareObjectThreadIdBuffer = new int[thresholds.length];
-        flareAllocationThresholds = new int[thresholds.length];
         for (int i = 0; i < thresholds.length; i++) {
-            flareAllocationThresholds[i] = Integer.parseInt(thresholds[i]);
+            if (thresholds[i].split("-").length == 2) {
+                s1 = splitStringWithDushToSortedIntegers(thresholds[i]);
+                for (int j = 0; j < s1.length; j++) {
+                    newflareAllocationThresholds.add(s1[j]);
+                }
+            } else {
+                newflareAllocationThresholds.add(Integer.parseInt(thresholds[i]));
+            }
         }
-        Arrays.sort(flareAllocationThresholds);
 
+        flareAllocationThresholds = new int[newflareAllocationThresholds.size()];
+        flareObjectThreadIdBuffer = new int[newflareAllocationThresholds.size()];
+
+        for (int i = 0; i < newflareAllocationThresholds.size(); i++) {
+            flareAllocationThresholds[i] = newflareAllocationThresholds.get(i);
+        }
+
+        Arrays.sort(flareAllocationThresholds);
     }
 
+    /**
+     *  A method to transform a string of that form "intX-intY" into an integer array [intX, intX+1, intX+2, ..., intY].
+     */
+    public static int[] splitStringWithDushToSortedIntegers(String givenString) {
+
+        String[] thresholds = givenString.split("-");
+        if (Integer.parseInt(thresholds[1]) > Integer.parseInt(thresholds[0])) {
+            newLength = Integer.parseInt(thresholds[1]) - Integer.parseInt(thresholds[0]) + 1;
+            startInt = Integer.parseInt(thresholds[0]);
+        } else {
+            newLength = Integer.parseInt(thresholds[0]) - Integer.parseInt(thresholds[1]) + 1;
+            startInt = Integer.parseInt(thresholds[1]);
+        }
+        dushThresholds = new int[newLength];
+        for (int i = 0; i < newLength; i++) {
+            dushThresholds[i] = startInt + i;
+        }
+        return dushThresholds;
+
+    }
 
     /**
      * This {@link Pointer.Predicate} confirms if an action requested from a VmThread
