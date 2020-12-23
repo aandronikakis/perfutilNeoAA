@@ -56,12 +56,12 @@ public class LightweightLockword extends HashableLockword {
     public static final int ALLOCATORID_FIELD_WIDTH = 8;
     public static final int THREADID_FIELD_WIDTH = 8;
     protected static final int THREADID_SHIFT = Platform.target().arch.is64bit() ? (HASHCODE_SHIFT + HASH_FIELD_WIDTH) : NUMBER_OF_MODE_BITS;
-    protected static final int ALLOCATORID_SHIFT = THREADID_SHIFT + THREADID_FIELD_WIDTH;
+    public static final int ALLOCATORID_SHIFT = THREADID_SHIFT + THREADID_FIELD_WIDTH;
     protected static final int UTIL_SHIFT = ALLOCATORID_SHIFT + ALLOCATORID_FIELD_WIDTH;
     protected static final int RCOUNT_SHIFT = UTIL_SHIFT + UTIL_FIELD_WIDTH;
     protected static final int NUM_BITS = Word.width();
     protected static final Address THREADID_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - THREADID_FIELD_WIDTH);
-    protected static final Address ALLOCATORID_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - ALLOCATORID_FIELD_WIDTH);
+    public static final Address ALLOCATORID_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - ALLOCATORID_FIELD_WIDTH);
     protected static final Address UTIL_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - UTIL_FIELD_WIDTH);
     protected static final Address RCOUNT_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - RCOUNT_FIELD_WIDTH);
     protected static final Address RCOUNT_INC_WORD = Address.zero().bitSet(NUM_BITS - RCOUNT_FIELD_WIDTH);
@@ -69,7 +69,7 @@ public class LightweightLockword extends HashableLockword {
     /**
      * A mask of 1s containing 0s only in the allocator id bits.
      */
-    protected static final Address ALLOCATORID_CLEAR_MASK = ALLOCATORID_SHIFTED_MASK.or(Address.zero()).shiftedLeft(ALLOCATORID_SHIFT).not();
+    public static final Address ALLOCATORID_CLEAR_MASK = ALLOCATORID_SHIFTED_MASK.or(Address.zero()).shiftedLeft(ALLOCATORID_SHIFT).not();
 
     static {
         if (Platform.target().arch.is64bit()) {
