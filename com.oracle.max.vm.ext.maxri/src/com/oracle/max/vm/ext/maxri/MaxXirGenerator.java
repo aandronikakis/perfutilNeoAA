@@ -1632,25 +1632,17 @@ public class MaxXirGenerator implements RiXirGenerator {
     @HOSTED_ONLY
     private void maybeEngraveAllocatorId(XirOperand cell, XirOperand etla) {
         if (MaxineVM.useNUMAProfiler) {
-            XirOperand allocatorShift = asm.createTemp("allocatorShift", WordUtil.archKind());
+            // alternative ?
+            // callRuntimeThroughStub(asm, "engrave", null, cell);
             XirOperand threadId = asm.createTemp("threadId", WordUtil.archKind());
-            XirOperand currentLockWord = asm.createTemp("currentLockWord", WordUtil.archKind());
-
-            XirOperand a = asm.createTemp("a", WordUtil.archKind());
-            XirOperand b = asm.createTemp("b", WordUtil.archKind());
-            XirOperand c = asm.createTemp("c", WordUtil.archKind());
+            XirOperand allocatorShift = asm.createTemp("allocatorShift", WordUtil.archKind());
 
             asm.pload(WordUtil.archKind(), threadId, etla, asm.i(VmThreadLocal.ID.offset), true);
-            asm.pload(WordUtil.archKind(), currentLockWord, cell, asm.i(miscOffset()), true);
-            //LightweightLockword.from(asAddress().and(ALLOCATORID_CLEAR_MASK).or(Address.fromInt(allocatorID).shiftedLeft(ALLOCATORID_SHIFT)));
-            //A = currentLockWord AND allocatorIdClearMask
-            asm.and(a, currentLockWord, asm.l(LightweightLockword.ALLOCATORID_CLEAR_MASK.toLong()));
-            //B = allocatorID SHIFTLEFT ALLOCATORID_SHIFT
             asm.mov(allocatorShift, asm.i(LightweightLockword.ALLOCATORID_SHIFT));
-            asm.shl(b, threadId, allocatorShift);
-            //C = A OR B
-            asm.or(c, a, b);
-            asm.pstore(WordUtil.archKind(), cell, asm.i(miscOffset()), c, false);
+
+            asm.shl(threadId, threadId, allocatorShift);
+
+            asm.pstore(WordUtil.archKind(), cell, asm.i(miscOffset()), threadId, false);
         }
     }
 
@@ -2286,6 +2278,10 @@ public class MaxXirGenerator implements RiXirGenerator {
             assert MaxineVM.useNUMAProfiler;
             ((HeapSchemeWithTLAB) vmConfig().heapScheme()).profileReadArray(arrayCell);
         }
+
+        /*public static void engrave(Pointer cell) {
+            ((HeapSchemeWithTLAB) vmConfig().heapScheme()).callEngrave(cell);
+        }*/
 
         public static Pointer flushLog(Pointer logTail) {
             return TLABLog.flushAndGetStart(logTail);
