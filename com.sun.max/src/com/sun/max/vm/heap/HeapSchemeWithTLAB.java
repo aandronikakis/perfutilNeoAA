@@ -528,6 +528,14 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
     }
 
     /**
+     * The runtime call to engrave alloc id in a new object through C1X stub.
+     * Note: Currently unused.
+     */
+    public final void callEngrave(Pointer cell) {
+        Cell.engraveAllocID(cell, VmThread.current().id());
+    }
+
+    /**
      * Handling of custom allocation by sub-classes.
      * The normal allocation path. may be escaped by temporarily enabling use of a custom allocator identified with an opaque identifier.
      * The default code path retrieve this custom allocator identifier and pass it to the customAllocate method, along with the requested size.
