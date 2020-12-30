@@ -584,7 +584,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer cell = tlabAllocate(size);
 
         //NUMAProfiler.checkForFlareObject(dynamicHub);
-        Cell.engraveAllocID(cell, VmThread.current().id());
+        maybeEngrave(cell, VmThread.current().id());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = dynamicHub.classActor.name();
             final long address = cell.toLong();
@@ -604,7 +604,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         } else {
             Object initializedTuple = Cell.plantTuple(cell, hub);
             //NUMAProfiler.checkForFlareObject(hub);
-            Cell.engraveAllocID(cell, VmThread.current().id());
+            maybeEngrave(cell, VmThread.current().id());
             if (NUMAProfiler.shouldProfile()) {
                 final String objectType = hub.classActor.name();
                 final long address = cell.toLong();
@@ -620,7 +620,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer cell = tlabAllocate(size);
 
         //NUMAProfiler.checkForFlareObject(hub);
-        Cell.engraveAllocID(cell, VmThread.current().id());
+        maybeEngrave(cell, VmThread.current().id());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
             final long address = cell.toLong();
@@ -649,11 +649,24 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer oldOrigin = Reference.fromJava(object).toOrigin();
         final Hub hub = Layout.getHub(oldOrigin);
         //NUMAProfiler.checkForFlareObject(hub);
-        Cell.engraveAllocID(cell, VmThread.current().id());
+        maybeEngrave(cell, VmThread.current().id());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
             final long address = cell.toLong();
             NUMAProfiler.profileNew(false, 0, size.toInt(), objectType, address);
+        }
+    }
+
+    /**
+     * Engrave the allocator thread id of an object in its misc word during allocation.
+     * Note: It should be allowed only when NUMAProfiler is used.
+     * Q1: Is it eliminated as dead code otherwise?
+     * Q2: Should be inlined?
+     */
+    @INLINE
+    private void maybeEngrave(Pointer cell, int threadId) {
+        if (MaxineVM.useNUMAProfiler) {
+            Cell.engraveAllocID(cell, threadId);
         }
     }
 
