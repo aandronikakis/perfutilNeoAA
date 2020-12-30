@@ -38,7 +38,9 @@ import com.sun.max.vm.heap.sequential.semiSpace.*;
 import com.sun.max.vm.intrinsics.*;
 import com.sun.max.vm.jdk.*;
 import com.sun.max.vm.layout.Layout;
+import com.sun.max.vm.monitor.modal.modehandlers.inflated.InflatedMonitorLockword;
 import com.sun.max.vm.monitor.modal.modehandlers.lightweight.LightweightLockword;
+import com.sun.max.vm.monitor.modal.sync.JavaMonitor;
 import com.sun.max.vm.reference.*;
 import com.sun.max.vm.runtime.*;
 import com.sun.max.vm.thread.*;
@@ -565,8 +567,23 @@ public class NUMAProfiler {
 
         final int accessCounter = assessAccessLocality(address, counter.value);
 
-        final int allocatorId = LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(Pointer.fromLong(address)))).getAllocatorID();
+        // get misc word from obj's layout
+        LightweightLockword miscWord = LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(Pointer.fromLong(address))));
+        // handle cases where monitor is inflated
+        boolean inf = false;
+        if (miscWord.isInflated()) {
+            // get inflated lock word
+            final InflatedMonitorLockword inflatedMonitorLockword = InflatedMonitorLockword.from(miscWord);
+            // get java monitor pointed by inflated lock word
+            final JavaMonitor monitor = inflatedMonitorLockword.getBoundMonitor();
+            // get misc word stored in java monitor (before inflation)
+            miscWord = LightweightLockword.from(monitor.displacedMisc());
+        }
+        // get obj's allocator thread id which is encoded in obj's layout misc word
+        final int allocatorId = miscWord.getAllocatorID();
+
         if (allocatorId != 0) {
+            // profile access in a object included in profiling
             //Log.print("(NUMAProfiler.profileAccess): ");
             //Hub hub = (Hub) Reference.fromOrigin(Pointer.fromLong(address)).readHubReference().toJava();
             //Log.print(hub.classActor.name());
@@ -574,6 +591,8 @@ public class NUMAProfiler {
             //Log.print(LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(Pointer.fromLong(address)))));
             //Log.print(", allocator id: ");
             //Log.println(LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(Pointer.fromLong(address)))).getAllocatorID());
+        } else {
+            // profile access in an object not included in profiling
         }
 
         // increment local or remote writes
