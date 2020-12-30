@@ -488,7 +488,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
     public final void profileNewTuple(int size, Hub hub, Pointer cell) {
         final String objectType = hub.classActor.name();
         final long address = cell.toLong();
-        //NUMAProfiler.profileNew(false, 0, size, objectType, address);
+        NUMAProfiler.profileNew(false, 0, size, objectType, address);
     }
 
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")
@@ -496,7 +496,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
     public final void profileNewArray(int length, int size, Hub hub, Pointer cell) {
         final String objectType = hub.classActor.name();
         final long address = cell.toLong();
-        //NUMAProfiler.profileNew(true, length, size, objectType, address);
+        NUMAProfiler.profileNew(true, length, size, objectType, address);
     }
 
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")
@@ -580,7 +580,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = dynamicHub.classActor.name();
             final long address = cell.toLong();
-            //NUMAProfiler.profileNew(true, length, size.toInt(), objectType, address);
+            NUMAProfiler.profileNew(true, length, size.toInt(), objectType, address);
         }
         return Cell.plantArray(cell, size, dynamicHub, length);
     }
@@ -600,7 +600,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
             if (NUMAProfiler.shouldProfile()) {
                 final String objectType = hub.classActor.name();
                 final long address = cell.toLong();
-                //NUMAProfiler.profileNew(false, 0, hub.tupleSize.toInt(), objectType, address);
+                NUMAProfiler.profileNew(false, 0, hub.tupleSize.toInt(), objectType, address);
             }
             return initializedTuple;
         }
@@ -616,7 +616,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
             final long address = cell.toLong();
-            //NUMAProfiler.profileNew(false, 0, size.toInt(), objectType, address);
+            NUMAProfiler.profileNew(false, 0, size.toInt(), objectType, address);
         }
         return Cell.plantHybrid(cell, size, hub);
     }
@@ -645,7 +645,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
             final long address = cell.toLong();
-            //NUMAProfiler.profileNew(false, 0, size.toInt(), objectType, address);
+            NUMAProfiler.profileNew(false, 0, size.toInt(), objectType, address);
         }
     }
 
