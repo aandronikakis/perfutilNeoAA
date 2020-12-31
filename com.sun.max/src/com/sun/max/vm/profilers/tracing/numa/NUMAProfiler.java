@@ -233,7 +233,7 @@ public class NUMAProfiler {
     public int exitCode;
 
     /**
-     * An enum that maps each Object Access Counter name with a {@link VmThreadLocal#profilingCounters} index.
+     * An enum that maps each Object Access Counter type with a {@link VmThreadLocal#ACCESSES_BUFFER} row index.
      */
     public enum ACCESS_COUNTER {
         LOCAL_TUPLE_WRITE(0), INTERNODE_TUPLE_WRITE(1), INTERBLADE_TUPLE_WRITE(2),
@@ -391,6 +391,8 @@ public class NUMAProfiler {
             if (NUMAProfilerSurvivors) {
                 initTLSRB.run(etla);
             }
+            // Initialize new VmThread's AccessesBuffer
+            initTLAccB.run(etla);
         }
         unlock(lockDisabledSafepoints);
     }
@@ -548,11 +550,16 @@ public class NUMAProfiler {
         }
     }
 
-    private static void increaseAccessCounter(int counter) {
+    /**
+     *
+     * @param counter is the type of the access.
+     * @param allocatorId is the id of the thread that has allocated the accessed object.
+     */
+    private static void incrementAccessCounter(int counter, int allocatorId) {
         Pointer tla = VmThread.currentTLA();
         assert ETLA.load(tla) == tla;
-        long value = profilingCounters[counter].load(tla).toLong() + 1;
-        profilingCounters[counter].store(tla, Address.fromLong(value));
+        final AccessesBuffer accBuffer = AccessesBuffer.getForCurrentThread(tla);
+        accBuffer.increment(counter, allocatorId);
     }
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
@@ -565,7 +572,7 @@ public class NUMAProfiler {
             return;
         }
 
-        final int accessCounter = assessAccessLocality(address, counter.value);
+        final int accessType = assessAccessLocality(address, counter.value);
 
         // get misc word from obj's layout
         LightweightLockword miscWord = LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(Pointer.fromLong(address))));
@@ -596,7 +603,7 @@ public class NUMAProfiler {
         }
 
         // increment local or remote writes
-        increaseAccessCounter(accessCounter);
+        incrementAccessCounter(accessType, allocatorId);
     }
 
     /**
@@ -1289,22 +1296,20 @@ public class NUMAProfiler {
     /**
      * A {@link Pointer.Procedure} that initializes all Access Profiling Counters of a thread.
      */
-    private static final Pointer.Procedure initThreadLocalProfilingCounters = new Pointer.Procedure() {
+    public static final Pointer.Procedure initTLAccB = new Pointer.Procedure() {
+        @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
-            for (int i = 0; i < profilingCounters.length; i++) {
-                VmThreadLocal profilingCounter = profilingCounters[i];
-                profilingCounter.store(etla, Address.fromInt(0));
-            }
+            final AccessesBuffer accessesBuffer = new AccessesBuffer();
+            AccessesBuffer.setForCurrentThread(tla, accessesBuffer);
         }
     };
 
     /**
-     * Call {@link #initThreadLocalProfilingCounters} for all {@linkplain VmThreadMap#ACTIVE} threads.
+     * Call {@link #initTLAccB} for all {@linkplain VmThreadMap#ACTIVE} threads.
      */
     private static void initProfilingCounters() {
         synchronized (VmThreadMap.THREAD_LOCK) {
-            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initThreadLocalProfilingCounters);
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initTLAccB);
         }
     }
 
@@ -1314,27 +1319,29 @@ public class NUMAProfiler {
     private static final Pointer.Procedure printThreadLocalProfilingCounters = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            for (int i = 0; i < profilingCounters.length; i++) {
-                VmThreadLocal profilingCounter = profilingCounters[i];
-                final long count = profilingCounter.load(etla).toLong();
-                if (count != 0) {
-                    Log.print("(accessCounter);");
-                    Log.print(profilingCycle);
-                    Log.print(";");
-                    Log.print(VmThread.fromTLA(etla).id());
-                    Log.print(";");
-                    Log.print(profilingCounter.name);
-                    Log.print(";");
-                    Log.println(count);
+            final AccessesBuffer accBuffer = AccessesBuffer.getForCurrentThread(etla);
+            for (int type = 0; type < accBuffer.numOfAccessTypes; type++) {
+                for (int allocatorThread = 0; allocatorThread < accBuffer.numOfThreads; allocatorThread++) {
+                    final long count = accBuffer.counterSet[type][allocatorThread];
+                    if (count != 0) {
+                        Log.print("(accessCounter);");
+                        Log.print(profilingCycle);
+                        Log.print(";");
+                        Log.print(objectAccessCounterNames[type]);
+                        Log.print(";");
+                        Log.print(VmThread.fromTLA(etla).id());
+                        Log.print(";");
+                        Log.print(allocatorThread);
+                        Log.print(";");
+                        Log.println(count);
+                    }
                 }
-                //reset counter
-                profilingCounter.store(etla, Address.fromInt(0));
             }
         }
     };
 
     /**
-     * Call {@link #initThreadLocalProfilingCounters} for all ACTIVE threads.
+     * Call {@link #printThreadLocalProfilingCounters} for all ACTIVE threads.
      */
     private static void printProfilingCounters() {
         synchronized (VmThreadMap.THREAD_LOCK) {
