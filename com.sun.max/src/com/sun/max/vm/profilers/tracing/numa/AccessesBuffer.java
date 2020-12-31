@@ -21,12 +21,10 @@ package com.sun.max.vm.profilers.tracing.numa;
 
 import com.sun.max.annotate.INTRINSIC;
 import com.sun.max.unsafe.Pointer;
-import com.sun.max.vm.Log;
 import com.sun.max.vm.reference.Reference;
-import com.sun.max.vm.thread.VmThread;
+import com.sun.max.vm.runtime.FatalError;
 
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
-import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.objectAccessCounterNames;
 import static com.sun.max.vm.thread.VmThreadLocal.ACCESSES_BUFFER;
 
 public class AccessesBuffer {
@@ -54,10 +52,12 @@ public class AccessesBuffer {
      *
      * The above structure is stored in the counterSet array.
      * Each cell represents an individual counter.
+     *
+     * Note: AllocatorId = 0 denotes that the accessed object has been allocated in an early phase of the vm.
      */
 
     public int[][] counterSet;
-    final static int numOfAccessTypes = 12;
+    final int numOfAccessTypes = 12;
     /**
      * Arbitrarily set to support up to 16 threads.
      * In case more are needed, it will self expand.
@@ -68,16 +68,16 @@ public class AccessesBuffer {
         counterSet = new int[numOfAccessTypes][numOfThreads];
     }
 
-    public void incrementCounter(int accessType, int accessedThread) {
+    public void increment(int accessType, int allocatorId) {
         try {
-            counterSet[accessType][accessedThread]++;
+            counterSet[accessType][allocatorId]++;
         } catch (ArrayIndexOutOfBoundsException ex) {
-            expandBuffers(accessedThread);
-            counterSet[accessType][accessedThread]++;
+            expand(allocatorId);
+            counterSet[accessType][allocatorId]++;
         }
     }
 
-    public void expandBuffers(int faultyIndex) {
+    public void expand(int faultyIndex) {
         int newSize = faultyIndex + 1;
         int[][] newCounters = new int[numOfAccessTypes][newSize];
 
@@ -91,20 +91,6 @@ public class AccessesBuffer {
         counterSet = newCounters;
     }
 
-    public void print() {
-        Log.print("Print Access Counters of Thread ");
-        Log.println(VmThread.current().id());
-        for (int type = 0; type < numOfAccessTypes; type++) {
-            Log.print(objectAccessCounterNames[type]);
-            Log.print(" : ");
-            for (int thread = 0; thread < numOfThreads; thread++) {
-                Log.print(counterSet[type][thread]);
-                Log.print(' ');
-            }
-            Log.println(" ");
-        }
-    }
-
     @INTRINSIC(UNSAFE_CAST)
     public static native AccessesBuffer asAccessesBuffer(Object object);
 
@@ -115,7 +101,7 @@ public class AccessesBuffer {
     public static AccessesBuffer getForCurrentThread(Pointer etla) {
         final Reference reference = ACCESSES_BUFFER.loadRef(etla);
         if (reference.isZero()) {
-            return null;
+            FatalError.unexpected("Access Buffer is null");
         }
         return asAccessesBuffer(reference.toJava());
     }
