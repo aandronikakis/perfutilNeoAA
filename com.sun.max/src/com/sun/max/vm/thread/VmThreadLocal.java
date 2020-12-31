@@ -316,18 +316,10 @@ public class VmThreadLocal implements FormatWithToString {
         = new VmThreadLocal("PROFILER_STATE", false, "points to TLA used for profiler on/off", Nature.Single);
 
     /**
-     * This VmThreadLocal array stores all counters for each object access kind (remote/local, array/tuple, read/write).
+     * This VmThreadLocal is a reference to an AccessesBuffer object to store obj access counters per type (remote/local, array/tuple, read/write) and allocator thread.
      */
-    public static VmThreadLocal[] profilingCounters;
-
-    static {
-        if (MaxineVM.useNUMAProfiler) {
-            profilingCounters = new VmThreadLocal[NUMAProfiler.objectAccessCounterNames.length];
-            for (int i = 0; i < profilingCounters.length; i++) {
-                profilingCounters[i] = new VmThreadLocal(NUMAProfiler.objectAccessCounterNames[i], false, "counts object accesses", Nature.Single);
-            }
-        }
-    }
+    public static final VmThreadLocal ACCESSES_BUFFER
+        = new VmThreadLocal("ACCESSES_BUFFER", true, "points to a thread local accesses buffer", Nature.Single);
 
     public static VmThreadLocal ALLOC_BUFFER_PTR
         = new VmThreadLocal("ALLOC_BUFFER_PTR", true, "points to a thread local allocation buffer", Nature.Single);
