@@ -332,7 +332,7 @@ public class PerfEventGroup {
         //calculate the percentage of time the group has been actually monitored
         //timeRunningPercentage = (int) (timeRunning / timeEnabled) * 100;
         if (timeEnabled != timeRunning) {
-            timeRunningPercentage = (int) (timeRunning / timeEnabled) * 100;
+            timeRunningPercentage = (int) ((timeRunning / (float) timeEnabled) * 100);
         } else {
             timeRunningPercentage = 100;
         }
