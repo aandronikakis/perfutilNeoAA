@@ -311,7 +311,19 @@ public class PerfUtil {
         UNCORE_IMC_0_CPU_1_GROUP(13),
         UNCORE_IMC_1_CPU_1_GROUP(14),
         UNCORE_IMC_2_CPU_1_GROUP(15),
-        UNCORE_IMC_3_CPU_1_GROUP(16);
+        UNCORE_IMC_3_CPU_1_GROUP(16),
+
+        /**
+         * Every event is supported for single utilization (not as part of a group).
+         * This is achieved by the following single-event groups:
+         */
+
+        CPU_CYCLES_SINGLE(17),
+        INSTRUCTIONS_SINGLE(18),
+        LLC_READS_SINGLE(19),
+        LLC_WRITES_SINGLE(20),
+        LLC_READ_MISSES_SINGLE(21),
+        LLC_WRITE_MISSES_SINGLE(22);
 
         public final int value;
 
