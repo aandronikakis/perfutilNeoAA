@@ -331,10 +331,10 @@ public class PerfEventGroup {
         timeRunning = timesBuffer[1];
         //calculate the percentage of time the group has been actually monitored
         //timeRunningPercentage = (int) (timeRunning / timeEnabled) * 100;
-        if (timeEnabled != timeRunning) {
+        if (timeEnabled != 0) {
             timeRunningPercentage = (int) ((timeRunning / (float) timeEnabled) * 100);
         } else {
-            timeRunningPercentage = 100;
+            timeRunningPercentage = 0;
         }
         if (PerfUtil.logPerf) {
             Log.print(groupId);
