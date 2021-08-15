@@ -814,17 +814,23 @@ public class NUMAProfiler {
 
         checkAndUpdateProfilingState();
 
-        if (NUMAProfilerVerbose) {
-            Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Leaving Post-GC Phase.");
-            Log.print("[VerboseMsg @ NUMAProfiler.postGCActions()]: Start Mutation");
-            if (explicitGCProflingEnabled) {
+        if (explicitGCProflingEnabled) {
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Leaving Post-GC Phase.");
+                Log.print("[VerboseMsg @ NUMAProfiler.postGCActions()]: Start Mutation");
                 Log.print(" & Profiling. [Profiling Cycle ");
                 Log.print(profilingCycle);
                 Log.print("]");
                 Log.print(", iteration = ");
                 Log.println(iteration);
-                printProfilingThreadNames();
-            } else {
+            }
+
+            printProfilingThreadNames();
+
+        } else {
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Leaving Post-GC Phase.");
+                Log.print("[VerboseMsg @ NUMAProfiler.postGCActions()]: Start Mutation");
                 Log.print(", iteration = ");
                 Log.println(iteration);
             }
@@ -839,18 +845,26 @@ public class NUMAProfiler {
         if (NUMAProfilerVerbose) {
             Log.println("[VerboseMsg @ NUMAProfiler.postGCMinimumActions()]: Entering [Minimum] Post-GC Phase.");
         }
+
         checkAndUpdateProfilingState();
-        if (NUMAProfilerVerbose) {
-            Log.println("[VerboseMsg @ NUMAProfiler.postGCMinimumActions()]: Leaving [Minimum] Post-GC Phase.");
-            Log.print("[VerboseMsg @ NUMAProfiler.postGCMinimumActions()]: Start Mutation");
-            if (explicitGCProflingEnabled) {
+
+        if (explicitGCProflingEnabled) {
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCMinimumActions()]: Leaving [Minimum] Post-GC Phase.");
+                Log.print("[VerboseMsg @ NUMAProfiler.postGCMinimumActions()]: Start Mutation");
                 Log.print(" & Profiling. [Profiling Cycle ");
                 Log.print(profilingCycle);
                 Log.print("]");
                 Log.print(", iteration = ");
                 Log.println(iteration);
-                printProfilingThreadNames();
-            } else {
+            }
+
+            printProfilingThreadNames();
+
+        } else {
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Leaving Post-GC Phase.");
+                Log.print("[VerboseMsg @ NUMAProfiler.postGCActions()]: Start Mutation");
                 Log.print(", iteration = ");
                 Log.println(iteration);
             }
