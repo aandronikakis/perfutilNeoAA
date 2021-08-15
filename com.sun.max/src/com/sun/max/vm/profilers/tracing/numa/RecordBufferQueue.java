@@ -63,10 +63,12 @@ public class RecordBufferQueue {
      * The method to insert an element in the end of the queue.
      */
     public void add(Pointer tla, Reference buffer) {
-        Log.print("[RecordBufferQueue] add(): Thread ");
-        Log.print(VmThread.fromTLA(tla).id());
-        Log.print(" Reference: ");
-        Log.println(buffer);
+        if (NUMAProfiler.getNUMAProfilerVerbose()) {
+            Log.print("[VerboseMsg @ RecordBufferQueue.add()]: Thread ");
+            Log.print(VmThread.fromTLA(tla).id());
+            Log.print(" Reference: ");
+            Log.println(buffer);
+        }
         if (index >= length) {
             expand();
         }
@@ -89,7 +91,7 @@ public class RecordBufferQueue {
         while (!isEmpty()) {
             RecordBuffer buffer = remove();
             if (NUMAProfiler.getNUMAProfilerVerbose()) {
-                Log.print("[RecordBufferQueue] print(): Buffer of Thread ");
+                Log.print("[VerboseMsg @ RecordBufferQueue.print()]: Buffer of Thread ");
                 Log.print(buffer.threadId);
                 Log.println(" is printing from Queue.");
             }

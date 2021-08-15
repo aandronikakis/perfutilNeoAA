@@ -155,7 +155,7 @@ public class RecordBuffer {
         while (charIndex < value.length) {
             c = value[charIndex];
             if (writeIndex * Character.BYTES >= StringBufferSizeInBytes) {
-                Log.print("Off-heap String array overflow detected at index: ");
+                Log.print("[RecordBuffer.writeType()]: Off-heap String array overflow detected at index: ");
                 Log.println(writeIndex * Character.BYTES);
                 Log.println("Suggestion: Increase the NUMAProfilerBufferSize.");
                 break;
@@ -249,8 +249,8 @@ public class RecordBuffer {
     }
 
     /**
-     * Allocation Profiler Output format.
-     * Cycle; isAllocation; UniqueId; ThreadId; ThreadNumaNode; Type/Class; Size; NumaNode; TimeStamp; CoreId
+     * NUMA Profiler Output format.
+     * Cycle; isAllocation; ThreadId; ThreadNumaNode; Type/Class; Size; NumaNode; TimeStamp; CoreId
      * @param cycle
      * @param allocation
      */
@@ -293,8 +293,8 @@ public class RecordBuffer {
     }
 
     void printUsage() {
-        Log.print("(Allocation Profiler): ");
-        Log.print(buffersName);
+        Log.print("[VerboseMsg @ RecordBuffer.printUsage()]: ");
+        Log.print(bufferName);
         Log.print(" usage = ");
         Log.print(currentIndex);
         Log.print(" / ");
@@ -356,7 +356,6 @@ public class RecordBuffer {
     }
 
     public static Reference getBufferReference(Pointer etla, RECORD_BUFFER whichBuffer) {
-        Log.println("getBufferReference");
         return getBufferPtr(whichBuffer).loadRef(etla);
     }
 }

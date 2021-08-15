@@ -290,7 +290,7 @@ public class NUMAProfiler {
         assert NUMALib.numalib_available() != -1 : "NUMAProfiler cannot be run without NUMA support";
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): NUMAProfiler Initialization.");
+            Log.println("[VerboseMsg @ NUMAProfiler.NUMAProfiler()]: NUMAProfiler Initialization.");
         }
 
         splitStringtoSortedIntegers();
@@ -311,7 +311,7 @@ public class NUMAProfiler {
         initTLARBufferForAllThreads();
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Initialize the Survivor Objects NUMAProfiler Buffers.");
+            Log.println("[VerboseMsg @ NUMAProfiler.NUMAProfiler()]: Initialize the Survivor Objects NUMAProfiler Buffers.");
         }
         if (NUMAProfilerSurvivors) {
             initTLSRBuffersForAllThreads();
@@ -320,7 +320,7 @@ public class NUMAProfiler {
         memoryPageSize = NUMALib.numaPageSize();
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Initialize the Heap Boundaries Buffer.");
+            Log.println("[VerboseMsg @ NUMAProfiler.NUMAProfiler()]: Initialize the Heap Boundaries Buffer.");
         }
         initializeHeapBoundariesBuffer();
 
@@ -330,9 +330,9 @@ public class NUMAProfiler {
 
         profilingCycle = 1;
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Initialization Complete.");
+            Log.println("[VerboseMsg @ NUMAProfiler.NUMAProfiler()]: Initialization Complete.");
 
-            Log.print("(NUMA Profiler): Start Profiling. [Cycle ");
+            Log.print("[VerboseMsg @ NUMAProfiler.NUMAProfiler()]: Start Profiling. [Cycle ");
             Log.print(profilingCycle);
             Log.println("]");
         }
@@ -369,7 +369,7 @@ public class NUMAProfiler {
         final boolean lockDisabledSafepoints = lock();
         final Pointer etla = ETLA.load(tla);
         if (NUMAProfilerVerbose) {
-            Log.print("Thread ");
+            Log.print("[VerboseMsg @ NUMAProfiler.onVmThreadExit()]: Thread ");
             Log.print(VmThread.fromTLA(etla).id());
             Log.println(" is exiting.");
         }
@@ -584,7 +584,7 @@ public class NUMAProfiler {
      */
     private void findNumaNodeForAllHeapMemoryPages() {
         if (NUMAProfilerVerbose) {
-            Log.println(" ==> Find Numa Node For All Heap Memory Pages");
+            Log.println("[VerboseMsg @ NUMAProfiler.findNumaNodeForAllHeapMemoryPages()]: ==> Find Numa Node For All Heap Memory Pages");
         }
         vm().config.heapScheme().forAllSpaces(findNumaNodeForSpace);
     }
@@ -658,10 +658,10 @@ public class NUMAProfiler {
      */
     private static void storeSurvivors(RecordBuffer from, RecordBuffer to) {
         if (NUMAProfilerVerbose) {
-            Log.print("(NUMA Profiler): Copy Survived Objects from ");
-            Log.print(from.buffersName);
+            Log.print("[VerboseMsg @ NUMAProfiler.storeSurvivors()]: Copy Survived Objects from ");
+            Log.print(from.bufferName);
             Log.print(" to ");
-            Log.println(to.buffersName);
+            Log.println(to.bufferName);
         }
         for (int i = 0; i < from.currentIndex; i++) {
             long address = from.readAddr(i);
@@ -700,7 +700,7 @@ public class NUMAProfiler {
             isExplicitGC = false;
             if (isExplicitGCPolicyConditionTrue()) {
                 if (NUMAProfilerVerbose) {
-                    Log.println("(NUMA Profiler): Enabling profiling. [post-GC phase]");
+                    Log.println("[VerboseMsg @ NUMAProfiler.checkAndUpdateProfilingState()]: Enabling profiling. [post-GC phase]");
                 }
                 enableProfiling();
                 explicitGCProflingEnabled = true;
@@ -716,8 +716,8 @@ public class NUMAProfiler {
     void preGCActions() {
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Mutation Stopped. Entering Pre-GC Phase.");
-            Log.print("(NUMA Profiler): Profiling Cycle = ");
+            Log.println("[VerboseMsg @ NUMAProfiler.preGCActions()]: Mutation Stopped. Entering Pre-GC Phase.");
+            Log.print("[VerboseMsg @ NUMAProfiler.preGCActions()]: Profiling Cycle = ");
             Log.print(profilingCycle);
             Log.print(" Iteration = ");
             Log.println(iteration);
@@ -734,7 +734,7 @@ public class NUMAProfiler {
         }
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Leaving Pre-GC Phase.");
+            Log.println("[VerboseMsg @ NUMAProfiler.preGCActions()]: Leaving Pre-GC Phase.");
         }
     }
 
@@ -743,8 +743,8 @@ public class NUMAProfiler {
      */
     void preGCMinimumActions() {
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Mutation Stopped. Entering [Minimum] Pre-GC Phase.");
-            Log.print("(NUMA Profiler): Profiling Cycle = ");
+            Log.println("[VerboseMsg @ NUMAProfiler.preGCMinimumActions()]: Mutation Stopped. Entering [Minimum] Pre-GC Phase.");
+            Log.print("[VerboseMsg @ NUMAProfiler.preGCMinimumActions()]: Profiling Cycle = ");
             Log.print(profilingCycle);
             Log.print(" Iteration = ");
             Log.println(iteration);
@@ -762,7 +762,7 @@ public class NUMAProfiler {
     void postGCActions() {
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Entering Post-GC Phase.");
+            Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Entering Post-GC Phase.");
         }
 
         if (NUMAProfilerSurvivors) {
@@ -771,42 +771,42 @@ public class NUMAProfiler {
 
         if (NUMAProfilerPrintOutput) {
             if (NUMAProfilerVerbose) {
-                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers for Live Threads. [post-GC phase]");
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations Thread Local Buffers for Live Threads. [post-GC phase]");
             }
             dumpAllTLARBs();
 
             if (NUMAProfilerVerbose) {
-                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers for Queued Threads. [termination]");
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations Thread Local Buffers for Queued Threads. [termination]");
             }
             allocationBuffersQueue.print(profilingCycle);
 
             if (NUMAProfilerSurvivors) {
                 if (NUMAProfilerVerbose) {
-                    Log.println("(NUMA Profiler): Dump Survivors Buffer. [post-GC phase]");
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Dump Survivors Buffer. [post-GC phase]");
                 }
                 dumpAllTLSRBs();
             }
 
             if (NUMAProfilerVerbose) {
-                Log.println("(NUMA Profiler): Print Access Profiling Thread Local Counters. [post-GC phase]");
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Access Profiling Thread Local Counters. [post-GC phase]");
             }
             printProfilingCounters();
         }
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Reset Allocation Thread Local Buffers. [post-gc phase]");
+            Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Reset Allocation Thread Local Buffers. [post-gc phase]");
         }
         resetTLARBs();
 
         if (NUMAProfilerSurvivors) {
             if ((profilingCycle % 2) == 0) {
                 if (NUMAProfilerVerbose) {
-                    Log.println("(NUMA Profiler): Clean-up Survivor1 Buffer. [post-gc phase]");
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Clean-up Survivor1 Buffer. [post-gc phase]");
                 }
                 resetTLS1RBs();
             } else {
                 if (NUMAProfilerVerbose) {
-                    Log.println("(NUMA Profiler): Clean-up Survivor2 Buffer. [post-gc phase]");
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Clean-up Survivor2 Buffer. [post-gc phase]");
                 }
                 resetTLS2RBs();
             }
@@ -815,8 +815,8 @@ public class NUMAProfiler {
         checkAndUpdateProfilingState();
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Leaving Post-GC Phase.");
-            Log.print("(NUMA Profiler): Start Mutation");
+            Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Leaving Post-GC Phase.");
+            Log.print("[VerboseMsg @ NUMAProfiler.postGCActions()]: Start Mutation");
             if (explicitGCProflingEnabled) {
                 Log.print(" & Profiling. [Profiling Cycle ");
                 Log.print(profilingCycle);
@@ -837,12 +837,12 @@ public class NUMAProfiler {
      */
     void postGCMinimumActions() {
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Entering [Minimum] Post-GC Phase.");
+            Log.println("[VerboseMsg @ NUMAProfiler.postGCMinimumActions()]: Entering [Minimum] Post-GC Phase.");
         }
         checkAndUpdateProfilingState();
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Leaving [Minimum] Post-GC Phase.");
-            Log.print("(NUMA Profiler): Start Mutation");
+            Log.println("[VerboseMsg @ NUMAProfiler.postGCMinimumActions()]: Leaving [Minimum] Post-GC Phase.");
+            Log.print("[VerboseMsg @ NUMAProfiler.postGCMinimumActions()]: Start Mutation");
             if (explicitGCProflingEnabled) {
                 Log.print(" & Profiling. [Profiling Cycle ");
                 Log.print(profilingCycle);
@@ -985,7 +985,7 @@ public class NUMAProfiler {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             if (NUMAProfilerVerbose) {
-                Log.print("Thread ");
+                Log.print("[VerboseMsg @ NUMAProfiler.printTLARB.run()]: Thread ");
                 Log.print(VmThread.fromTLA(etla).id());
                 Log.println(" is printing.");
             }
@@ -1001,7 +1001,7 @@ public class NUMAProfiler {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             if (NUMAProfilerVerbose) {
-                Log.print("==== Survivors Cycle ");
+                Log.print("[VerboseMsg @ NUMAProfiler.printTLSRBs.run()]: ==== Survivors Cycle ");
                 Log.print(profilingCycle);
                 Log.print(" | Thread ");
                 Log.print(VmThread.fromTLA(etla).id());
@@ -1020,12 +1020,14 @@ public class NUMAProfiler {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             VmThread thread = VmThread.fromTLA(etla);
-            Log.print("I am thread ");
-            Log.print(thread.id());
-            Log.print(". My state: ");
-            Log.print(thread.state().name());
-            Log.print(". My Profiling State: ");
-            Log.println(PROFILER_STATE.load(etla));
+            if (NUMAProfilerVerbose) {
+                Log.print("[VerboseMsg @ NUMAProfiler.printThreadId.run()]: I am thread ");
+                Log.print(thread.id());
+                Log.print(". My state: ");
+                Log.print(thread.state().name());
+                Log.print(". My Profiling State: ");
+                Log.println(PROFILER_STATE.load(etla));
+            }
         }
     };
 
@@ -1230,47 +1232,47 @@ public class NUMAProfiler {
         isTerminating = true;
 
         if (NUMAProfilerVerbose) {
-            Log.print("Vm termination code: ");
+            Log.print("[VerboseMsg @ NUMAProfiler.terminate()]: Vm termination code: ");
             Log.println(exitCode);
 
             synchronized (VmThreadMap.THREAD_LOCK) {
-                Log.println("Active threads in terminate()");
+                Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Active threads in terminate()");
                 VmThreadMap.ACTIVE.forAllThreadLocals(allThreads, printThreadId);
             }
-            Log.println("(NUMA Profiler): Disable profiling for termination");
+            Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Disable profiling for termination");
         }
 
         // Disable profiling for shutdown
         disableProfiling();
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Termination");
+            Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Termination");
         }
 
         if (NUMAProfilerPrintOutput) {
             if (NUMAProfilerVerbose) {
-                Log.println("(NUMA Profiler): Print Heap Boundaries. [termination]");
+                Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Heap Boundaries. [termination]");
             }
             dumpHeapBoundaries();
 
             if (NUMAProfilerVerbose) {
-                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers for Live Threads. [termination]");
+                Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Allocations Thread Local Buffers for Live Threads. [termination]");
             }
             dumpAllTLARBs();
 
             if (NUMAProfilerVerbose) {
-                Log.println("(NUMA Profiler): Print Allocations Thread Local Buffers for Queued Threads. [termination]");
+                Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Allocations Thread Local Buffers for Queued Threads. [termination]");
             }
             allocationBuffersQueue.print(profilingCycle);
 
             if (NUMAProfilerVerbose) {
-                Log.println("(NUMA Profiler): Print Access Profiling Thread Local Counters. [termination]");
+                Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Access Profiling Thread Local Counters. [termination]");
             }
             printProfilingCounters();
         }
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Release Reserved Memory.");
+            Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Release Reserved Memory.");
         }
 
         if (!NUMAProfilerIncludeFinalization) {
@@ -1278,7 +1280,7 @@ public class NUMAProfiler {
         }
 
         if (NUMAProfilerVerbose) {
-            Log.println("(NUMA Profiler): Terminating... Bye!");
+            Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Terminating... Bye!");
         }
         unlock(lockDisabledSafepoints);
     }
