@@ -63,7 +63,8 @@ public class RecordBuffer {
     private Pointer timestamps;
     private Pointer coreIDs;
 
-    String buffersName;
+    String bufferName;
+    int threadId;
     int bufferSize;
     int currentIndex;
 
@@ -84,8 +85,9 @@ public class RecordBuffer {
 
     private long StringBufferSizeInBytes;
 
-    public RecordBuffer(int bufSize, String name) {
-        buffersName = name;
+    public RecordBuffer(int bufSize, String name, int thread) {
+        bufferName = name;
+        threadId = thread;
         bufferSize = bufSize;
 
         readStringBuffer = new char[MAX_CHARS];
@@ -127,7 +129,7 @@ public class RecordBuffer {
                 VirtualMemory.Type.DATA);
 
         if (space.isZero()) {
-            throw FatalError.unexpected(this.buffersName + "'s Type Array Allocation Failed.");
+            throw FatalError.unexpected("Thread " + this.threadId + " " + this.bufferName +  " Type Array Allocation Failed.");
         }
         return space;
     }

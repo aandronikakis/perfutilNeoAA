@@ -88,6 +88,11 @@ public class RecordBufferQueue {
     public void print(int profilingCycle) {
         while (!isEmpty()) {
             RecordBuffer buffer = remove();
+            if (NUMAProfiler.getNUMAProfilerVerbose()) {
+                Log.print("[RecordBufferQueue] print(): Buffer of Thread ");
+                Log.print(buffer.threadId);
+                Log.println(" is printing from Queue.");
+            }
             buffer.print(profilingCycle, 1);
             buffer.deallocateAll();
         }

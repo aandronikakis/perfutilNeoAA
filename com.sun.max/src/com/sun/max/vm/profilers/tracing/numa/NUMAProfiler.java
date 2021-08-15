@@ -104,6 +104,10 @@ public class NUMAProfiler {
     @SuppressWarnings("unused")
     public static boolean NUMAProfilerIsolateDominantThread;
 
+    public static boolean getNUMAProfilerVerbose() {
+        return NUMAProfilerVerbose;
+    }
+
     /**
      * PROFILING POLICY 1: Explicit GC Driven
      * Trigger Event: An Application's System.gc() call.
@@ -941,9 +945,9 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure initTLSRB = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final RecordBuffer survivors1 = new RecordBuffer(TLSRBSize, "Survivors Buffer No1");
+            final RecordBuffer survivors1 = new RecordBuffer(TLSRBSize, "Survivors Buffer No1", VmThread.fromTLA(tla).id());
             RecordBuffer.setForCurrentThread(tla, survivors1, RECORD_BUFFER.SURVIVORS_1_BUFFER);
-            final RecordBuffer survivors2 = new RecordBuffer(TLSRBSize, "Survivors Buffer No2");
+            final RecordBuffer survivors2 = new RecordBuffer(TLSRBSize, "Survivors Buffer No2", VmThread.fromTLA(tla).id());
             RecordBuffer.setForCurrentThread(tla, survivors2, RECORD_BUFFER.SURVIVORS_2_BUFFER);
         }
     };
@@ -960,7 +964,7 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure initTLARB = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final RecordBuffer allocationsBuffer = new RecordBuffer(TLARBSize, "allocations Buffer ");
+            final RecordBuffer allocationsBuffer = new RecordBuffer(TLARBSize, "allocations Buffer ", VmThread.fromTLA(tla).id());
             assert tla.equals(ETLA.load(tla));
             RecordBuffer.setForCurrentThread(tla, allocationsBuffer, RECORD_BUFFER.ALLOCATIONS_BUFFER);
         }
