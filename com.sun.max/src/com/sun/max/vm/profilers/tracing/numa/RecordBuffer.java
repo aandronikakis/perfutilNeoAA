@@ -55,7 +55,7 @@ import static com.sun.max.vm.thread.VmThreadLocal.*;
  * -Address: the object's address in the Heap.
  * -Node: the physical NUMA node where the object is placed.
  */
-public class RecordBuffer {
+public class RecordBuffer extends ProfilingArtifact{
 
     private Pointer types;
     private Pointer sizes;

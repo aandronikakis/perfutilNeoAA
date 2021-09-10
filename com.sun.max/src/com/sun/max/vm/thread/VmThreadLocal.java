@@ -338,6 +338,9 @@ public class VmThreadLocal implements FormatWithToString {
     public static VmThreadLocal SURV2_BUFFER_PTR
         = new VmThreadLocal("SURV2_BUFFER_PTR", true, "points to a thread local survivor2 buffer", Nature.Single);
 
+    public static VmThreadLocal ALLOC_COUNTER_PTR
+        = new VmThreadLocal("ALLOC_COUNTER_PTR", true, "points to a thread local allocation counter", Nature.Single);
+
     private static VmThreadLocal[] valuesNeedingInitialization;
 
     /**

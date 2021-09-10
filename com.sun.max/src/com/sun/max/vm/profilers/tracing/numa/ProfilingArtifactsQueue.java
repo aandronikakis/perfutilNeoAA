@@ -28,12 +28,12 @@ import com.sun.max.vm.reference.Reference;
 import com.sun.max.vm.thread.VmThread;
 
 /**
- * A LIFO queue to store the {@link Reference}s of the {@link RecordBuffer}s of the threads that have already been terminated.
+ * A LIFO queue to store the {@link Reference}s of either {@link RecordBuffer}s or {@link AllocCounter}s of the threads that have already been terminated.
  * It uses an off-heap {@link Pointer} array to store the {@link Reference}s.
  * It works as a LIFO queue.
  */
 
-public class RecordBufferQueue {
+public class ProfilingArtifactsQueue {
 
     public Pointer queue;
     public int index;
@@ -42,7 +42,7 @@ public class RecordBufferQueue {
     final static int sizeOfReference = Word.size();
     final static int expandStep = 100; // arbitrary
 
-    public RecordBufferQueue() {
+    public ProfilingArtifactsQueue() {
         length = 200;
         queue = VirtualMemory.allocate(Size.fromInt(length).times(sizeOfReference), VirtualMemory.Type.DATA);
         for (int i = 0; i < length; i++) {
@@ -64,7 +64,7 @@ public class RecordBufferQueue {
      */
     public void add(Pointer tla, Reference buffer) {
         if (NUMAProfiler.getNUMAProfilerVerbose()) {
-            Log.print("[VerboseMsg @ RecordBufferQueue.add()]: Thread ");
+            Log.print("[VerboseMsg @ ProfilingArtifactsQueue.add()]: Thread ");
             Log.print(VmThread.fromTLA(tla).id());
             Log.print(" Reference: ");
             Log.println(buffer);
@@ -79,9 +79,13 @@ public class RecordBufferQueue {
     /**
      * The method to remove from the queue.
      */
-    public RecordBuffer remove() {
+    public ProfilingArtifact remove() {
         index--;
-        return RecordBuffer.asRecordBuffer(queue.getReference(index).toJava());
+        if (NUMAProfiler.getNUMAProfilerTraceAllocations()) {
+            return RecordBuffer.asRecordBuffer(queue.getReference(index).toJava());
+        } else {
+            return AllocCounter.asAllocCounter(queue.getReference(index).toJava());
+        }
     }
 
     /**
@@ -89,14 +93,14 @@ public class RecordBufferQueue {
      */
     public void print(int profilingCycle) {
         while (!isEmpty()) {
-            RecordBuffer buffer = remove();
+            ProfilingArtifact artifact = remove();
             if (NUMAProfiler.getNUMAProfilerVerbose()) {
-                Log.print("[VerboseMsg @ RecordBufferQueue.print()]: Buffer of Thread ");
-                Log.print(buffer.threadId);
+                Log.print("[VerboseMsg @ ProfilingArtifactsQueue.print()]: Buffer of Thread ");
+                Log.print(artifact.threadId);
                 Log.println(" is printing from Queue.");
             }
-            buffer.print(profilingCycle, 1);
-            buffer.deallocateAll();
+            artifact.print(profilingCycle, 1);
+            artifact.deallocateAll();
         }
     }
 

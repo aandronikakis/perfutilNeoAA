@@ -1167,7 +1167,7 @@ public class MaxXirGenerator implements RiXirGenerator {
         asm.mov(result, cell);
 
         if (MaxineVM.useNUMAProfiler) {
-            callRuntimeThroughStub(asm, "callProfileNewArray", null, arraySize, hub, cell);
+            callRuntimeThroughStub(asm, "callProfileNewArray", null, length, arraySize, hub, cell);
         }
 
         asm.bindOutOfLine(reportNegativeIndexError);
@@ -2220,7 +2220,7 @@ public class MaxXirGenerator implements RiXirGenerator {
             }
         }
 
-        public static void callProfileNewArray(int size, Hub hub, Pointer cell) {
+        public static void callProfileNewArray(int length, int size, Hub hub, Pointer cell) {
             assert MaxineVM.useNUMAProfiler;
             if (MaxineVM.isDebug()) {
                 FatalError.check(vmConfig().heapScheme().usesTLAB(), "HeapScheme must use TLAB");
@@ -2228,7 +2228,7 @@ public class MaxXirGenerator implements RiXirGenerator {
 
             NUMAProfiler.checkForFlareObject(hub);
             if (NUMAProfiler.shouldProfile()) {
-                ((HeapSchemeWithTLAB) vmConfig().heapScheme()).profileNewArray(size, hub, cell);
+                ((HeapSchemeWithTLAB) vmConfig().heapScheme()).profileNewArray(length, size, hub, cell);
             }
         }
 

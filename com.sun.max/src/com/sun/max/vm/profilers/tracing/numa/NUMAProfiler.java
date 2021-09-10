@@ -98,6 +98,8 @@ public class NUMAProfiler {
     @SuppressWarnings("unused")
     private static boolean NUMAProfilerSurvivors;
     @SuppressWarnings("unused")
+    private static boolean NUMAProfilerTraceAllocations;
+    @SuppressWarnings("unused")
     private static boolean NUMAProfilerDebug;
     @SuppressWarnings("unused")
     private static boolean NUMAProfilerIncludeFinalization;
@@ -106,6 +108,10 @@ public class NUMAProfiler {
 
     public static boolean getNUMAProfilerVerbose() {
         return NUMAProfilerVerbose;
+    }
+
+    public static boolean getNUMAProfilerTraceAllocations() {
+        return NUMAProfilerTraceAllocations;
     }
 
     /**
@@ -253,10 +259,14 @@ public class NUMAProfiler {
     }
 
     /**
-     * A queue to maintain the {@link VmThreadLocal#ALLOC_BUFFER_PTR} {@link Reference} of a thread after the latter has been terminated.
+     * Queues that maintain any sort of Profiling Artifacts of a thread after the latter has been terminated.
      * This way, only key-actions of the NUMAProfiler take place during mutation reducing the interference with the application.
+     *
+     * {@link #allocationBuffersQueue} stores the {@link VmThreadLocal#ALLOC_BUFFER_PTR} {@link Reference}
+     * {@link #allocCounterQueue} stores the {@link VmThreadLocal#ALLOC_COUNTER_PTR} {@link Reference}
      */
-    public static RecordBufferQueue allocationBuffersQueue;
+    public static ProfilingArtifactsQueue allocationBuffersQueue;
+    public static ProfilingArtifactsQueue allocCounterQueue;
 
     // The options a user can pass to the NUMA Profiler.
     static {
@@ -267,6 +277,7 @@ public class NUMAProfiler {
         VMOptions.addFieldOption("-XX:", "NUMAProfilerExplicitGCThreshold", NUMAProfiler.class,
                 "The number of the Explicit GCs to be performed before the NUMAProfiler starts recording. " +
                 "It cannot be used in combination with \"NUMAProfilerFlareAllocationThresholds\". (default: -1)");
+        VMOptions.addFieldOption("-XX:", "NUMAProfilerTraceAllocations", NUMAProfiler.class, "Trace allocations in detail instead of counting. (default: false)", MaxineVM.Phase.PRISTINE);
         VMOptions.addFieldOption("-XX:", "NUMAProfilerFlareObjectStart", NUMAProfiler.class, "The Class of the Object to be sought after by the NUMAProfiler to start the profiling process. (default: 'AllocationProfilerFlareObject')");
         VMOptions.addFieldOption("-XX:", "NUMAProfilerFlareObjectEnd", NUMAProfiler.class, "The Class of the Object to be sought after by the NUMAProfiler to stop the profiling process. (default: 'AllocationProfilerFlareObject')");
         VMOptions.addFieldOption("-XX:", "NUMAProfilerFlareAllocationThresholds", NUMAProfiler.class,
@@ -308,7 +319,11 @@ public class NUMAProfiler {
             }
         }
 
-        initTLARBufferForAllThreads();
+        if (NUMAProfilerTraceAllocations) {
+            initTLARBufferForAllThreads();
+        } else {
+            initTLACounterForAllThreads();
+        }
 
         if (NUMAProfilerVerbose) {
             Log.println("[VerboseMsg @ NUMAProfiler.NUMAProfiler()]: Initialize the Survivor Objects NUMAProfiler Buffers.");
@@ -345,8 +360,13 @@ public class NUMAProfiler {
             explicitGCProflingEnabled = true;
         }
 
-        // initialize a new record buffer queue
-        allocationBuffersQueue = new RecordBufferQueue();
+        if (NUMAProfilerTraceAllocations) {
+            // initialize a new record buffer queue
+            allocationBuffersQueue = new ProfilingArtifactsQueue();
+        } else {
+            // initialize a new allocation counter queue
+            allocCounterQueue = new ProfilingArtifactsQueue();
+        }
     }
 
     public static void onVmThreadStart(int threadId, String threadName, Pointer etla) {
@@ -356,8 +376,13 @@ public class NUMAProfiler {
                 Log.println("(profilingThread);" + profilingCycle + ";" + threadId + ";" + threadName);
                 PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
             }
-            // Initialize new Thread's Record Buffer
-            initTLARB.run(etla);
+            if (NUMAProfilerTraceAllocations) {
+                // Initialize new Thread's Allocations Record Buffer
+                initTLARB.run(etla);
+            } else {
+                // Initialize new Thread's Allocations Counter
+                initTLAC.run(etla);
+            }
             if (NUMAProfilerSurvivors) {
                 initTLSRB.run(etla);
             }
@@ -376,17 +401,26 @@ public class NUMAProfiler {
         final boolean isThreadActivelyProfiled = NUMAProfiler.isProfilingEnabledPredicate.evaluate(etla);
         if (isThreadActivelyProfiled) {
             PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
-            FatalError.check(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER) != null, "A Thread Local Record Buffer is null.");
             if (NUMAProfilerPrintOutput) {
-                // store the buffer Reference into the queue to be accessed after the thread's termination
-                allocationBuffersQueue.add(etla, RecordBuffer.getBufferReference(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER));
+                // store the RecordBuffer or AllocCounter Reference into the proper queue to be accessed after the thread's termination
+                if (NUMAProfilerTraceAllocations) {
+                    FatalError.check(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER) != null, "A Thread Local Record Buffer is null.");
+                    allocationBuffersQueue.add(etla, RecordBuffer.getBufferReference(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER));
+                } else {
+                    FatalError.check(AllocCounter.getForCurrentThread(etla) != null, "A Thread Local AllocCounter is null.");
+                    allocCounterQueue.add(etla, AllocCounter.getBufferReference(etla));
+                }
                 NUMAProfiler.printProfilingCountersOfThread(etla);
             }
             unlock(lockDisabledSafepoints);
             return;
         }
         // TL RBuffers are allocated in any case, so do the same for de-allocation
-        NUMAProfiler.deallocateTLARB.run(tla);
+        // TL AllocCounters are on-heap objects, no need for manual de-allocation
+        if (NUMAProfilerTraceAllocations) {
+            NUMAProfiler.deallocateTLARB.run(tla);
+        }
+
         if (NUMAProfilerSurvivors) {
             NUMAProfiler.deallocateTLSRB1.run(tla);
             NUMAProfiler.deallocateTLSRB2.run(tla);
@@ -467,9 +501,13 @@ public class NUMAProfiler {
      */
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
-    public static void profileNew(int size, String type, long address) {
+    public static void profileNew(boolean isArray, int length, int size, String type, long address) {
         final boolean wasDisabled = SafepointPoll.disable();
-        RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla()), RECORD_BUFFER.ALLOCATIONS_BUFFER).profile(size, type, address);
+        if (NUMAProfilerTraceAllocations) {
+            RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla()), RECORD_BUFFER.ALLOCATIONS_BUFFER).profile(size, type, address);
+        } else {
+            AllocCounter.getForCurrentThread(ETLA.load(VmThread.current().tla())).count(isArray, size, length);
+        }
         if (!wasDisabled) {
             SafepointPoll.enable();
         }
@@ -540,6 +578,12 @@ public class NUMAProfiler {
     private void dumpAllTLSRBs() {
         synchronized (VmThreadMap.THREAD_LOCK) {
             VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLSRBs);
+        }
+    }
+
+    private void dumpAllTLARCs() {
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLAC);
         }
     }
 
@@ -770,15 +814,27 @@ public class NUMAProfiler {
         }
 
         if (NUMAProfilerPrintOutput) {
-            if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations Thread Local Buffers for Live Threads. [post-GC phase]");
-            }
-            dumpAllTLARBs();
+            if (NUMAProfilerTraceAllocations) {
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations Thread Local Buffers for Live Threads. [post-GC phase]");
+                }
+                dumpAllTLARBs();
 
-            if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations Thread Local Buffers for Queued Threads. [termination]");
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations Thread Local Buffers for Queued Threads. [termination]");
+                }
+                allocationBuffersQueue.print(profilingCycle);
+            } else {
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocation Thread Local Counters for Live Threads. [post-GC phase]");
+                }
+                dumpAllTLARCs();
+
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations Thread Local Counters for Queued Threads. [termination]");
+                }
+                allocCounterQueue.print(profilingCycle);
             }
-            allocationBuffersQueue.print(profilingCycle);
 
             if (NUMAProfilerSurvivors) {
                 if (NUMAProfilerVerbose) {
@@ -793,10 +849,17 @@ public class NUMAProfiler {
             printProfilingCounters();
         }
 
-        if (NUMAProfilerVerbose) {
-            Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Reset Allocation Thread Local Buffers. [post-gc phase]");
+        if (NUMAProfilerTraceAllocations) {
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Reset Allocation Thread Local Buffers. [post-gc phase]");
+            }
+            resetTLARBs();
+        } else {
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Reset Allocation Thread Local Counters. [post-gc phase]");
+            }
+            resetTLACs();
         }
-        resetTLARBs();
 
         if (NUMAProfilerSurvivors) {
             if ((profilingCycle % 2) == 0) {
@@ -984,6 +1047,14 @@ public class NUMAProfiler {
         }
     };
 
+    public static final Pointer.Procedure initTLAC = new Pointer.Procedure() {
+        public void run(Pointer tla) {
+            final AllocCounter allocationsCounter = new AllocCounter(VmThread.fromTLA(tla).id());
+            assert tla.equals(ETLA.load(tla));
+            AllocCounter.setForCurrentThread(tla, allocationsCounter);
+        }
+    };
+
     /**
      * Calls {@code initTLARB} {@link Pointer.Procedure} for all ACTIVE threads.
      * It is used in NUMAProfiler's initialization for VM Threads.
@@ -991,6 +1062,12 @@ public class NUMAProfiler {
     private void initTLARBufferForAllThreads() {
         synchronized (VmThreadMap.THREAD_LOCK) {
             VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initTLARB);
+        }
+    }
+
+    private void initTLACounterForAllThreads() {
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, initTLAC);
         }
     }
 
@@ -1004,6 +1081,19 @@ public class NUMAProfiler {
                 Log.println(" is printing.");
             }
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER).print(profilingCycle, 1);
+        }
+    };
+
+    private static final Pointer.Procedure printTLAC = new Pointer.Procedure() {
+        @Override
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            if (NUMAProfilerVerbose) {
+                Log.print("[VerboseMsg @ NUMAProfiler.printTLAC.run()]: Thread ");
+                Log.print(VmThread.fromTLA(etla).id());
+                Log.println(" is printing.");
+            }
+            AllocCounter.getForCurrentThread(etla).print(profilingCycle, 0);
         }
     };
 
@@ -1075,6 +1165,14 @@ public class NUMAProfiler {
         }
     };
 
+    private static final Pointer.Procedure resetTLAC = new Pointer.Procedure() {
+        @Override
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            AllocCounter.getForCurrentThread(etla).resetCounter();
+        }
+    };
+
     private static final Pointer.Procedure resetTLSRB1 = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
@@ -1100,6 +1198,12 @@ public class NUMAProfiler {
         }
     }
 
+    public static void resetTLACs() {
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLAC);
+        }
+    }
+
     public static void resetTLS1RBs() {
         synchronized (VmThreadMap.THREAD_LOCK) {
             VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, resetTLSRB1);
@@ -1121,6 +1225,13 @@ public class NUMAProfiler {
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER).deallocateAll();
         }
     };
+
+    /*public static final Pointer.Procedure deallocateTLAC = new Pointer.Procedure() {
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            AllocCounter.getForCurrentThread(etla).deallocateAll();
+        }
+    };*/
 
     public static final Pointer.Procedure deallocateTLSRB1 = new Pointer.Procedure() {
         public void run(Pointer tla) {
@@ -1269,15 +1380,27 @@ public class NUMAProfiler {
             }
             dumpHeapBoundaries();
 
-            if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Allocations Thread Local Buffers for Live Threads. [termination]");
-            }
-            dumpAllTLARBs();
+            if (NUMAProfilerTraceAllocations) {
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Allocations Thread Local Buffers for Live Threads. [termination]");
+                }
+                dumpAllTLARBs();
 
-            if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Allocations Thread Local Buffers for Queued Threads. [termination]");
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Allocations Thread Local Buffers for Queued Threads. [termination]");
+                }
+                allocationBuffersQueue.print(profilingCycle);
+            } else {
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Allocations Thread Local Counters for Live Threads. [termination]");
+                }
+                dumpAllTLARCs();
+
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Allocations Thread Local Counters for Queued Threads. [termination]");
+                }
+                allocCounterQueue.print(profilingCycle);
             }
-            allocationBuffersQueue.print(profilingCycle);
 
             if (NUMAProfilerVerbose) {
                 Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Access Profiling Thread Local Counters. [termination]");
