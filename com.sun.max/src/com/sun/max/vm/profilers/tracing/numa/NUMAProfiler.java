@@ -1249,7 +1249,9 @@ public class NUMAProfiler {
 
     private void releaseReservedMemory() {
         synchronized (VmThreadMap.THREAD_LOCK) {
-            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLARB);
+            if (NUMAProfilerTraceAllocations) {
+                VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLARB);
+            }
             if (NUMAProfilerSurvivors) {
                 VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLSRB1);
                 VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, deallocateTLSRB2);
