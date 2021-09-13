@@ -95,7 +95,9 @@ public class ProfilingArtifactsQueue {
         while (!isEmpty()) {
             ProfilingArtifact artifact = remove();
             if (NUMAProfiler.getNUMAProfilerVerbose()) {
-                Log.print("[VerboseMsg @ ProfilingArtifactsQueue.print()]: Buffer of Thread ");
+                Log.print("[VerboseMsg @ ProfilingArtifactsQueue.print()]: ");
+                Log.print(artifact.getClass().getSimpleName());
+                Log.print(" of Thread ");
                 Log.print(artifact.threadId);
                 Log.println(" is printing from Queue.");
             }
