@@ -1226,13 +1226,6 @@ public class NUMAProfiler {
         }
     };
 
-    /*public static final Pointer.Procedure deallocateTLAC = new Pointer.Procedure() {
-        public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
-            AllocCounter.getForCurrentThread(etla).deallocateAll();
-        }
-    };*/
-
     public static final Pointer.Procedure deallocateTLSRB1 = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
