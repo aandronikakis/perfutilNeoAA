@@ -45,7 +45,10 @@ import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.*;
 import static com.sun.max.vm.thread.VmThreadLocal.*;
 
 /**
- * This class implements any buffer used by the Allocation Profiler to keep track of the objects.
+ * This class inherits {@link ProfilingArtifact} and implements the {@link RecordBuffer} type of artifact.
+ * It keeps a detailed record per object allocation which is described below.
+ * Each {@link RecordBuffer} is a thread-local object.
+ * After a thread's termination the {@link Reference} of the {@link RecordBuffer} is stored in the {@link ProfilingArtifactsQueue} in order to be dumped as the profiling output during the next stop-the-world phase.
  *
  * The following 5 variables compose the stored information for each object:
  * -Index: unique for each object to make it distinguishable. [1-inf] index = 0 for empty cells. The Unique id

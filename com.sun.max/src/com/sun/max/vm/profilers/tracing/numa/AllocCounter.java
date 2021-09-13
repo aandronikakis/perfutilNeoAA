@@ -30,7 +30,19 @@ import com.sun.max.vm.thread.VmThreadLocal;
 
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
 
-
+/**
+ * This class inherits {@link ProfilingArtifact} and implements the {@link AllocCounter} type of artifact.
+ * It counts the object allocations (tuples & arrays) along with size-related metrics which are described below.
+ * Each {@link AllocCounter} is a thread-local object.
+ * After a thread's termination the {@link Reference} of the {@link AllocCounter} is stored in the {@link ProfilingArtifactsQueue} in order to be dumped as the profiling output during the next stop-the-world phase.
+ *
+ * Counted metrics:
+ * Tuples/Arrays count: How many tuples/arrays have been allocated.
+ * Total Tuples/Arrays size: The total size of tuples/arrays allocations in bytes.
+ * Total Array Length
+ *
+ * The above are used to calculate the average tuple/array size (in Mb) as well as the average array length.
+ */
 
 public class AllocCounter extends ProfilingArtifact{
 
