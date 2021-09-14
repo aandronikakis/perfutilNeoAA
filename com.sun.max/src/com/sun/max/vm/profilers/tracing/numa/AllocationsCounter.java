@@ -137,7 +137,8 @@ public class AllocationsCounter extends ProfilingArtifact{
         }
     }
 
-    public void resetCounter() {
+    @Override
+    public void resetArtifact() {
         tupleCount = 0;
         totalTupleSize = 0;
 

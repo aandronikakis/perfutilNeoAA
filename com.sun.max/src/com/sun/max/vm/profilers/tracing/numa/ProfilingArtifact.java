@@ -38,5 +38,6 @@ public abstract class ProfilingArtifact {
     abstract int getThreadId();
     abstract String getSimpleName();
     abstract void print(int cycle, int isAllocations);
+    abstract void resetArtifact();
     abstract void deallocateArtifact();
 }

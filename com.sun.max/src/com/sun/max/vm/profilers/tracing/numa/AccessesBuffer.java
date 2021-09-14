@@ -162,6 +162,15 @@ public class AccessesBuffer extends ProfilingArtifact{
     }
 
     @Override
+    void resetArtifact() {
+        for (int type = 0; type < numOfAccessTypes; type++) {
+            for (int allocatorThread = 0; allocatorThread < numOfThreads; allocatorThread++) {
+                counterSet[type][allocatorThread] = 0;
+            }
+        }
+    }
+
+    @Override
     public void deallocateArtifact() {
 
     }

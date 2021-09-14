@@ -327,7 +327,8 @@ public class RecordBuffer extends ProfilingArtifact{
         writeInt(coreIDs, i, Integer.MIN_VALUE);
     }
 
-    void resetBuffer() {
+    @Override
+    void resetArtifact() {
         currentIndex = 0;
     }
 
