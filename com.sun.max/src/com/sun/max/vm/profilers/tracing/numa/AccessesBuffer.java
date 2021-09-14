@@ -19,15 +19,18 @@
  */
 package com.sun.max.vm.profilers.tracing.numa;
 
+import com.sun.max.annotate.INLINE;
 import com.sun.max.annotate.INTRINSIC;
 import com.sun.max.unsafe.Pointer;
+import com.sun.max.vm.Log;
 import com.sun.max.vm.reference.Reference;
 import com.sun.max.vm.runtime.FatalError;
+import com.sun.max.vm.thread.VmThreadLocal;
 
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
 import static com.sun.max.vm.thread.VmThreadLocal.ACCESSES_BUFFER;
 
-public class AccessesBuffer {
+public class AccessesBuffer extends ProfilingArtifact{
     /**
      * An AccessesBuffer instance is a thread local object that stores the number of object accesses the thread performs.
      * They are broken down per type (rows) and per thread that allocated the accessed object (columns).
@@ -64,7 +67,9 @@ public class AccessesBuffer {
      */
     public int numOfThreads = 17;
 
-    public AccessesBuffer() {
+    public AccessesBuffer(int threadId) {
+        this.threadId = threadId;
+        this.simpleName = getClass().getSimpleName();
         counterSet = new int[numOfAccessTypes][numOfThreads];
     }
 
@@ -105,4 +110,63 @@ public class AccessesBuffer {
         }
         return asAccessesBuffer(reference.toJava());
     }
+
+    @INLINE
+    public static void setForCurrentThread(Pointer etla, AllocCounter counter) {
+        VmThreadLocal.ACCESSES_BUFFER.store(etla, Reference.fromJava(counter));
+    }
+
+    public static Reference getBufferReference(Pointer etla) {
+        return VmThreadLocal.ACCESSES_BUFFER.loadRef(etla);
+    }
+
+    @Override
+    int getThreadId() {
+        return threadId;
+    }
+
+    @Override
+    String getSimpleName() {
+        return simpleName;
+    }
+
+    @Override
+    void print(int profilingCycle, int b) {
+        for (int type = 0; type < numOfAccessTypes; type++) {
+            for (int allocatorThread = 0; allocatorThread < numOfThreads; allocatorThread++) {
+                try {
+                    final long count = counterSet[type][allocatorThread];
+                    if (count != 0) {
+                        Log.print("(accessCounter);");
+                        Log.print(profilingCycle);
+                        Log.print(";");
+                        Log.print(NUMAProfiler.objectAccessCounterNames[type]);
+                        Log.print(";");
+                        Log.print(threadId);
+                        Log.print(";");
+                        Log.print(allocatorThread);
+                        Log.print(";");
+                        Log.println(count);
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Log.print("=== ArrayIndexOutOfBoundsException at [");
+                    Log.print(type);
+                    Log.print(",");
+                    Log.print(allocatorThread);
+                    Log.print("] with max[");
+                    Log.print(numOfAccessTypes);
+                    Log.print(",");
+                    Log.print(numOfThreads);
+                    Log.println("]");
+
+                }
+            }
+        }
+    }
+
+    @Override
+    public void deallocateArtifact() {
+
+    }
+
 }
