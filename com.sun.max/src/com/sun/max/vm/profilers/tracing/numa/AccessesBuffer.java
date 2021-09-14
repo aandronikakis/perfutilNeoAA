@@ -100,10 +100,6 @@ public class AccessesBuffer extends ProfilingArtifact{
     @INTRINSIC(UNSAFE_CAST)
     public static native AccessesBuffer asAccessesBuffer(Object object);
 
-    public static void setForCurrentThread(Pointer etla, AccessesBuffer buffer) {
-        ACCESSES_BUFFER.store(etla, Reference.fromJava(buffer));
-    }
-
     public static AccessesBuffer getForCurrentThread(Pointer etla) {
         final Reference reference = ACCESSES_BUFFER.loadRef(etla);
         if (reference.isZero()) {
@@ -113,8 +109,8 @@ public class AccessesBuffer extends ProfilingArtifact{
     }
 
     @INLINE
-    public static void setForCurrentThread(Pointer etla, AllocCounter counter) {
-        VmThreadLocal.ACCESSES_BUFFER.store(etla, Reference.fromJava(counter));
+    public static void setForCurrentThread(Pointer etla, AccessesBuffer buffer) {
+        ACCESSES_BUFFER.store(etla, Reference.fromJava(buffer));
     }
 
     public static Reference getBufferReference(Pointer etla) {
