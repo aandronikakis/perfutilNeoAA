@@ -931,6 +931,9 @@ public class NUMAProfiler {
                 Log.println(iteration);
             }
 
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Profiling Thread Names of Live Threads. [post-GC phase]");
+            }
             printProfilingThreadNames();
 
         } else {
@@ -965,6 +968,9 @@ public class NUMAProfiler {
                 Log.println(iteration);
             }
 
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Profiling Thread Names of Live Threads. [minimum post-GC phase]");
+            }
             printProfilingThreadNames();
 
         } else {
