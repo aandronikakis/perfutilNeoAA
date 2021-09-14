@@ -46,6 +46,7 @@ import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
 
 public class AllocationsCounter extends ProfilingArtifact{
 
+    // A constant coefficient used in calculating size in Mbytes
     final static double mbCoef = 0.000000954;
 
     int threadId;
@@ -87,32 +88,43 @@ public class AllocationsCounter extends ProfilingArtifact{
     }
 
     public void print(int cycle, int b) {
-        Log.print("(allocationsCounter);");
-        Log.print(cycle);
-        Log.print(';');
-        Log.print(threadId);
-        Log.print(';');
+        if (tupleCount > 0) {
+            Log.print("(allocationsCounter);");
+            Log.print(cycle);
+            Log.print(';');
+            Log.print(threadId);
+            Log.print(';');
+            Log.print("TUPLES");
+            Log.print(';');
 
-        Log.print(tupleCount);
-        Log.print(';');
-        // total tuple size in Mb
-        Log.print((double) totalTupleSize * mbCoef);
-        Log.print(';');
-        // avg tuple size in b
-        Log.print((double) totalTupleSize / tupleCount);
-        Log.print(';');
+            Log.print(tupleCount);
+            Log.print(';');
+            // total tuple size in Mbytes
+            Log.print((double) totalTupleSize * mbCoef);
+            Log.print(';');
+            // avg tuple size in bytes
+            Log.println((double) totalTupleSize / tupleCount);
+        }
 
-        Log.print(arrayCount);
-        Log.print(';');
-        // total array size in Mb
-        Log.print((double) totalArraySize * mbCoef);
-        Log.print(';');
-        // avg array size in b
-        Log.print((double) totalArraySize / arrayCount);
-        Log.print(';');
-        // avg array length
-        Log.println((double) totalArrayLength / arrayCount);
-
+        if (arrayCount > 0) {
+            Log.print("(allocationsCounter);");
+            Log.print(cycle);
+            Log.print(';');
+            Log.print(threadId);
+            Log.print(';');
+            Log.print("ARRAYS");
+            Log.print(';');
+            Log.print(arrayCount);
+            Log.print(';');
+            // total array size in Mbytes
+            Log.print((double) totalArraySize * mbCoef);
+            Log.print(';');
+            // avg array size in bytes
+            Log.print((double) totalArraySize / arrayCount);
+            Log.print(';');
+            // avg array length
+            Log.println((double) totalArrayLength / arrayCount);
+        }
     }
 
     public void resetCounter() {
