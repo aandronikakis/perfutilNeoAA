@@ -407,8 +407,8 @@ public class NUMAProfiler {
                     FatalError.check(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER) != null, "A Thread Local Record Buffer is null.");
                     allocationBuffersQueue.add(etla, RecordBuffer.getBufferReference(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER));
                 } else {
-                    FatalError.check(AllocCounter.getForCurrentThread(etla) != null, "A Thread Local AllocCounter is null.");
-                    allocCounterQueue.add(etla, AllocCounter.getBufferReference(etla));
+                    FatalError.check(AllocationsCounter.getForCurrentThread(etla) != null, "A Thread Local AllocCounter is null.");
+                    allocCounterQueue.add(etla, AllocationsCounter.getBufferReference(etla));
                 }
                 NUMAProfiler.printProfilingCountersOfThread(etla);
             }
@@ -506,7 +506,7 @@ public class NUMAProfiler {
         if (NUMAProfilerTraceAllocations) {
             RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla()), RECORD_BUFFER.ALLOCATIONS_BUFFER).profile(size, type, address);
         } else {
-            AllocCounter.getForCurrentThread(ETLA.load(VmThread.current().tla())).count(isArray, size, length);
+            AllocationsCounter.getForCurrentThread(ETLA.load(VmThread.current().tla())).count(isArray, size, length);
         }
         if (!wasDisabled) {
             SafepointPoll.enable();
@@ -1049,9 +1049,9 @@ public class NUMAProfiler {
 
     public static final Pointer.Procedure initTLAC = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final AllocCounter allocationsCounter = new AllocCounter(VmThread.fromTLA(tla).id());
+            final AllocationsCounter allocationsCounter = new AllocationsCounter(VmThread.fromTLA(tla).id());
             assert tla.equals(ETLA.load(tla));
-            AllocCounter.setForCurrentThread(tla, allocationsCounter);
+            AllocationsCounter.setForCurrentThread(tla, allocationsCounter);
         }
     };
 
@@ -1093,7 +1093,7 @@ public class NUMAProfiler {
                 Log.print(VmThread.fromTLA(etla).id());
                 Log.println(" is printing.");
             }
-            AllocCounter.getForCurrentThread(etla).print(profilingCycle, 0);
+            AllocationsCounter.getForCurrentThread(etla).print(profilingCycle, 0);
         }
     };
 
@@ -1169,7 +1169,7 @@ public class NUMAProfiler {
         @Override
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
-            AllocCounter.getForCurrentThread(etla).resetCounter();
+            AllocationsCounter.getForCurrentThread(etla).resetCounter();
         }
     };
 

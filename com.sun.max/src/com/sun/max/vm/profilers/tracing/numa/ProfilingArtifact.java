@@ -21,7 +21,7 @@ package com.sun.max.vm.profilers.tracing.numa;
 
 /**
  * This class represents the object allocation profiling data structure.
- * It can be either a {@link RecordBuffer} or a {@link AllocCounter}.
+ * It can be either a {@link RecordBuffer} or a {@link AllocationsCounter}.
  */
 public abstract class ProfilingArtifact {
 

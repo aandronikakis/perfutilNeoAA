@@ -31,10 +31,10 @@ import com.sun.max.vm.thread.VmThreadLocal;
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
 
 /**
- * This class inherits {@link ProfilingArtifact} and implements the {@link AllocCounter} type of artifact.
+ * This class inherits {@link ProfilingArtifact} and implements the {@link AllocationsCounter} type of artifact.
  * It counts the object allocations (tuples & arrays) along with size-related metrics which are described below.
- * Each {@link AllocCounter} is a thread-local object.
- * After a thread's termination the {@link Reference} of the {@link AllocCounter} is stored in the {@link ProfilingArtifactsQueue} in order to be dumped as the profiling output during the next stop-the-world phase.
+ * Each {@link AllocationsCounter} is a thread-local object.
+ * After a thread's termination the {@link Reference} of the {@link AllocationsCounter} is stored in the {@link ProfilingArtifactsQueue} in order to be dumped as the profiling output during the next stop-the-world phase.
  *
  * Counted metrics:
  * Tuples/Arrays count: How many tuples/arrays have been allocated.
@@ -44,7 +44,7 @@ import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
  * The above are used to calculate the average tuple/array size (in Mb) as well as the average array length.
  */
 
-public class AllocCounter extends ProfilingArtifact{
+public class AllocationsCounter extends ProfilingArtifact{
 
     final static double mbCoef = 0.000000954;
 
@@ -59,7 +59,7 @@ public class AllocCounter extends ProfilingArtifact{
     double avgArraySize;
     double avgArrayLength; // arrays length
 
-    public AllocCounter(int threadId) {
+    public AllocationsCounter(int threadId) {
         this.threadId = threadId;
         tupleCount = 0;
         totalTupleSize = 0;
@@ -134,21 +134,21 @@ public class AllocCounter extends ProfilingArtifact{
     }
 
     @INTRINSIC(UNSAFE_CAST)
-    public static native AllocCounter asAllocCounter(Object object);
+    public static native AllocationsCounter asAllocCounter(Object object);
 
     @INLINE
-    public static AllocCounter getForCurrentThread(Pointer etla) {
+    public static AllocationsCounter getForCurrentThread(Pointer etla) {
         final VmThreadLocal bufferPtr = VmThreadLocal.ALLOC_COUNTER_PTR;
         final Reference reference = bufferPtr.loadRef(etla);
         if (reference.isZero()) {
             return null;
         }
-        final AllocCounter allocationsCounter = asAllocCounter(reference.toJava());
+        final AllocationsCounter allocationsCounter = asAllocCounter(reference.toJava());
         return allocationsCounter;
     }
 
     @INLINE
-    public static void setForCurrentThread(Pointer etla, AllocCounter counter) {
+    public static void setForCurrentThread(Pointer etla, AllocationsCounter counter) {
         VmThreadLocal.ALLOC_COUNTER_PTR.store(etla, Reference.fromJava(counter));
     }
 

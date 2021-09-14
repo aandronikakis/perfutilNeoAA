@@ -28,7 +28,7 @@ import com.sun.max.vm.reference.Reference;
 import com.sun.max.vm.thread.VmThread;
 
 /**
- * A LIFO queue to store the {@link Reference}s of either {@link RecordBuffer}s or {@link AllocCounter}s of the threads that have already been terminated.
+ * A LIFO queue to store the {@link Reference}s of either {@link RecordBuffer}s or {@link AllocationsCounter}s of the threads that have already been terminated.
  * It uses an off-heap {@link Pointer} array to store the {@link Reference}s.
  * It works as a LIFO queue.
  */
@@ -84,7 +84,7 @@ public class ProfilingArtifactsQueue {
         if (NUMAProfiler.getNUMAProfilerTraceAllocations()) {
             return RecordBuffer.asRecordBuffer(queue.getReference(index).toJava());
         } else {
-            return AllocCounter.asAllocCounter(queue.getReference(index).toJava());
+            return AllocationsCounter.asAllocCounter(queue.getReference(index).toJava());
         }
     }
 
