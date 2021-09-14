@@ -32,9 +32,10 @@ import static com.sun.max.vm.thread.VmThreadLocal.ACCESSES_BUFFER;
 
 public class AccessesBuffer extends ProfilingArtifact{
     /**
-     * An AccessesBuffer instance is a thread local object that stores the number of object accesses the thread performs.
+     * This class inherits {@link ProfilingArtifact} and implements the {@link AccessesBuffer} type of artifact.
+     * An {@link AccessesBuffer} instance is a thread local object that stores the number of object accesses the thread performs.
      * They are broken down per type (rows) and per thread that allocated the accessed object (columns).
-     * The values are stores in the counterSet multi-dimensional array.
+     * The values are stored in the counterSet multi-dimensional array.
      *
      *                               allocator thread id
      *             type            | 0 | 1 | 2 | ... | N |
