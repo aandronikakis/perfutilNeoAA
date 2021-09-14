@@ -1172,7 +1172,7 @@ public class MaxXirGenerator implements RiXirGenerator {
         // Now, plant the hub to properly format the allocated cell as an object.
         asm.pstore(CiKind.Object, cell, asm.i(hubOffset()), hub, false);
         asm.pstore(CiKind.Int, cell, asm.i(arrayLayout().arrayLengthOffset()), length, false);
-        maybeEngraveAllocatorId(cell, etla);
+        engraveAllocatorId(cell, etla);
         asm.mov(result, cell);
 
         if (MaxineVM.useNUMAProfiler) {
@@ -1223,7 +1223,7 @@ public class MaxXirGenerator implements RiXirGenerator {
         // Now, plant the hub to properly format the allocated cell as an object.
         asm.pstore(CiKind.Object, cell, asm.i(hubOffset()), hub, false);
         asm.pstore(CiKind.Int, cell, asm.i(arrayLayout().arrayLengthOffset()), length, false);
-        maybeEngraveAllocatorId(cell, etla);
+        engraveAllocatorId(cell, etla);
         asm.mov(result, cell);
 
         if (MaxineVM.useNUMAProfiler) {
@@ -1371,7 +1371,7 @@ public class MaxXirGenerator implements RiXirGenerator {
         if (isHybrid) {
             asm.pstore(CiKind.Int, cell, asm.i(arrayLayout().arrayLengthOffset()), asm.i(hubFirstWordIndex()), false);
         }
-        maybeEngraveAllocatorId(cell, etla);
+        engraveAllocatorId(cell, etla);
         asm.mov(result, cell);
 
         if (MaxineVM.useNUMAProfiler) {
@@ -1442,7 +1442,7 @@ public class MaxXirGenerator implements RiXirGenerator {
             asm.pstore(CiKind.Int, cell, asm.i(arrayLayout().arrayLengthOffset()), asm.i(hubFirstWordIndex()), false);
         }
         // TODO: as a configuration option (where?)
-        maybeEngraveAllocatorId(cell, etla);
+        engraveAllocatorId(cell, etla);
         asm.mov(result, cell);
 
         if (MaxineVM.useNUMAProfiler) {
@@ -1637,7 +1637,7 @@ public class MaxXirGenerator implements RiXirGenerator {
     }
 
     @HOSTED_ONLY
-    private void maybeEngraveAllocatorId(XirOperand cell, XirOperand etla) {
+    private void engraveAllocatorId(XirOperand cell, XirOperand etla) {
         if (MaxineVM.useNUMAProfiler) {
             // alternative ?
             // callRuntimeThroughStub(asm, "engrave", null, cell);

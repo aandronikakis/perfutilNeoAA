@@ -586,7 +586,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer cell = tlabAllocate(size);
 
         //NUMAProfiler.checkForFlareObject(dynamicHub);
-        maybeEngrave(cell, VmThread.current().id());
+        engraveAllocatorId(cell, VmThread.current().id());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = dynamicHub.classActor.name();
             final long address = cell.toLong();
@@ -606,7 +606,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         } else {
             Object initializedTuple = Cell.plantTuple(cell, hub);
             //NUMAProfiler.checkForFlareObject(hub);
-            maybeEngrave(cell, VmThread.current().id());
+            engraveAllocatorId(cell, VmThread.current().id());
             if (NUMAProfiler.shouldProfile()) {
                 final String objectType = hub.classActor.name();
                 final long address = cell.toLong();
@@ -622,7 +622,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer cell = tlabAllocate(size);
 
         //NUMAProfiler.checkForFlareObject(hub);
-        maybeEngrave(cell, VmThread.current().id());
+        engraveAllocatorId(cell, VmThread.current().id());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
             final long address = cell.toLong();
@@ -651,7 +651,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer oldOrigin = Reference.fromJava(object).toOrigin();
         final Hub hub = Layout.getHub(oldOrigin);
         //NUMAProfiler.checkForFlareObject(hub);
-        maybeEngrave(cell, VmThread.current().id());
+        engraveAllocatorId(cell, VmThread.current().id());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
             final long address = cell.toLong();
@@ -666,7 +666,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
      * Q2: Should be inlined?
      */
     @INLINE
-    private void maybeEngrave(Pointer cell, int threadId) {
+    private void engraveAllocatorId(Pointer cell, int threadId) {
         if (MaxineVM.useNUMAProfiler) {
             Cell.engraveAllocID(cell, threadId);
         }
