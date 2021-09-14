@@ -272,6 +272,7 @@ public class NUMAProfiler {
      */
     public static ProfilingArtifactsQueue allocationBuffersQueue;
     public static ProfilingArtifactsQueue allocCounterQueue;
+    public static ProfilingArtifactsQueue accessesBufferQueue;
 
     // The options a user can pass to the NUMA Profiler.
     static {
@@ -372,6 +373,7 @@ public class NUMAProfiler {
             // initialize a new allocation counter queue
             allocCounterQueue = new ProfilingArtifactsQueue();
         }
+        accessesBufferQueue = new ProfilingArtifactsQueue();
     }
 
     public static void onVmThreadStart(int threadId, String threadName, Pointer etla) {
@@ -417,7 +419,8 @@ public class NUMAProfiler {
                     FatalError.check(AllocationsCounter.getForCurrentThread(etla) != null, "A Thread Local AllocCounter is null.");
                     allocCounterQueue.add(etla, AllocationsCounter.getBufferReference(etla));
                 }
-                NUMAProfiler.printProfilingCountersOfThread(etla);
+                // store the AccessesBuffer Reference into the proper queue to be accessed after the thread's termination
+                accessesBufferQueue.add(etla, AccessesBuffer.getBufferReference(etla));
             }
             unlock(lockDisabledSafepoints);
             return;
@@ -884,9 +887,9 @@ public class NUMAProfiler {
             }
 
             if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Access Profiling Thread Local Counters. [post-GC phase]");
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Access Profiling Thread Local Counters for Queued Threads. [post-GC phase]");
             }
-            printProfilingCounters();
+            accessesBufferQueue.print(profilingCycle);
         }
 
         if (NUMAProfilerTraceAllocations) {
@@ -1299,7 +1302,7 @@ public class NUMAProfiler {
     public static final Pointer.Procedure initTLAccB = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            final AccessesBuffer accessesBuffer = new AccessesBuffer();
+            final AccessesBuffer accessesBuffer = new AccessesBuffer(VmThread.fromTLA(tla).id());
             AccessesBuffer.setForCurrentThread(tla, accessesBuffer);
         }
     };
@@ -1440,7 +1443,7 @@ public class NUMAProfiler {
             if (NUMAProfilerVerbose) {
                 Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Access Profiling Thread Local Counters. [termination]");
             }
-            printProfilingCounters();
+            accessesBufferQueue.print(profilingCycle);
         }
 
         if (NUMAProfilerVerbose) {
