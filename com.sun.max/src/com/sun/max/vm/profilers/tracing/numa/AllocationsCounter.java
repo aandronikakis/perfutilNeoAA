@@ -88,6 +88,7 @@ public class AllocationsCounter extends ProfilingArtifact{
     }
 
     public void print(int cycle, int b) {
+
         if (tupleCount > 0) {
             Log.print("(allocationsCounter);");
             Log.print(cycle);
