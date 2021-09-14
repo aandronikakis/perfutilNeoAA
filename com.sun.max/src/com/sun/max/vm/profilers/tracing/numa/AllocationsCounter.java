@@ -49,7 +49,6 @@ public class AllocationsCounter extends ProfilingArtifact{
     // A constant coefficient used in calculating size in Mbytes
     final static double mbCoef = 0.000000954;
 
-    int threadId;
     long tupleCount; // object instances count
     long totalTupleSize;
     long arrayCount; // arrays count
@@ -62,6 +61,7 @@ public class AllocationsCounter extends ProfilingArtifact{
 
     public AllocationsCounter(int threadId) {
         this.threadId = threadId;
+        this.simpleName = getClass().getSimpleName();
         tupleCount = 0;
         totalTupleSize = 0;
 
@@ -85,6 +85,16 @@ public class AllocationsCounter extends ProfilingArtifact{
             tupleCount = tupleCount + 1;
             totalTupleSize = totalTupleSize + size;
         }
+    }
+
+    @Override
+    int getThreadId() {
+        return threadId;
+    }
+
+    @Override
+    String getSimpleName() {
+        return simpleName;
     }
 
     public void print(int cycle, int b) {
@@ -141,7 +151,7 @@ public class AllocationsCounter extends ProfilingArtifact{
     }
 
     @Override
-    void deallocateAll() {
+    void deallocateArtifact() {
 
     }
 

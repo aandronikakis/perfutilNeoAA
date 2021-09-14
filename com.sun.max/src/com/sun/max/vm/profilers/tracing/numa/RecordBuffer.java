@@ -69,7 +69,6 @@ public class RecordBuffer extends ProfilingArtifact{
     private Pointer coreIDs;
 
     String bufferName;
-    int threadId;
     int bufferSize;
     int currentIndex;
 
@@ -91,6 +90,7 @@ public class RecordBuffer extends ProfilingArtifact{
     private long StringBufferSizeInBytes;
 
     public RecordBuffer(int bufSize, String name, int thread) {
+        this.simpleName = getClass().getSimpleName();
         bufferName = name;
         threadId = thread;
         bufferSize = bufSize;
@@ -139,7 +139,8 @@ public class RecordBuffer extends ProfilingArtifact{
         return space;
     }
 
-    void deallocateAll() {
+    @Override
+    void deallocateArtifact() {
         final Size intSize = Size.fromInt(bufferSize).times(Integer.BYTES);
         final Size longSize = Size.fromInt(bufferSize).times(Long.BYTES);
         VirtualMemory.deallocate(types.asAddress(), Size.fromLong(bufferSize).times(MAX_CHARS).times(Character.BYTES), VirtualMemory.Type.DATA);
@@ -251,6 +252,16 @@ public class RecordBuffer extends ProfilingArtifact{
         assert numaNode == NUMALib.numaNodeOfAddress(address);
 
         record(threadId, JDK_java_lang_String.getCharArray(type), size, address, numaNode);
+    }
+
+    @Override
+    int getThreadId() {
+        return threadId;
+    }
+
+    @Override
+    String getSimpleName() {
+        return simpleName;
     }
 
     /**

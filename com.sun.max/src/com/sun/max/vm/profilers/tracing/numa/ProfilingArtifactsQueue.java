@@ -81,11 +81,7 @@ public class ProfilingArtifactsQueue {
      */
     public ProfilingArtifact remove() {
         index--;
-        if (NUMAProfiler.getNUMAProfilerTraceAllocations()) {
-            return RecordBuffer.asRecordBuffer(queue.getReference(index).toJava());
-        } else {
-            return AllocationsCounter.asAllocCounter(queue.getReference(index).toJava());
-        }
+        return ProfilingArtifact.asArtifact(queue.getReference(index).toJava());
     }
 
     /**
@@ -96,13 +92,13 @@ public class ProfilingArtifactsQueue {
             ProfilingArtifact artifact = remove();
             if (NUMAProfiler.getNUMAProfilerVerbose()) {
                 Log.print("[VerboseMsg @ ProfilingArtifactsQueue.print()]: ");
-                Log.print(artifact.getClass().getSimpleName());
+                Log.print(artifact.getSimpleName());
                 Log.print(" of Thread ");
-                Log.print(artifact.threadId);
+                Log.print(artifact.getThreadId());
                 Log.println(" is printing from Queue.");
             }
             artifact.print(profilingCycle, 1);
-            artifact.deallocateAll();
+            artifact.deallocateArtifact();
         }
     }
 

@@ -19,6 +19,10 @@
  */
 package com.sun.max.vm.profilers.tracing.numa;
 
+import com.sun.max.annotate.INTRINSIC;
+
+import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
+
 /**
  * This class represents the object allocation profiling data structure.
  * It can be either a {@link RecordBuffer} or a {@link AllocationsCounter}.
@@ -26,7 +30,13 @@ package com.sun.max.vm.profilers.tracing.numa;
 public abstract class ProfilingArtifact {
 
     int threadId;
+    String simpleName;
 
-    abstract void print(int a, int b);
-    abstract void deallocateAll();
+    @INTRINSIC(UNSAFE_CAST)
+    public static native ProfilingArtifact asArtifact(Object object);
+
+    abstract int getThreadId();
+    abstract String getSimpleName();
+    abstract void print(int cycle, int isAllocations);
+    abstract void deallocateArtifact();
 }
