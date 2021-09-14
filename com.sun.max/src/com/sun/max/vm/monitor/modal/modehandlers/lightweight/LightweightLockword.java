@@ -211,19 +211,6 @@ public class LightweightLockword extends HashableLockword {
      */
     @INLINE
     public final LightweightLockword asAllocatedBy(int allocatorID) {
-        //Log.println("== LightweightLockword asAllocatedBy ==");
-        //Log.print(" word: ");
-        //Log.println(LightweightLockword.from(asAddress()));
-        //Log.print(" clear mask: ");
-        //Log.println(ALLOCATORID_CLEAR_MASK);
-        //Log.print(" left operand: ");
-        //Log.println(LightweightLockword.from(asAddress().and(ALLOCATORID_CLEAR_MASK)));
-        //Log.print(" right operand: ");
-        //Log.println(Address.fromInt(allocatorID).shiftedLeft(ALLOCATORID_SHIFT));
-        //Log.print(" left or right: ");
-        //Log.println(LightweightLockword.from(asAddress().and(ALLOCATORID_CLEAR_MASK).or(Address.fromInt(allocatorID).shiftedLeft(ALLOCATORID_SHIFT))));
-        //Log.print(" getAllocID: ");
-        //Log.println(LightweightLockword.from(asAddress().and(ALLOCATORID_CLEAR_MASK).or(Address.fromInt(allocatorID).shiftedLeft(ALLOCATORID_SHIFT))).getAllocatorID());
         return LightweightLockword.from(asAddress().and(ALLOCATORID_CLEAR_MASK).or(Address.fromInt(allocatorID).shiftedLeft(ALLOCATORID_SHIFT)));
     }
 }

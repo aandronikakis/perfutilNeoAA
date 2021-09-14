@@ -26,6 +26,7 @@ import com.sun.max.annotate.*;
 import com.sun.max.memory.*;
 import com.sun.max.platform.*;
 import com.sun.max.unsafe.*;
+import com.sun.max.vm.Log;
 import com.sun.max.vm.actor.holder.*;
 import com.sun.max.vm.heap.debug.*;
 import com.sun.max.vm.layout.*;
@@ -37,6 +38,8 @@ import com.sun.max.vm.reference.*;
  * Object initialization right after allocation.
  */
 public class Cell {
+
+    final private static boolean debugAllocIdEngrave = false;
 
     /**
      * Write an initial array object image into an existing cell.
@@ -143,12 +146,15 @@ public class Cell {
     public static void engraveAllocID(Pointer cell, int id) {
         final Pointer origin = Layout.tupleCellToOrigin(cell);
         LightweightLockword miscWord = LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(origin)));
-        //Log.print("(Cell.engraveAllocID): ");
-        //Log.print(" misc before: ");
-        //Log.print(miscWord.asAddress());
+        if (debugAllocIdEngrave) {
+            Log.print("(Cell.engraveAllocID): misc before: ");
+            Log.print(miscWord.asAddress());
+        }
         Layout.writeMisc(origin, miscWord.asAllocatedBy(id));
-        //Layout.compareAndSwapMisc(Reference.fromOrigin(origin), miscWord, miscWord.asAllocatedBy(id));
-        //Log.print(", misc word after: ");
-        //Log.println(LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(origin))).asAddress());
+        if (debugAllocIdEngrave) {
+            Layout.compareAndSwapMisc(Reference.fromOrigin(origin), miscWord, miscWord.asAllocatedBy(id));
+            Log.print(", misc word after: ");
+            Log.println(LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(origin))).asAddress());
+        }
     }
 }

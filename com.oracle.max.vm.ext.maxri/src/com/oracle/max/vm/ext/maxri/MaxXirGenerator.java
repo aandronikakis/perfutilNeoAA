@@ -1639,8 +1639,6 @@ public class MaxXirGenerator implements RiXirGenerator {
     @HOSTED_ONLY
     private void engraveAllocatorId(XirOperand cell, XirOperand etla) {
         if (MaxineVM.useNUMAProfiler) {
-            // alternative ?
-            // callRuntimeThroughStub(asm, "engrave", null, cell);
             XirOperand threadId = asm.createTemp("threadId", WordUtil.archKind());
             XirOperand allocatorShift = asm.createTemp("allocatorShift", WordUtil.archKind());
 
@@ -2285,10 +2283,6 @@ public class MaxXirGenerator implements RiXirGenerator {
             assert MaxineVM.useNUMAProfiler;
             ((HeapSchemeWithTLAB) vmConfig().heapScheme()).profileReadArray(arrayCell);
         }
-
-        /*public static void engrave(Pointer cell) {
-            ((HeapSchemeWithTLAB) vmConfig().heapScheme()).callEngrave(cell);
-        }*/
 
         public static Pointer flushLog(Pointer logTail) {
             return TLABLog.flushAndGetStart(logTail);
