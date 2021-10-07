@@ -6,6 +6,7 @@ jobs:
   x86:
     name: x86 build and test
     runs-on: ubuntu-18.04
+    timeout-minutes: 20
     container:
       image: beehivelab/maxine-dev:latest
       env:
@@ -48,6 +49,7 @@ jobs:
   aarch64:
     name: AArch64 cross build and test
     runs-on: ubuntu-18.04
+    timeout-minutes: 25
     container:
       image: beehivelab/maxine-dev:latest
       env:
@@ -83,6 +85,7 @@ jobs:
   armv7:
     name: ARMv7 cross build and test
     runs-on: ubuntu-18.04
+    timeout-minutes: 25
     container:
       image: beehivelab/maxine-dev:latest
       env:
@@ -118,6 +121,7 @@ jobs:
   riscv:
     name: RISC-V cross build and test
     runs-on: ubuntu-18.04
+    timeout-minutes: 20
     container:
       image: beehivelab/maxine-dev:latest
       env:
@@ -153,6 +157,7 @@ jobs:
   dacapos:
     name: Run DaCapo benchmark-suite
     runs-on: ubuntu-18.04
+    timeout-minutes: 15
     container:
       image: beehivelab/maxine-dev:latest
       env:
@@ -189,6 +194,7 @@ jobs:
   specjvm2008:
     name: Run SPECjvm2008 benchmark-suite
     runs-on: ubuntu-18.04
+    timeout-minutes: 50
     container:
       image: beehivelab/maxine-dev:latest
       env:
