@@ -60,7 +60,7 @@ public class AccessesBuffer extends ProfilingArtifact{
      * Note: AllocatorId = 0 denotes that the accessed object has been allocated in an early phase of the vm.
      */
 
-    public int[][] counterSet;
+    public long[][] counterSet;
     final int numOfAccessTypes = 12;
     /**
      * Arbitrarily set to support up to 16 threads.
@@ -71,7 +71,7 @@ public class AccessesBuffer extends ProfilingArtifact{
     public AccessesBuffer(int threadId) {
         this.threadId = threadId;
         this.simpleName = getClass().getSimpleName();
-        counterSet = new int[numOfAccessTypes][numOfThreads];
+        counterSet = new long[numOfAccessTypes][numOfThreads];
     }
 
     public void increment(int accessType, int allocatorId) {
@@ -85,7 +85,7 @@ public class AccessesBuffer extends ProfilingArtifact{
 
     public void expand(int faultyIndex) {
         int newSize = faultyIndex + 1;
-        int[][] newCounters = new int[numOfAccessTypes][newSize];
+        long[][] newCounters = new long[numOfAccessTypes][newSize];
 
         //transfer values
         for (int i = 0; i < numOfAccessTypes; i++) {
