@@ -25,7 +25,7 @@ import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
 
 /**
  * This class represents the object allocation profiling data structure.
- * It can be either a {@link RecordBuffer} or a {@link AllocationsCounter}.
+ * It can be a {@link RecordBuffer} or an {@link AllocationsCounter} or an {@link AccessesBuffer}.
  */
 public abstract class ProfilingArtifact {
 
