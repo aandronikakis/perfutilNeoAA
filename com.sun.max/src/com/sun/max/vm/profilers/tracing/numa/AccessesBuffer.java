@@ -65,8 +65,11 @@ public class AccessesBuffer extends ProfilingArtifact{
     /**
      * Arbitrarily set to support up to 16 threads.
      * In case more are needed, it will self expand.
+     *
+     * (Hack): Currently set to 128 + 1 to avoid expand method call.
+     * TODO: Apply a proper fix to expand mechanism to avoid new object creation when allocations are not allowed.
      */
-    public int numOfThreads = 17;
+    public int numOfThreads = 129;
 
     public AccessesBuffer(int threadId) {
         this.threadId = threadId;
