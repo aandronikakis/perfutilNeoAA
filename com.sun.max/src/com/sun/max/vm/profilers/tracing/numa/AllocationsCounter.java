@@ -41,23 +41,16 @@ import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
  * Total Tuples/Arrays size: The total size of tuples/arrays allocations in bytes.
  * Total Array Length
  *
- * The above are used to calculate the average tuple/array size (in Mb) as well as the average array length.
+ * The above can be used to calculate the average tuple/array size (in Mb) as well as the average array length.
  */
 
 public class AllocationsCounter extends ProfilingArtifact{
-
-    // A constant coefficient used in calculating size in Mbytes
-    final static double mbCoef = 0.000000954;
 
     long tupleCount; // object instances count
     long totalTupleSize;
     long arrayCount; // arrays count
     long totalArraySize;
     long totalArrayLength;
-
-    double avgTupleSize;
-    double avgArraySize;
-    double avgArrayLength; // arrays length
 
     public AllocationsCounter(int threadId) {
         this.threadId = threadId;
@@ -68,10 +61,6 @@ public class AllocationsCounter extends ProfilingArtifact{
         arrayCount = 0;
         totalArraySize = 0;
         totalArrayLength = 0;
-
-        avgTupleSize = 0;
-        avgArraySize = 0;
-        avgArrayLength = 0;
     }
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
@@ -109,11 +98,8 @@ public class AllocationsCounter extends ProfilingArtifact{
 
             Log.print(tupleCount);
             Log.print(';');
-            // total tuple size in Mbytes
-            Log.print((double) totalTupleSize * mbCoef);
-            Log.print(';');
-            // avg tuple size in bytes
-            Log.println((double) totalTupleSize / tupleCount);
+            // total tuple size in bytes
+            Log.println(totalTupleSize);
         }
 
         if (arrayCount > 0) {
@@ -126,14 +112,11 @@ public class AllocationsCounter extends ProfilingArtifact{
             Log.print(';');
             Log.print(arrayCount);
             Log.print(';');
-            // total array size in Mbytes
-            Log.print((double) totalArraySize * mbCoef);
+            // total array size in bytes
+            Log.print(totalArraySize);
             Log.print(';');
-            // avg array size in bytes
-            Log.print((double) totalArraySize / arrayCount);
-            Log.print(';');
-            // avg array length
-            Log.println((double) totalArrayLength / arrayCount);
+            // total array length
+            Log.println(totalArrayLength);
         }
     }
 
@@ -145,10 +128,6 @@ public class AllocationsCounter extends ProfilingArtifact{
         arrayCount = 0;
         totalArraySize = 0;
         totalArrayLength = 0;
-
-        avgTupleSize = 0;
-        avgArraySize = 0;
-        avgArrayLength = 0;
     }
 
     @Override
