@@ -6,9 +6,21 @@ LABEL version="1.2.0"
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     make gcc gdb g++ python python2.7 libnuma-dev \
-    git screen rsync ssh \
-    openjdk-8-jdk \
+    git screen rsync ssh wget \
+    # Font Libraries
+    libfontconfig1 \
     && apt-get clean
+
+# Java 8 u232
+RUN wget --no-check-certificate -O /tmp/openjdk-8u222b10.tar.gz https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jdk_x64_linux_8u222b10.tar.gz \
+    && mkdir /usr/lib/jvm \
+    && tar xzvf /tmp/openjdk-8u222b10.tar.gz --directory /usr/lib/jvm/ \
+    && mv /usr/lib/jvm/openjdk-8u222-b10 /usr/lib/jvm/java-8-openjdk-amd64
+
+# Install CA certificates
+RUN apt-get update && \
+    apt-get install -y ca-certificates && \
+    update-ca-certificates
 
 # Cross-ISA support
 RUN apt-get update && \
@@ -29,11 +41,11 @@ RUN apt-get update && \
 # qemu
 RUN apt-get update && \
     apt-get install -y --no-install-recommends pkg-config \
-    libglib2.0-dev libpixman-1-dev flex bison wget \
+    libglib2.0-dev libpixman-1-dev flex bison \
     && apt-get clean
 RUN mkdir -p /tmp/riscv \
     && cd /tmp/riscv/ \
-    && wget https://download.qemu.org/qemu-3.1.0.tar.xz \
+    && wget --no-check-certificate https://download.qemu.org/qemu-3.1.0.tar.xz \
     && tar xf qemu-3.1.0.tar.xz \
     && cd /tmp/riscv/qemu-3.1.0 \
     && ./configure --target-list=riscv64-softmmu,riscv32-softmmu,riscv64-linux-user,riscv32-linux-user --prefix=/opt/riscv \
@@ -48,7 +60,7 @@ RUN apt-get update && \
     texinfo \
     && apt-get clean
 RUN cd /tmp/riscv/ && \
-    wget https://ftp.gnu.org/gnu/gdb/gdb-8.2.1.tar.xz \
+    wget --no-check-certificate https://ftp.gnu.org/gnu/gdb/gdb-8.2.1.tar.xz \
     && tar xf gdb-8.2.1.tar.xz \
     && cd /tmp/riscv/gdb-8.2.1 \
     && ./configure --target=riscv64-elf --disable-multilib --enable-tui=yes --prefix=/opt/riscv \
@@ -60,7 +72,7 @@ RUN apt-get update && \
     && apt-get clean
 
 ENV MAXINE_SRC=/root/maxine-src
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV MAXINE_HOME=$MAXINE_SRC/maxine
 ENV DEFAULT_VM=maxine
 ENV PATH=$PATH:/opt/riscv/bin:$MAXINE_SRC/mx/:$MAXINE_HOME/com.oracle.max.vm.native/generated/linux/

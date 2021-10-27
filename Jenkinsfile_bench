@@ -5,11 +5,13 @@ pipeline {
         timeout(time: 5, unit: 'HOURS')
     }
     tools {
-        jdk 'openJDK8'
+        // Customly set in: Jenkins - Manage Jenkins - Global Tool Configuration - JDK installations
+        // Downloaded from: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jdk_x64_linux_8u222b10.tar.gz
+        jdk 'openJDK8u222-b10_Jenkins_Maxine'
     }
     environment {
         //Change the first three variables
-        USER_HOME="/localhome/regression"
+        USER_HOME="/var/lib/jenkins/user-home"
         DJANGO="$USER_HOME/benchvisualizer/BenchVisualizer"
         DACAPO="$USER_HOME"
         SPECJVM2008="$USER_HOME/SPECjvm2008"
@@ -21,6 +23,18 @@ pipeline {
     }
 
     stages {
+        stage('environment prerequisites') {
+            steps {
+                script {
+                    // Jdk version check. Should be 1.8.0_222.
+                    javaHomeVersion = sh(returnStdout: true, script: '$JAVA_HOME/bin/java -version 2>&1 >/dev/null | grep \'java version\\|openjdk version\' | awk \'{print $3}\' | tr -d \'"\'').trim()
+                    if ( javaHomeVersion != "1.8.0_222" ) {
+                        currentBuild.result = 'FAIL'
+                        error("Failing the build due to unsupported jdk version. Should be 1.8.0_222 but it is ${javaHomeVersion}")
+                    }
+                }
+            }
+        }
         stage('clone') {
             steps {
                 // Clean up workspace
@@ -29,7 +43,7 @@ pipeline {
                     checkout scm
                 }
                 dir(env.MX_HOME) {
-                    checkout([$class: 'GitSCM', branches: [[name: '5.190.3']], extensions: [[$class: 'CloneOption', shallow: true]], userRemoteConfigs: [[url: 'https://github.com/beehive-lab/mx.git']]])
+                    checkout([$class: 'GitSCM', branches: [[name: '5.194.3']], extensions: [[$class: 'CloneOption', shallow: true]], userRemoteConfigs: [[url: 'https://github.com/graalvm/mx.git']]])
                 }
                 // Trigger fetch of dependencies
                 dir(env.MAXINE_HOME) {
@@ -47,67 +61,55 @@ pipeline {
         stage('image') {
             steps {
                 dir(env.MAXINE_HOME) {
-                        sh '$MX image'
+                        sh '$MX -J-ea image'
                     }
             }
         }
         stage('setup benchmarks') {
-            steps {
-                dir(env.MAXINE_HOME) {
-                    sh 'cp $DACAPO/dacapo-9.12-MR1-bach.jar .'
-                    sh 'cp -r $SPECJVM2008 .'
+            parallel {
+                stage('setup dacapo-9.12-MR1') {
+                    steps {
+                        dir(env.MAXINE_HOME) {
+                            sh 'wget -nv https://sourceforge.net/projects/dacapobench/files/9.12-bach-MR1/dacapo-9.12-MR1-bach.jar'
+                        }
+                    }
+                }
+                stage('setup SPECjvm2008') {
+                    steps {
+                        dir(env.MAXINE_HOME) {
+                            sh 'wget -nv http://spec.cs.miami.edu/downloads/osg/java/SPECjvm2008_1_01_setup.jar'
+                            sh '$JAVA_HOME/bin/java -jar SPECjvm2008_1_01_setup.jar -i silent -DUSER_INSTALL_DIR=`pwd`/SPECjvm2008'
+                        }
+                    }
                 }
             }
         }
         stage('DACAPO benchmarks') {
             steps {
                 dir(env.MAXINE_HOME) {
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 avrora || true'
-                    // sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 batik || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 eclipse || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 fop || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 h2 || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 jython || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 luindex || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 lusearch || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 pmd || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 sunflow || true'
-                    // sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 tomcat || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 tradebeans || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 tradesoap || true'
-                    sh '$MX vm -jar dacapo-9.12-MR1-bach.jar -C --variance 1 xalan || true'
+                    sh '$MX testme -insitu -dacapoBach=`pwd`/dacapo-9.12-MR1-bach.jar -tests=dacapobach'
                 }
             }
         }
         stage('SPECJVM benchmarks') {
             steps {
                 dir(env.MAXINE_HOME) {
-                    sh 'timeout -s SIGINT 30m $MX vm -cwd SPECjvm2008 -jar SPECjvm2008.jar -ikv -bt 4 startup || true'
-                    sh 'timeout -s SIGINT 30m $MX vm -cwd SPECjvm2008 -jar SPECjvm2008.jar -ikv -bt 4 compiler || true'
-                    sh 'timeout -s SIGINT 30m $MX vm -cwd SPECjvm2008 -jar SPECjvm2008.jar -ikv -bt 4 compress || true'
-                    sh 'timeout -s SIGINT 30m $MX vm -cwd SPECjvm2008 -jar SPECjvm2008.jar -ikv -bt 4 crypto || true'
-                    sh 'timeout -s SIGINT 30m $MX vm -cwd SPECjvm2008 -jar SPECjvm2008.jar -ikv -bt 4 derby || true'
-                    sh 'timeout -s SIGINT 30m $MX vm -cwd SPECjvm2008 -jar SPECjvm2008.jar -ikv -bt 4 mpegaudio || true'
-                    sh 'timeout -s SIGINT 90m $MX vm -cwd SPECjvm2008 -jar SPECjvm2008.jar -ikv -bt 4 scimark || true'
-                    sh 'timeout -s SIGINT 30m $MX vm -cwd SPECjvm2008 -jar SPECjvm2008.jar -ikv -bt 4 serial || true'
-                    sh 'timeout -s SIGINT 30m $MX vm -cwd SPECjvm2008 -jar SPECjvm2008.jar -ikv -bt 4 sunflow || true'
-                    sh 'timeout -s SIGINT 30m $MX vm -cwd SPECjvm2008 -jar SPECjvm2008.jar -ikv -bt 4 xml || true'
+                    sh '$MX testme -insitu -timeout-scale=200 -timeout-max=1300 -refvm-args=-Xms16G -maxvm-args=-Xms16g,-Xmx16g -specjvm2008=`pwd`/SPECjvm2008/SPECjvm2008.jar -tests=specjvm2008'
                 }
-            }
-        }
-        stage('db_update') {
-            steps {
-                sh 'python $DJANGO/manage.py addBenchToJob $JOB_NAME --get_jenkins_latest'
             }
         }
     }
 
     post {
         success {
-            slackSend color: '#00CC00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL}) check the results at http://apt-supermicro1.cs.man.ac.uk:8090/visualizer/MaxineBenchmarks/"
+            slackSend color: '#00CC00', channel: "maxine-builds", message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
         }
         failure {
-            slackSend color: '#CC0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+            slackSend color: '#CC0000', channel: "maxine-builds", message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+        }
+        always {
+            // can be found at $JENKINS_HOME/jobs/<job>/builds/<build>/archive
+            archiveArtifacts artifacts: 'maxine/maxine-tester/**/*.*', fingerprint: true, onlyIfSuccessful: false
         }
     }
 }
