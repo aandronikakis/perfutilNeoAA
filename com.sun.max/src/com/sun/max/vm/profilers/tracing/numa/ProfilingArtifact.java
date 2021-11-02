@@ -29,13 +29,15 @@ import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
  */
 public abstract class ProfilingArtifact {
 
-    int threadId;
+
+    int threadKeyId;
     String simpleName;
 
     @INTRINSIC(UNSAFE_CAST)
     public static native ProfilingArtifact asArtifact(Object object);
 
-    abstract int getThreadId();
+    abstract int getThreadKeyId();
+    abstract void setThreadKeyId(int threadKeyId);
     abstract String getSimpleName();
     abstract void print(int cycle, int isAllocations);
     abstract void resetArtifact();

@@ -32,6 +32,11 @@ import com.sun.max.vm.monitor.modal.modehandlers.*;
 
 /**
  * Provides common bit-field definitions and method-level access for lightweight lock words.
+ *
+ * Note:    AllocId (or allocatorId) 8-bit field is used in the context of {@link com.sun.max.vm.profilers.tracing.numa.NUMAProfiler}.
+ *          It stores information related to the thread that allocated the object.
+ *          More specifically, it stores an id that uniquely maps with the allocator thread name via {@link com.sun.max.vm.profilers.tracing.numa.ThreadNameInventory}.
+ *
  */
 public class LightweightLockword extends HashableLockword {
 

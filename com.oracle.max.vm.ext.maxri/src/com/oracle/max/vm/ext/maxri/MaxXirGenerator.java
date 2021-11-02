@@ -1642,7 +1642,7 @@ public class MaxXirGenerator implements RiXirGenerator {
             XirOperand threadId = asm.createTemp("threadId", WordUtil.archKind());
             XirOperand allocatorShift = asm.createTemp("allocatorShift", WordUtil.archKind());
 
-            asm.pload(WordUtil.archKind(), threadId, etla, asm.i(VmThreadLocal.ID.offset), true);
+            asm.pload(WordUtil.archKind(), threadId, etla, asm.i(VmThreadLocal.THREAD_NAME_KEY.offset), true);
             asm.mov(allocatorShift, asm.i(LightweightLockword.ALLOCATORID_SHIFT));
 
             asm.shl(threadId, threadId, allocatorShift);

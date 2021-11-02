@@ -699,7 +699,7 @@ public class VmThread {
         if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
             final boolean isProfilingCandidateThread = NUMAProfiler.profilingPredicate.evaluate(thread.tla);
             if (isProfilingCandidateThread) {
-                NUMAProfiler.onVmThreadStart(thread.id, thread.name, etla);
+                NUMAProfiler.onVmThreadStart(etla);
             }
         }
 

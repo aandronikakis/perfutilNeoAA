@@ -52,8 +52,8 @@ public class AllocationsCounter extends ProfilingArtifact{
     long totalArraySize;
     long totalArrayLength;
 
-    public AllocationsCounter(int threadId) {
-        this.threadId = threadId;
+    public AllocationsCounter(int threadKeyId) {
+        this.threadKeyId = threadKeyId;
         this.simpleName = getClass().getSimpleName();
         tupleCount = 0;
         totalTupleSize = 0;
@@ -77,8 +77,13 @@ public class AllocationsCounter extends ProfilingArtifact{
     }
 
     @Override
-    int getThreadId() {
-        return threadId;
+    int getThreadKeyId() {
+        return threadKeyId;
+    }
+
+    @Override
+    void setThreadKeyId(int newThreadKeyId) {
+        threadKeyId = newThreadKeyId;
     }
 
     @Override
@@ -86,12 +91,22 @@ public class AllocationsCounter extends ProfilingArtifact{
         return simpleName;
     }
 
+    /**
+     * AllocationsCounter Output format.
+     *
+     * for tuples:
+     * Cycle; Allocator Thread Name; TUPLES; Tuple Allocations Count; Tuple Allocations Total Size
+     *
+     * for arrays:
+     * Cycle; Allocator Thread Name; ARRAYS; Array Allocations Count; Array Allocations Total Size; Array Allocations Total Length
+     */
+    @Override
     public void print(int cycle, int b) {
         if (tupleCount > 0) {
             Log.print("(allocationsCounter);");
             Log.print(cycle);
             Log.print(';');
-            Log.print(threadId);
+            Log.print(ThreadNameInventory.getByIndex(threadKeyId));
             Log.print(';');
             Log.print("TUPLES");
             Log.print(';');
@@ -106,7 +121,7 @@ public class AllocationsCounter extends ProfilingArtifact{
             Log.print("(allocationsCounter);");
             Log.print(cycle);
             Log.print(';');
-            Log.print(threadId);
+            Log.print(ThreadNameInventory.getByIndex(threadKeyId));
             Log.print(';');
             Log.print("ARRAYS");
             Log.print(';');

@@ -316,6 +316,12 @@ public class VmThreadLocal implements FormatWithToString {
         = new VmThreadLocal("PROFILER_STATE", false, "points to TLA used for profiler on/off", Nature.Single);
 
     /**
+     * Used by {@link com.sun.max.vm.profilers.tracing.numa.NUMAProfiler} to uniquely identifying profiled Java Threads.
+     * See also {@link com.sun.max.vm.profilers.tracing.numa.ThreadNameInventory}.
+     */
+    public static final VmThreadLocal THREAD_NAME_KEY = new VmThreadLocal("THREAD_NAME_KEY", false, "A key value that maps to a thread name in ThreadNameInventory", Nature.Single);
+
+    /**
      * This VmThreadLocal is a reference to an AccessesBuffer object to store obj access counters per type (remote/local, array/tuple, read/write) and allocator thread.
      */
     public static final VmThreadLocal ACCESSES_BUFFER

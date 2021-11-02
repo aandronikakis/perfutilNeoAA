@@ -33,8 +33,8 @@ import static com.sun.max.vm.thread.VmThreadLocal.ACCESSES_BUFFER;
 public class AccessesBuffer extends ProfilingArtifact{
     /**
      * This class inherits {@link ProfilingArtifact} and implements the {@link AccessesBuffer} type of artifact.
-     * An {@link AccessesBuffer} instance is a thread local object ({@link VmThreadLocal#ACCESSES_BUFFER} points its {@link Reference})
-     * and counts the object accesses performed by the thread.
+     * An {@link AccessesBuffer} instance is a thread local object.
+     * The ({@link VmThreadLocal#ACCESSES_BUFFER} points its {@link Reference}) and counts the object accesses performed by the thread.
      * The counts are stored in the {@link #counterSet} multi-dimensional array.
      * As depicted below, the rows denote an access type while the columns the id of the thread that allocated the accessed object (allocator thread id).
      *
@@ -69,8 +69,8 @@ public class AccessesBuffer extends ProfilingArtifact{
      */
     public int numOfThreads = 129;
 
-    public AccessesBuffer(int threadId) {
-        this.threadId = threadId;
+    public AccessesBuffer(int threadKeyId) {
+        this.threadKeyId = threadKeyId;
         this.simpleName = getClass().getSimpleName();
         counterSet = new long[numOfAccessTypes][numOfThreads];
     }
@@ -119,8 +119,13 @@ public class AccessesBuffer extends ProfilingArtifact{
     }
 
     @Override
-    int getThreadId() {
-        return threadId;
+    int getThreadKeyId() {
+        return threadKeyId;
+    }
+
+    @Override
+    void setThreadKeyId(int newThreadKeyId) {
+        threadKeyId = newThreadKeyId;
     }
 
     @Override
@@ -128,6 +133,10 @@ public class AccessesBuffer extends ProfilingArtifact{
         return simpleName;
     }
 
+    /**
+     * AccessesBuffer Output format.
+     * Cycle; Access Type; Accessor Thread Name; Allocator Thread Name; Value
+     */
     @Override
     void print(int profilingCycle, int b) {
         for (int type = 0; type < numOfAccessTypes; type++) {
@@ -140,9 +149,9 @@ public class AccessesBuffer extends ProfilingArtifact{
                         Log.print(";");
                         Log.print(NUMAProfiler.objectAccessCounterNames[type]);
                         Log.print(";");
-                        Log.print(threadId);
+                        Log.print(ThreadNameInventory.getByIndex(threadKeyId));
                         Log.print(";");
-                        Log.print(allocatorThread);
+                        Log.print(ThreadNameInventory.getByIndex(allocatorThread));
                         Log.print(";");
                         Log.println(count);
                     }

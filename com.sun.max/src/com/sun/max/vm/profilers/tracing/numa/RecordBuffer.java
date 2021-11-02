@@ -64,7 +64,7 @@ public class RecordBuffer extends ProfilingArtifact{
     private Pointer sizes;
     private Pointer addresses;
     private Pointer nodes;
-    private Pointer threadIds;
+    private Pointer threadKeyIds;
     private Pointer timestamps;
     private Pointer coreIDs;
 
@@ -89,10 +89,10 @@ public class RecordBuffer extends ProfilingArtifact{
 
     private long StringBufferSizeInBytes;
 
-    public RecordBuffer(int bufSize, String name, int thread) {
+    public RecordBuffer(int bufSize, String name, int threadKeyId) {
         this.simpleName = getClass().getSimpleName();
         bufferName = name;
-        threadId = thread;
+        this.threadKeyId = threadKeyId;
         bufferSize = bufSize;
 
         readStringBuffer = new char[MAX_CHARS];
@@ -101,7 +101,7 @@ public class RecordBuffer extends ProfilingArtifact{
         sizes = allocateIntArrayOffHeap(bufSize);
         addresses = allocateLongArrayOffHeap(bufSize);
         nodes = allocateIntArrayOffHeap(bufSize);
-        threadIds = allocateIntArrayOffHeap(bufSize);
+        threadKeyIds = allocateIntArrayOffHeap(bufSize);
         timestamps = allocateLongArrayOffHeap(bufSize);
         coreIDs = allocateIntArrayOffHeap(bufSize);
 
@@ -134,7 +134,7 @@ public class RecordBuffer extends ProfilingArtifact{
                 VirtualMemory.Type.DATA);
 
         if (space.isZero()) {
-            throw FatalError.unexpected("Thread " + this.threadId + " " + this.bufferName +  " Type Array Allocation Failed.");
+            throw FatalError.unexpected("Thread " + ThreadNameInventory.getByIndex(this.threadKeyId) + " " + this.bufferName +  " Type Array Allocation Failed.");
         }
         return space;
     }
@@ -147,7 +147,7 @@ public class RecordBuffer extends ProfilingArtifact{
         VirtualMemory.deallocate(sizes.asAddress(), intSize, VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(addresses.asAddress(), longSize, VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(nodes.asAddress(), intSize, VirtualMemory.Type.DATA);
-        VirtualMemory.deallocate(threadIds.asAddress(), intSize, VirtualMemory.Type.DATA);
+        VirtualMemory.deallocate(threadKeyIds.asAddress(), intSize, VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(timestamps.asAddress(), longSize, VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(coreIDs.asAddress(), intSize, VirtualMemory.Type.DATA);
     }
@@ -216,13 +216,13 @@ public class RecordBuffer extends ProfilingArtifact{
         return pointer.getLong(index);
     }
 
-    int readThreadId(int index) {
-        return readInt(threadIds, index);
+    int readThreadKeyId(int index) {
+        return readInt(threadKeyIds, index);
     }
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
-    public void record(int threadId, char[] type, int size, long address, int node) {
+    public void record(int threadKeyId, char[] type, int size, long address, int node) {
         if (Platform.platform().isa != ISA.AMD64) {
             throw FatalError.unimplemented("RecordBuffer.record");
         }
@@ -230,7 +230,7 @@ public class RecordBuffer extends ProfilingArtifact{
         final int  coreID    = Intrinsics.getCpuID() & MaxineIntrinsicIDs.CPU_MASK;
         writeLong(timestamps, currentIndex, timestamp);
         writeInt(coreIDs, currentIndex, coreID);
-        writeInt(threadIds, currentIndex, threadId);
+        writeInt(threadKeyIds, currentIndex, threadKeyId);
         writeType(currentIndex, type);
         writeInt(sizes, currentIndex, size);
         writeLong(addresses, currentIndex, address);
@@ -244,19 +244,24 @@ public class RecordBuffer extends ProfilingArtifact{
         //guard RecordBuffer from overflow
         assert currentIndex < bufferSize : "Allocations Buffer out of bounds. Increase the Buffer Size.";
 
-        // get threadId
-        final int threadId = VmThread.current().id();
+        // get thread key id
+        final int threadKeyId = THREAD_NAME_KEY.load(VmThread.currentTLA()).toInt();
 
         //get the NUMA node where the object is physically placed
         final int numaNode = getNumaNodeForAddress(address);
         assert numaNode == NUMALib.numaNodeOfAddress(address);
 
-        record(threadId, JDK_java_lang_String.getCharArray(type), size, address, numaNode);
+        record(threadKeyId, JDK_java_lang_String.getCharArray(type), size, address, numaNode);
     }
 
     @Override
-    int getThreadId() {
-        return threadId;
+    void setThreadKeyId(int newThreadKeyId) {
+        threadKeyId = newThreadKeyId;
+    }
+
+    @Override
+    int getThreadKeyId() {
+        return threadKeyId;
     }
 
     @Override
@@ -265,10 +270,10 @@ public class RecordBuffer extends ProfilingArtifact{
     }
 
     /**
-     * NUMA Profiler Output format.
-     * Cycle; isAllocation; ThreadId; ThreadNumaNode; Type/Class; Size; NumaNode; TimeStamp; CoreId
-     * @param cycle
-     * @param allocation
+     * RecordBuffer Output format.
+     * Cycle; isAllocation; ThreadName; ThreadNumaNode; Type/Class; Size; NumaNode; TimeStamp; CoreId
+     * @param cycle profiling cycle
+     * @param allocation 1 for Allocations RB, 0 for Survivors RB
      */
     public void print(int cycle, int allocation) {
         long start = readLong(timestamps, 0);
@@ -279,7 +284,7 @@ public class RecordBuffer extends ProfilingArtifact{
             Log.print(allocation);
             Log.print(';');
 
-            Log.print(readInt(threadIds, i));
+            Log.print(ThreadNameInventory.getByIndex(readInt(threadKeyIds, i)));
             Log.print(';');
 
             //threadNumaNode

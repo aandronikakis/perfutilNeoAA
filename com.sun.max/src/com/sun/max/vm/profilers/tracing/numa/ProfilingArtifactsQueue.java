@@ -64,9 +64,9 @@ public class ProfilingArtifactsQueue {
      */
     public void add(Pointer tla, Reference buffer) {
         if (NUMAProfiler.getNUMAProfilerVerbose()) {
-            Log.print("[VerboseMsg @ ProfilingArtifactsQueue.add()]: Thread ");
-            Log.print(VmThread.fromTLA(tla).id());
-            Log.print(" Reference: ");
+            Log.print("[VerboseMsg @ ProfilingArtifactsQueue.add()]: ");
+            Log.print(VmThread.fromTLA(tla).getName());
+            Log.print(" Thread. Reference: ");
             Log.println(buffer);
         }
         if (index >= length) {
@@ -94,7 +94,7 @@ public class ProfilingArtifactsQueue {
                 Log.print("[VerboseMsg @ ProfilingArtifactsQueue.print()]: ");
                 Log.print(artifact.getSimpleName());
                 Log.print(" of Thread ");
-                Log.print(artifact.getThreadId());
+                Log.print(ThreadNameInventory.getByIndex(artifact.getThreadKeyId()));
                 Log.println(" is printing from Queue.");
             }
             artifact.print(profilingCycle, 1);

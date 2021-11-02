@@ -273,6 +273,8 @@ public class NUMAProfiler {
     public static ProfilingArtifactsQueue allocCounterQueue;
     public static ProfilingArtifactsQueue accessesBufferQueue;
 
+    public static ThreadNameInventory threadNameInventory;
+
     // The options a user can pass to the NUMA Profiler.
     static {
         VMOptions.addFieldOption("-XX:", "NUMAProfilerVerbose", NUMAProfiler.class, "Verbose numa profiler output. (default: false)", MaxineVM.Phase.PRISTINE);
@@ -323,6 +325,11 @@ public class NUMAProfiler {
                 TLSRBSize = NUMAProfilerBufferSize;
             }
         }
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.NUMAProfiler()]: Initialize Thread Name Inventory.");
+        }
+        threadNameInventory = new ThreadNameInventory();
 
         if (NUMAProfilerTraceAllocations) {
             initTLARBufferForAllThreads();
@@ -377,11 +384,13 @@ public class NUMAProfiler {
         accessesBufferQueue = new ProfilingArtifactsQueue();
     }
 
-    public static void onVmThreadStart(int threadId, String threadName, Pointer etla) {
+    public static void onVmThreadStart(Pointer etla) {
         final boolean lockDisabledSafepoints = lock();
         if (!isTerminating) {
             if (isExplicitGCPolicyConditionTrue() || isFlareObjectPolicyConditionTrue()) {
-                Log.println("(profilingThread);" + profilingCycle + ";" + threadId + ";" + threadName);
+                // Add thread name in Java Thread Name Inventory
+                final int index = threadNameInventory.addThreadName(etla, VmThread.fromTLA(etla).getName());
+                // Enable profiling for thread
                 PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
             }
             if (NUMAProfilerTraceAllocations) {
@@ -405,7 +414,7 @@ public class NUMAProfiler {
         final Pointer etla = ETLA.load(tla);
         if (NUMAProfilerVerbose) {
             Log.print("[VerboseMsg @ NUMAProfiler.onVmThreadExit()]: Thread ");
-            Log.print(VmThread.fromTLA(etla).id());
+            Log.print(ThreadNameInventory.getByIndex(THREAD_NAME_KEY.load(etla).toInt()));
             Log.println(" is exiting.");
         }
         final boolean isThreadActivelyProfiled = NUMAProfiler.isProfilingEnabledPredicate.evaluate(etla);
@@ -557,7 +566,7 @@ public class NUMAProfiler {
     /**
      *
      * @param counter is the type of the access.
-     * @param allocatorId is the id of the thread that has allocated the accessed object.
+     * @param allocatorId is the key that maps to the name (via {@link ThreadNameInventory}) of the thread that allocated the accessed object.
      */
     private static void incrementAccessCounter(int counter, int allocatorId) {
         Pointer tla = VmThread.currentTLA();
@@ -728,7 +737,7 @@ public class NUMAProfiler {
                 //guard survivors RecordBuffer from overflow
                 assert to.currentIndex < to.bufferSize : "Survivor Buffer out of bounds! Increase the Buffer Size.";
                 // write it to Buffer
-                to.record(from.readThreadId(i), from.readType(i), from.readSize(i), newAddr, node);
+                to.record(from.readThreadKeyId(i), from.readType(i), from.readSize(i), newAddr, node);
             }
         }
     }
@@ -911,8 +920,8 @@ public class NUMAProfiler {
             if (NUMAProfilerVerbose) {
                 Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Profiling Thread Names of Live Threads. [post-GC phase]");
             }
-            printProfilingThreadNames();
-
+            // Add the so far live threads to inventory
+            addLiveThreadsToInventory();
         } else {
             if (NUMAProfilerVerbose) {
                 Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Leaving Post-GC Phase.");
@@ -948,7 +957,8 @@ public class NUMAProfiler {
             if (NUMAProfilerVerbose) {
                 Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Profiling Thread Names of Live Threads. [minimum post-GC phase]");
             }
-            printProfilingThreadNames();
+            // Add the so far live threads to inventory
+            addLiveThreadsToInventory();
 
         } else {
             if (NUMAProfilerVerbose) {
@@ -1051,7 +1061,7 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure initTLARB = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final RecordBuffer allocationsBuffer = new RecordBuffer(TLARBSize, "allocations Buffer ", VmThread.fromTLA(tla).id());
+            final RecordBuffer allocationsBuffer = new RecordBuffer(TLARBSize, "allocations Buffer ", THREAD_NAME_KEY.load(tla).toInt());
             assert tla.equals(ETLA.load(tla));
             RecordBuffer.setForCurrentThread(tla, allocationsBuffer, RECORD_BUFFER.ALLOCATIONS_BUFFER);
         }
@@ -1062,9 +1072,9 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure initTLSRB = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final RecordBuffer survivors1 = new RecordBuffer(TLSRBSize, "Survivors Buffer No1", VmThread.fromTLA(tla).id());
+            final RecordBuffer survivors1 = new RecordBuffer(TLSRBSize, "Survivors Buffer No1", THREAD_NAME_KEY.load(tla).toInt());
             RecordBuffer.setForCurrentThread(tla, survivors1, RECORD_BUFFER.SURVIVORS_1_BUFFER);
-            final RecordBuffer survivors2 = new RecordBuffer(TLSRBSize, "Survivors Buffer No2", VmThread.fromTLA(tla).id());
+            final RecordBuffer survivors2 = new RecordBuffer(TLSRBSize, "Survivors Buffer No2", THREAD_NAME_KEY.load(tla).toInt());
             RecordBuffer.setForCurrentThread(tla, survivors2, RECORD_BUFFER.SURVIVORS_2_BUFFER);
         }
     };
@@ -1074,7 +1084,7 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure initTLAC = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final AllocationsCounter allocationsCounter = new AllocationsCounter(VmThread.fromTLA(tla).id());
+            final AllocationsCounter allocationsCounter = new AllocationsCounter(THREAD_NAME_KEY.load(tla).toInt());
             assert tla.equals(ETLA.load(tla));
             AllocationsCounter.setForCurrentThread(tla, allocationsCounter);
         }
@@ -1086,7 +1096,7 @@ public class NUMAProfiler {
     public static final Pointer.Procedure initTLAccB = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            final AccessesBuffer accessesBuffer = new AccessesBuffer(VmThread.fromTLA(tla).id());
+            final AccessesBuffer accessesBuffer = new AccessesBuffer(THREAD_NAME_KEY.load(tla).toInt());
             AccessesBuffer.setForCurrentThread(tla, accessesBuffer);
         }
     };
@@ -1186,8 +1196,8 @@ public class NUMAProfiler {
             Pointer etla = ETLA.load(tla);
             if (NUMAProfilerVerbose) {
                 Log.print("[VerboseMsg @ NUMAProfiler.printTLAC.run()]: Thread ");
-                Log.print(VmThread.fromTLA(etla).id());
-                Log.println(" is printing.");
+                Log.print(VmThread.fromTLA(etla).getName());
+                Log.println(" is printing its Allocation Counter.");
             }
             AllocationsCounter.getForCurrentThread(etla).print(profilingCycle, 0);
         }
@@ -1199,9 +1209,18 @@ public class NUMAProfiler {
     private static final Pointer.Procedure printTLAccB = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
+            if (NUMAProfilerVerbose) {
+                Log.print("[VerboseMsg @ NUMAProfiler.printTLAC.run()]: Thread ");
+                Log.print(VmThread.fromTLA(etla).getName());
+                Log.println(" is printing its Access Buffer.");
+            }
             AccessesBuffer.getForCurrentThread(etla).print(profilingCycle, 0);
         }
     };
+
+    /*
+     * A set of methods related to thread name tracking.
+     */
 
     private static final Pointer.Procedure printThreadId = new Pointer.Procedure() {
         @Override
@@ -1235,6 +1254,38 @@ public class NUMAProfiler {
     private static void printProfilingThreadNames() {
         synchronized (VmThreadMap.THREAD_LOCK) {
             VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printThreadName);
+        }
+    }
+
+    /**
+     * Update {@link ProfilingArtifact#threadKeyId} for already live threads.
+     * The live threads might have be spawned before enabling profiling, so {@link ProfilingArtifact#threadKeyId} might contain garbage value.
+     */
+    public static void updateThreadKeyId(Pointer etla, int newThreadKeyId) {
+        if (NUMAProfilerTraceAllocations) {
+            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER).setThreadKeyId(newThreadKeyId);
+        } else {
+            AllocationsCounter.getForCurrentThread(etla).setThreadKeyId(newThreadKeyId);
+        }
+        AccessesBuffer.getForCurrentThread(etla).setThreadKeyId(newThreadKeyId);
+    }
+
+    /**
+     * Add *live* thread names to {@link ThreadNameInventory} and update {@link ProfilingArtifact#threadKeyId}.
+     */
+    public static final Pointer.Procedure addToInventory = new Pointer.Procedure() {
+        @Override
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            final int index = threadNameInventory.addThreadName(etla, VmThread.fromTLA(etla).getName());
+            // update threadKeyId
+            updateThreadKeyId(etla, index);
+        }
+    };
+
+    private static void addLiveThreadsToInventory() {
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, addToInventory);
         }
     }
 
@@ -1525,6 +1576,17 @@ public class NUMAProfiler {
                 Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Thread-Local AccessesBuffers for Queued Threads. [termination]");
             }
             accessesBufferQueue.print(profilingCycle);
+        }
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.terminate()]: Print Thread Name Inventory. [termination]");
+            int size = ThreadNameInventory.getIndex();
+            for (int key = 0; key < size; key++) {
+                Log.print("Key = ");
+                Log.print(key);
+                Log.print(", Thread Name = ");
+                Log.println(ThreadNameInventory.getByIndex(key));
+            }
         }
 
         if (NUMAProfilerVerbose) {

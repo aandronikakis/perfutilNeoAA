@@ -578,7 +578,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer cell = tlabAllocate(size);
 
         //NUMAProfiler.checkForFlareObject(dynamicHub);
-        engraveAllocatorId(cell, VmThread.current().id());
+        engraveAllocatorId(cell, THREAD_NAME_KEY.load(VmThread.current().tla()).toInt());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = dynamicHub.classActor.name();
             final long address = cell.toLong();
@@ -598,7 +598,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         } else {
             Object initializedTuple = Cell.plantTuple(cell, hub);
             //NUMAProfiler.checkForFlareObject(hub);
-            engraveAllocatorId(cell, VmThread.current().id());
+            engraveAllocatorId(cell, THREAD_NAME_KEY.load(VmThread.current().tla()).toInt());
             if (NUMAProfiler.shouldProfile()) {
                 final String objectType = hub.classActor.name();
                 final long address = cell.toLong();
@@ -614,7 +614,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer cell = tlabAllocate(size);
 
         //NUMAProfiler.checkForFlareObject(hub);
-        engraveAllocatorId(cell, VmThread.current().id());
+        engraveAllocatorId(cell, THREAD_NAME_KEY.load(VmThread.current().tla()).toInt());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
             final long address = cell.toLong();
@@ -643,7 +643,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer oldOrigin = Reference.fromJava(object).toOrigin();
         final Hub hub = Layout.getHub(oldOrigin);
         //NUMAProfiler.checkForFlareObject(hub);
-        engraveAllocatorId(cell, VmThread.current().id());
+        engraveAllocatorId(cell, THREAD_NAME_KEY.load(VmThread.current().tla()).toInt());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
             final long address = cell.toLong();
@@ -658,9 +658,9 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
      * Q2: Should be inlined?
      */
     @INLINE
-    private void engraveAllocatorId(Pointer cell, int threadId) {
+    private void engraveAllocatorId(Pointer cell, int threadNameKey) {
         if (MaxineVM.useNUMAProfiler) {
-            Cell.engraveAllocID(cell, threadId);
+            Cell.engraveAllocID(cell, threadNameKey);
         }
     }
 
