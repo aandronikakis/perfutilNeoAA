@@ -38,6 +38,14 @@ public class LightweightLockword extends HashableLockword {
     /*
      * Field layout for 64 bit:
      *
+     * bit [63.......59.......50............34.......2 1  0]     Shape
+     *
+     *     [ r. count ][ util  ][  thread ID ][ hash ][m][0]     Lightweight
+     *     [                 Undefined               ][m][1]     Inflated
+     *
+     *
+     * Field layout for 64 bit with NUMAProfiler in the boot image:
+     *
      * bit [63.....59....50........42.........34.....2  1 0]     Shape
      *
      *     [r. count][util][alloc ID][thread ID][hash][m][0]     Lightweight
@@ -51,19 +59,25 @@ public class LightweightLockword extends HashableLockword {
      *     [ r. count ][ util ][alloc ID][ thread ID ][m][0]     Lightweight
      *     [                 Undefined               ][m][1]     Inflated
      *
+     * Note:    NUMAProfiler's mechanism that profiles object accesses needs awareness regarding
+     *          which thread accesses the object (accessor thread) and which thread allocated the object (allocator thread).
+     *          To do so, it "engraves" into each object's misc word information related to the
+     *          thread that performed the allocation. For that reason we cut thread id bit field
+     *          down to 8 bits and use the rest 8 bits to store allocator thread related information (alloc ID).
+     *          Alloc ID is a key that uniquely maps to a VmThread name via ThreadNameInventory.
      */
 
     protected static final int RCOUNT_FIELD_WIDTH = 5;
     protected static final int UTIL_FIELD_WIDTH = 9;
-    public static final int ALLOCATORID_FIELD_WIDTH = 8;
-    public static final int THREADID_FIELD_WIDTH = 8;
+    public static final int ALLOCATORID_FIELD_WIDTH = MaxineVM.useNUMAProfiler ? 8 : 0;
+    public static final int THREADID_FIELD_WIDTH = MaxineVM.useNUMAProfiler ? 8 : 16;
     protected static final int THREADID_SHIFT = Platform.target().arch.is64bit() ? (HASHCODE_SHIFT + HASH_FIELD_WIDTH) : NUMBER_OF_MODE_BITS;
-    public static final int ALLOCATORID_SHIFT = THREADID_SHIFT + THREADID_FIELD_WIDTH;
-    protected static final int UTIL_SHIFT = ALLOCATORID_SHIFT + ALLOCATORID_FIELD_WIDTH;
+    public static final int ALLOCATORID_SHIFT = MaxineVM.useNUMAProfiler ? THREADID_SHIFT + THREADID_FIELD_WIDTH : 0;
+    protected static final int UTIL_SHIFT = MaxineVM.useNUMAProfiler ? ALLOCATORID_SHIFT + ALLOCATORID_FIELD_WIDTH : THREADID_SHIFT + THREADID_FIELD_WIDTH;
     protected static final int RCOUNT_SHIFT = UTIL_SHIFT + UTIL_FIELD_WIDTH;
     protected static final int NUM_BITS = Word.width();
     protected static final Address THREADID_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - THREADID_FIELD_WIDTH);
-    public static final Address ALLOCATORID_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - ALLOCATORID_FIELD_WIDTH);
+    public static final Address ALLOCATORID_SHIFTED_MASK = MaxineVM.useNUMAProfiler ? Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - ALLOCATORID_FIELD_WIDTH) : Word.zero().asAddress();
     protected static final Address UTIL_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - UTIL_FIELD_WIDTH);
     protected static final Address RCOUNT_SHIFTED_MASK = Word.allOnes().asAddress().unsignedShiftedRight(NUM_BITS - RCOUNT_FIELD_WIDTH);
     protected static final Address RCOUNT_INC_WORD = Address.zero().bitSet(NUM_BITS - RCOUNT_FIELD_WIDTH);

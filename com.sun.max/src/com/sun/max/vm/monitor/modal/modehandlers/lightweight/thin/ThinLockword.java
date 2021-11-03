@@ -43,6 +43,13 @@ public class ThinLockword extends LightweightLockword {
 
     /*
      * For 64 bit:
+     * bit [63.......59.......50............34.......2  1 0]     Shape         Lock-state
+     *
+     *     [     0    ][ util  ][     0      ][ hash ][m][0]     Lightweight   Unlocked
+     *     [ r. count ][ util  ][  thread ID ][ hash ][m][0]     Lightweight   Locked (rcount >= 1)
+     *     [                 Undefined               ][m][1]     Inflated
+     *
+     * For 64 bit with NUMAProfiler in the boot image:
      * bit [63.....59....50........42.........34.....2  1 0]     Shape         Lock-state
      *
      *     [    0   ][util][alloc ID][    0    ][hash][m][0]     Lightweight   Unlocked
