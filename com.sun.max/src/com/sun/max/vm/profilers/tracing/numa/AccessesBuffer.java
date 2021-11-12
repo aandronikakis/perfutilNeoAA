@@ -23,6 +23,7 @@ import com.sun.max.annotate.INLINE;
 import com.sun.max.annotate.INTRINSIC;
 import com.sun.max.unsafe.Pointer;
 import com.sun.max.vm.Log;
+import com.sun.max.vm.monitor.modal.modehandlers.lightweight.LightweightLockword;
 import com.sun.max.vm.reference.Reference;
 import com.sun.max.vm.runtime.FatalError;
 import com.sun.max.vm.thread.VmThreadLocal;
@@ -64,10 +65,10 @@ public class AccessesBuffer extends ProfilingArtifact{
      * Arbitrarily set to support up to 16 threads.
      * In case more are needed, it will self expand.
      *
-     * (Hack): Currently set to 128 + 1 to avoid expand method call.
+     * (Hack): Currently set to the maximum possible value to avoid expand method call.
      * TODO: Apply a proper fix to expand mechanism to avoid new object creation when allocations are not allowed.
      */
-    public int numOfThreads = 129;
+    public int numOfThreads = (1 << LightweightLockword.ALLOCATORID_FIELD_WIDTH) + 1;
 
     public AccessesBuffer(int threadKeyId) {
         this.threadKeyId = threadKeyId;
