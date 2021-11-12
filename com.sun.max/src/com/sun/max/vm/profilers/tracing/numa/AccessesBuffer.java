@@ -135,7 +135,7 @@ public class AccessesBuffer extends ProfilingArtifact{
 
     /**
      * AccessesBuffer Output format.
-     * Cycle; Access Type; Accessor Thread Name; Allocator Thread Name; Value
+     * Cycle; Access Type; Accessor Thread Name; Accessor Thread Type; Accessor TID; Allocator Thread Name; Allocator Thread Type; Allocator TID; Value
      */
     @Override
     void print(int profilingCycle, int b) {
@@ -149,9 +149,17 @@ public class AccessesBuffer extends ProfilingArtifact{
                         Log.print(";");
                         Log.print(NUMAProfiler.objectAccessCounterNames[type]);
                         Log.print(";");
-                        Log.print(ThreadNameInventory.getByIndex(threadKeyId));
+                        Log.print(ThreadInventory.getName(threadKeyId));
                         Log.print(";");
-                        Log.print(ThreadNameInventory.getByIndex(allocatorThread));
+                        Log.print(ThreadInventory.getType(threadKeyId));
+                        Log.print(";");
+                        Log.print(ThreadInventory.getTID(threadKeyId));
+                        Log.print(";");
+                        Log.print(ThreadInventory.getName(allocatorThread));
+                        Log.print(";");
+                        Log.print(ThreadInventory.getType(allocatorThread));
+                        Log.print(";");
+                        Log.print(ThreadInventory.getTID(allocatorThread));
                         Log.print(";");
                         Log.println(count);
                     }

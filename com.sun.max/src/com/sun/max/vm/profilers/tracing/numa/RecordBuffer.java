@@ -271,7 +271,7 @@ public class RecordBuffer extends ProfilingArtifact{
 
     /**
      * RecordBuffer Output format.
-     * Cycle; isAllocation; ThreadName; ThreadNumaNode; Type/Class; Size; NumaNode; TimeStamp; CoreId
+     * Cycle; isAllocation; ThreadName; ThreadType; TID; ThreadNumaNode; Type/Class; Size; NumaNode; TimeStamp; CoreId
      * @param cycle profiling cycle
      * @param allocation 1 for Allocations RB, 0 for Survivors RB
      */
@@ -284,7 +284,11 @@ public class RecordBuffer extends ProfilingArtifact{
             Log.print(allocation);
             Log.print(';');
 
-            Log.print(ThreadNameInventory.getByIndex(readInt(threadKeyIds, i)));
+            Log.print(ThreadInventory.getName(readInt(threadKeyIds, i)));
+            Log.print(';');
+            Log.print(ThreadInventory.getType(readInt(threadKeyIds, i)));
+            Log.print(';');
+            Log.print(ThreadInventory.getTID(readInt(threadKeyIds, i)));
             Log.print(';');
 
             //threadNumaNode

@@ -95,10 +95,10 @@ public class AllocationsCounter extends ProfilingArtifact{
      * AllocationsCounter Output format.
      *
      * for tuples:
-     * Cycle; Allocator Thread Name; TUPLES; Tuple Allocations Count; Tuple Allocations Total Size
+     * Cycle; Allocator Thread Name; Thread Type; TID; TUPLES; Tuple Allocations Count; Tuple Allocations Total Size
      *
      * for arrays:
-     * Cycle; Allocator Thread Name; ARRAYS; Array Allocations Count; Array Allocations Total Size; Array Allocations Total Length
+     * Cycle; Allocator Thread Name; Thread Type; TID; ARRAYS; Array Allocations Count; Array Allocations Total Size; Array Allocations Total Length
      */
     @Override
     public void print(int cycle, int b) {
@@ -106,7 +106,11 @@ public class AllocationsCounter extends ProfilingArtifact{
             Log.print("(allocationsCounter);");
             Log.print(cycle);
             Log.print(';');
-            Log.print(ThreadNameInventory.getByIndex(threadKeyId));
+            Log.print(ThreadInventory.getName(threadKeyId));
+            Log.print(';');
+            Log.print(ThreadInventory.getType(threadKeyId));
+            Log.print(';');
+            Log.print(ThreadInventory.getTID(threadKeyId));
             Log.print(';');
             Log.print("TUPLES");
             Log.print(';');
@@ -121,7 +125,11 @@ public class AllocationsCounter extends ProfilingArtifact{
             Log.print("(allocationsCounter);");
             Log.print(cycle);
             Log.print(';');
-            Log.print(ThreadNameInventory.getByIndex(threadKeyId));
+            Log.print(ThreadInventory.getName(threadKeyId));
+            Log.print(';');
+            Log.print(ThreadInventory.getType(threadKeyId));
+            Log.print(';');
+            Log.print(ThreadInventory.getTID(threadKeyId));
             Log.print(';');
             Log.print("ARRAYS");
             Log.print(';');

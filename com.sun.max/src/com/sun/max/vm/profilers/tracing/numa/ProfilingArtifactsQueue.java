@@ -94,7 +94,7 @@ public class ProfilingArtifactsQueue {
                 Log.print("[VerboseMsg @ ProfilingArtifactsQueue.print()]: ");
                 Log.print(artifact.getSimpleName());
                 Log.print(" of Thread ");
-                Log.print(ThreadNameInventory.getByIndex(artifact.getThreadKeyId()));
+                Log.print(ThreadInventory.getName(artifact.getThreadKeyId()));
                 Log.println(" is printing from Queue.");
             }
             artifact.print(profilingCycle, 1);
