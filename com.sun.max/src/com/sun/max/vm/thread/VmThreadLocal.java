@@ -43,6 +43,7 @@ import com.sun.max.vm.hosted.*;
 import com.sun.max.vm.jni.*;
 import com.sun.max.vm.log.*;
 import com.sun.max.vm.profilers.tracing.numa.NUMAProfiler;
+import com.sun.max.vm.profilers.tracing.numa.ThreadInventory;
 import com.sun.max.vm.reference.*;
 import com.sun.max.vm.runtime.*;
 import com.sun.max.vm.stack.*;
@@ -317,7 +318,7 @@ public class VmThreadLocal implements FormatWithToString {
 
     /**
      * Used by {@link com.sun.max.vm.profilers.tracing.numa.NUMAProfiler} to uniquely identifying profiled Java Threads.
-     * See also {@link com.sun.max.vm.profilers.tracing.numa.ThreadNameInventory}.
+     * See also {@link ThreadInventory}.
      */
     public static final VmThreadLocal THREAD_NAME_KEY = new VmThreadLocal("THREAD_NAME_KEY", false, "A key value that maps to a thread name in ThreadNameInventory", Nature.Single);
 

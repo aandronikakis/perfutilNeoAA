@@ -134,7 +134,7 @@ public class RecordBuffer extends ProfilingArtifact{
                 VirtualMemory.Type.DATA);
 
         if (space.isZero()) {
-            throw FatalError.unexpected("Thread " + ThreadNameInventory.getByIndex(this.threadKeyId) + " " + this.bufferName +  " Type Array Allocation Failed.");
+            throw FatalError.unexpected("Thread " + ThreadInventory.getName(this.threadKeyId) + " " + this.bufferName +  " Type Array Allocation Failed.");
         }
         return space;
     }
