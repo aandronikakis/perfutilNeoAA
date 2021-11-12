@@ -98,6 +98,18 @@ public final class BootImageGenerator {
     private static final Option<Boolean> useNumaProfiler = options.newBooleanOption("use-numa-profiler", false,
             "Uses NUMA memory profiler.");
 
+    /**
+     * Special option, introduced only to support akka-uct and fj-kmeans profiling with NUMAProfiler.
+     * Those applications tend to recursively spawn new thread instances of their worker threads as a result of their algorithm implementation.
+     * They end up in spawning > 256 discrete thread instances in total, but only few of them are living simultaneously.
+     * Consequently, the 8-bits in misc word reserved under the allocId bit-field are not enough to uniquely encode the spawned thread instances.
+     * This option enables a workaround for this problem.
+     * When true, the allocId misc word bit-field is augmented by 1 bit (reaches 9) and squeezes the thread id bit-field in the 7 remaining bits.
+     * This option is safe only for those two applications.
+     */
+    private static final Option<Boolean> recursiveThreadInstancesSupport = options.newBooleanOption("recursive-threads", false,
+            "Increases misc word's allocId bit-field length to support profiling in applications with recursive thread instances creation.");
+
     // Options shared with the Inspector
     public static final OptionSet inspectorSharedOptions = new OptionSet();
 
@@ -226,6 +238,8 @@ public final class BootImageGenerator {
             if (MaxineVM.useNUMAProfiler && !platform().target.arch.isX86()) {
                 FatalError.unimplemented("NUMA memory profiler not supported on non-x86 Architectures.");
             }
+
+            MaxineVM.recursiveThreadInstancesSupport = recursiveThreadInstancesSupport.getValue();
 
             if (compilationBrokerClassOption.getValue() != null) {
                 System.setProperty(CompilationBroker.COMPILATION_BROKER_CLASS_PROPERTY_NAME, compilationBrokerClassOption.getValue());

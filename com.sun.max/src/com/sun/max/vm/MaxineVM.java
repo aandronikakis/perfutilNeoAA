@@ -149,6 +149,13 @@ public final class MaxineVM {
     }
 
     /**
+     * Special bootimage option.
+     * See {@link BootImageGenerator#recursiveThreadInstancesSupport}.
+     */
+    @CONSTANT
+    public static boolean recursiveThreadInstancesSupport;
+
+    /**
      * Allows the Inspector access to the thread locals block for the primordial thread.
      */
     @INSPECTED

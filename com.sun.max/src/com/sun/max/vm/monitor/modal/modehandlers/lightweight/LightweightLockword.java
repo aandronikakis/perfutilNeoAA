@@ -35,7 +35,9 @@ import com.sun.max.vm.monitor.modal.modehandlers.*;
  *
  * Note:    AllocId (or allocatorId) 8-bit field is used in the context of {@link com.sun.max.vm.profilers.tracing.numa.NUMAProfiler}.
  *          It stores information related to the thread that allocated the object.
- *          More specifically, it stores an id that uniquely maps with the allocator thread name via {@link com.sun.max.vm.profilers.tracing.numa.ThreadNameInventory}.
+ *          More specifically, it stores an id that uniquely maps with the allocator thread name via {@link com.sun.max.vm.profilers.tracing.numa.ThreadInventory}.
+ *
+ *          For the {@code recursiveThreadInstancesSupport} see {@link com.sun.max.vm.hosted.BootImageGenerator#recursiveThreadInstancesSupport}.
  *
  */
 public class LightweightLockword extends HashableLockword {
@@ -74,8 +76,8 @@ public class LightweightLockword extends HashableLockword {
 
     protected static final int RCOUNT_FIELD_WIDTH = 5;
     protected static final int UTIL_FIELD_WIDTH = 9;
-    public static final int ALLOCATORID_FIELD_WIDTH = MaxineVM.useNUMAProfiler ? 8 : 0;
-    public static final int THREADID_FIELD_WIDTH = MaxineVM.useNUMAProfiler ? 8 : 16;
+    public static final int ALLOCATORID_FIELD_WIDTH = MaxineVM.useNUMAProfiler ? (MaxineVM.recursiveThreadInstancesSupport ? 9 : 8) : 0;
+    public static final int THREADID_FIELD_WIDTH = MaxineVM.useNUMAProfiler ? (MaxineVM.recursiveThreadInstancesSupport ? 7 : 8) : 16;
     protected static final int THREADID_SHIFT = Platform.target().arch.is64bit() ? (HASHCODE_SHIFT + HASH_FIELD_WIDTH) : NUMBER_OF_MODE_BITS;
     public static final int ALLOCATORID_SHIFT = MaxineVM.useNUMAProfiler ? THREADID_SHIFT + THREADID_FIELD_WIDTH : 0;
     protected static final int UTIL_SHIFT = MaxineVM.useNUMAProfiler ? ALLOCATORID_SHIFT + ALLOCATORID_FIELD_WIDTH : THREADID_SHIFT + THREADID_FIELD_WIDTH;
