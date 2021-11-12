@@ -106,7 +106,7 @@ public class ThreadInventory {
             VmThread thread = VmThread.fromTLA(etla);
             String name = thread.getName();
             String type = thread.javaThread().getClass().getName();
-            int tid = thread.tid;
+            int tid = thread.tid();
 
             int key = inventoryContainsThread(tid);
             if (key == 0) {
@@ -114,7 +114,7 @@ public class ThreadInventory {
                 VmThreadLocal.THREAD_NAME_KEY.store(etla, Address.fromInt(index));
                 threadName[index] = name;
                 threadType[index] = type;
-                osTid[index] = VmThread.fromTLA(etla).tid;
+                osTid[index] = VmThread.fromTLA(etla).tid();
                 if (isLive) {
                     Log.print("[Add to Inventory]: Live Thread: ");
                 } else {
