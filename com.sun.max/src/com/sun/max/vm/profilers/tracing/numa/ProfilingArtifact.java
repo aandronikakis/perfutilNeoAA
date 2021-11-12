@@ -33,6 +33,12 @@ public abstract class ProfilingArtifact {
     int threadKeyId;
     String simpleName;
 
+    final boolean verbose;
+
+    protected ProfilingArtifact() {
+        verbose = NUMAProfiler.getNUMAProfilerVerbose();
+    }
+
     @INTRINSIC(UNSAFE_CAST)
     public static native ProfilingArtifact asArtifact(Object object);
 

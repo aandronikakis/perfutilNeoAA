@@ -145,6 +145,14 @@ public class AllocationsCounter extends ProfilingArtifact{
 
     @Override
     public void resetArtifact() {
+        if (verbose) {
+            Log.print("Reset Allocation Counter of ");
+            Log.print(ThreadInventory.getName(threadKeyId));
+            Log.print(';');
+            Log.print(ThreadInventory.getType(threadKeyId));
+            Log.print(';');
+            Log.println(ThreadInventory.getTID(threadKeyId));
+        }
         tupleCount = 0;
         totalTupleSize = 0;
 
