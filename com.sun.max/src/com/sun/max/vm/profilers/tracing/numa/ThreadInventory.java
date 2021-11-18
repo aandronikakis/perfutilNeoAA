@@ -21,43 +21,56 @@ package com.sun.max.vm.profilers.tracing.numa;
 
 import com.sun.max.unsafe.Address;
 import com.sun.max.unsafe.Pointer;
+import com.sun.max.vm.Intrinsics;
 import com.sun.max.vm.Log;
 import com.sun.max.vm.monitor.modal.modehandlers.lightweight.LightweightLockword;
 import com.sun.max.vm.runtime.FatalError;
 import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadLocal;
 
+import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.getNUMAProfilerPrintOutput;
 import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.getNUMAProfilerVerbose;
 
 /**
- * {@link com.sun.max.vm.MaxineVM} assigns its Java {@link com.sun.max.vm.thread.VmThread}s to native pthreads.
- * When a Java thread starts/stops more than once, it might be re-assigned to different pthreads.
- * Consequently, there is no way to uniquely identify a Java thread by its {@link VmThread#id()}
- * because this value refers to the native pthread id.
+ * Thread instance unique identification is critical in the context of {@link NUMAProfiler}.
+ * {@link VmThread#id} and/or {@link VmThread#name} can potentially be reused by different {@link VmThread} instances.
+ * Consequently, they are insufficient in uniquely identifying an application thread.
  *
  * {@code ThreadNameInventory} is a workaround in uniquely identifying a Java Application Thread to support
  * object access profiling per thread in the context of {@link NUMAProfiler}.
+ * It essentially maps each {@link VmThread} instance with a unique "key" which is kept in {@link VmThreadLocal#THREAD_NAME_KEY}.
+ * It is also used as the {@link LightweightLockword} AllocId value in each object's misc word
+ * to indicate the {@link VmThread} instance that allocated the object.
  *
- * {@code ThreadNameInventory} stores a set of metadata for each profiled thread instance including thread name, thread class name and tid.
- * They are stored in 3 parallel arrays of size {@code size}.
- * The {@code index} as the arrays' index is the id that uniquely maps to a profiled thread instance.
- * The {@code index} is stored in the AllocatorId bit-field of each allocated object's misc word (see {@link LightweightLockword}).
+ * {@code ThreadNameInventory} stores a set of metadata for each profiled {@link VmThread} instance including: thread name, thread class name, tid and live status.
+ * They are stored in 4 parallel arrays of size {@code size}.
+ * Their index is the "key".
  *
- * Accesses in objects that had been allocated before profiling being enabled (and consequently NUMAProfiler is not aware of the allocator thread)
- * are highlighted as "Unknown" (see {@link ThreadInventory#inventory}[0]).
+ * NUMAProfiler can't be aware of the allocator thread for objects allocated before profiling being enabled.
+ * Accesses to those objects are highlighted as "Unknown" and reserve the position 0 of the arrays.
  *
- * See also:    {@link com.sun.max.vm.monitor.modal.modehandlers.lightweight.LightweightLockword}
+ * See also:    {@link LightweightLockword}
  *              {@link VmThreadLocal#THREAD_NAME_KEY}
  */
 public class ThreadInventory {
 
-    private static int index;
+    // num of elements in the inventory
+    private static int elements;
 
+    /**
+     * The parallel arrays that consist the inventory.
+     */
     private static String[] threadName;
     private static String[] threadType;
     private static int[] osTid;
+    private static boolean[] isLive;
 
     private static boolean verbose;
+
+    // Pre-allocated String objs to be used when allocations are disabled
+    private static String fatalErrorMessage;
+    private static String startStr;
+    private static String endStr;
 
     /**
      * {@code size} is equal to 2 ^ {@link LightweightLockword#ALLOCATORID_FIELD_WIDTH}.
@@ -65,88 +78,155 @@ public class ThreadInventory {
     private static final int size = 1 << LightweightLockword.ALLOCATORID_FIELD_WIDTH;
 
     public ThreadInventory() {
-        if (getNUMAProfilerVerbose()) {
+        verbose = getNUMAProfilerVerbose();
+        if (verbose) {
             Log.print("[VerboseMsg @ ThreadNameInventory.ThreadNameInventory()]: Initialize ThreadName Inventory with size ");
             Log.println(size);
         }
         threadName = new String[size];
         threadType = new String[size];
         osTid = new int[size];
+        isLive = new boolean[size];
 
+        // reserve position 0 for Unknown (objects allocated prior to profiling)
         threadName[0] = "Unknown";
         threadType[0] = "Unknown";
         osTid[0] = 0;
+        isLive[0] = true;
 
-        index = 1;
+        elements = 1;
 
-        verbose = true;
+        // Prepare String objs in case they are needed when allocations are disabled
+        fatalErrorMessage = "NUMAProfiler does not support profiling of more than " + ((1 << LightweightLockword.THREADID_FIELD_WIDTH) - 1) + " threads simultaneously (check \"recursive-threads\" BootImageGenerator option).";
+        startStr = "start";
+        endStr = "end";
     }
 
     /**
-     * Backwards search to find the last entry.
-     * @param value
-     * @return
+     * Find the next available key for a new tid.
      */
-    public int inventoryContainsThread(int value) {
-        for (int i = index - 1; i > 0; i--) {
+    public int nextAvailableKey(int value) {
+        int next = -1;
+        for (int i = 1; i < size; i++) {
             if (osTid[i] == value) {
-                return i;
+                next = i;
+                break;
             }
         }
-        return 0;
+        if (next == -1) {
+            // does not exist -> return 1st not live
+            for (int i = 1; i < size; i++) {
+                if (!isLive[i]) {
+                    next = i;
+                    break;
+                }
+            }
+        }
+        return next;
     }
 
     public static int getIndex() {
-        return index;
+        return elements;
     }
 
-    public int addToInventory(Pointer etla, boolean isLive) {
-        if (index < size) {
+    public int add(Pointer etla) {
+        int key;
 
-            VmThread thread = VmThread.fromTLA(etla);
-            String name = thread.getName();
-            String type = thread.javaThread().getClass().getName();
-            int tid = thread.tid();
+        // guard
+        FatalError.check(elements < size, fatalErrorMessage);
 
-            int key = inventoryContainsThread(tid);
-            if (key == 0) {
-                // does not exist, write THREAD_NAME_KEY where current index points, add inventory, return index to update threadNameKey in ProfilingArtifact
-                VmThreadLocal.THREAD_NAME_KEY.store(etla, Address.fromInt(index));
-                threadName[index] = name;
-                threadType[index] = type;
-                osTid[index] = VmThread.fromTLA(etla).tid();
-                if (isLive) {
-                    Log.print("[Add to Inventory]: Live Thread: ");
-                } else {
-                    Log.print("[Add to Inventory]: New Thread: ");
-                }
-                Log.print(name);
-                Log.print(" | ");
-                Log.print(type);
-                Log.print(" | ");
-                Log.println(tid);
-                index++;
-            } else {
-                // already exists, write THREAD_NAME_KEY and return key to update threadNameKey in ProfilingArtifact
-                VmThreadLocal.THREAD_NAME_KEY.store(etla, Address.fromInt(key));
-                Log.println("=== Thread with same tid exists !!!! ===");
-                return key;
-            }
-        } else {
-            // Profiling supports up to 256 threads because allocator thread id need to be stored in object's misc word.
-            // The available bits for allocator thread id are only 8.
-            FatalError.unexpected("Profiling threads exceed the 1 << 8 limit.");
+        // gather elements to store in the inventory
+        VmThread thread = VmThread.fromTLA(etla);
+        String name = thread.getName();
+        String type = thread.javaThread().getClass().getName();
+        int tid = thread.tid();
+
+        key = nextAvailableKey(tid);
+        // write THREAD_NAME_KEY where key points, add to inventory, return key to update threadNameKey in ProfilingArtifact
+        VmThreadLocal.THREAD_INVENTORY_KEY.store(etla, Address.fromInt(key));
+        threadName[key] = name;
+        threadType[key] = type;
+        osTid[key] = VmThread.fromTLA(etla).tid();
+        isLive[key] = true;
+
+        elements++;
+
+        if (getNUMAProfilerPrintOutput()) {
+            logThread(key, true);
         }
-        return index - 1;
+
+        return key;
     }
 
-    public static String getName(int index) {
-        return threadName[index];
+    /**
+     * Set {@code isLive} to false during a GC for all thread instances.
+     * In the next mutation phase the yet live threads will be re-entered in the inventory.
+     */
+    public void update() {
+        if (verbose) {
+            Log.println("[VerboseMsg @ ThreadInventory.update()]: Set status to \"dead\" for all");
+        }
+        for (int i = 1; i < size; i++) {
+            setStatus(i, false);
+        }
+        elements = 1;
     }
-    public static String getType(int index) {
-        return threadType[index];
+
+    /**
+     * Log Thread Instance.
+     * format: (threadInventory);start/end;name;type;tid;key;timestamp
+     */
+    public void logThread(int key, boolean start) {
+        final String phase = start ? startStr : endStr;
+        Log.print("(threadInventory)");
+        Log.print(";");
+        Log.print(NUMAProfiler.profilingCycle);
+        Log.print(";");
+        Log.print(phase);
+        Log.print(";");
+        Log.print(getName(key));
+        Log.print(";");
+        Log.print(getType(key));
+        Log.print(";");
+        Log.print(getTID(key));
+        Log.print(";");
+        Log.print(key);
+        Log.print(";");
+        Log.println(Intrinsics.getTicks());
     }
-    public static int getTID(int index) {
-        return osTid[index];
+
+    /**
+     * Print Thread Inventory.
+     */
+    public void print() {
+        for (int key = 1; key < size; key++) {
+            if (isLive[key]) {
+                Log.print(key);
+                Log.print(";");
+                Log.print(getName(key));
+                Log.print(";");
+                Log.print(getType(key));
+                Log.print(";");
+                Log.println(getTID(key));
+            }
+        }
+    }
+
+    /**
+     * Get all attributes of a thread instance in the inventory only by key.
+     * @param key should correspond to a {@link VmThreadLocal#THREAD_NAME_KEY} value.
+     */
+    public static String getName(int key) {
+        return threadName[key];
+    }
+    public static String getType(int key) {
+        return threadType[key];
+    }
+    public static int getTID(int key) {
+        return osTid[key];
+    }
+
+    public static void setStatus(int key, boolean value) {
+        isLive[key] = value;
     }
 }

@@ -245,7 +245,7 @@ public class RecordBuffer extends ProfilingArtifact{
         assert currentIndex < bufferSize : "Allocations Buffer out of bounds. Increase the Buffer Size.";
 
         // get thread key id
-        final int threadKeyId = THREAD_NAME_KEY.load(VmThread.currentTLA()).toInt();
+        final int threadKeyId = THREAD_INVENTORY_KEY.load(VmThread.currentTLA()).toInt();
 
         //get the NUMA node where the object is physically placed
         final int numaNode = getNumaNodeForAddress(address);
