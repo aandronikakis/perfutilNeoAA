@@ -835,52 +835,52 @@ public class NUMAProfiler {
         if (NUMAProfilerPrintOutput) {
             if (NUMAProfilerTraceAllocations) {
                 if (NUMAProfilerVerbose) {
-                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations Thread Local Buffers for Live Threads. [post-GC phase]");
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations RecordBuffers for Live Threads. [post-GC phase]");
                 }
                 dumpAllTLARBs();
 
                 if (NUMAProfilerVerbose) {
-                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations Thread Local Buffers for Queued Threads. [termination]");
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations RecordBuffers for Queued Threads. [termination]");
                 }
                 allocationBuffersQueue.print(profilingCycle);
             } else {
                 if (NUMAProfilerVerbose) {
-                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocation Thread Local Counters for Live Threads. [post-GC phase]");
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print AllocationsCounter for Live Threads. [post-GC phase]");
                 }
                 dumpAllTLARCs();
 
                 if (NUMAProfilerVerbose) {
-                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Allocations Thread Local Counters for Queued Threads. [termination]");
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print AllocationsCounter for Queued Threads. [termination]");
                 }
                 allocCounterQueue.print(profilingCycle);
             }
 
             if (NUMAProfilerSurvivors) {
                 if (NUMAProfilerVerbose) {
-                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Dump Survivors Buffer. [post-GC phase]");
+                    Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Survivors RecordBuffers for Live Threads. [post-GC phase]");
                 }
                 dumpAllTLSRBs();
             }
 
             if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Access Profiling Thread Local Buffer for Live Threads. [post-GC phase]");
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print AccessesBuffer for Live Threads. [post-GC phase]");
             }
             dumpAllTLAccBs();
 
             if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Access Profiling Thread Local Buffer for Queued Threads. [post-GC phase]");
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print AccessesBuffer for Queued Threads. [post-GC phase]");
             }
             accessesBufferQueue.print(profilingCycle);
         }
 
         if (NUMAProfilerTraceAllocations) {
             if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Reset Allocation Thread Local Buffers. [post-gc phase]");
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Reset Allocations RecordBuffers for Live Threads. [post-gc phase]");
             }
             resetTLARBs();
         } else {
             if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Reset Allocation Thread Local Counters. [post-gc phase]");
+                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Reset AllocationsCounter for Live Threads. [post-gc phase]");
             }
             resetTLACs();
         }
@@ -900,7 +900,7 @@ public class NUMAProfiler {
         }
 
         if (NUMAProfilerVerbose) {
-            Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Reset Thread-Local AccessesBuffers. [post-gc phase]");
+            Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Reset AccessesBuffer for Live Threads. [post-gc phase]");
         }
         resetTLAccBs();
 
@@ -1247,7 +1247,9 @@ public class NUMAProfiler {
             Log.print(";");
             Log.print(VmThread.fromTLA(etla).id());
             Log.print(";");
-            Log.println(VmThread.fromTLA(etla).getName());
+            Log.print(VmThread.fromTLA(etla).getName());
+            Log.print(";");
+            Log.println(VmThread.fromTLA(etla).tid());
         }
     };
 
