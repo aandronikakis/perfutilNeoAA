@@ -390,6 +390,13 @@ public class NUMAProfiler {
 
     public static void onVmThreadStart(Pointer etla) {
         final boolean lockDisabledSafepoints = lock();
+        if (NUMAProfilerVerbose) {
+            Log.print("[VerboseMsg @ NUMAProfiler.onVmThreadStart()]: Thread ");
+            Log.print(VmThread.fromTLA(etla).getName());
+            Log.print(" with tid ");
+            Log.print(VmThread.fromTLA(etla).tid());
+            Log.println(" is starting.");
+        }
         if (!isTerminating) {
             if (isExplicitGCPolicyConditionTrue() || isFlareObjectPolicyConditionTrue()) {
                 // Add thread in Thread Inventory and Log
@@ -418,7 +425,9 @@ public class NUMAProfiler {
         final Pointer etla = ETLA.load(tla);
         if (NUMAProfilerVerbose) {
             Log.print("[VerboseMsg @ NUMAProfiler.onVmThreadExit()]: Thread ");
-            Log.print(ThreadInventory.getName(THREAD_INVENTORY_KEY.load(etla).toInt()));
+            Log.print(VmThread.fromTLA(tla).getName());
+            Log.print(" with tid ");
+            Log.print(VmThread.fromTLA(tla).tid());
             Log.println(" is exiting.");
         }
         final boolean isThreadActivelyProfiled = NUMAProfiler.isProfilingEnabledPredicate.evaluate(etla);
@@ -447,12 +456,12 @@ public class NUMAProfiler {
         // TL RBuffers are allocated in any case, so do the same for de-allocation
         // TL AllocCounters are on-heap objects, no need for manual de-allocation
         if (NUMAProfilerTraceAllocations) {
-            NUMAProfiler.deallocateTLARB.run(tla);
+            NUMAProfiler.deallocateTLARB.run(etla);
         }
 
         if (NUMAProfilerSurvivors) {
-            NUMAProfiler.deallocateTLSRB1.run(tla);
-            NUMAProfiler.deallocateTLSRB2.run(tla);
+            NUMAProfiler.deallocateTLSRB1.run(etla);
+            NUMAProfiler.deallocateTLSRB2.run(etla);
         }
         unlock(lockDisabledSafepoints);
     }
@@ -578,9 +587,8 @@ public class NUMAProfiler {
      * @param allocatorId is the key that points to the thread instance (via {@link ThreadInventory}) that allocated the accessed object.
      */
     private static void incrementAccessCounter(int counter, int allocatorId) {
-        Pointer tla = VmThread.currentTLA();
-        assert ETLA.load(tla) == tla;
-        final AccessesBuffer accBuffer = AccessesBuffer.getForCurrentThread(tla);
+        final Pointer etla = ETLA.load(VmThread.currentTLA());
+        final AccessesBuffer accBuffer = AccessesBuffer.getForCurrentThread(etla);
         accBuffer.increment(counter, allocatorId);
     }
 
@@ -1042,7 +1050,7 @@ public class NUMAProfiler {
 
     private static final Pointer.Procedure setProfilingTLA = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.value));
         }
     };
@@ -1055,7 +1063,7 @@ public class NUMAProfiler {
 
     private static final Pointer.Procedure resetProfilingTLA = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.DISABLED.value));
         }
     };
@@ -1075,8 +1083,8 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure initTLARB = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final RecordBuffer allocationsBuffer = new RecordBuffer(TLARBSize, "allocations Buffer ", THREAD_INVENTORY_KEY.load(tla).toInt());
-            assert tla.equals(ETLA.load(tla));
+            final Pointer etla = ETLA.load(tla);
+            final RecordBuffer allocationsBuffer = new RecordBuffer(TLARBSize, "allocations Buffer ", THREAD_INVENTORY_KEY.load(etla).toInt());
             RecordBuffer.setForCurrentThread(tla, allocationsBuffer, RECORD_BUFFER.ALLOCATIONS_BUFFER);
         }
     };
@@ -1086,9 +1094,10 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure initTLSRB = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final RecordBuffer survivors1 = new RecordBuffer(TLSRBSize, "Survivors Buffer No1", THREAD_INVENTORY_KEY.load(tla).toInt());
+            final Pointer etla = ETLA.load(tla);
+            final RecordBuffer survivors1 = new RecordBuffer(TLSRBSize, "Survivors Buffer No1", THREAD_INVENTORY_KEY.load(etla).toInt());
             RecordBuffer.setForCurrentThread(tla, survivors1, RECORD_BUFFER.SURVIVORS_1_BUFFER);
-            final RecordBuffer survivors2 = new RecordBuffer(TLSRBSize, "Survivors Buffer No2", THREAD_INVENTORY_KEY.load(tla).toInt());
+            final RecordBuffer survivors2 = new RecordBuffer(TLSRBSize, "Survivors Buffer No2", THREAD_INVENTORY_KEY.load(etla).toInt());
             RecordBuffer.setForCurrentThread(tla, survivors2, RECORD_BUFFER.SURVIVORS_2_BUFFER);
         }
     };
@@ -1098,8 +1107,14 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure initTLAC = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            final AllocationsCounter allocationsCounter = new AllocationsCounter(THREAD_INVENTORY_KEY.load(tla).toInt());
-            assert tla.equals(ETLA.load(tla));
+            final Pointer etla = ETLA.load(tla);
+            final AllocationsCounter allocationsCounter = new AllocationsCounter(THREAD_INVENTORY_KEY.load(etla).toInt());
+            if (NUMAProfilerVerbose) {
+                Log.print("[VerboseMsg @ Procedure initTLAC.run()]: New Allocations Counter for thread ");
+                Log.print(VmThread.fromTLA(tla).getName());
+                Log.print(" with tid ");
+                Log.println(VmThread.fromTLA(tla).tid());
+            }
             AllocationsCounter.setForCurrentThread(tla, allocationsCounter);
         }
     };
@@ -1110,7 +1125,8 @@ public class NUMAProfiler {
     public static final Pointer.Procedure initTLAccB = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            final AccessesBuffer accessesBuffer = new AccessesBuffer(THREAD_INVENTORY_KEY.load(tla).toInt());
+            final Pointer etla = ETLA.load(tla);
+            final AccessesBuffer accessesBuffer = new AccessesBuffer(THREAD_INVENTORY_KEY.load(etla).toInt());
             AccessesBuffer.setForCurrentThread(tla, accessesBuffer);
         }
     };
@@ -1169,7 +1185,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure printTLARB = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             if (NUMAProfilerVerbose) {
                 Log.print("[VerboseMsg @ NUMAProfiler.printTLARB.run()]: Thread ");
                 Log.print(VmThread.fromTLA(etla).id());
@@ -1185,7 +1201,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure printTLSRBs = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             if (NUMAProfilerVerbose) {
                 Log.print("[VerboseMsg @ NUMAProfiler.printTLSRBs.run()]: ==== Survivors Cycle ");
                 Log.print(profilingCycle);
@@ -1207,7 +1223,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure printTLAC = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             if (NUMAProfilerVerbose) {
                 Log.print("[VerboseMsg @ NUMAProfiler.printTLAC.run()]: Thread ");
                 Log.print(VmThread.fromTLA(etla).getName());
@@ -1222,7 +1238,7 @@ public class NUMAProfiler {
      */
     private static final Pointer.Procedure printTLAccB = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             if (NUMAProfilerVerbose) {
                 Log.print("[VerboseMsg @ NUMAProfiler.printTLAC.run()]: Thread ");
                 Log.print(VmThread.fromTLA(etla).getName());
@@ -1239,7 +1255,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure printThreadId = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             VmThread thread = VmThread.fromTLA(etla);
             if (NUMAProfilerVerbose) {
                 Log.print("[VerboseMsg @ NUMAProfiler.printThreadId.run()]: I am thread ");
@@ -1255,7 +1271,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure printThreadName = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             Log.print("(profilingThread);");
             Log.print(profilingCycle);
             Log.print(";");
@@ -1276,14 +1292,20 @@ public class NUMAProfiler {
     /**
      * Update {@link ProfilingArtifact#threadKeyId} for already live threads.
      * The live threads might have be spawned before enabling profiling, so {@link ProfilingArtifact#threadKeyId} might contain garbage value.
+     *
+     * In case a live thread is not fully initiallized do the update lazily (see e.g. {@link AllocationsCounter#getForCurrentThread(Pointer)}).
      */
-    public static void updateThreadKeyId(Pointer etla, int newThreadKeyId) {
+    public static void updateThreadKeyId(Pointer tla, int newThreadKeyId) {
         if (NUMAProfilerTraceAllocations) {
-            RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER).setThreadKeyId(newThreadKeyId);
+            RecordBuffer.getForCurrentThread(tla, RECORD_BUFFER.ALLOCATIONS_BUFFER).setThreadKeyId(newThreadKeyId);
         } else {
-            AllocationsCounter.getForCurrentThread(etla).setThreadKeyId(newThreadKeyId);
+            AllocationsCounter tmpCounter = AllocationsCounter.getForCurrentThread(tla);
+            if (tmpCounter == null) {
+                return;
+            }
+            tmpCounter.setThreadKeyId(newThreadKeyId);
         }
-        AccessesBuffer.getForCurrentThread(etla).setThreadKeyId(newThreadKeyId);
+        AccessesBuffer.getForCurrentThread(tla).setThreadKeyId(newThreadKeyId);
     }
 
     /**
@@ -1292,10 +1314,9 @@ public class NUMAProfiler {
     public static final Pointer.Procedure addToInventory = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
-            final int index = threadInventory.add(etla);
+            final int index = threadInventory.add(tla);
             // update threadKeyId
-            updateThreadKeyId(etla, index);
+            updateThreadKeyId(tla, index);
         }
     };
 
@@ -1361,7 +1382,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure resetTLARB = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER).resetArtifact();
         }
     };
@@ -1372,7 +1393,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure resetTLSRB1 = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER).resetArtifact();
         }
     };
@@ -1383,7 +1404,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure resetTLSRB2 = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER).resetArtifact();
         }
     };
@@ -1394,7 +1415,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure resetTLAC = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             AllocationsCounter.getForCurrentThread(etla).resetArtifact();
         }
     };
@@ -1405,7 +1426,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure resetTLAccB = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             AccessesBuffer.getForCurrentThread(etla).resetArtifact();
         }
     };
@@ -1413,7 +1434,7 @@ public class NUMAProfiler {
     private static final Pointer.Procedure setStatusToLive = new Pointer.Procedure() {
         @Override
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             ThreadInventory.setStatus(THREAD_INVENTORY_KEY.load(etla).toInt(), true);
         }
     };
@@ -1491,21 +1512,21 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure deallocateTLARB = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.ALLOCATIONS_BUFFER).deallocateArtifact();
         }
     };
 
     public static final Pointer.Procedure deallocateTLSRB1 = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER).deallocateArtifact();
         }
     };
 
     public static final Pointer.Procedure deallocateTLSRB2 = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER).deallocateArtifact();
         }
     };
@@ -1534,7 +1555,7 @@ public class NUMAProfiler {
      */
     public static final Pointer.Procedure profileSurvivorsProcedure = new Pointer.Procedure() {
         public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
+            final Pointer etla = ETLA.load(tla);
             if ((profilingCycle % 2) == 0) {
                 //even cycles
                 storeSurvivors(RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_1_BUFFER), RecordBuffer.getForCurrentThread(etla, RECORD_BUFFER.SURVIVORS_2_BUFFER));

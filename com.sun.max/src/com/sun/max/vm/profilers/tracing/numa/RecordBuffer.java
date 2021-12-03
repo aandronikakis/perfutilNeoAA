@@ -40,6 +40,7 @@ import com.sun.max.vm.runtime.FatalError;
 import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadLocal;
 
+import static com.sun.max.vm.heap.Heap.isAllocationDisabledForCurrentThread;
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
 import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.*;
 import static com.sun.max.vm.thread.VmThreadLocal.*;
@@ -369,16 +370,32 @@ public class RecordBuffer extends ProfilingArtifact{
         final VmThreadLocal bufferPtr = getBufferPtr(whichBuffer);
         final Reference reference = bufferPtr.loadRef(etla);
         if (reference.isZero()) {
-            return null;
+            // if not yet initialized, do it here if is allowed
+            if (!isAllocationDisabledForCurrentThread()) {
+                RecordBuffer recordBuffer;
+                if (whichBuffer == RECORD_BUFFER.ALLOCATIONS_BUFFER) {
+                    recordBuffer = new RecordBuffer(TLARBSize, "allocations Buffer", THREAD_INVENTORY_KEY.load(etla).toInt());
+                } else if (whichBuffer == RECORD_BUFFER.SURVIVORS_1_BUFFER) {
+                    recordBuffer = new RecordBuffer(TLSRBSize, "Survivors Buffer No1", THREAD_INVENTORY_KEY.load(etla).toInt());
+                } else {
+                    recordBuffer = new RecordBuffer(TLSRBSize, "Survivors Buffer No2", THREAD_INVENTORY_KEY.load(etla).toInt());
+                }
+                RecordBuffer.setForCurrentThread(etla, recordBuffer, whichBuffer);
+                return recordBuffer;
+            } else {
+                // if not, nevermind.. next time
+                return null;
+            }
+        } else {
+            final RecordBuffer recordBuffer = asRecordBuffer(reference.toJava());
+            return recordBuffer;
         }
-        final RecordBuffer allocationsBuffer = asRecordBuffer(reference.toJava());
-        return allocationsBuffer;
     }
 
     @INLINE
-    public static void setForCurrentThread(Pointer etla, RecordBuffer buffer, RECORD_BUFFER whichBuffer) {
+    public static void setForCurrentThread(Pointer tla, RecordBuffer buffer, RECORD_BUFFER whichBuffer) {
         final VmThreadLocal bufferPtr = getBufferPtr(whichBuffer);
-        bufferPtr.store(etla, Reference.fromJava(buffer));
+        bufferPtr.store3(tla, Reference.fromJava(buffer));
     }
 
     public static Reference getBufferReference(Pointer etla, RECORD_BUFFER whichBuffer) {

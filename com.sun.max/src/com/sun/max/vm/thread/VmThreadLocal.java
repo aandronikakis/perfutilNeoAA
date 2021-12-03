@@ -320,25 +320,25 @@ public class VmThreadLocal implements FormatWithToString {
      * Used by {@link NUMAProfiler} to uniquely identify the profiled {@link VmThread} instances.
      * See also {@link ThreadInventory}.
      */
-    public static final VmThreadLocal THREAD_INVENTORY_KEY = new VmThreadLocal("THREAD_NAME_KEY", false, "A key value that maps to a thread name in ThreadNameInventory", Nature.Single);
+    public static final VmThreadLocal THREAD_INVENTORY_KEY = new VmThreadLocal("THREAD_NAME_KEY", false, "A key value that maps to a thread name in ThreadNameInventory");
 
     /**
      * This VmThreadLocal is a reference to an AccessesBuffer object to store obj access counters per type (remote/local, array/tuple, read/write) and allocator thread.
      */
     public static final VmThreadLocal ACCESSES_BUFFER
-        = new VmThreadLocal("ACCESSES_BUFFER", true, "points to a thread local accesses buffer", Nature.Single);
+        = new VmThreadLocal("ACCESSES_BUFFER", true, "points to a thread local accesses buffer");
 
     public static VmThreadLocal ALLOC_BUFFER_PTR
-        = new VmThreadLocal("ALLOC_BUFFER_PTR", true, "points to a thread local allocation buffer", Nature.Single);
+        = new VmThreadLocal("ALLOC_BUFFER_PTR", true, "points to a thread local allocation buffer");
 
     public static VmThreadLocal SURV1_BUFFER_PTR
-        = new VmThreadLocal("SURV1_BUFFER_PTR", true, "points to a thread local survivor1 buffer", Nature.Single);
+        = new VmThreadLocal("SURV1_BUFFER_PTR", true, "points to a thread local survivor1 buffer");
 
     public static VmThreadLocal SURV2_BUFFER_PTR
-        = new VmThreadLocal("SURV2_BUFFER_PTR", true, "points to a thread local survivor2 buffer", Nature.Single);
+        = new VmThreadLocal("SURV2_BUFFER_PTR", true, "points to a thread local survivor2 buffer");
 
     public static VmThreadLocal ALLOC_COUNTER_PTR
-        = new VmThreadLocal("ALLOC_COUNTER_PTR", true, "points to a thread local allocation counter", Nature.Single);
+        = new VmThreadLocal("ALLOC_COUNTER_PTR", true, "points to a thread local allocation counter");
 
     private static VmThreadLocal[] valuesNeedingInitialization;
 

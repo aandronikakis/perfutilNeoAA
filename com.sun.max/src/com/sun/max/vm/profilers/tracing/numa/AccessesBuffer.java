@@ -25,11 +25,13 @@ import com.sun.max.unsafe.Pointer;
 import com.sun.max.vm.Log;
 import com.sun.max.vm.monitor.modal.modehandlers.lightweight.LightweightLockword;
 import com.sun.max.vm.reference.Reference;
-import com.sun.max.vm.runtime.FatalError;
+import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadLocal;
 
+import static com.sun.max.vm.heap.Heap.isAllocationDisabledForCurrentThread;
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
 import static com.sun.max.vm.thread.VmThreadLocal.ACCESSES_BUFFER;
+import static com.sun.max.vm.thread.VmThreadLocal.THREAD_INVENTORY_KEY;
 
 public class AccessesBuffer extends ProfilingArtifact{
     /**
@@ -105,14 +107,28 @@ public class AccessesBuffer extends ProfilingArtifact{
     public static AccessesBuffer getForCurrentThread(Pointer etla) {
         final Reference reference = ACCESSES_BUFFER.loadRef(etla);
         if (reference.isZero()) {
-            FatalError.unexpected("Access Buffer is null");
+            // if not yet initialized, do it here if is allowed
+            if (!isAllocationDisabledForCurrentThread()) {
+                Log.print("Allocate it now! [ ");
+                Log.print(VmThread.fromTLA(etla).getName());
+                Log.print(", ");
+                Log.print(VmThread.fromTLA(etla).tid());
+                Log.print(" ]");
+                final AccessesBuffer accessesBuffer = new AccessesBuffer(THREAD_INVENTORY_KEY.load(etla).toInt());
+                AccessesBuffer.setForCurrentThread(etla, accessesBuffer);
+                return accessesBuffer;
+            } else {
+                // if not, nevermind.. next time
+                return null;
+            }
+        } else {
+            return asAccessesBuffer(reference.toJava());
         }
-        return asAccessesBuffer(reference.toJava());
     }
 
     @INLINE
-    public static void setForCurrentThread(Pointer etla, AccessesBuffer buffer) {
-        ACCESSES_BUFFER.store(etla, Reference.fromJava(buffer));
+    public static void setForCurrentThread(Pointer tla, AccessesBuffer buffer) {
+        ACCESSES_BUFFER.store3(tla, Reference.fromJava(buffer));
     }
 
     public static Reference getBufferReference(Pointer etla) {

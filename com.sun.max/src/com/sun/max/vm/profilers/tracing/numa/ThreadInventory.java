@@ -131,24 +131,24 @@ public class ThreadInventory {
         return elements;
     }
 
-    public int add(Pointer etla) {
+    public int add(Pointer tla) {
         int key;
 
         // guard
         FatalError.check(elements < size, fatalErrorMessage);
 
         // gather elements to store in the inventory
-        VmThread thread = VmThread.fromTLA(etla);
+        VmThread thread = VmThread.fromTLA(tla);
         String name = thread.getName();
         String type = thread.javaThread().getClass().getName();
         int tid = thread.tid();
 
         key = nextAvailableKey(tid);
         // write THREAD_NAME_KEY where key points, add to inventory, return key to update threadNameKey in ProfilingArtifact
-        VmThreadLocal.THREAD_INVENTORY_KEY.store(etla, Address.fromInt(key));
+        VmThreadLocal.THREAD_INVENTORY_KEY.store3(tla, Address.fromInt(key));
         threadName[key] = name;
         threadType[key] = type;
-        osTid[key] = VmThread.fromTLA(etla).tid();
+        osTid[key] = VmThread.fromTLA(tla).tid();
         isLive[key] = true;
 
         elements++;

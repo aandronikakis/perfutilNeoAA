@@ -28,7 +28,9 @@ import com.sun.max.vm.Log;
 import com.sun.max.vm.reference.Reference;
 import com.sun.max.vm.thread.VmThreadLocal;
 
+import static com.sun.max.vm.heap.Heap.isAllocationDisabledForCurrentThread;
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
+import static com.sun.max.vm.thread.VmThreadLocal.THREAD_INVENTORY_KEY;
 
 /**
  * This class inherits {@link ProfilingArtifact} and implements the {@link AllocationsCounter} type of artifact.
@@ -174,15 +176,24 @@ public class AllocationsCounter extends ProfilingArtifact{
         final VmThreadLocal bufferPtr = VmThreadLocal.ALLOC_COUNTER_PTR;
         final Reference reference = bufferPtr.loadRef(etla);
         if (reference.isZero()) {
-            return null;
+            // if not yet initialized, do it here if is allowed
+            if (!isAllocationDisabledForCurrentThread()) {
+                final AllocationsCounter allocationsCounter = new AllocationsCounter(THREAD_INVENTORY_KEY.load(etla).toInt());
+                AllocationsCounter.setForCurrentThread(etla, allocationsCounter);
+                return allocationsCounter;
+            } else {
+                // if not, nevermind.. next time
+                return null;
+            }
+        } else {
+            final AllocationsCounter allocationsCounter = asAllocCounter(reference.toJava());
+            return allocationsCounter;
         }
-        final AllocationsCounter allocationsCounter = asAllocCounter(reference.toJava());
-        return allocationsCounter;
     }
 
     @INLINE
-    public static void setForCurrentThread(Pointer etla, AllocationsCounter counter) {
-        VmThreadLocal.ALLOC_COUNTER_PTR.store(etla, Reference.fromJava(counter));
+    public static void setForCurrentThread(Pointer tla, AllocationsCounter counter) {
+        VmThreadLocal.ALLOC_COUNTER_PTR.store3(tla, Reference.fromJava(counter));
     }
 
     public static Reference getBufferReference(Pointer etla) {
