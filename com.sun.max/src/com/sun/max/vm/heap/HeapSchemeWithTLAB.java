@@ -506,6 +506,9 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
     public final void profileWriteTuple(Pointer cell) {
         final long tupleAddress = cell.toLong();
         NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_TUPLE_WRITE, tupleAddress);
+        if (NUMAProfiler.NUMAProfilerLastWriterAsOwner) {
+            NUMAProfiler.engraveWriterThreadAsOwner(Layout.tupleCellToOrigin(cell));
+        }
     }
 
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")
@@ -513,6 +516,9 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
     public final void profileWriteArray(Pointer arrayCell) {
         final long arrayAddress = arrayCell.toLong();
         NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_ARRAY_WRITE, arrayAddress);
+        if (NUMAProfiler.NUMAProfilerLastWriterAsOwner) {
+            NUMAProfiler.engraveWriterThreadAsOwner(Layout.arrayCellToOrigin(arrayCell));
+        }
     }
 
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")

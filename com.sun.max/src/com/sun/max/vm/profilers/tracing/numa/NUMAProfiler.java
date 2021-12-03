@@ -103,6 +103,11 @@ public class NUMAProfiler {
     private static boolean NUMAProfilerSurvivors;
     @SuppressWarnings("unused")
     private static boolean NUMAProfilerTraceAllocations;
+    /**
+     * Profile based on the perspective that an object's "owner" should be the last writer thread (default: false).
+     */
+    @SuppressWarnings("unused")
+    public static boolean NUMAProfilerLastWriterAsOwner;
     @SuppressWarnings("unused")
     private static boolean NUMAProfilerDebug;
     @SuppressWarnings("unused")
@@ -289,6 +294,7 @@ public class NUMAProfiler {
                 "The number of the Explicit GCs to be performed before the NUMAProfiler starts recording. " +
                 "It cannot be used in combination with \"NUMAProfilerFlareAllocationThresholds\". (default: -1)");
         VMOptions.addFieldOption("-XX:", "NUMAProfilerTraceAllocations", NUMAProfiler.class, "Trace allocations in detail instead of counting. (default: false)", MaxineVM.Phase.PRISTINE);
+        VMOptions.addFieldOption("-XX:", "NUMAProfilerLastWriterAsOwner", NUMAProfiler.class, "help msg. (default: false)", MaxineVM.Phase.PRISTINE);
         VMOptions.addFieldOption("-XX:", "NUMAProfilerFlareObjectStart", NUMAProfiler.class, "The Class of the Object to be sought after by the NUMAProfiler to start the profiling process. (default: 'AllocationProfilerFlareObject')");
         VMOptions.addFieldOption("-XX:", "NUMAProfilerFlareObjectEnd", NUMAProfiler.class, "The Class of the Object to be sought after by the NUMAProfiler to stop the profiling process. (default: 'AllocationProfilerFlareObject')");
         VMOptions.addFieldOption("-XX:", "NUMAProfilerFlareAllocationThresholds", NUMAProfiler.class,
@@ -590,6 +596,37 @@ public class NUMAProfiler {
         final Pointer etla = ETLA.load(VmThread.currentTLA());
         final AccessesBuffer accBuffer = AccessesBuffer.getForCurrentThread(etla);
         accBuffer.increment(counter, allocatorId);
+    }
+
+    /**
+     * Set writer thread as object's "owner" during a write access when {@link NUMAProfiler#NUMAProfilerLastWriterAsOwner} is enabled.
+     * @param origin
+     */
+    @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
+    @NEVER_INLINE
+    public static void engraveWriterThreadAsOwner(Pointer origin) {
+        final Pointer etla = ETLA.load(VmThread.currentTLA());
+        final int ownerId = THREAD_INVENTORY_KEY.load(etla).toInt();
+
+        LightweightLockword oldMisc = LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(origin)));
+        if (!oldMisc.isInflated()) {
+            if (oldMisc.getAllocatorID() != ownerId) {
+                Layout.writeMisc(origin, LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(origin))).asAllocatedBy(ownerId));
+            }
+        } else {
+            final InflatedMonitorLockword oldMiscInf = InflatedMonitorLockword.from(oldMisc);
+            if (oldMiscInf.isBound()) {
+                final JavaMonitor monitor = oldMiscInf.getBoundMonitor();
+                // get misc word stored in java monitor (before inflation)
+                oldMisc = LightweightLockword.from(monitor.displacedMisc());
+                if (oldMisc.getAllocatorID() != ownerId) {
+                    monitor.setDisplacedMisc(oldMisc.asAllocatedBy(ownerId));
+                }
+            } else {
+                // unbound monitor, do nothing
+                return;
+            }
+        }
     }
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
