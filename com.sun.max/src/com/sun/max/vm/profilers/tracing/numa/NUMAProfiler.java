@@ -648,10 +648,15 @@ public class NUMAProfiler {
         if (miscWord.isInflated()) {
             // get inflated lock word
             final InflatedMonitorLockword inflatedMonitorLockword = InflatedMonitorLockword.from(miscWord);
-            // get java monitor pointed by inflated lock word
-            final JavaMonitor monitor = inflatedMonitorLockword.getBoundMonitor();
-            // get misc word stored in java monitor (before inflation)
-            miscWord = LightweightLockword.from(monitor.displacedMisc());
+            if (inflatedMonitorLockword.isBound()) {
+                // get java monitor pointed by inflated lock word
+                final JavaMonitor monitor = inflatedMonitorLockword.getBoundMonitor();
+                // get misc word stored in java monitor (before inflation)
+                miscWord = LightweightLockword.from(monitor.displacedMisc());
+            } else {
+                // unbound monitor, do nothing
+                return;
+            }
         }
         // get obj's allocator thread id which is encoded in obj's layout misc word
         final int allocatorId = miscWord.getAllocatorID();
