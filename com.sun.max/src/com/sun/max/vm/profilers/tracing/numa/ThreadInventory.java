@@ -19,6 +19,8 @@
  */
 package com.sun.max.vm.profilers.tracing.numa;
 
+import com.sun.max.lang.ISA;
+import com.sun.max.platform.Platform;
 import com.sun.max.unsafe.Address;
 import com.sun.max.unsafe.Pointer;
 import com.sun.max.vm.Intrinsics;
@@ -177,22 +179,24 @@ public class ThreadInventory {
      * format: (threadInventory);start/end;name;type;tid;key;timestamp
      */
     public void logThread(int key, boolean start) {
-        final String phase = start ? startStr : endStr;
-        Log.print("(threadInventory)");
-        Log.print(";");
-        Log.print(NUMAProfiler.profilingCycle);
-        Log.print(";");
-        Log.print(phase);
-        Log.print(";");
-        Log.print(getName(key));
-        Log.print(";");
-        Log.print(getType(key));
-        Log.print(";");
-        Log.print(getTID(key));
-        Log.print(";");
-        Log.print(key);
-        Log.print(";");
-        Log.println(Intrinsics.getTicks());
+        if (Platform.platform().isa == ISA.AMD64) {
+            final String phase = start ? startStr : endStr;
+            Log.print("(threadInventory)");
+            Log.print(";");
+            Log.print(NUMAProfiler.profilingCycle);
+            Log.print(";");
+            Log.print(phase);
+            Log.print(";");
+            Log.print(getName(key));
+            Log.print(";");
+            Log.print(getType(key));
+            Log.print(";");
+            Log.print(getTID(key));
+            Log.print(";");
+            Log.print(key);
+            Log.print(";");
+            Log.println(Intrinsics.getTicks());
+        }
     }
 
     /**
