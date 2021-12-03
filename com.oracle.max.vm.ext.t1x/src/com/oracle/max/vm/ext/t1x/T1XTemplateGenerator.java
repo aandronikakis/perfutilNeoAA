@@ -486,7 +486,7 @@ public class T1XTemplateGenerator {
     public void injectT1XRuntimeNUMAProfilerCall(String method, String object) {
         out.printf("        if (MaxineVM.useNUMAProfiler) {%n");
         out.printf("            Pointer address = Reference.fromJava(%s).toOrigin();%n", object);
-        out.printf("            %s(address.toLong());%n", method);
+        out.printf("            %s(address);%n", method);
         out.printf("        }%n");
     }
 

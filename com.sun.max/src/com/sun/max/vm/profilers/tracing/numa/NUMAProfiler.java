@@ -542,13 +542,19 @@ public class NUMAProfiler {
 
     /**
      * This method is called when a profiled object is allocated.
+     *
+     * @param isArray true if is an array
+     * @param length length of the array
+     * @param size of the profiled object in bytes
+     * @param type object's class
+     * @param cell the cell {@link Pointer} of an object essentially is its address.
      */
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
-    public static void profileNew(boolean isArray, int length, int size, String type, long address) {
+    public static void profileNew(boolean isArray, int length, int size, String type, Pointer cell) {
         final boolean wasDisabled = SafepointPoll.disable();
         if (NUMAProfilerTraceAllocations) {
-            RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla()), RECORD_BUFFER.ALLOCATIONS_BUFFER).profile(size, type, address);
+            RecordBuffer.getForCurrentThread(ETLA.load(VmThread.current().tla()), RECORD_BUFFER.ALLOCATIONS_BUFFER).profile(size, type, cell);
         } else {
             AllocationsCounter.getForCurrentThread(ETLA.load(VmThread.current().tla())).count(isArray, size, length);
         }
@@ -562,15 +568,15 @@ public class NUMAProfiler {
      * A memory access can be either local (a thread running on N numa node accesses an object on N numa node),
      * inter-node (a thread running on N numa node accesses an object on M numa node with both N and M being on the same blade),
      * or inter-blade (a thread running on N numa node accesses an object on Z numa node which is part of another blade).
-     * @param address
+     * @param origin of the object. Might differ per layout but its not a problem since they are only 2-3 words away.
      * @return {@code accessCounterValue} + 0 for LOCAL access, {@code accessCounterValue} + 1 for INTER-NODE access, {@code accessCounterValue} + 2 for INTER-BLADE access (see {@link ACCESS_COUNTER} values)
      *
      */
-    private static int assessAccessLocality(long address, int accessCounterValue) {
+    private static int assessAccessLocality(Pointer origin, int accessCounterValue) {
         // get the Numa Node where the thread which is performing the write is running
         final int threadNumaNode = Intrinsics.getCpuID() >> MaxineIntrinsicIDs.NUMA_NODE_SHIFT;
         // get the Numa Node where the written object is placed
-        final int objectNumaNode = getNumaNodeForAddress(address);
+        final int objectNumaNode = getNumaNodeForAddress(origin);
 
         if (threadNumaNode != objectNumaNode) {
             // get the Blade where the thread Numa Node is located
@@ -629,20 +635,25 @@ public class NUMAProfiler {
         }
     }
 
+    /**
+     * Profile an object access.
+     * @param counter
+     * @param origin instead of cell to obtain the misc word for any layout scheme.
+     */
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
-    public static void profileAccess(ACCESS_COUNTER counter, long address) {
+    public static void profileAccess(ACCESS_COUNTER counter, Pointer origin) {
 
         // if the written object is not part of the data heap
         // TODO: implement some action, currently ignore
-        if (!vm().config.heapScheme().contains(Address.fromLong(address))) {
+        if (!vm().config.heapScheme().contains(origin.asAddress())) {
             return;
         }
 
-        final int accessType = assessAccessLocality(address, counter.value);
+        final int accessType = assessAccessLocality(origin, counter.value);
 
         // get misc word from obj's layout
-        LightweightLockword miscWord = LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(Pointer.fromLong(address))));
+        LightweightLockword miscWord = LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(origin)));
         // handle cases where monitor is inflated
         boolean inf = false;
         if (miscWord.isInflated()) {
@@ -682,11 +693,11 @@ public class NUMAProfiler {
      * Finds the index of the memory page of an address in the heapPages Buffer.
      * It is based on the calculation:
      * pageIndex = (address - firstPageAddress) / pageSize
-     * @param address an address
+     * @param cell cell {@link Pointer} that points to the address
      * @return the memory page index of the address
      */
-    private static int getHeapPagesIndexOfAddress(Address address) {
-        return address.minus(heapStart).dividedBy(numaProfiler.memoryPageSize).toInt();
+    private static int getHeapPagesIndexOfAddress(Pointer cell) {
+        return cell.minus(heapStart).dividedBy(numaProfiler.memoryPageSize).toInt();
     }
 
     @INTRINSIC(UNSAFE_CAST)
@@ -726,7 +737,7 @@ public class NUMAProfiler {
             // Get NUMA node of address using NUMALib
             node = NUMALib.numaNodeOfAddress(currentAddress.toLong());
             // Get the index of the memory page in the heapPages Buffer
-            pageIndex = getHeapPagesIndexOfAddress(currentAddress);
+            pageIndex = getHeapPagesIndexOfAddress(currentAddress.asPointer());
             // Write the NUMA node of the page in the heapPages Buffer
             heapPages.writeNumaNode(pageIndex, node);
 
@@ -754,11 +765,11 @@ public class NUMAProfiler {
      * It might return EFAULT (=-14) in case it is the first hit of the memory page in the current cycle.
      * In that case the system call from NUMALib is called directly and the values are updated.
      *
-     * @param address
+     * @param cell the cell/origin of the object
      * @return physical NUMA node id
      */
-    public static int getNumaNodeForAddress(long address) {
-        int pageIndex = getHeapPagesIndexOfAddress(Address.fromLong(address));
+    public static int getNumaNodeForAddress(Pointer cell) {
+        int pageIndex = getHeapPagesIndexOfAddress(cell);
 
         int objNumaNode = heapPages.readNumaNode(pageIndex);
         // if outdated, use the sys call to get the numa node and update heapPages buffer
@@ -786,13 +797,13 @@ public class NUMAProfiler {
             Log.println(to.bufferName);
         }
         for (int i = 0; i < from.currentIndex; i++) {
-            long address = from.readAddr(i);
+            Pointer address = from.readAddr(i);
 
             if (Heap.isSurvivor(address)) {
                 // update Virtual Address
-                long newAddr = Heap.getForwardedAddress(address);
+                Pointer newAddr = Heap.getForwardedAddress(address);
                 // update NUMA Node
-                int node = NUMALib.numaNodeOfAddress(newAddr);
+                int node = NUMALib.numaNodeOfAddress(newAddr.toLong());
                 //guard survivors RecordBuffer from overflow
                 assert to.currentIndex < to.bufferSize : "Survivor Buffer out of bounds! Increase the Buffer Size.";
                 // write it to Buffer

@@ -485,54 +485,70 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         return slowPathAllocate(size, etla, TLAB_MARK.load(etla), TLAB_TOP.load(etla));
     }
 
+    /**
+     * C1X runtime call to profile a new tuple allocation.
+     */
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")
     @NEVER_INLINE
-    public final void profileNewTuple(int size, Hub hub, Pointer cell) {
+    public final void profileNewTuple(int size, Hub hub, Pointer tupleCell) {
         final String objectType = hub.classActor.name();
-        final long address = cell.toLong();
-        NUMAProfiler.profileNew(false, 0, size, objectType, address);
+        NUMAProfiler.profileNew(false, 0, size, objectType, tupleCell);
     }
 
+    /**
+     * C1X runtime call to profile a new array allocation.
+     */
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")
     @NEVER_INLINE
-    public final void profileNewArray(int length, int size, Hub hub, Pointer cell) {
+    public final void profileNewArray(int length, int size, Hub hub, Pointer arrayCell) {
         final String objectType = hub.classActor.name();
-        final long address = cell.toLong();
-        NUMAProfiler.profileNew(true, length, size, objectType, address);
+        NUMAProfiler.profileNew(true, length, size, objectType, arrayCell);
     }
 
+    /**
+     * C1X runtime call to profile a write tuple access.
+     */
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")
     @NEVER_INLINE
-    public final void profileWriteTuple(Pointer cell) {
-        final long tupleAddress = cell.toLong();
-        NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_TUPLE_WRITE, tupleAddress);
+    public final void profileWriteTuple(Pointer tupleCell) {
+        final Pointer origin = Layout.tupleCellToOrigin(tupleCell);
+        NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_TUPLE_WRITE, origin);
         if (NUMAProfiler.NUMAProfilerLastWriterAsOwner) {
-            NUMAProfiler.engraveWriterThreadAsOwner(Layout.tupleCellToOrigin(cell));
+            NUMAProfiler.engraveWriterThreadAsOwner(origin);
         }
     }
 
+    /**
+     * C1X runtime call to profile a write array access.
+     */
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")
     @NEVER_INLINE
     public final void profileWriteArray(Pointer arrayCell) {
-        final long arrayAddress = arrayCell.toLong();
-        NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_ARRAY_WRITE, arrayAddress);
+        final Pointer origin = Layout.arrayCellToOrigin(arrayCell);
+        NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_ARRAY_WRITE, origin);
         if (NUMAProfiler.NUMAProfilerLastWriterAsOwner) {
-            NUMAProfiler.engraveWriterThreadAsOwner(Layout.arrayCellToOrigin(arrayCell));
+            NUMAProfiler.engraveWriterThreadAsOwner(origin);
         }
     }
 
+    /**
+     * C1X runtime call to profile a read tuple access.
+     */
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")
     @NEVER_INLINE
-    public final void profileReadTuple(Pointer cell) {
-        final long tupleAddress = cell.toLong();
-        NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_TUPLE_READ, tupleAddress);
+    public final void profileReadTuple(Pointer tupleCell) {
+        final Pointer origin = Layout.tupleCellToOrigin(tupleCell);
+        NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_TUPLE_READ, origin);
     }
 
+    /**
+     * C1X runtime call to profile a read array access.
+     */
     @NO_SAFEPOINT_POLLS("dynamic profiler call chain must be atomic")
     @NEVER_INLINE
     public final void profileReadArray(Pointer arrayCell) {
-        final long arrayAddress = arrayCell.toLong();
-        NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_ARRAY_READ, arrayAddress);
+        final Pointer origin = Layout.arrayCellToOrigin(arrayCell);
+        NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_ARRAY_READ, origin);
     }
 
     /**
@@ -587,8 +603,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         engraveAllocatorId(cell, THREAD_INVENTORY_KEY.load(VmThread.current().tla()).toInt());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = dynamicHub.classActor.name();
-            final long address = cell.toLong();
-            NUMAProfiler.profileNew(true, length, size.toInt(), objectType, address);
+            NUMAProfiler.profileNew(true, length, size.toInt(), objectType, cell);
         }
         return Cell.plantArray(cell, size, dynamicHub, length);
     }
@@ -607,8 +622,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
             engraveAllocatorId(cell, THREAD_INVENTORY_KEY.load(VmThread.current().tla()).toInt());
             if (NUMAProfiler.shouldProfile()) {
                 final String objectType = hub.classActor.name();
-                final long address = cell.toLong();
-                NUMAProfiler.profileNew(false, 0, hub.tupleSize.toInt(), objectType, address);
+                NUMAProfiler.profileNew(false, 0, hub.tupleSize.toInt(), objectType, cell);
             }
             return initializedTuple;
         }
@@ -623,8 +637,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         engraveAllocatorId(cell, THREAD_INVENTORY_KEY.load(VmThread.current().tla()).toInt());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
-            final long address = cell.toLong();
-            NUMAProfiler.profileNew(false, 0, size.toInt(), objectType, address);
+            NUMAProfiler.profileNew(false, 0, size.toInt(), objectType, cell);
         }
         return Cell.plantHybrid(cell, size, hub);
     }
@@ -652,8 +665,7 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         engraveAllocatorId(cell, THREAD_INVENTORY_KEY.load(VmThread.current().tla()).toInt());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
-            final long address = cell.toLong();
-            NUMAProfiler.profileNew(false, 0, size.toInt(), objectType, address);
+            NUMAProfiler.profileNew(false, 0, size.toInt(), objectType, cell);
         }
     }
 

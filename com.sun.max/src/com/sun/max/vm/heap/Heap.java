@@ -646,9 +646,8 @@ public final class Heap {
      * @param address
      * @return true if the object is in the Heap
      */
-    public static boolean isSurvivor(long address) {
-        Pointer origin = Address.fromLong(address).asPointer();
-        final Reference forwardRef = Layout.readForwardRef(origin);
+    public static boolean isSurvivor(Pointer address) {
+        final Reference forwardRef = Layout.readForwardRef(address);
 
         return !forwardRef.isZero();
     }
@@ -658,10 +657,9 @@ public final class Heap {
      * @param address
      * @return
      */
-    public static long getForwardedAddress(long address) {
-        Pointer cell = Address.fromLong(address).asPointer();
-        final Reference forwardRef = Layout.readForwardRef(cell);
-        return forwardRef.toOrigin().toLong();
+    public static Pointer getForwardedAddress(Pointer address) {
+        final Reference forwardRef = Layout.readForwardRef(address);
+        return forwardRef.toOrigin();
     }
 
     /*

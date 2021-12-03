@@ -30,6 +30,7 @@ import com.sun.max.memory.VirtualMemory;
 import com.sun.max.platform.Platform;
 import com.sun.max.unsafe.Pointer;
 import com.sun.max.unsafe.Size;
+import com.sun.max.unsafe.Word;
 import com.sun.max.util.NUMALib;
 import com.sun.max.vm.Intrinsics;
 import com.sun.max.vm.Log;
@@ -100,7 +101,7 @@ public class RecordBuffer extends ProfilingArtifact{
 
         types = allocateStringArrayOffHeap(bufSize);
         sizes = allocateIntArrayOffHeap(bufSize);
-        addresses = allocateLongArrayOffHeap(bufSize);
+        addresses = allocateWordArrayOffHeap(bufSize);
         nodes = allocateIntArrayOffHeap(bufSize);
         threadKeyIds = allocateIntArrayOffHeap(bufSize);
         timestamps = allocateLongArrayOffHeap(bufSize);
@@ -130,6 +131,10 @@ public class RecordBuffer extends ProfilingArtifact{
         return VirtualMemory.allocate(Size.fromInt(size).times(Long.BYTES), VirtualMemory.Type.DATA);
     }
 
+    private Pointer allocateWordArrayOffHeap(int size) {
+        return VirtualMemory.allocate(Size.fromInt(size).times(Word.size()), VirtualMemory.Type.DATA);
+    }
+
     private Pointer allocateStringArrayOffHeap(int size) {
         Pointer space = VirtualMemory.allocate(Size.fromInt(size).times(MAX_CHARS).times(Character.BYTES),
                 VirtualMemory.Type.DATA);
@@ -144,9 +149,10 @@ public class RecordBuffer extends ProfilingArtifact{
     void deallocateArtifact() {
         final Size intSize = Size.fromInt(bufferSize).times(Integer.BYTES);
         final Size longSize = Size.fromInt(bufferSize).times(Long.BYTES);
+        final Size wordSize = Size.fromInt(Word.size());
         VirtualMemory.deallocate(types.asAddress(), Size.fromLong(bufferSize).times(MAX_CHARS).times(Character.BYTES), VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(sizes.asAddress(), intSize, VirtualMemory.Type.DATA);
-        VirtualMemory.deallocate(addresses.asAddress(), longSize, VirtualMemory.Type.DATA);
+        VirtualMemory.deallocate(addresses.asAddress(), wordSize, VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(nodes.asAddress(), intSize, VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(threadKeyIds.asAddress(), intSize, VirtualMemory.Type.DATA);
         VirtualMemory.deallocate(timestamps.asAddress(), longSize, VirtualMemory.Type.DATA);
@@ -193,8 +199,8 @@ public class RecordBuffer extends ProfilingArtifact{
         return readInt(sizes, index);
     }
 
-    long readAddr(int index) {
-        return readLong(addresses, index);
+    Pointer readAddr(int index) {
+        return readWord(addresses, index);
     }
 
     void writeNode(int index, int value) {
@@ -209,6 +215,10 @@ public class RecordBuffer extends ProfilingArtifact{
         pointer.setLong(index, value);
     }
 
+    private void writeWord(Pointer pointer, int index, Pointer value) {
+        pointer.setWord(index, value);
+    }
+
     private int readInt(Pointer pointer, int index) {
         return pointer.getInt(index);
     }
@@ -217,13 +227,17 @@ public class RecordBuffer extends ProfilingArtifact{
         return pointer.getLong(index);
     }
 
+    private Pointer readWord(Pointer pointer, int index) {
+        return pointer.getWord(index).asPointer();
+    }
+
     int readThreadKeyId(int index) {
         return readInt(threadKeyIds, index);
     }
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
-    public void record(int threadKeyId, char[] type, int size, long address, int node) {
+    public void record(int threadKeyId, char[] type, int size, Pointer cell, int node) {
         if (Platform.platform().isa != ISA.AMD64) {
             throw FatalError.unimplemented("RecordBuffer.record");
         }
@@ -234,14 +248,14 @@ public class RecordBuffer extends ProfilingArtifact{
         writeInt(threadKeyIds, currentIndex, threadKeyId);
         writeType(currentIndex, type);
         writeInt(sizes, currentIndex, size);
-        writeLong(addresses, currentIndex, address);
+        writeWord(addresses, currentIndex, cell);
         writeNode(currentIndex, node);
         currentIndex++;
     }
 
     @NO_SAFEPOINT_POLLS("numa profiler call chain must be atomic")
     @NEVER_INLINE
-    public void profile(int size, String type, long address) {
+    public void profile(int size, String type, Pointer cell) {
         //guard RecordBuffer from overflow
         assert currentIndex < bufferSize : "Allocations Buffer out of bounds. Increase the Buffer Size.";
 
@@ -249,10 +263,10 @@ public class RecordBuffer extends ProfilingArtifact{
         final int threadKeyId = THREAD_INVENTORY_KEY.load(VmThread.currentTLA()).toInt();
 
         //get the NUMA node where the object is physically placed
-        final int numaNode = getNumaNodeForAddress(address);
-        assert numaNode == NUMALib.numaNodeOfAddress(address);
+        final int numaNode = getNumaNodeForAddress(cell);
+        assert numaNode == NUMALib.numaNodeOfAddress(cell.toLong());
 
-        record(threadKeyId, JDK_java_lang_String.getCharArray(type), size, address, numaNode);
+        record(threadKeyId, JDK_java_lang_String.getCharArray(type), size, cell, numaNode);
     }
 
     @Override

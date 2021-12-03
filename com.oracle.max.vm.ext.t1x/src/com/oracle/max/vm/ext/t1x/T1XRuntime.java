@@ -174,7 +174,7 @@ public class T1XRuntime {
         int ongoing = NUMAProfiler.PROFILING_STATE.ONGOING.getValue();
         // if PROFILER_STATE is ENABLED do profile and set PROFILER_STATE to ONGOING
         if (VmThreadLocal.PROFILER_STATE.compareAndSwap(tla, enabled, ongoing) == enabled) {
-            NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_TUPLE_WRITE, origin.toLong());
+            NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_TUPLE_WRITE, origin);
             if (NUMAProfiler.NUMAProfilerLastWriterAsOwner) {
                 NUMAProfiler.engraveWriterThreadAsOwner(origin);
             }
@@ -190,7 +190,7 @@ public class T1XRuntime {
         int ongoing = NUMAProfiler.PROFILING_STATE.ONGOING.getValue();
         // if PROFILER_STATE is ENABLED do profile and set PROFILER_STATE to ONGOING
         if (VmThreadLocal.PROFILER_STATE.compareAndSwap(tla, enabled, ongoing) == enabled) {
-            NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_ARRAY_WRITE, origin.toLong());
+            NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_ARRAY_WRITE, origin);
             if (NUMAProfiler.NUMAProfilerLastWriterAsOwner) {
                 NUMAProfiler.engraveWriterThreadAsOwner(origin);
             }
@@ -206,7 +206,7 @@ public class T1XRuntime {
         int ongoing = NUMAProfiler.PROFILING_STATE.ONGOING.getValue();
         // if PROFILER_STATE is ENABLED do profile and set PROFILER_STATE to ONGOING
         if (VmThreadLocal.PROFILER_STATE.compareAndSwap(tla, enabled, ongoing) == enabled) {
-            NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_TUPLE_READ, origin.toLong());
+            NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_TUPLE_READ, origin);
             // set PROFILER_STATE back to ENABLED
             VmThreadLocal.PROFILER_STATE.compareAndSwap(tla, ongoing, enabled);
         }
@@ -219,7 +219,7 @@ public class T1XRuntime {
         int ongoing = NUMAProfiler.PROFILING_STATE.ONGOING.getValue();
         // if PROFILER_STATE is ENABLED do profile and set PROFILER_STATE to ONGOING
         if (VmThreadLocal.PROFILER_STATE.compareAndSwap(tla, enabled, ongoing) == enabled) {
-            NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_ARRAY_READ, origin.toLong());
+            NUMAProfiler.profileAccess(NUMAProfiler.ACCESS_COUNTER.LOCAL_ARRAY_READ, origin);
             // set PROFILER_STATE back to ENABLED
             VmThreadLocal.PROFILER_STATE.compareAndSwap(tla, ongoing, enabled);
         }
