@@ -58,6 +58,13 @@ public class LightweightLockword extends HashableLockword {
      *     [r. count][util][alloc ID][thread ID][hash][m][0]     Lightweight
      *     [                 Undefined               ][m][1]     Inflated
      *
+     * Field layout for 64 bit with NUMAProfiler and Recursive Threads Support in the boot image:
+     *
+     * bit [63.....59....50........41.........34.....2  1 0]     Shape
+     *
+     *     [r. count][util][alloc ID][thread ID][hash][m][0]     Lightweight
+     *     [                 Undefined               ][m][1]     Inflated
+     *
      *
      * Field layout for 32 bit:
      *
@@ -97,6 +104,20 @@ public class LightweightLockword extends HashableLockword {
     static {
         if (Platform.target().arch.is64bit()) {
             assert NUM_BITS == RCOUNT_FIELD_WIDTH + UTIL_FIELD_WIDTH + ALLOCATORID_FIELD_WIDTH + THREADID_FIELD_WIDTH + HASH_FIELD_WIDTH + NUMBER_OF_MODE_BITS;
+
+            // AllocatorId Checks (executed during bootimage creation)
+            if (MaxineVM.useNUMAProfiler) {
+                final Word allOnes = Word.allOnes();
+                final Word allZeros = Word.zero();
+                final int maxAllocId = (1 << ALLOCATORID_FIELD_WIDTH) - 1;
+                if (MaxineVM.recursiveThreadInstancesSupport) {
+                    assert LightweightLockword.from(allOnes).asAllocatedBy(0).to0xHexString().equals("0xfffc01ffffffffff");
+                    assert LightweightLockword.from(allZeros).asAllocatedBy(maxAllocId).to0xHexString().equals("0x3fe0000000000");
+                } else {
+                    assert LightweightLockword.from(allOnes).asAllocatedBy(0).to0xHexString().equals("0xfffc03ffffffffff");
+                    assert LightweightLockword.from(allZeros).asAllocatedBy(maxAllocId).to0xHexString().equals("0x3fc0000000000");
+                }
+            }
         } else {
             assert NUM_BITS == RCOUNT_FIELD_WIDTH + UTIL_FIELD_WIDTH + ALLOCATORID_FIELD_WIDTH + THREADID_FIELD_WIDTH + NUMBER_OF_MODE_BITS;
         }
