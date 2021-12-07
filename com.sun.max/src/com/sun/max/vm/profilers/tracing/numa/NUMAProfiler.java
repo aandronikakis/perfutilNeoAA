@@ -614,10 +614,13 @@ public class NUMAProfiler {
         final Pointer etla = ETLA.load(VmThread.currentTLA());
         final int ownerId = THREAD_INVENTORY_KEY.load(etla).toInt();
 
+        assert ownerId < (1 << LightweightLockword.ALLOCATORID_FIELD_WIDTH);
+
         LightweightLockword oldMisc = LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(origin)));
         if (!oldMisc.isInflated()) {
             if (oldMisc.getAllocatorID() != ownerId) {
-                Layout.writeMisc(origin, LightweightLockword.from(Layout.readMisc(Reference.fromOrigin(origin))).asAllocatedBy(ownerId));
+                final LightweightLockword newMisc = oldMisc.asAllocatedBy(ownerId);
+                Layout.compareAndSwapMisc(Reference.fromOrigin(origin), oldMisc, newMisc);
             }
         } else {
             final InflatedMonitorLockword oldMiscInf = InflatedMonitorLockword.from(oldMisc);
@@ -626,7 +629,8 @@ public class NUMAProfiler {
                 // get misc word stored in java monitor (before inflation)
                 oldMisc = LightweightLockword.from(monitor.displacedMisc());
                 if (oldMisc.getAllocatorID() != ownerId) {
-                    monitor.setDisplacedMisc(oldMisc.asAllocatedBy(ownerId));
+                    final LightweightLockword newMisc = oldMisc.asAllocatedBy(ownerId);
+                    monitor.compareAndSwapDisplacedMisc(oldMisc, newMisc);
                 }
             } else {
                 // unbound monitor, do nothing
