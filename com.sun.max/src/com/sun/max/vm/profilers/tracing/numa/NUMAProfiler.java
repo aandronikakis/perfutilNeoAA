@@ -432,9 +432,12 @@ public class NUMAProfiler {
         if (NUMAProfilerVerbose) {
             Log.print("[VerboseMsg @ NUMAProfiler.onVmThreadExit()]: Thread ");
             Log.print(VmThread.fromTLA(tla).getName());
-            Log.print(" with tid ");
+            Log.print(", tid = ");
             Log.print(VmThread.fromTLA(tla).tid());
-            Log.println(" is exiting.");
+            Log.print(", key = ");
+            Log.print(THREAD_INVENTORY_KEY.load(etla).toInt());
+            Log.print(", active threads = ");
+            Log.println(VmThreadMap.getLiveTheadCount());
         }
         final boolean isThreadActivelyProfiled = NUMAProfiler.isProfilingEnabledPredicate.evaluate(etla);
         if (isThreadActivelyProfiled) {
@@ -1169,8 +1172,12 @@ public class NUMAProfiler {
             if (NUMAProfilerVerbose) {
                 Log.print("[VerboseMsg @ Procedure initTLAC.run()]: New Allocations Counter for thread ");
                 Log.print(VmThread.fromTLA(tla).getName());
-                Log.print(" with tid ");
-                Log.println(VmThread.fromTLA(tla).tid());
+                Log.print(", tid = ");
+                Log.print(VmThread.fromTLA(tla).tid());
+                Log.print(", key = ");
+                Log.print(THREAD_INVENTORY_KEY.load(etla).toInt());
+                Log.print(", active threads = ");
+                Log.println(VmThreadMap.getLiveTheadCount());
             }
             AllocationsCounter.setForCurrentThread(tla, allocationsCounter);
         }

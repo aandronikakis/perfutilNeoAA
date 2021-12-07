@@ -29,6 +29,7 @@ import com.sun.max.vm.monitor.modal.modehandlers.lightweight.LightweightLockword
 import com.sun.max.vm.runtime.FatalError;
 import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadLocal;
+import com.sun.max.vm.thread.VmThreadMap;
 
 import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.getNUMAProfilerPrintOutput;
 import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.getNUMAProfilerVerbose;
@@ -40,7 +41,7 @@ import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.getNUMAProfiler
  *
  * {@code ThreadNameInventory} is a workaround in uniquely identifying a Java Application Thread to support
  * object access profiling per thread in the context of {@link NUMAProfiler}.
- * It essentially maps each {@link VmThread} instance with a unique "key" which is kept in {@link VmThreadLocal#THREAD_NAME_KEY}.
+ * It essentially maps each {@link VmThread} instance with a unique "key" which is kept in {@link VmThreadLocal#THREAD_INVENTORY_KEY}.
  * It is also used as the {@link LightweightLockword} AllocId value in each object's misc word
  * to indicate the {@link VmThread} instance that allocated the object.
  *
@@ -52,7 +53,7 @@ import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.getNUMAProfiler
  * Accesses to those objects are highlighted as "Unknown" and reserve the position 0 of the arrays.
  *
  * See also:    {@link LightweightLockword}
- *              {@link VmThreadLocal#THREAD_NAME_KEY}
+ *              {@link VmThreadLocal#THREAD_INVENTORY_KEY}
  */
 public class ThreadInventory {
 
@@ -99,7 +100,7 @@ public class ThreadInventory {
         elements = 1;
 
         // Prepare String objs in case they are needed when allocations are disabled
-        fatalErrorMessage = "NUMAProfiler does not support profiling of more than " + ((1 << LightweightLockword.THREADID_FIELD_WIDTH) - 1) + " threads simultaneously (check \"recursive-threads\" BootImageGenerator option).";
+        fatalErrorMessage = "NUMAProfiler does not support profiling of more than " + ((1 << LightweightLockword.ALLOCATORID_FIELD_WIDTH) - 1) + " threads simultaneously (check \"recursive-threads\" BootImageGenerator option).";
         startStr = "start";
         endStr = "end";
     }
@@ -144,6 +145,16 @@ public class ThreadInventory {
         int tid = thread.tid();
 
         key = nextAvailableKey(tid);
+        if (verbose) {
+            Log.print("Add to inventory: ");
+            Log.print(VmThread.fromTLA(tla).getName());
+            Log.print(", tid = ");
+            Log.print(VmThread.fromTLA(tla).tid());
+            Log.print(", key = ");
+            Log.print(key);
+            Log.print(", active threads = ");
+            Log.println(VmThreadMap.getLiveTheadCount());
+        }
         // write THREAD_NAME_KEY where key points, add to inventory, return key to update threadNameKey in ProfilingArtifact
         VmThreadLocal.THREAD_INVENTORY_KEY.store3(tla, Address.fromInt(key));
         threadName[key] = name;
@@ -218,7 +229,7 @@ public class ThreadInventory {
 
     /**
      * Get all attributes of a thread instance in the inventory only by key.
-     * @param key should correspond to a {@link VmThreadLocal#THREAD_NAME_KEY} value.
+     * @param key should correspond to a {@link VmThreadLocal#THREAD_INVENTORY_KEY} value.
      */
     public static String getName(int key) {
         return threadName[key];

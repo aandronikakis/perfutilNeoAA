@@ -26,7 +26,9 @@ import com.sun.max.annotate.NO_SAFEPOINT_POLLS;
 import com.sun.max.unsafe.Pointer;
 import com.sun.max.vm.Log;
 import com.sun.max.vm.reference.Reference;
+import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadLocal;
+import com.sun.max.vm.thread.VmThreadMap;
 
 import static com.sun.max.vm.heap.Heap.isAllocationDisabledForCurrentThread;
 import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.UNSAFE_CAST;
@@ -179,6 +181,16 @@ public class AllocationsCounter extends ProfilingArtifact{
             // if not yet initialized, do it here if is allowed
             if (!isAllocationDisabledForCurrentThread()) {
                 final AllocationsCounter allocationsCounter = new AllocationsCounter(THREAD_INVENTORY_KEY.load(etla).toInt());
+                if (allocationsCounter.verbose) {
+                    Log.print("New allocations counter from getForCurrentThread(): ");
+                    Log.print(VmThread.fromTLA(etla).getName());
+                    Log.print(" ");
+                    Log.print(VmThread.fromTLA(etla).tid());
+                    Log.print(" ");
+                    Log.print(THREAD_INVENTORY_KEY.load(etla).toInt());
+                    Log.print(" active=");
+                    Log.println(VmThreadMap.getLiveTheadCount());
+                }
                 AllocationsCounter.setForCurrentThread(etla, allocationsCounter);
                 return allocationsCounter;
             } else {
