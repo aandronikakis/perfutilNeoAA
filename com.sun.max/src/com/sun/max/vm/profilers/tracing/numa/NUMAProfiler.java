@@ -404,9 +404,9 @@ public class NUMAProfiler {
             Log.println(" is starting.");
         }
         if (!isTerminating) {
+            // Add thread in Thread Inventory and Log
+            threadInventory.add(etla);
             if (isExplicitGCPolicyConditionTrue() || isFlareObjectPolicyConditionTrue()) {
-                // Add thread in Thread Inventory and Log
-                threadInventory.add(etla);
                 // Enable profiling for thread
                 PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
             }
@@ -439,13 +439,13 @@ public class NUMAProfiler {
             Log.print(", active threads = ");
             Log.println(VmThreadMap.getLiveTheadCount());
         }
+        final int threadKey = THREAD_INVENTORY_KEY.load(etla).toInt();
+        if (NUMAProfilerPrintOutput) {
+            // log thread exit
+            threadInventory.logThread(threadKey, false);
+        }
         final boolean isThreadActivelyProfiled = NUMAProfiler.isProfilingEnabledPredicate.evaluate(etla);
         if (isThreadActivelyProfiled) {
-            int threadKey = THREAD_INVENTORY_KEY.load(etla).toInt();
-            if (NUMAProfilerPrintOutput) {
-                // log thread exit
-                threadInventory.logThread(threadKey, false);
-            }
             PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
             if (NUMAProfilerPrintOutput) {
                 // store the RecordBuffer or AllocCounter Reference into the proper queue to be accessed after the thread's termination
@@ -988,6 +988,12 @@ public class NUMAProfiler {
 
         checkAndUpdateProfilingState();
 
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Profiling Thread Names of Live Threads. [post-GC phase]");
+        }
+        // Add the so far live threads to inventory
+        addLiveThreadsToInventory();
+
         if (explicitGCProflingEnabled) {
             if (NUMAProfilerVerbose) {
                 Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Leaving Post-GC Phase.");
@@ -998,12 +1004,6 @@ public class NUMAProfiler {
                 Log.print(", iteration = ");
                 Log.println(iteration);
             }
-
-            if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Profiling Thread Names of Live Threads. [post-GC phase]");
-            }
-            // Add the so far live threads to inventory
-            addLiveThreadsToInventory();
         } else {
             if (NUMAProfilerVerbose) {
                 Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Leaving Post-GC Phase.");
@@ -1023,7 +1023,18 @@ public class NUMAProfiler {
             Log.println("[VerboseMsg @ NUMAProfiler.postGCMinimumActions()]: Entering [Minimum] Post-GC Phase.");
         }
 
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Update Thread Inventory. [post-gc phase]");
+        }
+        updateThreadInventory();
+
         checkAndUpdateProfilingState();
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Profiling Thread Names of Live Threads. [minimum post-GC phase]");
+        }
+        // Add the so far live threads to inventory
+        addLiveThreadsToInventory();
 
         if (explicitGCProflingEnabled) {
             if (NUMAProfilerVerbose) {
@@ -1035,12 +1046,6 @@ public class NUMAProfiler {
                 Log.print(", iteration = ");
                 Log.println(iteration);
             }
-
-            if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postGCActions()]: Print Profiling Thread Names of Live Threads. [minimum post-GC phase]");
-            }
-            // Add the so far live threads to inventory
-            addLiveThreadsToInventory();
 
         } else {
             if (NUMAProfilerVerbose) {

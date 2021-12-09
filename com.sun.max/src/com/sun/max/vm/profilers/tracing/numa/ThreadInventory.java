@@ -31,6 +31,7 @@ import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadLocal;
 import com.sun.max.vm.thread.VmThreadMap;
 
+import static com.sun.max.vm.heap.Heap.isAllocationDisabledForCurrentThread;
 import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.getNUMAProfilerPrintOutput;
 import static com.sun.max.vm.profilers.tracing.numa.NUMAProfiler.getNUMAProfilerVerbose;
 
@@ -96,6 +97,14 @@ public class ThreadInventory {
         threadType[0] = "Unknown";
         osTid[0] = 0;
         isLive[0] = true;
+
+        // main thread adds itself
+        final VmThread mainThread = VmThread.current();
+        threadName[1] = mainThread.getName();
+        threadType[1] = mainThread.javaThread().getClass().getName();
+        osTid[1] = mainThread.tid();
+        isLive[1] = true;
+        VmThreadLocal.THREAD_INVENTORY_KEY.store3(mainThread.tla(), Address.fromInt(1));
 
         elements = 1;
 
@@ -164,7 +173,8 @@ public class ThreadInventory {
 
         elements++;
 
-        if (getNUMAProfilerPrintOutput()) {
+        // do not print for live threads
+        if (getNUMAProfilerPrintOutput() && !isAllocationDisabledForCurrentThread()) {
             logThread(key, true);
         }
 
