@@ -27,7 +27,9 @@ import static com.sun.max.vm.intrinsics.MaxineIntrinsicIDs.*;
 import static com.sun.max.vm.thread.VmThreadLocal.*;
 
 import com.sun.max.annotate.*;
+import com.sun.max.lang.ISA;
 import com.sun.max.memory.*;
+import com.sun.max.platform.Platform;
 import com.sun.max.program.*;
 import com.sun.max.unsafe.*;
 import com.sun.max.util.*;
@@ -863,6 +865,10 @@ public class NUMAProfiler {
             Log.println(iteration);
         }
 
+        if (NUMAProfilerPrintOutput) {
+            logGC(true);
+        }
+
         // guard libnuma sys call usages during implicit GCs
         // find numa nodes for all pages in the GC exactly before the first profiling cycle
         if (isExplicitGC && iteration >= NUMAProfiler.NUMAProfilerExplicitGCThreshold - 1) {
@@ -879,6 +885,29 @@ public class NUMAProfiler {
     }
 
     /**
+     * ISA-guarded wrapper of {@link Intrinsics#getTicks()}.
+     */
+    public static long getCPUTicks() {
+        if (Platform.platform().isa == ISA.AMD64) {
+            return Intrinsics.getTicks();
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Logs GC start/end with timestamps into NUMAProfiler's output.
+     */
+    public void logGC(boolean start) {
+        if (start) {
+            Log.print("(GC);start;");
+        } else {
+            Log.print("(GC);end;");
+        }
+        Log.println(getCPUTicks());
+    }
+
+    /**
      * A minimum/short version of {@linkplain #preGCActions()} to be called when profiling is disabled.
      */
     void preGCMinimumActions() {
@@ -888,6 +917,9 @@ public class NUMAProfiler {
             Log.print(profilingCycle);
             Log.print(" Iteration = ");
             Log.println(iteration);
+        }
+        if (NUMAProfilerPrintOutput) {
+            logGC(true);
         }
         // guard libnuma sys call usages during implicit GCs
         // find numa nodes for all pages in the GC exactly before the first profiling cycle
@@ -1013,6 +1045,10 @@ public class NUMAProfiler {
             }
         }
 
+        if (NUMAProfilerPrintOutput) {
+            logGC(false);
+        }
+
     }
 
     /**
@@ -1054,6 +1090,10 @@ public class NUMAProfiler {
                 Log.print(", iteration = ");
                 Log.println(iteration);
             }
+        }
+
+        if (NUMAProfilerPrintOutput) {
+            logGC(false);
         }
     }
 

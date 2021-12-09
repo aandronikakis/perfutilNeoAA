@@ -200,24 +200,22 @@ public class ThreadInventory {
      * format: (threadInventory);start/end;name;type;tid;key;timestamp
      */
     public void logThread(int key, boolean start) {
-        if (Platform.platform().isa == ISA.AMD64) {
-            final String phase = start ? startStr : endStr;
-            Log.print("(threadInventory)");
-            Log.print(";");
-            Log.print(NUMAProfiler.profilingCycle);
-            Log.print(";");
-            Log.print(phase);
-            Log.print(";");
-            Log.print(getName(key));
-            Log.print(";");
-            Log.print(getType(key));
-            Log.print(";");
-            Log.print(getTID(key));
-            Log.print(";");
-            Log.print(key);
-            Log.print(";");
-            Log.println(Intrinsics.getTicks());
-        }
+        final String phase = start ? startStr : endStr;
+        Log.print("(threadInventory)");
+        Log.print(";");
+        Log.print(NUMAProfiler.profilingCycle);
+        Log.print(";");
+        Log.print(phase);
+        Log.print(";");
+        Log.print(getName(key));
+        Log.print(";");
+        Log.print(getType(key));
+        Log.print(";");
+        Log.print(getTID(key));
+        Log.print(";");
+        Log.print(key);
+        Log.print(";");
+        Log.println(NUMAProfiler.getCPUTicks());
     }
 
     /**
