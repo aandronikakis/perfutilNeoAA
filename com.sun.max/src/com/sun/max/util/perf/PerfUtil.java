@@ -458,6 +458,7 @@ public class PerfUtil {
 
     static {
         VMOptions.addFieldOption("-XX:", "LogPerf", PerfUtil.class, "Verbose perfUtil output. (default: false)", MaxineVM.Phase.PRISTINE);
+        VMOptions.addFieldOption("-XX:", "PerfGroup", PerfUtil.class, "Choose between the following PerfEventGroups: sw_CacheAccesses_IMCs, cacheMisses, nodePrefetches or nodeMisses. (default: 'cacheMisses')");
     }
 
     //public static boolean logPerf = PerfUtil.LogPerf;
