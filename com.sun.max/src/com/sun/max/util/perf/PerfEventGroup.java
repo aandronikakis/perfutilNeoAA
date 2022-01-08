@@ -93,6 +93,9 @@ public class PerfEventGroup {
             case NODE_MISSES_GROUP:
                 createNodeMissesGroup();
                 break;
+            case NODE_PREFETCHES_GROUP:
+                createNodePrefetchesGroup();
+                break;
             case UNCORE_IMC_0_CPU_0_GROUP:
                 createUncoreiMC0GroupCPU0();
                 break;
@@ -129,17 +132,17 @@ public class PerfEventGroup {
             case BRANCH_MISSES_SINGLE:
                 createBranchMissesGroup();
                 break;
-            case DTLB_READS_SINGLE:
-                createDTLBReadsSingle();
+            case LLC_READS_SINGLE:
+                createLLCReadsSingle();
                 break;
-            case DTLB_WRITES_SINGLE:
-                createDTLBWritesSingle();
+            case LLC_WRITES_SINGLE:
+                createLLCWritesSingle();
                 break;
-            case DTLB_READ_MISSES_SINGLE:
-                createDTLBReadMissesSingle();
+            case LLC_READ_MISSES_SINGLE:
+                createLLCReadMissesSingle();
                 break;
-            case DTLB_WRITE_MISSES_SINGLE:
-                createDTLBWriteMissesSingle();
+            case LLC_WRITE_MISSES_SINGLE:
+                createLLCWriteMissesSingle();
                 break;
             case L1D_READS_SINGLE:
                 createL1DReadsSingle();
@@ -153,17 +156,17 @@ public class PerfEventGroup {
             case L1D_WRITE_MISSES_SINGLE:
                 createL1DWriteMissesSingle();
                 break;
-            case LLC_READS_SINGLE:
-                createLLCReadsSingle();
+            case L1I_READS_SINGLE:
+                createL1IReadsSingle();
                 break;
-            case LLC_WRITES_SINGLE:
-                createLLCWritesSingle();
+            case L1D_PREFETCHES_SINGLE:
+                createL1DPrefetchesSingle();
                 break;
-            case LLC_READ_MISSES_SINGLE:
-                createLLCReadMissesSingle();
+            case L1I_READ_MISSES_SINGLE:
+                createL1IReadMissesSingle();
                 break;
-            case LLC_WRITE_MISSES_SINGLE:
-                createLLCWriteMissesSingle();
+            case L1D_PREFETCH_MISSES_SINGLE:
+                createL1DPrefetchMissesSingle();
                 break;
             case NODE_READ_MISSES_SINGLE:
                 createNodeReadMissesSingle();
@@ -171,13 +174,13 @@ public class PerfEventGroup {
             case NODE_WRITE_MISSES_SINGLE:
                 createNodeWriteMissesSingle();
                 break;
-            case LLC_PREFETCH_SINGLE:
+            case LLC_PREFETCHES_SINGLE:
                 createLLCPrefetchSingle();
                 break;
             case LLC_PREFETCH_MISSES_SINGLE:
                 createLLCPrefetchMissesSingle();
                 break;
-            case NODE_PREFETCH_SINGLE:
+            case NODE_PREFETCHES_SINGLE:
                 createNodePrefetchSingle();
                 break;
             case NODE_PREFETCH_MISSES_SINGLE:
@@ -478,6 +481,200 @@ public class PerfEventGroup {
         perfEvents[2] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_READ_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_NODE_READ_MISS.value, thread, tid, core, groupLeaderId);
         perfEvents[3] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_WRITE_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_NODE_WRITE_MISS.value, thread, tid, core, groupLeaderId);
     }
+
+    public void createNodePrefetchesGroup() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCHES_GROUP;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CPU_CYCLES.value, groupId.value);
+        numOfEvents = 4;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CPU_CYCLES, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_CPU_CYCLES.value, thread, tid, core, groupLeaderId);
+        perfEvents[1] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_INSTRUCTIONS, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_INSTRUCTIONS.value, thread, tid, core, groupLeaderId);
+        perfEvents[2] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_PREFETCHES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_NODE_PREFETCH.value, thread, tid, core, groupLeaderId);
+        perfEvents[3] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_PREFETCH_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_NODE_PREFETCH_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createCyclesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.CPU_CYCLES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CPU_CYCLES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CPU_CYCLES, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_CPU_CYCLES.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createInstructionsSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.INSTRUCTIONS_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_INSTRUCTIONS.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_INSTRUCTIONS, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_INSTRUCTIONS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createBranchInstructionsGroup() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.BRANCH_INSTRUCTIONS_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_BRANCH_INSTRUCTIONS.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_BRANCH_INSTRUCTIONS, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_BRANCH_INSTRUCTIONS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createBranchMissesGroup() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.BRANCH_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_BRANCH_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_BRANCH_MISSES, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_BRANCH_MISSES.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createLLCReadsSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.LLC_READS_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_READS.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_READS, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_READ.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createLLCWritesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.LLC_WRITES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_WRITES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_WRITES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_WRITE.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createL1DReadsSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.L1D_READS_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_READS.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_READS, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_L1D_READ.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createL1DWritesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.L1D_WRITES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_WRITES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_WRITES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_L1D_WRITE.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createLLCReadMissesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.LLC_READ_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_READ_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_READ_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_READ_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createLLCWriteMissesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.LLC_WRITE_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_WRITE_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_WRITE_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_WRITE_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createL1DReadMissesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.L1D_READ_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_READ_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_READ_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_L1D_READ_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createL1DWriteMissesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.L1D_WRITE_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_WRITE_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_WRITE_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_L1D_WRITE_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+
+
+
+
+
+
+    public void createL1IReadsSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.L1I_READS_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_L1I_READS.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_L1I_READS, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_L1I_READ.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createL1DPrefetchesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.L1D_PREFETCHES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_PREFETCHES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_PREFETCHES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_L1D_PREFETCH.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createL1IReadMissesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.L1I_READ_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_L1I_READ_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_L1I_READ_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_L1I_READ_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createL1DPrefetchMissesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.L1D_PREFETCH_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_PREFETCH_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_L1D_PREFETCH_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_L1D_PREFETCH_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createNodeReadMissesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.NODE_READ_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_READ_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_READ_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_NODE_READ_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createNodeWriteMissesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.NODE_WRITE_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_WRITE_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_WRITE_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_NODE_WRITE_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createLLCPrefetchSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.LLC_PREFETCHES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_PREFETCHES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_PREFETCHES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_PREFETCH.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createLLCPrefetchMissesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.LLC_PREFETCH_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_PREFETCH_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_LLC_PREFETCH_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_LLC_PREFETCH_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createNodePrefetchSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCHES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_PREFETCHES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_PREFETCHES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_NODE_PREFETCH.value, thread, tid, core, groupLeaderId);
+    }
+
+    public void createNodePrefetchMissesSingle() {
+        groupId = MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCH_MISSES_SINGLE;
+        final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_PREFETCH_MISSES.value, groupId.value);
+        numOfEvents = 1;
+        perfEvents = new PerfEvent[numOfEvents];
+        perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_CACHE_NODE_PREFETCH_MISSES, PERF_TYPE_ID.PERF_TYPE_HW_CACHE, PERF_HW_CACHE_EVENT_ID.CACHE_NODE_PREFETCH_MISS.value, thread, tid, core, groupLeaderId);
+    }
+
 
     /**
      * Intel Xeon E5-2690, dual socket machine specific.

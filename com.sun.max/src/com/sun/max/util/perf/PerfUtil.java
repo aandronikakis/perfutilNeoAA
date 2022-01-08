@@ -307,16 +307,56 @@ public class PerfUtil {
         CACHE_ACCESSES_GROUP(6),
         CACHE_MISSES_GROUP(7),
         NODE_MISSES_GROUP(8),
+        NODE_PREFETCHES_GROUP(9),
         // All the Uncore Groups are Intel Xeon E5-2690, dual socket machine specific.
         // They may work in other microarchitectures as well but they are not tested.
-        UNCORE_IMC_0_CPU_0_GROUP(9),
-        UNCORE_IMC_1_CPU_0_GROUP(10),
-        UNCORE_IMC_2_CPU_0_GROUP(11),
-        UNCORE_IMC_3_CPU_0_GROUP(12),
-        UNCORE_IMC_0_CPU_1_GROUP(13),
-        UNCORE_IMC_1_CPU_1_GROUP(14),
-        UNCORE_IMC_2_CPU_1_GROUP(15),
-        UNCORE_IMC_3_CPU_1_GROUP(16);
+        UNCORE_IMC_0_CPU_0_GROUP(10),
+        UNCORE_IMC_1_CPU_0_GROUP(11),
+        UNCORE_IMC_2_CPU_0_GROUP(12),
+        UNCORE_IMC_3_CPU_0_GROUP(13),
+        UNCORE_IMC_0_CPU_1_GROUP(14),
+        UNCORE_IMC_1_CPU_1_GROUP(15),
+        UNCORE_IMC_2_CPU_1_GROUP(16),
+        UNCORE_IMC_3_CPU_1_GROUP(17),
+
+        /**
+         * Every event is supported for single utilization (not as part of a group).
+         * This is achieved by the following single-event groups:
+         */
+
+        CPU_CYCLES_SINGLE(18),
+        INSTRUCTIONS_SINGLE(19),
+
+        LLC_READS_SINGLE(20),
+        LLC_WRITES_SINGLE(21),
+        LLC_PREFETCHES_SINGLE(22),
+        LLC_READ_MISSES_SINGLE(23),
+        LLC_WRITE_MISSES_SINGLE(24),
+        LLC_PREFETCH_MISSES_SINGLE(25),
+
+
+        L1D_READS_SINGLE(26),
+        L1D_WRITES_SINGLE(27),
+        L1D_PREFETCHES_SINGLE(28),
+        L1D_READ_MISSES_SINGLE(29),
+        L1D_WRITE_MISSES_SINGLE(30),
+        L1D_PREFETCH_MISSES_SINGLE(31),
+
+        L1I_READS_SINGLE(32),
+        L1I_WRITES_SINGLE(33),
+        L1I_PREFETCHES_SINGLE(34),
+        L1I_READ_MISSES_SINGLE(35),
+        L1I_WRITE_MISSES_SINGLE(36),
+        L1I_PREFETCH_MISSES_SINGLE(37),
+
+        BRANCH_INSTRUCTIONS_SINGLE(38),
+        BRANCH_MISSES_SINGLE(39),
+
+        NODE_PREFETCHES_SINGLE(40),
+        NODE_PREFETCH_MISSES_SINGLE(41),
+        NODE_READ_MISSES_SINGLE(42),
+        NODE_WRITE_MISSES_SINGLE(43);
+
 
         public final int value;
 
@@ -379,7 +419,17 @@ public class PerfUtil {
         UNCORE_IMC_0_MEM_WRITE(37),
         UNCORE_IMC_1_MEM_WRITE(38),
         UNCORE_IMC_2_MEM_WRITE(39),
-        UNCORE_IMC_3_MEM_WRITE(40);
+        UNCORE_IMC_3_MEM_WRITE(40),
+
+        HW_CACHE_L1I_READS(41),
+        HW_CACHE_L1I_READ_MISSES(42),
+        HW_CACHE_L1D_PREFETCHES(43),
+        HW_CACHE_L1D_PREFETCH_MISSES(44),
+
+        HW_CACHE_LLC_PREFETCHES(45),
+        HW_CACHE_LLC_PREFETCH_MISSES(46),
+        HW_CACHE_NODE_PREFETCHES(47),
+        HW_CACHE_NODE_PREFETCH_MISSES(48);
 
         public final int value;
 

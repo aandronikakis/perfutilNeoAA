@@ -86,7 +86,7 @@ public class NUMAProfiler {
 
     public static int flareObjectCounter = 0;
     public static int perfUtilflareObjectCounter = 0;
-
+    public static int perfUtilflareObjectEndCounter = 0;
     public static int start_counter = 0;
     public static int end_counter = 0;
 
@@ -96,6 +96,8 @@ public class NUMAProfiler {
     public static int[] s1;
 
     public static Vector<Integer> newflareAllocationThresholds = new Vector<Integer>();
+    public static Vector<Integer> newflareObjectThreadIdBuffer = new Vector<Integer>();
+
 
     @C_FUNCTION
     static native void numaProfiler_lock();
@@ -130,6 +132,10 @@ public class NUMAProfiler {
     @SuppressWarnings("unused")
     public static boolean NUMAProfilerIsolateDominantThread;
 
+    private static int totalNewSize  = 0;
+    private static int totalSurvSize = 0;
+    private static int thresholdWindow = 0;
+    private static boolean startPerfUtilProfiling = false;
     public static boolean getNUMAProfilerVerbose() {
         return NUMAProfilerVerbose;
     }
@@ -521,14 +527,17 @@ public class NUMAProfiler {
                 flareObjectCounter++;
                 if (NUMAProfilerVerbose) {
                     Log.print("(NUMA Profiler): Start Flare-Object Counter: ");
-                    Log.println(flareObjectCounter);
+                    Log.print(flareObjectCounter);
+                    Log.print(" with ThreadId: ");
+                    Log.println(currentThreadID);
                 }
                 if (flareObjectCounter == flareAllocationThresholds[start_counter]) {
-                    if (enableFlareObjectProfiler) {
-                        throw FatalError.unexpected("The NUMA Profiler supports only a single profiling instance a time. " +
-                            "It seams that there is already an ongoing Flare-Object profiling");
-                    }
-                    flareObjectThreadIdBuffer[start_counter] = currentThreadID;
+                    // if (enableFlareObjectProfiler) {
+                    //     throw FatalError.unexpected("The NUMA Profiler supports only a single profiling instance a time. " +
+                    //         "It seams that there is already an ongoing Flare-Object profiling");
+                    // }
+                    //flareObjectThreadIdBuffer[start_counter] = currentThreadID;
+                    newflareObjectThreadIdBuffer.add(currentThreadID);
                     if (NUMAProfilerVerbose) {
                         Log.print("(NUMA Profiler): Enable profiling due to flare object allocation for id ");
                         Log.println(currentThreadID);
@@ -541,30 +550,53 @@ public class NUMAProfiler {
                     } else {
                         enableProfiling();
                     }
-                    enableFlareObjectProfiler = true;
+                    enablePerfUtilFlareObject++;
                 }
-            } else if (enableFlareObjectProfiler == true && flareObjectThreadIdBuffer[end_counter] == currentThreadID && type.contains(NUMAProfilerFlareObjectEnd)) {
+            // } else if (enableFlareObjectProfiler == true && flareObjectThreadIdBuffer[end_counter] == currentThreadID && type.contains(NUMAProfilerFlareObjectEnd)) {
+            //     if (NUMAProfilerVerbose) {
+            //         Log.print("(NUMA Profiler): Disable profiling due to flare end object allocation for id ");
+            //         Log.println(currentThreadID);
+            //     }
+            //     end_counter++;
+            //     if (NUMAProfiler.NUMAProfilerIsolateDominantThread) {
+            //         resetProfilingTLA.run(VmThread.currentTLA());
+            //     } else {
+            //         disableProfiling();
+            //     }
+            //     enableFlareObjectProfiler = false;
+            } else if (type.contains(NUMAProfilerFlareObjectEnd)) {
+                perfUtilflareObjectEndCounter++;
                 if (NUMAProfilerVerbose) {
-                    Log.print("(NUMA Profiler): Disable profiling due to flare end object allocation for id ");
+                    Log.print("(NUMA Profiler): End Flare-Object Counter: ");
+                    Log.print(perfUtilflareObjectEndCounter);
+                    Log.print(" with ThreadId: ");
                     Log.println(currentThreadID);
                 }
-                end_counter++;
-                if (NUMAProfiler.NUMAProfilerIsolateDominantThread) {
-                    resetProfilingTLA.run(VmThread.currentTLA());
-                } else {
-                    disableProfiling();
+                if (newflareObjectThreadIdBuffer.size() > 0) {
+                    for (int cnt = 0; cnt < newflareObjectThreadIdBuffer.size(); cnt++) {
+                        if (newflareObjectThreadIdBuffer.get(cnt) == currentThreadID) {
+                            if (NUMAProfilerVerbose) {
+                                Log.print("(NUMA Profiler): Disable profiling due to flare end object allocation for id ");
+                                Log.println(currentThreadID);
+                            }
+                            end_counter++;
+                            if (NUMAProfiler.NUMAProfilerIsolateDominantThread) {
+                                resetProfilingTLA.run(VmThread.currentTLA());
+                            } else {
+                                disableProfiling();
+                            }
+                            enablePerfUtilFlareObject--;
+                            break;
+                        }
+                    }
                 }
-                enableFlareObjectProfiler = false;
             }
         } else if (MaxineVM.usePerf && !NUMAProfilerFlareAllocationThresholds.equals("0")) {
             if (type.contains(NUMAProfilerFlareObjectStart)) {
                 perfUtilflareObjectCounter++;
-                if (PerfUtil.LogPerf) {
-                    Log.print("[PerfUtil] Start Flare-Object Counter: ");
-                    Log.println(perfUtilflareObjectCounter);
-                }
+
                 if (perfUtilflareObjectCounter == flareAllocationThresholds[start_counter]) {
-                    flareObjectThreadIdBuffer[start_counter] = currentThreadID;
+                    newflareObjectThreadIdBuffer.add(currentThreadID);
                     if (PerfUtil.LogPerf) {
                         Log.print("[PerfUtil] Enable profiling due to flare object allocation for id ");
                         Log.println(currentThreadID);
@@ -574,20 +606,143 @@ public class NUMAProfiler {
                     }
 
                     //Set here the PerfGRoups you want to use
-                    PerfUtil.iteration++;
+                    if (PerfUtil.PerfGroup.equals("sw_CacheAccesses_IMCs")) {
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CACHE_ACCESSES_GROUP, currentThreadID, -1);
+
+                        if (start_counter == 1) {
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_0_GROUP, 0);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_0_GROUP, 0);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_0_GROUP, 0);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_0_GROUP, 0);
+
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_1_GROUP, 1);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_1_GROUP, 1);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_1_GROUP, 1);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_1_GROUP, 1);
+                        }
+
+                    } else if (PerfUtil.PerfGroup.equals("nodeMisses")) {
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_MISSES_GROUP, currentThreadID, -1);
+                    } else if (PerfUtil.PerfGroup.equals("nodePrefetches")) {
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCHES_GROUP, currentThreadID, -1);
+                    } else if (PerfUtil.PerfGroup.equals("mux")) {
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CPU_CYCLES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.INSTRUCTIONS_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.BRANCH_INSTRUCTIONS_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_READS_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_WRITES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_READ_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_READS_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_WRITES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_PREFETCHES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_PREFETCH_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_READ_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCHES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCH_MISSES_SINGLE, currentThreadID, -1);
+                    } else {
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CACHE_MISSES_GROUP, currentThreadID, -1);
+                    }
                     enablePerfUtilFlareObject++;
                 }
-            } else if (enablePerfUtilFlareObject > 0 && flareObjectThreadIdBuffer[end_counter] == currentThreadID && type.contains(NUMAProfilerFlareObjectEnd)) {
+            } else if (type.contains(NUMAProfilerFlareObjectEnd)) {
+                perfUtilflareObjectEndCounter++;
                 if (PerfUtil.LogPerf) {
-                    Log.print("[PerfUtil] Disable profiling due to flare end object allocation for id ");
+                    Log.print("[PerfUtil] End Flare-Object Counter: ");
+                    Log.print(perfUtilflareObjectEndCounter);
+                    Log.print(" with ThreadId: ");
                     Log.println(currentThreadID);
-                    Log.println(PerfUtil.isInitialized);
                 }
-                end_counter++;
+                if (newflareObjectThreadIdBuffer.size() > 0) {
+                    for (int cnt = 0; cnt < newflareObjectThreadIdBuffer.size(); cnt++) {
+                        if (newflareObjectThreadIdBuffer.get(cnt) == currentThreadID) {
+                            if (PerfUtil.LogPerf) {
+                                Log.print("[PerfUtil] Disable profiling due to flare end object allocation for id ");
+                                Log.println(currentThreadID);
+                            }
+                            end_counter++;
+                            //Reset here the PerfGRoups you've used
+                            PerfUtil.iteration++;
+                            if (PerfUtil.PerfGroup.equals("sw_CacheAccesses_IMCs")) {
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, currentThreadID, -1);
 
-                //Reset here the PerfGRoups you've used
-                PerfUtil.explicitPerfGroupReadAndResetWithoutEnable();
-                enablePerfUtilFlareObject--;
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CACHE_ACCESSES_GROUP, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CACHE_ACCESSES_GROUP, currentThreadID, -1);
+
+                                PerfUtil.perfGroupReadAndResetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_0_GROUP, 0);
+                                PerfUtil.perfGroupReadAndResetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_0_GROUP, 0);
+                                PerfUtil.perfGroupReadAndResetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_0_GROUP, 0);
+                                PerfUtil.perfGroupReadAndResetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_0_GROUP, 0);
+
+                                PerfUtil.perfGroupReadAndResetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_1_GROUP, 1);
+                                PerfUtil.perfGroupReadAndResetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_1_GROUP, 1);
+                                PerfUtil.perfGroupReadAndResetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_1_GROUP, 1);
+                                PerfUtil.perfGroupReadAndResetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_1_GROUP, 1);
+
+
+                                if (end_counter == flareAllocationThresholds.length) {
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_0_GROUP, -1, 0);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_0_GROUP, -1, 0);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_0_GROUP, -1, 0);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_0_GROUP, -1, 0);
+
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_1_GROUP, -1, 1);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_1_GROUP, -1, 1);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_1_GROUP, -1, 1);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_1_GROUP, -1, 1);
+                                }
+                            } else if (PerfUtil.PerfGroup.equals("nodeMisses")) {
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_MISSES_GROUP, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_MISSES_GROUP, currentThreadID, -1);
+                            } else if (PerfUtil.PerfGroup.equals("nodePrefetches")) {
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCHES_GROUP, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCHES_GROUP, currentThreadID, -1);
+                            } else if (PerfUtil.PerfGroup.equals("mux")) {
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CPU_CYCLES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CPU_CYCLES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.INSTRUCTIONS_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.INSTRUCTIONS_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.BRANCH_INSTRUCTIONS_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.BRANCH_INSTRUCTIONS_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_READS_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_READS_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_WRITES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_WRITES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_READ_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_READ_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_READS_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_READS_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_WRITES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_WRITES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_PREFETCHES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_PREFETCHES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_PREFETCH_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.LLC_PREFETCH_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_READ_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_READ_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCHES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCHES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCH_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCH_MISSES_SINGLE, currentThreadID, -1);
+                            } else {
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CACHE_MISSES_GROUP, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CACHE_MISSES_GROUP, currentThreadID, -1);
+                            }
+                            enablePerfUtilFlareObject--;
+                            break;
+                        }
+                    }
+
+
+                }
+
             }
         }
 
@@ -1176,11 +1331,11 @@ public class NUMAProfiler {
                 newflareAllocationThresholds.add(Integer.parseInt(thresholds[i]));
             }
         }
+        thresholdWindow = newflareAllocationThresholds.size();
+        flareAllocationThresholds = new int[thresholdWindow];
+        flareObjectThreadIdBuffer = new int[thresholdWindow];
 
-        flareAllocationThresholds = new int[newflareAllocationThresholds.size()];
-        flareObjectThreadIdBuffer = new int[newflareAllocationThresholds.size()];
-
-        for (int i = 0; i < newflareAllocationThresholds.size(); i++) {
+        for (int i = 0; i < thresholdWindow; i++) {
             flareAllocationThresholds[i] = newflareAllocationThresholds.get(i);
         }
 
