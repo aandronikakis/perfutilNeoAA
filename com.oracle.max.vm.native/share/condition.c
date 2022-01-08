@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, APT Group, School of Computer Science,
+ * Copyright (c) 2017, 2022 APT Group, School of Computer Science,
  * The University of Manchester. All rights reserved.
  * Copyright (c) 2007, 2011, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
@@ -166,6 +166,9 @@ boolean condition_timedWait(Condition condition, Mutex mutex, Unsigned8 timeoutM
 	struct timespec abstime;
 	compute_abstime(&abstime, timeoutMilliSeconds);
 	error = pthread_cond_timedwait(condition, mutex, &abstime);
+#if log_MONITORS
+    log_println("condition_timedWait (" THREAD_CONDVAR_MUTEX_FORMAT ", %d) error", thread_self(), condition, mutex, error);
+#endif
 	if (error == ETIMEDOUT) {
 #if log_MONITORS
 	    log_println("condition_timedWait (" THREAD_CONDVAR_MUTEX_FORMAT ", %d) timed-out", thread_self(), condition, mutex, timeoutMilliSeconds);
