@@ -224,7 +224,6 @@ public class NUMAProfiler {
     public static boolean enableFlareObjectProfiler = false;
 
     /**
-<<<<<<< e142eef0022698609da4fd5d5bd83097c786dc24
      * The Flare Object Policy condition to decide if profiling should be enabled.
      * @return
      */
@@ -239,13 +238,12 @@ public class NUMAProfiler {
      */
     public static int TLSRBSize = MIN_BUFFER_SIZE;
     public static int TLARBSize = MIN_BUFFER_SIZE;
-=======
+
+    /**
      * An int variable, whten it's > 0, it means that perfUtil is enabled for the Flare Object Policy.
      */
     public static int enablePerfUtilFlareObject = 0;
 
-    private static final int MINIMUMBUFFERSIZE = 500000;
->>>>>>> [perf][feat][fix] Add mulitple perfUtil FlareObject profile funtionality
 
     /**
      * The underlying hardware configuration.
