@@ -555,6 +555,9 @@ public class PerfEventGroup {
     }
 
     public void enableGroup() {
+        if (PerfUtil.startTime == 0) {
+            PerfUtil.startTime = System.currentTimeMillis();
+        }
         // enable the group leader
         perfEvents[0].enable();
     }
@@ -583,6 +586,7 @@ public class PerfEventGroup {
         } else {
             timeRunningPercentage = 0;
         }
+
         if (PerfUtil.LogPerf) {
             Log.print(groupId);
             Log.print(" of thread ");
@@ -594,7 +598,6 @@ public class PerfEventGroup {
             Log.print(" ");
             Log.println(timeRunningPercentage);
         }
-
         // store the read values to their dedicated PerfEvent objects
         for (int i = 0; i < numOfEvents; i++) {
             if (PerfUtil.LogPerf) {
@@ -603,6 +606,7 @@ public class PerfEventGroup {
             }
             perfEvents[i].value = valuesBuffer[i];
         }
+        PerfUtil.elapsedTime = System.currentTimeMillis() - PerfUtil.startTime;
     }
 
     public void printGroup() {
@@ -627,7 +631,9 @@ public class PerfEventGroup {
             Log.print(";");
             Log.print(perfEvents[i].value);
             Log.print(";");
-            Log.println(timeRunningPercentage);
+            Log.print(timeRunningPercentage);
+            Log.print(";");
+            Log.println(PerfUtil.elapsedTime);
         }
     }
 

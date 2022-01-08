@@ -456,6 +456,10 @@ public class PerfUtil {
 
     public static boolean LogPerf = false;
 
+    public static long startTime = 0;
+    public static long elapsedTime = 0;
+
+
     @SuppressWarnings("FieldCanBeLocal")
     public static String PerfGroup  = "cacheMisses";
 
