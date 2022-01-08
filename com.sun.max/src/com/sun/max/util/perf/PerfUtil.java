@@ -456,6 +456,9 @@ public class PerfUtil {
 
     public static boolean LogPerf = false;
 
+    @SuppressWarnings("FieldCanBeLocal")
+    public static String PerfGroup  = "cacheMisses";
+
     static {
         VMOptions.addFieldOption("-XX:", "LogPerf", PerfUtil.class, "Verbose perfUtil output. (default: false)", MaxineVM.Phase.PRISTINE);
         VMOptions.addFieldOption("-XX:", "PerfGroup", PerfUtil.class, "Choose between the following PerfEventGroups: sw_CacheAccesses_IMCs, cacheMisses, nodePrefetches or nodeMisses. (default: 'cacheMisses')");
