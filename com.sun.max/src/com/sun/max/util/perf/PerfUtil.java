@@ -467,9 +467,9 @@ public class PerfUtil {
         isInitialized = true;
     }
 
-    public static void createGroup(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int tid, int core) {
+    public static void createGroup(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int tid, String threadName, int core) {
         int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
-        perfEventGroups[groupIndex] = new PerfEventGroup(group, threadId, tid, core);
+        perfEventGroups[groupIndex] = new PerfEventGroup(group, threadId, tid, threadName, core);
     }
 
     /**
@@ -524,18 +524,16 @@ public class PerfUtil {
      * @param threadId the threadId of the perf-ed thread
      * @param core the coreId of choice for "specific thread on specific core" mode. Hardcoded to -1 for "specific thread on any core"
      */
-    public static void perfGroupSetSpecificThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int core) {
-        int tid = tidMap[threadId];
-        PerfUtil.createGroup(group, threadId, tid, core);
+    public static void perfGroupSetSpecificThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int tid, String threadName, int core) {
+        PerfUtil.createGroup(group, threadId, tid, threadName, core);
 
         int groupIndex = PerfEventGroup.uniqueGroupId(core, threadId, group.value);
         PerfUtil.perfEventGroups[groupIndex].resetGroup();
         PerfUtil.perfEventGroups[groupIndex].enableGroup();
     }
 
-    public static void perfGroupSetSpecificThreadAnyCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId) {
-        int tid = tidMap[threadId];
-        PerfUtil.createGroup(group, threadId, tid, -1);
+    public static void perfGroupSetSpecificThreadAnyCore(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int tid, String threadName) {
+        PerfUtil.createGroup(group, threadId, tid, threadName, -1);
 
         int groupIndex = PerfEventGroup.uniqueGroupId(-1, threadId, group.value);
         PerfUtil.perfEventGroups[groupIndex].resetGroup();
@@ -543,7 +541,7 @@ public class PerfUtil {
     }
 
     public static void perfGroupSetAnyThreadSpecificCore(MAXINE_PERF_EVENT_GROUP_ID group, int core) {
-        PerfUtil.createGroup(group, -1, -1, core);
+        PerfUtil.createGroup(group, -1, -1, null, core);
         int groupIndex = PerfEventGroup.uniqueGroupId(core, -1, group.value);
         PerfUtil.perfEventGroups[groupIndex].resetGroup();
         PerfUtil.perfEventGroups[groupIndex].enableGroup();

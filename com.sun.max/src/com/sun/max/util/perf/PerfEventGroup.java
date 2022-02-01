@@ -31,6 +31,7 @@ public class PerfEventGroup {
     MAXINE_PERF_EVENT_GROUP_ID groupId;
     int thread;
     int tid;
+    String threadName;
     int core;
     int numOfEvents;
     long timeEnabled;
@@ -42,7 +43,7 @@ public class PerfEventGroup {
     public static int threadBits = 0;
     public static int groupBits = 0;
 
-    public PerfEventGroup(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int tid, int core) {
+    public PerfEventGroup(MAXINE_PERF_EVENT_GROUP_ID group, int threadId, int tid, String threadName, int core) {
         if (PerfUtil.logPerf) {
             Log.print("[PerfEventGroup] create ");
             Log.print(group);
@@ -55,6 +56,7 @@ public class PerfEventGroup {
         }
         this.thread = threadId;
         this.tid = tid;
+        this.threadName = threadName;
         this.core = core;
         this.timeEnabled = 0;
         this.timeRunning = 0;
@@ -590,7 +592,9 @@ public class PerfEventGroup {
             Log.print(";");
             Log.print(perfEvents[i].groupId);
             Log.print(";");
-            Log.print(thread);
+            Log.print(tid);
+            Log.print(";");
+            Log.print(threadName);
             Log.print(";");
             Log.print(core);
             Log.print(";");
