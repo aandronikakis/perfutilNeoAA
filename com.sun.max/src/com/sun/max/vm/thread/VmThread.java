@@ -234,6 +234,7 @@ public class VmThread {
     private volatile boolean interrupted = false;
     private Throwable terminationCause;
     private int id;
+    private int tid;
     private int parkState;
     /**
      * Guaranteed unique for the lifetime of the VM.
@@ -682,6 +683,7 @@ public class VmThread {
             VmThread.signalDispatcherThread.startVmSystemThread();
 
         }
+        thread.tid = getTid();
 
         try {
             executeRunnable(thread);
@@ -1102,6 +1104,10 @@ public class VmThread {
      */
     public final int id() {
         return id;
+    }
+
+    public final int tid() {
+        return tid;
     }
 
     /**
