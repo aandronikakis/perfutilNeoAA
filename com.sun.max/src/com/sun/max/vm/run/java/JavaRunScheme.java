@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, APT Group, Department of Computer Science,
+ * Copyright (c) 2020, 2022, APT Group, Department of Computer Science,
  * School of Engineering, The University of Manchester. All rights reserved.
  * Copyright (c) 2017, 2019, APT Group, School of Computer Science,
  * The University of Manchester. All rights reserved.
@@ -40,6 +40,7 @@ import com.sun.max.vm.instrument.InstrumentationManager;
 import com.sun.max.vm.jdk.JDK_sun_launcher_LauncherHelper;
 import com.sun.max.vm.jni.JniFunctions;
 import com.sun.max.vm.log.VMLog;
+import com.sun.max.vm.numa.AwarenessThread;
 import com.sun.max.vm.profilers.tracing.numa.NUMAProfiler;
 import com.sun.max.vm.profilers.tracing.numa.ProfilerGCCallback;
 import com.sun.max.vm.profilers.sampling.*;
@@ -112,6 +113,8 @@ public class JavaRunScheme extends AbstractVMScheme implements RunScheme {
     private static CPUSamplingProfiler cpuSamplingProfiler;
     private static HeapSamplingProfiler heapSamplingProfiler;
     private static String mainClassName;
+
+    private static AwarenessThread awarenessThread;
 
     @HOSTED_ONLY
     public JavaRunScheme() {
@@ -272,6 +275,11 @@ public class JavaRunScheme extends AbstractVMScheme implements RunScheme {
                 //Initialize PerfUtil object
                 if (MaxineVM.UsePerf) {
                     PerfUtil.initialize();
+                }
+
+                // Initialize NUMA-awareness thread
+                if (MaxineVM.NUMAOpts) {
+                    awarenessThread = new AwarenessThread();
                 }
                 break;
             }

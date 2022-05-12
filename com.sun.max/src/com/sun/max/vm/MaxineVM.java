@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, APT Group, Department of Computer Science,
+ * Copyright (c) 2020, 2022, APT Group, Department of Computer Science,
  * School of Engineering, The University of Manchester. All rights reserved.
  * Copyright (c) 2017-2019, APT Group, School of Computer Science,
  * The University of Manchester. All rights reserved.
@@ -139,9 +139,11 @@ public final class MaxineVM {
     public static boolean useNUMAProfiler;
 
     public static boolean UsePerf;
+    public static boolean NUMAOpts;
 
     static {
         VMOptions.addFieldOption("-XX:", "UsePerf", MaxineVM.class, "Use perf tool. (default: false)", MaxineVM.Phase.PRISTINE);
+        VMOptions.addFieldOption("-XX:", "NUMAOpts", MaxineVM.class, "Enable NUMA optimizations. (default: false)", MaxineVM.Phase.PRISTINE);
     }
 
     /**
