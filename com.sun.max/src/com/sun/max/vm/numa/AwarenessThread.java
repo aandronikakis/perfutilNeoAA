@@ -19,10 +19,12 @@
  */
 package com.sun.max.vm.numa;
 
-import com.sun.max.vm.Log;
 import com.sun.max.vm.thread.VmThread;
 
 public class AwarenessThread extends Thread {
+
+    final int sleepPeriod = 100;
+    final int HWCountersMeasurementPeriod = 100;
 
     /**
      * The NUMA awareness thread itself.
@@ -45,11 +47,16 @@ public class AwarenessThread extends Thread {
     public void run() {
         while (true) {
             try {
-                final int thisPeriod = 100;
-                // sleep in msec
-                Thread.sleep(thisPeriod);
-                final long now = System.currentTimeMillis();
-                Log.println("Hello from NUMA awareness thread - " + now + " ms");
+                // start measuring
+                HWCountersHandler.enableHWCounters();
+                // measure for N msec
+                Thread.sleep(HWCountersMeasurementPeriod);
+                // stop and collect measurements
+                HWCountersHandler.readNDisableHWCounters();
+                // act accordingly
+                NUMAState.fsmTick();
+                // sleep for M msec until next measurement period
+                Thread.sleep(sleepPeriod);
             } catch (InterruptedException ex) {
             }
         }
