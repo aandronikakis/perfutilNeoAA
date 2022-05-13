@@ -30,12 +30,12 @@ import com.sun.max.util.perf.PerfUtil.*;
 
 public class PerfEvent {
 
-    MAXINE_PERF_EVENT_GROUP_ID groupId;
-    int groupLeaderId;
-    MAXINE_PERF_EVENT_ID eventId;
-    int core;
-    int thread;
-    long value;
+    public MAXINE_PERF_EVENT_GROUP_ID groupId;
+    public int groupLeaderId;
+    public MAXINE_PERF_EVENT_ID eventId;
+    public int core;
+    public int thread;
+    public long value;
 
     public static int coreBits = 0;
     public static int threadBits = 0;

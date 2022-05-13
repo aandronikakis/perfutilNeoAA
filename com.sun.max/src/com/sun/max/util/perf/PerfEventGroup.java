@@ -26,18 +26,18 @@ import static com.sun.max.util.perf.PerfEvent.uniqueEventId;
 
 public class PerfEventGroup {
 
-    PerfEvent[] perfEvents;
+    public PerfEvent[] perfEvents;
 
-    MAXINE_PERF_EVENT_GROUP_ID groupId;
-    int thread;
-    int tid;
-    String threadName;
-    int core;
-    int numOfEvents;
-    long timeEnabled;
-    long timeRunning;
-    int timeRunningPercentage;
-    boolean isClosed;
+    public MAXINE_PERF_EVENT_GROUP_ID groupId;
+    public int thread;
+    public int tid;
+    public String threadName;
+    public int core;
+    public int numOfEvents;
+    public long timeEnabled;
+    public long timeRunning;
+    public int timeRunningPercentage;
+    public boolean isClosed;
 
     public static int coreBits = 0;
     public static int threadBits = 0;
