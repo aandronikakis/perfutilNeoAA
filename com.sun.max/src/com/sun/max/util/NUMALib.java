@@ -71,4 +71,7 @@ public class NUMALib {
 
     @C_FUNCTION
     public static native int numaPageSize();
+
+    @C_FUNCTION
+    public static native void numaBind(int node);
 }

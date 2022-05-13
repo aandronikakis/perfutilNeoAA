@@ -38,6 +38,7 @@ import com.sun.max.lang.*;
 import com.sun.max.memory.*;
 import com.sun.max.platform.*;
 import com.sun.max.unsafe.*;
+import com.sun.max.util.NUMALib;
 import com.sun.max.vm.*;
 import com.sun.max.vm.actor.holder.*;
 import com.sun.max.vm.bytecode.refmaps.*;
@@ -655,6 +656,13 @@ public class VmThread {
 
         // If this is the main thread, then start up the VM operation thread and other special VM threads
         if (thread == mainThread) {
+
+            if (MaxineVM.NUMAOpts) {
+                // initial NUMA node affinity for the JVM
+                if (NUMALib.numalib_available() == 0) {
+                    NUMALib.numaBind(0);
+                }
+            }
             // NOTE:
             // The main thread must now bring the VM to the pristine state so as to
             // provide basic services (most importantly, heap allocation) before starting the other "system" threads.
