@@ -140,10 +140,12 @@ public final class MaxineVM {
 
     public static boolean UsePerf;
     public static boolean NUMAOpts;
+    public static boolean NUMALog;
 
     static {
         VMOptions.addFieldOption("-XX:", "UsePerf", MaxineVM.class, "Use perf tool. (default: false)", MaxineVM.Phase.PRISTINE);
         VMOptions.addFieldOption("-XX:", "NUMAOpts", MaxineVM.class, "Enable NUMA optimizations. (default: false)", MaxineVM.Phase.PRISTINE);
+        VMOptions.addFieldOption("-XX:", "NUMALog", MaxineVM.class, "Log NUMA optimizations. (default: false)", MaxineVM.Phase.PRISTINE);
     }
 
     /**

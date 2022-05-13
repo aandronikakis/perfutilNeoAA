@@ -22,6 +22,8 @@ package com.sun.max.vm.numa;
 import com.sun.max.vm.Log;
 import com.sun.max.vm.thread.VmThreadMap;
 
+import static com.sun.max.vm.MaxineVM.NUMALog;
+
 
 public class NUMAState {
 
@@ -99,7 +101,9 @@ public class NUMAState {
         if (isChanged()) {
             fsmState[1].act();
         } else {
-            Log.println("Do nothing, alredy on: " + fsmState[1]);
+            if (NUMALog) {
+                Log.println("Do nothing, alredy on: " + fsmState[1]);
+            }
         }
     }
 
@@ -107,20 +111,26 @@ public class NUMAState {
         SINGLE_NODE {
             @Override
             public void act() {
-                Log.println("Act as Single-threaded");
+                if (NUMALog) {
+                    Log.println("Act as Single-threaded");
+                }
                 NUMAConfigurations.bindToSingleNode();
             }
         },
         SINGLE_NODE_2 {
             @Override
             public void act() {
-                Log.println("Act as Single-threaded-2");
+                if (NUMALog) {
+                    Log.println("Act as Single-threaded-2");
+                }
             }
         },
         OTHER {
             @Override
             public void act() {
-                Log.println("Act as Other");
+                if (NUMALog) {
+                    Log.println("Act as Other");
+                }
             }
         };
 

@@ -27,6 +27,7 @@ import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadMap;
 
 import static com.sun.max.util.perf.PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.INSTRUCTIONS_SINGLE;
+import static com.sun.max.vm.MaxineVM.NUMALog;
 import static com.sun.max.vm.thread.VmThreadLocal.ETLA;
 
 public class HWCountersHandler {
@@ -48,7 +49,9 @@ public class HWCountersHandler {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             final VmThread thread = VmThread.fromTLA(etla);
-            ////Log.println("Enable HW Counters for: " + thread.id() + " " + thread.tid() + " " + thread.getName());
+            if (NUMALog) {
+                Log.println("Enable HW Counters for: " + thread.id() + " " + thread.tid() + " " + thread.getName());
+            }
             PerfUtil.perfGroupSetSpecificThreadSpecificCore(INSTRUCTIONS_SINGLE, thread.id(), thread.tid(), thread.getName(), -1);
         }
     };
@@ -57,9 +60,9 @@ public class HWCountersHandler {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             final VmThread thread = VmThread.fromTLA(etla);
-            ////Log.println("Read N' Disable HW Counters for: " + thread.id() + " " + thread.tid() + " " + thread.getName());
-            //PerfUtil.perfGroupSetSpecificThreadSpecificCore(INSTRUCTIONS_SINGLE, thread.id(), thread.tid(), thread.getName(), -1);
-            //PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(INSTRUCTIONS_SINGLE, thread.id(), -1);
+            if (NUMALog) {
+                Log.println("Read N' Disable HW Counters for: " + thread.id() + " " + thread.tid() + " " + thread.getName());
+            }
             int groupIndex = PerfEventGroup.uniqueGroupId(-1, thread.id(), INSTRUCTIONS_SINGLE.value);
             final PerfEventGroup group = PerfUtil.perfEventGroups[groupIndex];
             group.disableGroup();
@@ -68,7 +71,9 @@ public class HWCountersHandler {
             long eventCount = group.perfEvents[0].value;
             long time = group.timeRunningPercentage;
             long value = eventCount * (time / 100);
-            ///Log.println("Instructions = " + eventCount + " of " + time + "%. 100% is " + value);
+            if (NUMALog) {
+                Log.println("Instructions = " + eventCount + " of " + time + "%. 100% is " + value);
+            }
 
         }
     };
