@@ -46,3 +46,16 @@ int numaNodeOfCPU(int cpuID) {
 int numaPageSize() {
     return numa_pagesize();
 }
+
+void numaBind(int node) {
+    char node_str[10];
+    sprintf(node_str, "%d", node);
+    struct bitmask* bm = numa_parse_nodestring(node_str);
+
+    if (!bm) {
+        //Illegal bitmask
+        exit(-1);
+    }
+
+    numa_bind(bm);
+}
