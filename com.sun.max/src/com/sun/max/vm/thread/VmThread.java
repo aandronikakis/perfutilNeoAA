@@ -46,6 +46,7 @@ import com.sun.max.vm.code.*;
 import com.sun.max.vm.compiler.target.*;
 import com.sun.max.vm.heap.*;
 import com.sun.max.vm.hosted.*;
+import com.sun.max.vm.intrinsics.MaxineIntrinsicIDs;
 import com.sun.max.vm.jdk.*;
 import com.sun.max.vm.jni.*;
 import com.sun.max.vm.log.*;
@@ -657,12 +658,6 @@ public class VmThread {
         // If this is the main thread, then start up the VM operation thread and other special VM threads
         if (thread == mainThread) {
 
-            if (MaxineVM.NUMAOpts) {
-                // initial NUMA node affinity for the JVM
-                if (NUMALib.numalib_available() == 0) {
-                    NUMALib.numaBind(0);
-                }
-            }
             // NOTE:
             // The main thread must now bring the VM to the pristine state so as to
             // provide basic services (most importantly, heap allocation) before starting the other "system" threads.
@@ -684,6 +679,15 @@ public class VmThread {
             Code.initialize();
 
             vmConfig().initializeSchemes(MaxineVM.Phase.PRISTINE);
+
+            if (MaxineVM.NUMAOpts) {
+                // bind the whole JVM in the NUMA node the main thread is already placed
+                if (NUMALib.numalib_available() == 0) {
+                    NUMALib.localNode = Intrinsics.getCpuID() >> MaxineIntrinsicIDs.NUMA_NODE_SHIFT;
+                    //Log.println("I am thread " + thread.name + " and I call NUMALib.numaBind(" + NUMALib.localNode + ")");
+                    NUMALib.numaBind(NUMALib.localNode);
+                }
+            }
 
             // We can now start the other system threads.
             VmThread.vmOperationThread.startVmSystemThread();

@@ -40,6 +40,8 @@ public class NUMALib {
      */
     private int[] coreToNUMANodeMap;
 
+    public static int localNode;
+
     public NUMALib() {
         numOfCores = numaConfiguredCPUs();
         assert numOfCores >= Runtime.getRuntime().availableProcessors();

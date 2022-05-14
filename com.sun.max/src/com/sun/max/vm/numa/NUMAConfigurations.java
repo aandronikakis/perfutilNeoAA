@@ -20,6 +20,7 @@
 package com.sun.max.vm.numa;
 
 import com.sun.max.unsafe.Pointer;
+import com.sun.max.util.NUMALib;
 import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadMap;
 
@@ -29,19 +30,19 @@ import static com.sun.max.vm.thread.VmThreadMap.THREAD_LOCK;
 public class NUMAConfigurations {
 
     /**
-     * Single-Node configuration: bind unconditionally all threads to NUMA Node 0.
+     * Single-Node configuration: unconditionally bind all threads to one NUMA Node.
      */
-    public static void bindToSingleNode() {
+    public static void bindToLocalNode() {
         synchronized (THREAD_LOCK) {
-            VmThreadMap.ACTIVE.forAllThreadLocals(null, bindThreadToNodeZero);
+            VmThreadMap.ACTIVE.forAllThreadLocals(null, bindThreadToLocalNode);
         }
     }
 
-    private static final Pointer.Procedure bindThreadToNodeZero = new Pointer.Procedure() {
+    private static final Pointer.Procedure bindThreadToLocalNode = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             final VmThread thread = VmThread.fromTLA(etla);
-            thread.bindToNode(0);
+            thread.bindToNode(NUMALib.localNode);
         }
     };
 

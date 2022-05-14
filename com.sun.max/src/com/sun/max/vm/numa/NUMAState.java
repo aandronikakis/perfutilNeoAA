@@ -114,7 +114,7 @@ public class NUMAState {
                 if (NUMALog) {
                     Log.println("Act as Single-threaded");
                 }
-                NUMAConfigurations.bindToSingleNode();
+                NUMAConfigurations.bindToLocalNode();
             }
         },
         SINGLE_NODE_2 {
