@@ -23,7 +23,7 @@ import com.sun.max.vm.thread.VmThread;
 
 public class AwarenessThread extends Thread {
 
-    final int sleepPeriod = 100;
+    final int sleepPeriod = 200;
     final int HWCountersMeasurementPeriod = 100;
 
     /**
@@ -45,18 +45,18 @@ public class AwarenessThread extends Thread {
 
     @Override
     public void run() {
+        // enable HW counters for main thread
+        HWCountersHandler.enableHWCountersMainThread();
         while (true) {
             try {
-                // start measuring
-                HWCountersHandler.enableHWCounters();
-                // measure for N msec
-                Thread.sleep(HWCountersMeasurementPeriod);
-                // stop and collect measurements
-                HWCountersHandler.readNDisableHWCounters();
-                // act accordingly
-                NUMAState.fsmTick();
                 // sleep for M msec until next measurement period
                 Thread.sleep(sleepPeriod);
+                // wake up and collect measurements
+                HWCountersHandler.readHWCounters();
+                // process collected data
+                ProfilingData.process();
+                // act accordingly
+                NUMAState.fsmTick();
             } catch (InterruptedException ex) {
             }
         }

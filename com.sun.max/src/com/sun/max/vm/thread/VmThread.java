@@ -51,6 +51,7 @@ import com.sun.max.vm.jdk.*;
 import com.sun.max.vm.jni.*;
 import com.sun.max.vm.log.*;
 import com.sun.max.vm.monitor.modal.sync.*;
+import com.sun.max.vm.numa.HWCountersHandler;
 import com.sun.max.vm.object.*;
 import com.sun.max.vm.profilers.tracing.numa.NUMAProfiler;
 import com.sun.max.vm.reference.*;
@@ -696,6 +697,9 @@ public class VmThread {
 
         }
         thread.tid = getTid();
+
+        // for NUMA optimizations
+        enableOnlineProfiling(thread);
 
         try {
             executeRunnable(thread);
@@ -1622,5 +1626,13 @@ public class VmThread {
      */
     public void bindToNode(int node) {
         NUMALib.numaBind(node);
+    }
+
+    private static void enableOnlineProfiling(VmThread thread) {
+        if (MaxineVM.NUMAOpts && MaxineVM.UsePerf) {
+            if (MaxineVM.isRunning()) {
+                HWCountersHandler.enableHWCountersApplicationThread(thread);
+            }
+        }
     }
 }

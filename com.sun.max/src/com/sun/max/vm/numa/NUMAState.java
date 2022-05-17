@@ -27,7 +27,12 @@ import static com.sun.max.vm.MaxineVM.NUMALog;
 
 public class NUMAState {
 
-    final static int NUM_OF_CORES = Runtime.getRuntime().availableProcessors();
+    final static int NUM_OF_TOTAL_SYSTEM_CORES = Runtime.getRuntime().availableProcessors();
+    // TODO: Parametrize
+    final static int NUM_OF_NUMA_NODES = 2;
+    final static int NUM_OF_SINGLE_NODE_CORES = NUM_OF_TOTAL_SYSTEM_CORES / NUM_OF_NUMA_NODES;
+
+    final static boolean logState = true;
 
     /**
      * {@code fsmState} holds the previous ([0]) and current ([1]) state of the fsm.
@@ -63,22 +68,24 @@ public class NUMAState {
         act();
         //ready for next tick
         setPreviousState(getCurrentState());
+        // clear profiling data
+        ProfilingData.clear();
     }
 
     /**
      * Determine in which state we are.
      */
     private static void determineCurrentState() {
-        // bound to single node under the following conditions
-        if (VmThreadMap.getLiveTheadCount() - 6 < NUM_OF_CORES) {
-            // 1 - num of application threads < num of available cores
+        // criteria and cases
+        if (ProfilingData.mainThreadHWInstructionsPercentage > 80) {
             // fop, jython, luindex, mnemonics, dotty, scala-doku, scala-kmeans
             setCurrentState(STATE.SINGLE_NODE);
-        } else if (false) {
-            // 2 - num of workers < num of available cores
-            // check HW Instructions
-            HWCountersHandler.measureHWInstructions();
-            setCurrentState(STATE.SINGLE_NODE_2);
+        } else if (ProfilingData.numOfWorkers <= NUM_OF_SINGLE_NODE_CORES) {
+            // als, chi-square, gauss-mix, movie-lens, neo4j-analytics, log-regression
+            setCurrentState(STATE.TLP_BOUND);
+        } else if (ProfilingData.workerInstructionsImbalance > 90) {
+            // par-mnemonics, rx-scrabble
+            setCurrentState(STATE.EMBARRASSINGLY_IMBALANCED);
         } else {
             // other
             setCurrentState(STATE.OTHER);
@@ -101,7 +108,7 @@ public class NUMAState {
         if (isChanged()) {
             fsmState[1].act();
         } else {
-            if (NUMALog) {
+            if (NUMALog || logState) {
                 Log.println("Do nothing, alredy on: " + fsmState[1]);
             }
         }
@@ -111,24 +118,34 @@ public class NUMAState {
         SINGLE_NODE {
             @Override
             public void act() {
-                if (NUMALog) {
+                if (NUMALog || logState) {
                     Log.println("Act as Single-threaded");
                 }
                 NUMAConfigurations.bindToLocalNode();
             }
         },
-        SINGLE_NODE_2 {
+        TLP_BOUND {
             @Override
             public void act() {
-                if (NUMALog) {
-                    Log.println("Act as Single-threaded-2");
+                if (NUMALog || logState) {
+                    Log.println("Act as TLP-Bound");
                 }
+                NUMAConfigurations.bindToLocalNode();
+            }
+        },
+        EMBARRASSINGLY_IMBALANCED {
+            @Override
+            public void act() {
+                if (NUMALog || logState) {
+                    Log.println("Act as Embarrassingly-Imbalanced");
+                }
+                NUMAConfigurations.bindToLocalNode();
             }
         },
         OTHER {
             @Override
             public void act() {
-                if (NUMALog) {
+                if (NUMALog || logState) {
                     Log.println("Act as Other");
                 }
             }

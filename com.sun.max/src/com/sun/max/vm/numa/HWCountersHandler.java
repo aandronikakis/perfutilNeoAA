@@ -26,13 +26,16 @@ import com.sun.max.vm.Log;
 import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadMap;
 
-import static com.sun.max.util.perf.PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.INSTRUCTIONS_SINGLE;
+import static com.sun.max.util.perf.PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.*;
 import static com.sun.max.vm.MaxineVM.NUMALog;
 import static com.sun.max.vm.thread.VmThreadLocal.ETLA;
 
 public class HWCountersHandler {
 
-    private static final Pointer.Predicate profilingPredicate = new Pointer.Predicate() {
+    /**
+     * Which threads to profile.
+     */
+    public static final Pointer.Predicate profilingPredicate = new Pointer.Predicate() {
         @Override
         public boolean evaluate(Pointer tla) {
             VmThread vmThread = VmThread.fromTLA(tla);
@@ -45,54 +48,86 @@ public class HWCountersHandler {
         }
     };
 
-    private static final Pointer.Procedure setHWCounters = new Pointer.Procedure() {
+    /**
+     * Enable a HW counter for a thread.
+     * @param thread the target thread.
+     * @param eventGroup the HW counter to be enabled.
+     */
+    public static void enableHWCounter(VmThread thread, PerfUtil.MAXINE_PERF_EVENT_GROUP_ID eventGroup) {
+        final int id = thread.id();
+        final int tid = thread.tid();
+        final String name = thread.getName();
+        //Log.println("Enable HW Counters for: " + id + " " + tid + " " + name);
+        PerfUtil.perfGroupSetSpecificThreadSpecificCore(eventGroup, id, tid, name, -1);
+    }
+
+    /**
+     * Enable HW counters for main thread.
+     */
+    public static void enableHWCountersMainThread() {
+        final VmThread mainThread = VmThread.mainThread;
+        enableHWCounter(mainThread, CPU_CYCLES_SINGLE);
+        enableHWCounter(mainThread, INSTRUCTIONS_SINGLE);
+    }
+
+    /**
+     * Enable HW counters for an application thread.
+     * @param thread the application thread.
+     */
+    public static void enableHWCountersApplicationThread(VmThread thread) {
+        if (profilingPredicate.evaluate(thread.tla())) {
+            //final boolean lockDisabledSafepoints = Log.lock();
+            enableHWCounter(thread, CPU_CYCLES_SINGLE);
+            enableHWCounter(thread, INSTRUCTIONS_SINGLE);
+            //Log.unlock(lockDisabledSafepoints);
+        }
+    }
+
+    /**
+     * Read a HW counter for a thread.
+     * @param thread the target thread.
+     * @param eventGroup the HW counter to be read.
+     */
+    private static void readCounter(VmThread thread, PerfUtil.MAXINE_PERF_EVENT_GROUP_ID eventGroup) {
+        int groupIndex = PerfEventGroup.uniqueGroupId(-1, thread.id(), eventGroup.value);
+        final PerfEventGroup group = PerfUtil.perfEventGroups[groupIndex];
+        if (group == null) {
+            // thread has already closed
+            return;
+        }
+        group.readGroup();
+        group.resetGroup();
+        // scale value
+        long eventCount = group.perfEvents[0].value;
+        long time = group.timeRunningPercentage;
+        long value = eventCount * (time / 100);
+        // store to ProfilingData
+        ProfilingData.add(thread, eventGroup, value);
+    }
+
+    /**
+     * A procedure to read all the HW counters of a thread.
+     */
+    private static final Pointer.Procedure readHWCounters = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             final VmThread thread = VmThread.fromTLA(etla);
             if (NUMALog) {
-                Log.println("Enable HW Counters for: " + thread.id() + " " + thread.tid() + " " + thread.getName());
+                Log.println("Read HW Counters for: " + thread.id() + " " + thread.tid() + " " + thread.getName());
             }
-            PerfUtil.perfGroupSetSpecificThreadSpecificCore(INSTRUCTIONS_SINGLE, thread.id(), thread.tid(), thread.getName(), -1);
-        }
-    };
-
-    private static final Pointer.Procedure readNDisableHWCounters = new Pointer.Procedure() {
-        public void run(Pointer tla) {
-            Pointer etla = ETLA.load(tla);
-            final VmThread thread = VmThread.fromTLA(etla);
-            if (NUMALog) {
-                Log.println("Read N' Disable HW Counters for: " + thread.id() + " " + thread.tid() + " " + thread.getName());
-            }
-            int groupIndex = PerfEventGroup.uniqueGroupId(-1, thread.id(), INSTRUCTIONS_SINGLE.value);
-            final PerfEventGroup group = PerfUtil.perfEventGroups[groupIndex];
-            group.disableGroup();
-            group.readGroup();
-            group.resetGroup();
-            long eventCount = group.perfEvents[0].value;
-            long time = group.timeRunningPercentage;
-            long value = eventCount * (time / 100);
-            if (NUMALog) {
-                Log.println("Instructions = " + eventCount + " of " + time + "%. 100% is " + value);
-            }
+            readCounter(thread, INSTRUCTIONS_SINGLE);
 
         }
     };
 
-    public static void enableHWCounters() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, setHWCounters);
-    }
-
-    public static void readNDisableHWCounters() {
-        VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, readNDisableHWCounters);
-    }
-
-    public static void measureHWInstructions() {
-        try {
-            enableHWCounters();
-            Thread.sleep(100);
-            readNDisableHWCounters();
-        } catch (InterruptedException ex) {
-
+    /**
+     * Read all HW counters of all profiled threads.
+     */
+    public static void readHWCounters() {
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, readHWCounters);
+            Log.println("Profile: (" + ProfilingData.instructions.size() + " threads)");
         }
     }
+
 }
