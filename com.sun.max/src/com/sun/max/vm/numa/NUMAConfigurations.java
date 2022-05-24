@@ -30,19 +30,19 @@ import static com.sun.max.vm.thread.VmThreadMap.THREAD_LOCK;
 public class NUMAConfigurations {
 
     /**
-     * Single-Node configuration: unconditionally bind all threads to one NUMA Node.
+     * Single-Node configuration: set affinity on "local" node for all threads.
      */
-    public static void bindToLocalNode() {
+    public static void setLocalNodeAffinityForAllThreads() {
         synchronized (THREAD_LOCK) {
-            VmThreadMap.ACTIVE.forAllThreadLocals(null, bindThreadToLocalNode);
+            VmThreadMap.ACTIVE.forAllThreadLocals(null, setLocalNodeAffinityOfThread);
         }
     }
 
-    private static final Pointer.Procedure bindThreadToLocalNode = new Pointer.Procedure() {
+    private static final Pointer.Procedure setLocalNodeAffinityOfThread = new Pointer.Procedure() {
         public void run(Pointer tla) {
             Pointer etla = ETLA.load(tla);
             final VmThread thread = VmThread.fromTLA(etla);
-            thread.bindToNode(NUMALib.localNode);
+            NUMALib.numaSetSchedNodeAffinity(thread.tid(), NUMALib.localNode);
         }
     };
 

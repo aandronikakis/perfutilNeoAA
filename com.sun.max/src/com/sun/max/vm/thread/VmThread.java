@@ -1620,14 +1620,6 @@ public class VmThread {
 
     // numa
 
-    /**
-     * Bind current thread to a NUMA node.
-     * @param node the NUMA node.
-     */
-    public void bindToNode(int node) {
-        NUMALib.numaBind(node);
-    }
-
     private static void enableOnlineProfiling(VmThread thread) {
         if (MaxineVM.NUMAOpts && MaxineVM.UsePerf) {
             if (MaxineVM.isRunning()) {

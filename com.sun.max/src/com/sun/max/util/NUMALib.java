@@ -74,6 +74,15 @@ public class NUMALib {
     @C_FUNCTION
     public static native int numaPageSize();
 
+    // to be used only by main thread during initialization
     @C_FUNCTION
     public static native void numaBind(int node);
+
+    // set a thread's NODE affinity
+    @C_FUNCTION
+    public static native void numaSetSchedNodeAffinity(int tid, int node);
+
+    // set a thread's CORE affinity
+    @C_FUNCTION
+    public static native void numaSetSchedAffinity(int tid, int core);
 }

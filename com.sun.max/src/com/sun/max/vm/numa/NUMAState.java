@@ -32,7 +32,7 @@ public class NUMAState {
     final static int NUM_OF_NUMA_NODES = 2;
     final static int NUM_OF_SINGLE_NODE_CORES = NUM_OF_TOTAL_SYSTEM_CORES / NUM_OF_NUMA_NODES;
 
-    final static boolean logState = true;
+    final static boolean logState = false;
 
     /**
      * {@code fsmState} holds the previous ([0]) and current ([1]) state of the fsm.
@@ -121,7 +121,7 @@ public class NUMAState {
                 if (NUMALog || logState) {
                     Log.println("Act as Single-threaded");
                 }
-                NUMAConfigurations.bindToLocalNode();
+                NUMAConfigurations.setLocalNodeAffinityForAllThreads();
             }
         },
         TLP_BOUND {
@@ -130,7 +130,7 @@ public class NUMAState {
                 if (NUMALog || logState) {
                     Log.println("Act as TLP-Bound");
                 }
-                NUMAConfigurations.bindToLocalNode();
+                NUMAConfigurations.setLocalNodeAffinityForAllThreads();
             }
         },
         EMBARRASSINGLY_IMBALANCED {
@@ -139,7 +139,7 @@ public class NUMAState {
                 if (NUMALog || logState) {
                     Log.println("Act as Embarrassingly-Imbalanced");
                 }
-                NUMAConfigurations.bindToLocalNode();
+                NUMAConfigurations.setLocalNodeAffinityForAllThreads();
             }
         },
         OTHER {

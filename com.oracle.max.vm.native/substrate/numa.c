@@ -47,6 +47,7 @@ int numaPageSize() {
     return numa_pagesize();
 }
 
+// to be used only for initialization
 void numaBind(int node) {
     char node_str[10];
     sprintf(node_str, "%d", node);
@@ -58,4 +59,17 @@ void numaBind(int node) {
     }
 
     numa_bind(bm);
+}
+
+void numaSetSchedNodeAffinity(int tid, int node) {
+    struct bitmask *bm = numa_allocate_cpumask();
+    numa_node_to_cpus(node, bm);
+    numa_sched_setaffinity(tid, bm);
+    numa_free_cpumask(bm);
+}
+
+void numaSetSchedAffinity(int tid, int core) {
+    struct bitmask *bm = numa_allocate_cpumask();
+    numa_bitmask_setbit(bm, core);
+    numa_sched_setaffinity(tid, bm);
 }

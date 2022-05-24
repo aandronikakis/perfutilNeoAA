@@ -66,7 +66,7 @@ public class ProfilingData {
                 } else {
                     mainThreadHWInstructionsPercentage = percentage;
                 }
-                Log.println("Instructions of " + entry.threadName + " = " + entry.eventValue + "(" + percentage + "%)");
+                //Log.println("Instructions of " + entry.threadName + " = " + entry.eventValue + "(" + percentage + "%)");
             }
         }
         numOfWorkers = workers.size();
@@ -89,7 +89,7 @@ public class ProfilingData {
         double standardDeviation = Math.sqrt(meanDeviation);
         // imbalance = ( stdev / mean ) * 100 %
         workerInstructionsImbalance = Math.round((standardDeviation / meanWorkerInstructions) * 100);
-        Log.println("HW Instructions imbalance = " + workerInstructionsImbalance + ", workers = " + numOfWorkers);
+        //Log.println("HW Instructions imbalance = " + workerInstructionsImbalance + ", workers = " + numOfWorkers);
 
     }
 
