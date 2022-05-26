@@ -68,6 +68,10 @@ void numaSetSchedNodeAffinity(int tid, int node) {
     numa_free_cpumask(bm);
 }
 
+void numaSetFreeSchedNodeAffinity(int tid) {
+    numa_sched_setaffinity(tid, numa_all_cpus_ptr);
+}
+
 void numaSetSchedAffinity(int tid, int core) {
     struct bitmask *bm = numa_allocate_cpumask();
     numa_bitmask_setbit(bm, core);

@@ -23,7 +23,7 @@ import com.sun.max.vm.thread.VmThread;
 
 public class AwarenessThread extends Thread {
 
-    final int sleepPeriod = 200;
+    final int sleepPeriod = 800;
     final int HWCountersMeasurementPeriod = 100;
 
     /**

@@ -27,46 +27,61 @@ import java.util.ArrayList;
 
 public class ProfilingData {
 
-    public static ArrayList<DataBucket> instructions = new ArrayList<DataBucket>();
+    public static ArrayList<DataBucket> data = new ArrayList<DataBucket>();
+
     public static long instrTotal = 0;
+    public static long cyclesTotal = 0;
     public static long workerInstrTotal = 0;
-    public static ArrayList<DataBucket> cpuCycles = new ArrayList<DataBucket>();
 
     public static ArrayList<DataBucket> workers = new ArrayList<DataBucket>();
     public static int numOfWorkers;
     public static double workerInstructionsImbalance = 0;
     public static double mainThreadHWInstructionsPercentage = 0;
 
-    public static void add(VmThread thread, PerfUtil.MAXINE_PERF_EVENT_GROUP_ID eventGroup, long value) {
-        switch (eventGroup) {
-            case INSTRUCTIONS_SINGLE:
-                if (value != 0) {
-                    instructions.add(new DataBucket(thread, value));
-                    instrTotal += value;
-                }
-                break;
-            case CPU_CYCLES_SINGLE:
-                cpuCycles.add(new DataBucket(thread, value));
-                break;
-        }
+    public static double applicationCurrentCPI;
+    public static double applicationPastCPI = 0;
+
+    public static double singleNodeCPI = 0;
+    public static double dualNodeCPI = 0;
+
+
+    public static void add(VmThread thread, long instructions, long cpuCycles) {
+        data.add(new DataBucket(thread, instructions, cpuCycles));
+        instrTotal += instructions;
+        cyclesTotal += cpuCycles;
     }
 
     public static void process() {
-        long meanInstructions = instrTotal / instructions.size();
+        long meanInstructions = instrTotal / data.size();
+
+        applicationCurrentCPI = Math.floor(100 * ((double) cyclesTotal / instrTotal) + 0.5) / 100;
+
+        // update single/dual node cpi
+        if (singleNodeCPI == 0 && NUMAState.getFsmState()[1] == NUMAState.STATE.PARALLEL_ON_SINGLE_NODE) {
+            singleNodeCPI = applicationCurrentCPI;
+        } else if (dualNodeCPI == 0 && NUMAState.getFsmState()[1] == NUMAState.STATE.PARALLEL_ON_ALL_NODES) {
+            dualNodeCPI = applicationCurrentCPI;
+        }
 
         // find workers # and worker instructions mean
-        for (DataBucket entry:instructions) {
-            float percentage = Math.round(((float) entry.eventValue / instrTotal) * 100);
+        for (DataBucket entry:data) {
+            entry.setIPercentage(Math.floor(((double) entry.instructions / instrTotal) * 100));
             // filter out those with low share of instructions (probably not workers)
-            if (percentage >= 4) {
+            if (entry.iPercentage >= 4) {
                 // filter out main thread from workers
                 if (!entry.threadName.equals("main")) {
                     workers.add(entry);
-                    workerInstrTotal += entry.eventValue;
+                    workerInstrTotal += entry.instructions;
                 } else {
-                    mainThreadHWInstructionsPercentage = percentage;
+                    mainThreadHWInstructionsPercentage = entry.iPercentage;
                 }
-                //Log.println("Instructions of " + entry.threadName + " = " + entry.eventValue + "(" + percentage + "%)");
+                Log.println(entry.threadName +
+                        ", I = " + entry.instructions +
+                        ", C = " + entry.cpuCycles +
+                        ", I% = " + entry.iPercentage + "%" +
+                        ", CPI = " + entry.cpi +
+                        ", cur CPI = " + applicationCurrentCPI +
+                        ", past CPI = " + applicationPastCPI);
             }
         }
         numOfWorkers = workers.size();
@@ -82,7 +97,7 @@ public class ProfilingData {
         double tmp = 0;
         for (DataBucket entry:workers) {
             //stdev of workers
-            double squrDiffToMean = Math.pow(entry.eventValue - meanWorkerInstructions, 2);
+            double squrDiffToMean = Math.pow(entry.instructions - meanWorkerInstructions, 2);
             tmp += squrDiffToMean;
         }
         double meanDeviation = tmp / numOfWorkers;
@@ -94,25 +109,37 @@ public class ProfilingData {
     }
 
     public static void clear() {
-        instructions.clear();
+        data.clear();
         instrTotal = 0;
-        cpuCycles.clear();
+        cyclesTotal = 0;
         workers.clear();
         numOfWorkers = 0;
         workerInstrTotal = 0;
+
+        mainThreadHWInstructionsPercentage = 0;
+        applicationPastCPI = applicationCurrentCPI;
     }
 
     public static class DataBucket {
         int threadId;
         int tid;
         String threadName;
-        long eventValue;
+        long instructions;
+        long cpuCycles;
+        double iPercentage;
+        double cpi;
 
-        public DataBucket(VmThread thread, long value) {
+        public DataBucket(VmThread thread, long instructions, long cpuCycles) {
             this.threadId = thread.id();
             this.tid = thread.tid();
             this.threadName = thread.getName();
-            this.eventValue = value;
+            this.instructions = instructions;
+            this.cpuCycles = cpuCycles;
+            this.cpi = (instructions > 0 && cpuCycles > 0) ? Math.floor(100 * ((double) cpuCycles / instructions) + 0.5) / 100 : 0;
+        }
+
+        public void setIPercentage(double p) {
+            this.iPercentage = p;
         }
     }
 }

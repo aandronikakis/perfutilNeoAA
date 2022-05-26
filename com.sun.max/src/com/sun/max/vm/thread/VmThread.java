@@ -686,7 +686,7 @@ public class VmThread {
                 if (NUMALib.numalib_available() == 0) {
                     NUMALib.localNode = Intrinsics.getCpuID() >> MaxineIntrinsicIDs.NUMA_NODE_SHIFT;
                     //Log.println("I am thread " + thread.name + " and I call NUMALib.numaBind(" + NUMALib.localNode + ")");
-                    NUMALib.numaBind(NUMALib.localNode);
+                    NUMALib.numaSetSchedNodeAffinity(thread.tid, NUMALib.localNode);
                 }
             }
 

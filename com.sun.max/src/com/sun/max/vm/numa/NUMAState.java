@@ -32,7 +32,9 @@ public class NUMAState {
     final static int NUM_OF_NUMA_NODES = 2;
     final static int NUM_OF_SINGLE_NODE_CORES = NUM_OF_TOTAL_SYSTEM_CORES / NUM_OF_NUMA_NODES;
 
-    final static boolean logState = false;
+    final static boolean logState = true;
+
+    final static double cpiMargin = 0.2;
 
     /**
      * {@code fsmState} holds the previous ([0]) and current ([1]) state of the fsm.
@@ -63,6 +65,10 @@ public class NUMAState {
         fsmState[0] = state;
     }
 
+    private static STATE getPreviousState() {
+        return fsmState[0];
+    }
+
     public static void fsmTick() {
         determineCurrentState();
         act();
@@ -87,8 +93,21 @@ public class NUMAState {
             // par-mnemonics, rx-scrabble
             setCurrentState(STATE.EMBARRASSINGLY_IMBALANCED);
         } else {
-            // other
-            setCurrentState(STATE.OTHER);
+            // parallel (imbalanced & explicitly parallel)
+            if (ProfilingData.singleNodeCPI == 0) {
+                // parallel for the first time
+                // run again on single node to measure cpi
+                setCurrentState(STATE.PARALLEL_ON_SINGLE_NODE);
+            } else {
+                // parallel for the second time OR we know that scaling is beneficial
+                if (ProfilingData.dualNodeCPI == 0 || ProfilingData.dualNodeCPI <= (ProfilingData.singleNodeCPI + cpiMargin)) {
+                    // free to scale
+                    setCurrentState(STATE.PARALLEL_ON_ALL_NODES);
+                } else {
+                    // come back to single node
+                    setCurrentState(STATE.PARALLEL_ON_SINGLE_NODE);
+                }
+            }
         }
         //Log.println("Live thread count = " + VmThreadMap.getLiveTheadCount());
         //Log.println("State = " + fsmState + " in checkState()");
@@ -142,12 +161,22 @@ public class NUMAState {
                 NUMAConfigurations.setLocalNodeAffinityForAllThreads();
             }
         },
-        OTHER {
+        PARALLEL_ON_SINGLE_NODE {
             @Override
             public void act() {
                 if (NUMALog || logState) {
-                    Log.println("Act as Other");
+                    Log.println("Act as Parallel-On-Single-Node");
                 }
+                NUMAConfigurations.setLocalNodeAffinityForAllThreads();
+            }
+        },
+        PARALLEL_ON_ALL_NODES {
+            @Override
+            public void act() {
+                if (NUMALog || logState) {
+                    Log.println("Act as Parallel-On-All-Nodes");
+                }
+                NUMAConfigurations.setFreeNodeAffinityForAllThreads();
             }
         };
 

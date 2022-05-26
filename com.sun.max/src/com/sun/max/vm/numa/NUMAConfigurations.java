@@ -47,6 +47,23 @@ public class NUMAConfigurations {
     };
 
     /**
+     * Parallel configuration: set free.
+     */
+    public static void setFreeNodeAffinityForAllThreads() {
+        synchronized (THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(null, setFreeNodeAffinityOfThread);
+        }
+    }
+
+    private static final Pointer.Procedure setFreeNodeAffinityOfThread = new Pointer.Procedure() {
+        public void run(Pointer tla) {
+            Pointer etla = ETLA.load(tla);
+            final VmThread thread = VmThread.fromTLA(etla);
+            NUMALib.numaSetFreeSchedNodeAffinity(thread.tid());
+        }
+    };
+
+    /**
      * X Configuration.
      */
 }

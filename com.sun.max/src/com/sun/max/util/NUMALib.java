@@ -82,6 +82,9 @@ public class NUMALib {
     @C_FUNCTION
     public static native void numaSetSchedNodeAffinity(int tid, int node);
 
+    @C_FUNCTION
+    public static native void numaSetFreeSchedNodeAffinity(int tid);
+
     // set a thread's CORE affinity
     @C_FUNCTION
     public static native void numaSetSchedAffinity(int tid, int core);

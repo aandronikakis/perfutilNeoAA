@@ -88,12 +88,12 @@ public class HWCountersHandler {
      * @param thread the target thread.
      * @param eventGroup the HW counter to be read.
      */
-    private static void readCounter(VmThread thread, PerfUtil.MAXINE_PERF_EVENT_GROUP_ID eventGroup) {
+    private static long readCounter(VmThread thread, PerfUtil.MAXINE_PERF_EVENT_GROUP_ID eventGroup) {
         int groupIndex = PerfEventGroup.uniqueGroupId(-1, thread.id(), eventGroup.value);
         final PerfEventGroup group = PerfUtil.perfEventGroups[groupIndex];
         if (group == null) {
             // thread has already closed
-            return;
+            return -1;
         }
         group.readGroup();
         group.resetGroup();
@@ -102,7 +102,8 @@ public class HWCountersHandler {
         long time = group.timeRunningPercentage;
         long value = eventCount * (time / 100);
         // store to ProfilingData
-        ProfilingData.add(thread, eventGroup, value);
+        return value;
+        //ProfilingData.add(thread, eventGroup, value);
     }
 
     /**
@@ -115,8 +116,9 @@ public class HWCountersHandler {
             if (NUMALog) {
                 Log.println("Read HW Counters for: " + thread.id() + " " + thread.tid() + " " + thread.getName());
             }
-            readCounter(thread, INSTRUCTIONS_SINGLE);
-
+            long instructions = readCounter(thread, INSTRUCTIONS_SINGLE);
+            long cpuCycles = readCounter(thread, CPU_CYCLES_SINGLE);
+            ProfilingData.add(thread, instructions, cpuCycles);
         }
     };
 
@@ -126,7 +128,7 @@ public class HWCountersHandler {
     public static void readHWCounters() {
         synchronized (VmThreadMap.THREAD_LOCK) {
             VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, readHWCounters);
-            Log.println("Profile: (" + ProfilingData.instructions.size() + " threads)");
+            Log.println("Profile: (" + ProfilingData.data.size() + " threads)");
         }
     }
 
