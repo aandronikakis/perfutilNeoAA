@@ -20,6 +20,7 @@
 package com.sun.max.vm.numa;
 
 import com.sun.max.vm.Log;
+import com.sun.max.vm.thread.VmThread;
 import com.sun.max.vm.thread.VmThreadMap;
 
 import static com.sun.max.vm.MaxineVM.NUMALog;
@@ -107,9 +108,11 @@ public class NUMAState {
                 if (dualNodeCPI == 0 || dualNodeCPI <= (singleNodeCPI + cpiMargin)) {
                     // free to scale
                     setCurrentState(STATE.PARALLEL_ON_ALL_NODES);
+                    AwarenessThread.sleepMore();
                 } else {
                     // come back to single node
                     setCurrentState(STATE.PARALLEL_ON_SINGLE_NODE);
+                    AwarenessThread.sleepMore();
                 }
             }
         }

@@ -19,12 +19,20 @@
  */
 package com.sun.max.vm.numa;
 
+import com.sun.max.vm.VMOptions;
 import com.sun.max.vm.thread.VmThread;
 
 public class AwarenessThread extends Thread {
 
-    final int sleepPeriod = 800;
-    final int HWCountersMeasurementPeriod = 100;
+    private static int NUMAOptInterval = 200;
+    final static int NUMAOptIncrementStep = 200;
+
+    private static boolean NUMAOptStabilize = false;
+
+    static {
+        VMOptions.addFieldOption("-XX:", "NUMAOptInterval", AwarenessThread.class, "Enable NUMA Awareness every n msec.");
+        VMOptions.addFieldOption("-XX:", "NUMAOptStabilize", AwarenessThread.class, "Stabilize.");
+    }
 
     /**
      * The NUMA awareness thread itself.
@@ -50,7 +58,7 @@ public class AwarenessThread extends Thread {
         while (true) {
             try {
                 // sleep for M msec until next measurement period
-                Thread.sleep(sleepPeriod);
+                Thread.sleep(NUMAOptInterval);
                 // wake up and collect measurements
                 HWCountersHandler.readHWCounters();
                 // process collected data
@@ -59,6 +67,12 @@ public class AwarenessThread extends Thread {
                 NUMAState.fsmTick();
             } catch (InterruptedException ex) {
             }
+        }
+    }
+
+    public static void sleepMore() {
+        if (NUMAOptStabilize) {
+            NUMAOptInterval += NUMAOptIncrementStep;
         }
     }
 }
