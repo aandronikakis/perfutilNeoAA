@@ -41,9 +41,6 @@ public class ProfilingData {
     public static double applicationCurrentCPI;
     public static double applicationPastCPI = 0;
 
-    public static double singleNodeCPI = 0;
-    public static double dualNodeCPI = 0;
-
 
     public static void add(VmThread thread, long instructions, long cpuCycles) {
         data.add(new DataBucket(thread, instructions, cpuCycles));
@@ -57,11 +54,8 @@ public class ProfilingData {
         applicationCurrentCPI = Math.floor(100 * ((double) cyclesTotal / instrTotal) + 0.5) / 100;
 
         // update single/dual node cpi
-        if (singleNodeCPI == 0 && NUMAState.getFsmState()[1] == NUMAState.STATE.PARALLEL_ON_SINGLE_NODE) {
-            singleNodeCPI = applicationCurrentCPI;
-        } else if (dualNodeCPI == 0 && NUMAState.getFsmState()[1] == NUMAState.STATE.PARALLEL_ON_ALL_NODES) {
-            dualNodeCPI = applicationCurrentCPI;
-        }
+        //NUMAState.getFsmState()[1].updateCPI(applicationCurrentCPI);
+        NUMAState.updateCPI(applicationCurrentCPI);
 
         // find workers # and worker instructions mean
         for (DataBucket entry:data) {
@@ -75,13 +69,13 @@ public class ProfilingData {
                 } else {
                     mainThreadHWInstructionsPercentage = entry.iPercentage;
                 }
-                Log.println(entry.threadName +
+                /*Log.println(entry.threadName +
                         ", I = " + entry.instructions +
                         ", C = " + entry.cpuCycles +
                         ", I% = " + entry.iPercentage + "%" +
                         ", CPI = " + entry.cpi +
                         ", cur CPI = " + applicationCurrentCPI +
-                        ", past CPI = " + applicationPastCPI);
+                        ", past CPI = " + applicationPastCPI);*/
             }
         }
         numOfWorkers = workers.size();

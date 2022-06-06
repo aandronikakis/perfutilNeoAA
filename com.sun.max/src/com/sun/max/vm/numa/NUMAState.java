@@ -32,9 +32,12 @@ public class NUMAState {
     final static int NUM_OF_NUMA_NODES = 2;
     final static int NUM_OF_SINGLE_NODE_CORES = NUM_OF_TOTAL_SYSTEM_CORES / NUM_OF_NUMA_NODES;
 
-    final static boolean logState = true;
+    final static boolean logState = false;
 
-    final static double cpiMargin = 0.2;
+    public static double singleNodeCPI = 0;
+    public static double dualNodeCPI = 0;
+    static double cpiMargin = 0;
+    final static double marginFactor = 0.15;
 
     /**
      * {@code fsmState} holds the previous ([0]) and current ([1]) state of the fsm.
@@ -94,13 +97,14 @@ public class NUMAState {
             setCurrentState(STATE.EMBARRASSINGLY_IMBALANCED);
         } else {
             // parallel (imbalanced & explicitly parallel)
-            if (ProfilingData.singleNodeCPI == 0) {
+            if (singleNodeCPI == 0) {
                 // parallel for the first time
                 // run again on single node to measure cpi
                 setCurrentState(STATE.PARALLEL_ON_SINGLE_NODE);
             } else {
                 // parallel for the second time OR we know that scaling is beneficial
-                if (ProfilingData.dualNodeCPI == 0 || ProfilingData.dualNodeCPI <= (ProfilingData.singleNodeCPI + cpiMargin)) {
+                cpiMargin = singleNodeCPI * marginFactor;
+                if (dualNodeCPI == 0 || dualNodeCPI <= (singleNodeCPI + cpiMargin)) {
                     // free to scale
                     setCurrentState(STATE.PARALLEL_ON_ALL_NODES);
                 } else {
@@ -117,6 +121,10 @@ public class NUMAState {
         //} catch (InterruptedException ex) {
 
         //}
+    }
+
+    public static void updateCPI(double newCPI) {
+        fsmState[1].updateCPI(newCPI);
     }
 
     private static boolean isChanged() {
@@ -142,6 +150,9 @@ public class NUMAState {
                 }
                 NUMAConfigurations.setLocalNodeAffinityForAllThreads();
             }
+
+            @Override
+            public void updateCPI(double cpi) { }
         },
         TLP_BOUND {
             @Override
@@ -151,6 +162,9 @@ public class NUMAState {
                 }
                 NUMAConfigurations.setLocalNodeAffinityForAllThreads();
             }
+
+            @Override
+            public void updateCPI(double cpi) { }
         },
         EMBARRASSINGLY_IMBALANCED {
             @Override
@@ -160,6 +174,9 @@ public class NUMAState {
                 }
                 NUMAConfigurations.setLocalNodeAffinityForAllThreads();
             }
+
+            @Override
+            public void updateCPI(double cpi) { }
         },
         PARALLEL_ON_SINGLE_NODE {
             @Override
@@ -168,6 +185,11 @@ public class NUMAState {
                     Log.println("Act as Parallel-On-Single-Node");
                 }
                 NUMAConfigurations.setLocalNodeAffinityForAllThreads();
+            }
+
+            @Override
+            public void updateCPI(double cpi) {
+                singleNodeCPI = cpi;
             }
         },
         PARALLEL_ON_ALL_NODES {
@@ -178,9 +200,15 @@ public class NUMAState {
                 }
                 NUMAConfigurations.setFreeNodeAffinityForAllThreads();
             }
+
+            @Override
+            public void updateCPI(double cpi) {
+                dualNodeCPI = cpi;
+            }
         };
 
         public abstract void act();
+        public abstract void updateCPI(double cpi);
     }
 
 }
