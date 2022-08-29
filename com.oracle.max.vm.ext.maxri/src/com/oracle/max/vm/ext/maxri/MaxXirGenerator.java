@@ -2240,7 +2240,9 @@ public class MaxXirGenerator implements RiXirGenerator {
                 FatalError.check(vmConfig().heapScheme().usesTLAB(), "HeapScheme must use TLAB");
             }
 
-            //NUMAProfiler.checkForFlareObject(hub);
+            if (!NUMAProfiler.NUMAProfilerFlareObjectStart.equals("TestStart")) {
+                NUMAProfiler.checkForFlareObject(hub);
+            }
             if (NUMAProfiler.shouldProfile()) {
                 ((HeapSchemeWithTLAB) vmConfig().heapScheme()).profileNewTuple(size, hub, cell);
             }
@@ -2252,7 +2254,9 @@ public class MaxXirGenerator implements RiXirGenerator {
                 FatalError.check(vmConfig().heapScheme().usesTLAB(), "HeapScheme must use TLAB");
             }
 
-            //NUMAProfiler.checkForFlareObject(hub);
+            if (!NUMAProfiler.NUMAProfilerFlareObjectStart.equals("TestStart")) {
+                NUMAProfiler.checkForFlareObject(hub);
+            }
             if (NUMAProfiler.shouldProfile()) {
                 ((HeapSchemeWithTLAB) vmConfig().heapScheme()).profileNewArray(length, size, hub, cell);
             }

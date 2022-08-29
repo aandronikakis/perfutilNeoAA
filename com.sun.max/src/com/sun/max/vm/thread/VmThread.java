@@ -696,7 +696,7 @@ public class VmThread {
         enableOnlineProfiling(thread);
 
         // Enable profiling for the new VM Thread if profiling should be enabled
-        if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
+        if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null && !NUMAProfiler.NUMAProfilerIsolateDominantThread) {
             final boolean isProfilingCandidateThread = NUMAProfiler.profilingPredicate.evaluate(thread.tla);
             if (isProfilingCandidateThread) {
                 NUMAProfiler.onVmThreadStart(etla);
@@ -847,7 +847,7 @@ public class VmThread {
         }
         // perform all actions related with NUMAProfiler VmThread's before exit
         // onVmThreadExit should be called AFTER the VmThread has been removed from ACTIVE list
-        if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null) {
+        if (MaxineVM.useNUMAProfiler && MaxineVM.numaProfiler != null && !NUMAProfiler.NUMAProfilerIsolateDominantThread) {
             final boolean isProfilingCandidateThread = NUMAProfiler.profilingPredicate.evaluate(thread.tla);
             if (isProfilingCandidateThread) {
                 NUMAProfiler.onVmThreadExit(thread.tla);

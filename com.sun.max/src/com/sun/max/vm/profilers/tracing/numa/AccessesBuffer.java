@@ -113,7 +113,7 @@ public class AccessesBuffer extends ProfilingArtifact{
                 Log.print(VmThread.fromTLA(etla).getName());
                 Log.print(", ");
                 Log.print(VmThread.fromTLA(etla).tid());
-                Log.print(" ]");
+                Log.println(" ]");
                 final AccessesBuffer accessesBuffer = new AccessesBuffer(THREAD_INVENTORY_KEY.load(etla).toInt());
                 AccessesBuffer.setForCurrentThread(etla, accessesBuffer);
                 return accessesBuffer;

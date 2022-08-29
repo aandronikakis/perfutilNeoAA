@@ -599,6 +599,9 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Size size = Layout.getArraySize(dynamicHub.classActor.componentClassActor().kind, length);
         final Pointer cell = tlabAllocate(size);
 
+        if (!NUMAProfiler.NUMAProfilerFlareObjectStart.equals("TestStart")) {
+            NUMAProfiler.checkForFlareObject(dynamicHub);
+        }
         //NUMAProfiler.checkForFlareObject(dynamicHub);
         engraveAllocatorId(cell, THREAD_INVENTORY_KEY.load(VmThread.current().tla()).toInt());
         if (NUMAProfiler.shouldProfile()) {
@@ -619,6 +622,9 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         } else {
             Object initializedTuple = Cell.plantTuple(cell, hub);
             //NUMAProfiler.checkForFlareObject(hub);
+            if (!NUMAProfiler.NUMAProfilerFlareObjectStart.equals("TestStart")) {
+                NUMAProfiler.checkForFlareObject(hub);
+            }
             engraveAllocatorId(cell, THREAD_INVENTORY_KEY.load(VmThread.current().tla()).toInt());
             if (NUMAProfiler.shouldProfile()) {
                 final String objectType = hub.classActor.name();
@@ -634,6 +640,9 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer cell = tlabAllocate(size);
 
         //NUMAProfiler.checkForFlareObject(hub);
+        if (!NUMAProfiler.NUMAProfilerFlareObjectStart.equals("TestStart")) {
+            NUMAProfiler.checkForFlareObject(hub);
+        }
         engraveAllocatorId(cell, THREAD_INVENTORY_KEY.load(VmThread.current().tla()).toInt());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
@@ -662,6 +671,9 @@ public abstract class HeapSchemeWithTLAB extends HeapSchemeAdaptor {
         final Pointer oldOrigin = Reference.fromJava(object).toOrigin();
         final Hub hub = Layout.getHub(oldOrigin);
         //NUMAProfiler.checkForFlareObject(hub);
+        if (!NUMAProfiler.NUMAProfilerFlareObjectStart.equals("TestStart")) {
+            NUMAProfiler.checkForFlareObject(hub);
+        }
         engraveAllocatorId(cell, THREAD_INVENTORY_KEY.load(VmThread.current().tla()).toInt());
         if (NUMAProfiler.shouldProfile()) {
             final String objectType = hub.classActor.name();
