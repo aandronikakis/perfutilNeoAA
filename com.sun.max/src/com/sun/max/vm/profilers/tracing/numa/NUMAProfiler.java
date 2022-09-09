@@ -265,7 +265,7 @@ public class NUMAProfiler {
     public Address toEnd;
     public Address fromStart;
     public Address fromEnd;
-    public int memoryPageSize = 0;
+    public static int memoryPageSize = 0;
 
     public static boolean isTerminating = false;
 
@@ -543,10 +543,12 @@ public class NUMAProfiler {
                     if (start_counter < flareAllocationThresholds.length - 1) {
                         start_counter++;
                     }
+                    preFlareActions();
+
                     //PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.ENABLED.getValue()));
                     if (NUMAProfiler.NUMAProfilerIsolateDominantThread) {
-                        //setProfilingTLA.run(VmThread.currentTLA());
                         onVmThreadStart(etla);
+                        setProfilingTLA.run(VmThread.currentTLA());
                     } else {
                         enableProfiling();
                     }
@@ -555,6 +557,7 @@ public class NUMAProfiler {
                         Log.print(profilingCycle);
                         Log.println("]");
                     }
+
                     //profilingCycle++;
                     enablePerfUtilFlareObject++;
                 }
@@ -577,7 +580,7 @@ public class NUMAProfiler {
                             end_counter++;
                             //PROFILER_STATE.store(etla, Address.fromInt(PROFILING_STATE.DISABLED.getValue()));
                             if (NUMAProfiler.NUMAProfilerIsolateDominantThread) {
-                                //resetProfilingTLA.run(VmThread.currentTLA());
+                                resetProfilingTLA.run(VmThread.currentTLA());
                                 onVmThreadExit(etla);
                             } else {
                                 disableProfiling();
@@ -587,6 +590,9 @@ public class NUMAProfiler {
                                 Log.print(profilingCycle);
                                 Log.println("]");
                             }
+
+                            postFlareActions();
+
                             enablePerfUtilFlareObject--;
                             profilingCycle++;
                             break;
@@ -935,13 +941,13 @@ public class NUMAProfiler {
      * @return the memory page index of the address
      */
     private static int getHeapPagesIndexOfAddress(Pointer cell) {
-        return cell.minus(heapStart).dividedBy(numaProfiler.memoryPageSize).toInt();
+        return cell.minus(heapStart).dividedBy(memoryPageSize).toInt();
     }
 
     @INTRINSIC(UNSAFE_CAST)
     private static native MemoryRegion asMemoryRegion(Object object);
 
-    private final Pointer.Procedure findNumaNodeForSpace = new Pointer.Procedure() {
+    private static final Pointer.Procedure findNumaNodeForSpace = new Pointer.Procedure() {
         public void run(Pointer pointer) {
             Reference    reference = Reference.fromOrigin(pointer);
             MemoryRegion space     = asMemoryRegion(reference);
@@ -953,7 +959,7 @@ public class NUMAProfiler {
      * Find the NUMA Node for each virtual memory page of the JVM Heap.
      * Currently implemented only for the {@link SemiSpaceHeapScheme}.
      */
-    private void findNumaNodeForAllHeapMemoryPages() {
+    private static void findNumaNodeForAllHeapMemoryPages() {
         if (NUMAProfilerVerbose) {
             Log.println("[VerboseMsg @ NUMAProfiler.findNumaNodeForAllHeapMemoryPages()]: ==> Find Numa Node For All Heap Memory Pages");
         }
@@ -965,7 +971,7 @@ public class NUMAProfiler {
      *
      * @param space
      */
-    private void findNumaNodeForAllSpaceMemoryPages(MemoryRegion space) {
+    private static  void findNumaNodeForAllSpaceMemoryPages(MemoryRegion space) {
         int pageIndex;
         int node;
 
@@ -1012,7 +1018,7 @@ public class NUMAProfiler {
         int objNumaNode = heapPages.readNumaNode(pageIndex);
         // if outdated, use the sys call to get the numa node and update heapPages buffer
         if (objNumaNode == NUMALib.EFAULT) {
-            Address pageAddr = heapStart.plus(Address.fromInt(numaProfiler.memoryPageSize).times(pageIndex));
+            Address pageAddr = heapStart.plus(Address.fromInt(memoryPageSize).times(pageIndex));
             int node = NUMALib.numaNodeOfAddress(pageAddr.toLong());
             heapPages.writeNumaNode(pageIndex, node);
             objNumaNode = node;
@@ -1054,7 +1060,7 @@ public class NUMAProfiler {
      * This method is called from postGC actions to profile the survivor objects.
      * It calls the {@linkplain #profileSurvivorsProcedure}.
      */
-    private void profileSurvivors() {
+    private static void profileSurvivors() {
         synchronized (VmThreadMap.THREAD_LOCK) {
             VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, profileSurvivorsProcedure);
         }
@@ -1064,7 +1070,7 @@ public class NUMAProfiler {
      * A method to check and update the profiling state.
      * NOTE: This only applies for ExplicitGC Driven profiling.
      */
-    private void checkAndUpdateProfilingState() {
+    private static void checkAndUpdateProfilingState() {
         // Check if the current GC is explicit. If yes, increase the iteration counter.
         if (isExplicitGC) {
             iteration++;
@@ -1113,6 +1119,34 @@ public class NUMAProfiler {
         }
     }
 
+
+    static void preFlareActions() {
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.preFlareActions()]: Mutation Stopped. Entering Pre-Flare Phase.");
+            Log.print("[VerboseMsg @ NUMAProfiler.preFlareActions()]: Profiling Cycle = ");
+            Log.println(profilingCycle);
+        }
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[FlareObject Start] >>>>>>>>>>>>");
+        }
+
+        // guard libnuma sys call usages during implicit GCs
+        // find numa nodes for all pages in the GC exactly before the first profiling cycle
+        if (isExplicitGC && iteration >= NUMAProfiler.NUMAProfilerExplicitGCThreshold - 1) {
+            findNumaNodeForAllHeapMemoryPages();
+        }
+
+        if (NUMAProfilerPrintOutput) {
+            dumpHeapBoundaries();
+        }
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.preFlareActions()]: Leaving Pre-Flare Phase.");
+        }
+    }
+
     /**
      * ISA-guarded wrapper of {@link Intrinsics#getTicks()}.
      */
@@ -1127,7 +1161,7 @@ public class NUMAProfiler {
     /**
      * Logs GC start/end with timestamps into NUMAProfiler's output.
      */
-    public void logGC(boolean start) {
+    public static void logGC(boolean start) {
         if (start) {
             Log.print("(GC);start;");
         } else {
@@ -1278,6 +1312,130 @@ public class NUMAProfiler {
 
         if (NUMAProfilerPrintOutput) {
             logGC(false);
+        }
+
+    }
+
+
+    static void postFlareActions() {
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Entering Post-Flare Phase.");
+        }
+
+        if (NUMAProfilerSurvivors) {
+            profileSurvivors();
+        }
+
+        if (NUMAProfilerPrintOutput) {
+            if (NUMAProfilerTraceAllocations) {
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Print Allocations RecordBuffers for Live Threads. [post-Flare phase]");
+                }
+                dumpDominantTLARBs();
+
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Print Allocations RecordBuffers for Queued Threads. [termination]");
+                }
+                allocationBuffersQueue.print(profilingCycle);
+            } else {
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Print AllocationsCounter for Live Threads. [post-Flare phase]");
+                }
+                dumpDominantTLARCs();
+
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Print AllocationsCounter for Queued Threads. [termination]");
+                }
+                allocCounterQueue.print(profilingCycle);
+            }
+
+            if (NUMAProfilerSurvivors) {
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Print Survivors RecordBuffers for Live Threads. [post-Flare phase]");
+                }
+                dumpDominantTLSRBs();
+            }
+
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Print AccessesBuffer for Live Threads. [post-Flare phase]");
+            }
+            dumpDominantTLAccBs();
+
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Print AccessesBuffer for Queued Threads. [post-Flare phase]");
+            }
+            accessesBufferQueue.print(profilingCycle);
+        }
+
+        if (NUMAProfilerTraceAllocations) {
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Reset Allocations RecordBuffers for Live Threads. [post-Flare phase]");
+            }
+            resetTLARBs();
+        } else {
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Reset AllocationsCounter for Live Threads. [post-Flare phase]");
+            }
+            resetTLACs();
+        }
+
+        if (NUMAProfilerSurvivors) {
+            if ((profilingCycle % 2) == 0) {
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Clean-up Survivor1 Buffer. [post-Flare phase]");
+                }
+                resetTLS1RBs();
+            } else {
+                if (NUMAProfilerVerbose) {
+                    Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Clean-up Survivor2 Buffer. [post-Flare phase]");
+                }
+                resetTLS2RBs();
+            }
+        }
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Reset AccessesBuffer for Live Threads. [post-Flare phase]");
+        }
+        resetTLAccBs();
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Update Thread Inventory. [post-Flare phase]");
+        }
+        updateThreadInventory();
+
+        if (isExplicitGCPolicyConditionTrue()) {
+            checkAndUpdateProfilingState();
+        }
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Print Profiling Thread Names of Live Threads. [post-Flare phase]");
+        }
+        // Add the so far live threads to inventory
+        addLiveThreadsToInventory();
+
+        if (explicitGCProflingEnabled) {
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Leaving Post-Flare Phase.");
+                Log.print("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Start Mutation");
+                Log.print(" & Profiling. [Profiling Cycle ");
+                Log.print(profilingCycle);
+                Log.print("]");
+                Log.print(", iteration = ");
+                Log.println(iteration);
+            }
+        } else {
+            if (NUMAProfilerVerbose) {
+                Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Leaving Post-Flare Phase.");
+                Log.print("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Start Mutation");
+                Log.print(", iteration = ");
+                Log.println(iteration);
+            }
+        }
+
+        if (NUMAProfilerVerbose) {
+            Log.println("[FlareObject End] <<<<<<<<<<<<");
+
         }
 
     }
@@ -1701,13 +1859,62 @@ public class NUMAProfiler {
     }
 
     /*
+     * A set of methods to print a {@link ProfilingArtifact} (TLARB, TLSRB, TLAC or TLAccB) for dominant thread.
+     */
+
+    /**
+     * Print the Thread-Local Allocations {@link RecordBuffer} (TLARB) for dominant thread.
+     */
+    private static void dumpDominantTLARBs() {
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            if (profilingPredicate == null || profilingPredicate.evaluate(VmThread.currentTLA())) {
+                printTLARB.run(VmThread.currentTLA());
+            }
+        }
+    }
+
+    /**
+     * Print the Thread-Local Survivors {@link RecordBuffer} (TLSRB) for dominant thread.
+     */
+    private static void dumpDominantTLSRBs() {
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            if (profilingPredicate == null || profilingPredicate.evaluate(VmThread.currentTLA())) {
+                printTLSRBs.run(VmThread.currentTLA());
+            }
+        }
+    }
+
+    /**
+     * Print the Thread-Local {@link AllocationsCounter} (TLAC) for dominant thread.
+     */
+    private static void dumpDominantTLARCs() {
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            if (profilingPredicate == null || profilingPredicate.evaluate(VmThread.currentTLA())) {
+                printTLAC.run(VmThread.currentTLA());
+            }
+        }
+    }
+
+    /**
+     * Print the Thread-Local {@link AccessesBuffer} (TLAccB) for dominant thread.
+     */
+    private static void dumpDominantTLAccBs() {
+        synchronized (VmThreadMap.THREAD_LOCK) {
+            if (profilingPredicate == null || profilingPredicate.evaluate(VmThread.currentTLA())) {
+                printTLAccB.run(VmThread.currentTLA());
+            }
+        }
+    }
+
+
+    /*
      * A set of methods to print a {@link ProfilingArtifact} (TLARB, TLSRB, TLAC or TLAccB) for all ACTIVE threads.
      */
 
     /**
      * Print the Thread-Local Allocations {@link RecordBuffer} (TLARB) for all ACTIVE threads.
      */
-    private void dumpAllTLARBs() {
+    private static void dumpAllTLARBs() {
         synchronized (VmThreadMap.THREAD_LOCK) {
             VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLARB);
         }
@@ -1716,7 +1923,7 @@ public class NUMAProfiler {
     /**
      * Print the Thread-Local Survivors {@link RecordBuffer} (TLSRB) for all ACTIVE threads.
      */
-    private void dumpAllTLSRBs() {
+    private static void dumpAllTLSRBs() {
         synchronized (VmThreadMap.THREAD_LOCK) {
             VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLSRBs);
         }
@@ -1725,7 +1932,7 @@ public class NUMAProfiler {
     /**
      * Print the Thread-Local {@link AllocationsCounter} (TLAC) for all ACTIVE threads.
      */
-    private void dumpAllTLARCs() {
+    private static void dumpAllTLARCs() {
         synchronized (VmThreadMap.THREAD_LOCK) {
             VmThreadMap.ACTIVE.forAllThreadLocals(profilingPredicate, printTLAC);
         }
@@ -1740,7 +1947,7 @@ public class NUMAProfiler {
         }
     }
 
-    private void dumpHeapBoundaries() {
+    private static void dumpHeapBoundaries() {
         final boolean lockDisabledSafepoints = lock();
         heapPages.printStats(profilingCycle);
         unlock(lockDisabledSafepoints);

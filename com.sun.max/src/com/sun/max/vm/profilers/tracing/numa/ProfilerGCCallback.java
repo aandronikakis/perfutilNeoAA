@@ -43,13 +43,13 @@ public class ProfilerGCCallback implements Heap.GCCallback {
     public void gcCallback(Heap.GCCallbackPhase gcCallbackPhase) {
 
         if (gcCallbackPhase == Heap.GCCallbackPhase.BEFORE) {
-            if (NUMAProfiler.explicitGCProflingEnabled || NUMAProfiler.enableFlareObjectProfiler) {
+            if (NUMAProfiler.explicitGCProflingEnabled) {
                 MaxineVM.numaProfiler.preGCActions();
             } else {
                 MaxineVM.numaProfiler.preGCMinimumActions();
             }
         } else if (gcCallbackPhase == Heap.GCCallbackPhase.AFTER) {
-            if (NUMAProfiler.explicitGCProflingEnabled || NUMAProfiler.enableFlareObjectProfiler) {
+            if (NUMAProfiler.explicitGCProflingEnabled) {
                 MaxineVM.numaProfiler.postGCActions();
             } else {
                 MaxineVM.numaProfiler.postGCMinimumActions();
