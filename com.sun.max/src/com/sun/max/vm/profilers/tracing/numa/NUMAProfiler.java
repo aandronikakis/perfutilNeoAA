@@ -1414,23 +1414,11 @@ public class NUMAProfiler {
         // Add the so far live threads to inventory
         addLiveThreadsToInventory();
 
-        if (explicitGCProflingEnabled) {
-            if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Leaving Post-Flare Phase.");
-                Log.print("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Start Mutation");
-                Log.print(" & Profiling. [Profiling Cycle ");
-                Log.print(profilingCycle);
-                Log.print("]");
-                Log.print(", iteration = ");
-                Log.println(iteration);
-            }
-        } else {
-            if (NUMAProfilerVerbose) {
-                Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Leaving Post-Flare Phase.");
-                Log.print("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Start Mutation");
-                Log.print(", iteration = ");
-                Log.println(iteration);
-            }
+        if (NUMAProfilerVerbose) {
+            Log.println("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Leaving Post-Flare Phase.");
+            Log.print("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Start Mutation");
+            Log.print(" & Profiling. [Profiling Cycle ");
+            Log.print(profilingCycle);
         }
 
         if (NUMAProfilerVerbose) {
