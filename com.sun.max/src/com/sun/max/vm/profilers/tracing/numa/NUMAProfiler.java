@@ -573,6 +573,7 @@ public class NUMAProfiler {
                 if (newflareObjectThreadIdBuffer.size() > 0) {
                     for (int cnt = 0; cnt < newflareObjectThreadIdBuffer.size(); cnt++) {
                         if (newflareObjectThreadIdBuffer.get(cnt) == currentThreadID) {
+                            newflareObjectThreadIdBuffer.remove(cnt);
                             if (NUMAProfilerVerbose) {
                                 Log.print("(NUMA Profiler): Disable profiling due to flare end object allocation for id ");
                                 Log.println(currentThreadID);
@@ -603,7 +604,12 @@ public class NUMAProfiler {
         } else if (MaxineVM.usePerf && !NUMAProfilerFlareAllocationThresholds.equals("0")) {
             if (type.contains(NUMAProfilerFlareObjectStart)) {
                 perfUtilflareObjectCounter++;
-
+                if (PerfUtil.LogPerf) {
+                    Log.print("[PerfUtil] Start Flare-Object Counter: ");
+                    Log.print(perfUtilflareObjectCounter);
+                    Log.print(" with ThreadId: ");
+                    Log.println(currentThreadID);
+                }
                 if (perfUtilflareObjectCounter == flareAllocationThresholds[start_counter]) {
                     newflareObjectThreadIdBuffer.add(currentThreadID);
                     if (PerfUtil.LogPerf) {
@@ -667,6 +673,7 @@ public class NUMAProfiler {
                 if (newflareObjectThreadIdBuffer.size() > 0) {
                     for (int cnt = 0; cnt < newflareObjectThreadIdBuffer.size(); cnt++) {
                         if (newflareObjectThreadIdBuffer.get(cnt) == currentThreadID) {
+                            newflareObjectThreadIdBuffer.remove(cnt);
                             if (PerfUtil.LogPerf) {
                                 Log.print("[PerfUtil] Disable profiling due to flare end object allocation for id ");
                                 Log.println(currentThreadID);
@@ -1129,7 +1136,7 @@ public class NUMAProfiler {
         }
 
         if (NUMAProfilerVerbose) {
-            Log.println("[FlareObject Start] >>>>>>>>>>>>");
+            Log.println("[FlareObject Start] >>>>>>>>>>>>>>>>>>>>>>>>");
         }
 
         // guard libnuma sys call usages during implicit GCs
@@ -1419,10 +1426,11 @@ public class NUMAProfiler {
             Log.print("[VerboseMsg @ NUMAProfiler.postFlareActions()]: Start Mutation");
             Log.print(" & Profiling. [Profiling Cycle ");
             Log.print(profilingCycle);
+            Log.println("]");
         }
 
         if (NUMAProfilerVerbose) {
-            Log.println("[FlareObject End] <<<<<<<<<<<<");
+            Log.println("<<<<<<<<<<<<<<<<<<<<<<<< [FlareObject End]");
 
         }
 
