@@ -355,8 +355,12 @@ public class PerfUtil {
         NODE_PREFETCHES_SINGLE(40),
         NODE_PREFETCH_MISSES_SINGLE(41),
         NODE_READ_MISSES_SINGLE(42),
-        NODE_WRITE_MISSES_SINGLE(43);
+        NODE_WRITE_MISSES_SINGLE(43),
 
+        DTLB_READS_SINGLE(44),
+        DTLB_WRITES_SINGLE(45),
+        DTLB_READ_MISSES_SINGLE(46),
+        DTLB_WRITE_MISSES_SINGLE(47);
 
         public final int value;
 
@@ -429,7 +433,13 @@ public class PerfUtil {
         HW_CACHE_LLC_PREFETCHES(45),
         HW_CACHE_LLC_PREFETCH_MISSES(46),
         HW_CACHE_NODE_PREFETCHES(47),
-        HW_CACHE_NODE_PREFETCH_MISSES(48);
+        HW_CACHE_NODE_PREFETCH_MISSES(48),
+
+
+        HW_CACHE_DTLB_READS(49),
+        HW_CACHE_DTLB_WRITES(50),
+        HW_CACHE_DTLB_READ_MISSES(51),
+        HW_CACHE_DTLB_WRITE_MISSES(52);
 
         public final int value;
 
