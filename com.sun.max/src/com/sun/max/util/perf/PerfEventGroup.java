@@ -127,10 +127,10 @@ public class PerfEventGroup {
                 createInstructionsSingle();
                 break;
             case BRANCH_INSTRUCTIONS_SINGLE:
-                createBranchInstructionsGroup();
+                createBranchInstructionsSingle();
                 break;
             case BRANCH_MISSES_SINGLE:
-                createBranchMissesGroup();
+                createBranchMissesSingle();
                 break;
             case LLC_READS_SINGLE:
                 createLLCReadsSingle();
@@ -310,7 +310,7 @@ public class PerfEventGroup {
         perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_INSTRUCTIONS, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_INSTRUCTIONS.value, thread, tid, core, groupLeaderId);
     }
 
-    public void createBranchInstructionsGroup() {
+    public void createBranchInstructionsSingle() {
         groupId = MAXINE_PERF_EVENT_GROUP_ID.BRANCH_INSTRUCTIONS_SINGLE;
         final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_BRANCH_INSTRUCTIONS.value, groupId.value);
         numOfEvents = 1;
@@ -318,7 +318,7 @@ public class PerfEventGroup {
         perfEvents[0] = new PerfEvent(groupId, MAXINE_PERF_EVENT_ID.HW_BRANCH_INSTRUCTIONS, PERF_TYPE_ID.PERF_TYPE_HARDWARE, PERF_HW_EVENT_ID.PERF_COUNT_HW_BRANCH_INSTRUCTIONS.value, thread, tid, core, groupLeaderId);
     }
 
-    public void createBranchMissesGroup() {
+    public void createBranchMissesSingle() {
         groupId = MAXINE_PERF_EVENT_GROUP_ID.BRANCH_MISSES_SINGLE;
         final int groupLeaderId = uniqueEventId(core, thread, MAXINE_PERF_EVENT_ID.HW_BRANCH_MISSES.value, groupId.value);
         numOfEvents = 1;
