@@ -657,6 +657,26 @@ public class NUMAProfiler {
                         PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_WRITE_MISSES_SINGLE, currentThreadID, -1);
                         PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCHES_SINGLE, currentThreadID, -1);
                         PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCH_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.BRANCH_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_READS_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_WRITES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_READ_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_READ_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                        PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, currentThreadID, -1);
+
+                        if (start_counter == 1) {
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_0_GROUP, 0);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_0_GROUP, 0);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_0_GROUP, 0);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_0_GROUP, 0);
+
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_1_GROUP, 1);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_1_GROUP, 1);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_1_GROUP, 1);
+                            PerfUtil.perfGroupSetAnyThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_1_GROUP, 1);
+                        }
                     } else {
                         PerfUtil.perfGroupSetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CACHE_MISSES_GROUP, currentThreadID, -1);
                     }
@@ -747,6 +767,39 @@ public class NUMAProfiler {
                                 PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCHES_SINGLE, currentThreadID, -1);
                                 PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCH_MISSES_SINGLE, currentThreadID, -1);
                                 PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.NODE_PREFETCH_MISSES_SINGLE, currentThreadID, -1);
+
+
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.BRANCH_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.BRANCH_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_READS_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_READS_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_WRITES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_WRITES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_READ_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_READ_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.DTLB_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_READ_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_READ_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_WRITE_MISSES_SINGLE, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.L1D_WRITE_MISSES_SINGLE, currentThreadID, -1);
+
+
+                                PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, currentThreadID, -1);
+                                PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.SW_GROUP, currentThreadID, -1);
+
+                                if (end_counter == flareAllocationThresholds.length) {
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_0_GROUP, -1, 0);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_0_GROUP, -1, 0);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_0_GROUP, -1, 0);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_0_GROUP, -1, 0);
+
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_0_CPU_1_GROUP, -1, 1);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_1_CPU_1_GROUP, -1, 1);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_2_CPU_1_GROUP, -1, 1);
+                                    PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.UNCORE_IMC_3_CPU_1_GROUP, -1, 1);
+                                }
+
                             } else {
                                 PerfUtil.perfGroupReadAndResetSpecificThreadSpecificCore(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CACHE_MISSES_GROUP, currentThreadID, -1);
                                 PerfUtil.perfGroupClose(PerfUtil.MAXINE_PERF_EVENT_GROUP_ID.CACHE_MISSES_GROUP, currentThreadID, -1);
