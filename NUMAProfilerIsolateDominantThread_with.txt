@@ -1,0 +1,138 @@
+WARNING: getDiagnosticCommands not implemented
+WARNING: getDiagnosticCommandInfo not implemented
+(threadInventory);1;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54198] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31507722779981
+(threadInventory);2;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54198] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31507723207975
+(threadInventory);3;start;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31512983955499
+(threadInventory);4;start;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54210] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31513045012124
+(threadInventory);5;start;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31513134620395
+(threadInventory);6;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54198] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517119949775
+(threadInventory);6;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54198] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517120311194
+(threadInventory);6;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517319801510
+(threadInventory);7;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517325294353
+(threadInventory);7;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517472874680
+(threadInventory);8;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517477389318
+(threadInventory);8;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517647627080
+(threadInventory);9;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517653213559
+(threadInventory);9;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517787062255
+(threadInventory);10;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517790704750
+(threadInventory);10;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517958197853
+(threadInventory);11;end;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31517969584333
+(threadInventory);11;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31517970761307
+(threadInventory);11;end;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54210] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31517986678029
+(threadInventory);11;start;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31518045506519
+(threadInventory);12;end;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31518051119921
+(threadInventory);12;start;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31518091459778
+(threadInventory);13;end;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31518095810501
+(threadInventory);13;start;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31518139795481
+(threadInventory);14;end;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31518158465349
+(GC);start;31518173833281
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+(GC);end;31519906147340
+(threadInventory);14;end;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31519926815063
+(threadInventory);14;start;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54210] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31519949186195
+(threadInventory);15;end;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54210] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31519964029263
+(threadInventory);15;start;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31519997861691
+(threadInventory);16;end;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31520046921457
+(threadInventory);16;start;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31520050268916
+(threadInventory);17;end;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31520056122856
+(threadInventory);17;start;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31520116529276
+(threadInventory);18;end;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31520140909294
+(threadInventory);18;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31520187013112
+(threadInventory);19;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31520192399758
+(threadInventory);19;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31520234786455
+(threadInventory);20;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31520240355389
+(threadInventory);20;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31520272625183
+(threadInventory);21;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31520276431746
+(threadInventory);21;start;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31520329411440
+(threadInventory);22;end;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31520337151619
+(threadInventory);22;start;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54210] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31520360022696
+(threadInventory);23;end;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54210] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31520364678526
+(threadInventory);23;start;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31520413997019
+(threadInventory);24;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24990;2;31520418211658
+(threadInventory);24;start;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31520440018174
+(threadInventory);25;end;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31520448100220
+(threadInventory);25;start;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31520477875126
+(threadInventory);26;end;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31520484726999
+(threadInventory);26;start;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520530422110
+(threadInventory);27;end;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520533370975
+(threadInventory);27;start;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54210] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31520542242771
+(threadInventory);28;end;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54210] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31520545245747
+(threadInventory);28;start;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31520548296038
+(threadInventory);29;end;neo4j.BoltWorker-3 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24988;4;31520552328774
+(threadInventory);29;start;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520573211646
+(threadInventory);30;end;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520579964573
+(threadInventory);30;start;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520601662449
+(threadInventory);31;end;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520604122590
+(threadInventory);31;start;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520616810201
+(threadInventory);32;end;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54208] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520619237905
+(threadInventory);32;start;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54210] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31520623544546
+(threadInventory);33;end;neo4j.BoltWorker-2 [bolt] [/127.0.0.1:54210] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24987;5;31520626492690
+(threadInventory);33;start;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520650994093
+(threadInventory);34;end;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54200] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520653643504
+(threadInventory);34;start;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520687217328
+(threadInventory);35;end;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54212] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24989;3;31520689196574
+########################### 1 ###########################
+########################### 2 ###########################
+Allocate it now! [ neo4j.BoltNetworkIO-17, 25081 ]
+Allocate it now! [ neo4j.BoltNetworkIO-16, 25080 ]
+Allocate it now! [ neo4j.BoltNetworkIO-15, 25079 ]
+Allocate it now! [ neo4j.BoltNetworkIO-14, 25078 ]
+Allocate it now! [ neo4j.BoltNetworkIO-13, 25077 ]
+Allocate it now! [ neo4j.BoltNetworkIO-12, 25076 ]
+Allocate it now! [ neo4j.BoltNetworkIO-11, 25075 ]
+Allocate it now! [ neo4j.BoltNetworkIO-10, 25059 ]
+Allocate it now! [ neo4j.BoltNetworkIO-9, 25057 ]
+Allocate it now! [ neo4j.BoltNetworkIO-8, 25056 ]
+Allocate it now! [ neo4j.BoltNetworkIO-7, 25054 ]
+Allocate it now! [ neo4j.BoltNetworkIO-6, 25053 ]
+Allocate it now! [ neo4j.BoltNetworkIO-5, 25048 ]
+Allocate it now! [ neo4j.BoltNetworkIO-4, 25047 ]
+Allocate it now! [ neo4j.BoltNetworkIO-3, 25046 ]
+Allocate it now! [ neo4j.BoltNetworkIO-2, 25045 ]
+Allocate it now! [ ForkJoinPool.commonPool-worker-1, 24993 ]
+Allocate it now! [ neo4j.BoltNetworkIO-1, 24991 ]
+########################### 3 ###########################
+########################### 4 ###########################

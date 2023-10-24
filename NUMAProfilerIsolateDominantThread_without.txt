@@ -1,0 +1,486 @@
+(threadInventory);1;start;neo4j.Scheduler-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24730;2;31138098358909
+(threadInventory);1;start;Neo4j UDC Timer;java.util.TimerThread;24733;3;31143471463782
+(threadInventory);1;start;Thread-3;java.lang.Thread;24734;4;31144438372596
+(threadInventory);1;start;neo4j.PageCacheWorker-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24736;5;31145051472070
+(threadInventory);1;start;neo4j.StorageMaintenance-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24738;6;31149399400141
+(threadInventory);1;start;neo4j.FileWatcher-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24739;7;31149400806856
+(threadInventory);1;start;neo4j.TransactionTimeoutMonitor-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24741;8;31149612272521
+(threadInventory);1;start;neo4j.VmPauseMonitor-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24742;9;31149823507131
+WARNING: getDiagnosticCommands not implemented
+WARNING: getDiagnosticCommandInfo not implemented
+(threadInventory);1;start;neo4j.BoltWorker-1 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24743;10;31151378209308
+(threadInventory);1;start;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;11;31151378531784
+(threadInventory);1;start;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;12;31151379511397
+(threadInventory);1;start;neo4j.BoltWorker-4 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;13;31151380421788
+(threadInventory);1;start;neo4j.BoltWorker-5 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;14;31151380767946
+(threadInventory);1;start;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;15;31152989358550
+(threadInventory);1;start;ForkJoinPool.commonPool-worker-1;java.util.concurrent.ForkJoinWorkerThread;24750;16;31154633519443
+(threadInventory);1;start;neo4j.ServerTransactionTimeout-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24755;17;31164873503206
+(threadInventory);1;start;qtp399250480-112;java.lang.Thread;24756;18;31166602247883
+(threadInventory);1;start;qtp399250480-114;java.lang.Thread;24758;19;31166602772235
+(threadInventory);1;start;qtp399250480-113;java.lang.Thread;24757;20;31166603062445
+(threadInventory);1;start;qtp399250480-115;java.lang.Thread;24759;21;31166603318347
+(threadInventory);1;start;qtp399250480-116;java.lang.Thread;24760;22;31166603913362
+(threadInventory);1;start;qtp399250480-117;java.lang.Thread;24761;23;31166604263511
+(threadInventory);1;start;qtp399250480-118;java.lang.Thread;24762;24;31166604872655
+(threadInventory);1;start;qtp399250480-119;java.lang.Thread;24763;25;31166605670402
+(threadInventory);1;start;qtp399250480-120;java.lang.Thread;24764;26;31166605943964
+(threadInventory);1;start;qtp399250480-121;java.lang.Thread;24765;27;31166606783513
+(threadInventory);1;start;qtp399250480-122;java.lang.Thread;24766;28;31166607100188
+(threadInventory);1;start;qtp399250480-123;java.lang.Thread;24767;29;31166607673066
+(threadInventory);1;start;Scheduler-404161378;java.lang.Thread;24768;30;31166723125536
+(threadInventory);1;start;neo4j.CheckPoint-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24775;31;31177694744287
+(threadInventory);1;end;ForkJoinPool.commonPool-worker-1;java.util.concurrent.ForkJoinWorkerThread;24750;16;31203597853555
+(threadInventory);1;start;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;32;31210272432438
+(threadInventory);1;start;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;33;31210278758802
+(threadInventory);1;start;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;34;31210280041650
+(threadInventory);1;start;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;35;31210281256887
+(threadInventory);1;start;ForkJoinPool-1-worker-1;java.util.concurrent.ForkJoinWorkerThread;24814;36;31211333920853
+(threadInventory);1;start;ForkJoinPool-1-worker-2;java.util.concurrent.ForkJoinWorkerThread;24815;37;31211336508981
+(threadInventory);1;start;ForkJoinPool-1-worker-3;java.util.concurrent.ForkJoinWorkerThread;24816;38;31211340452765
+(threadInventory);1;start;ForkJoinPool-1-worker-4;java.util.concurrent.ForkJoinWorkerThread;24817;39;31211386255318
+(threadInventory);1;start;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;40;31211396334682
+(threadInventory);1;start;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;41;31211397479350
+(threadInventory);1;start;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;42;31211459143175
+(threadInventory);3;start;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;43;31222875726252
+(threadInventory);3;start;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;44;31222892279188
+(threadInventory);6;start;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;45;31228033647164
+(GC);start;31228767563864
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+########################### 0 ###########################
+(GC);end;31230574481987
+(threadInventory);35;start;neo4j.BoltWorker-9 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24834;16;31247150395300
+(threadInventory);35;start;neo4j.BoltWorker-8 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24835;46;31247150590488
+(threadInventory);35;start;neo4j.BoltWorker-6 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24833;47;31247150798881
+(threadInventory);35;start;neo4j.BoltWorker-7 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24836;48;31247152175580
+(threadInventory);35;start;Thread-1;java.util.logging.LogManager$Cleaner;24840;49;31252504874225
+(threadInventory);35;start;Thread-0;java.lang.Thread;24841;50;31252505060628
+(threadInventory);35;end;Thread-1;java.util.logging.LogManager$Cleaner;24840;49;31252507426074
+(threadInventory);35;end;qtp399250480-117-acceptor-1@1a4f9fd0-http@17dedb52{HTTP/1.1,[http/1.1]}{127.0.0.1:7474};java.lang.Thread;24761;23;31252565140651
+(threadInventory);35;start;qtp399250480-144;java.lang.Thread;24842;51;31252565362005
+(threadInventory);35;start;qtp399250480-145;java.lang.Thread;24843;52;31252565587815
+(threadInventory);35;end;qtp399250480-113-acceptor-0@1a4f9a01-http@17dedb52{HTTP/1.1,[http/1.1]}{127.0.0.1:7474};java.lang.Thread;24757;20;31252565824766
+(threadInventory);35;end;qtp399250480-120-acceptor-0@1a592752-https@17e1051a{SSL,[ssl, http/1.1]}{127.0.0.1:7473};java.lang.Thread;24764;26;31252612788886
+(threadInventory);35;start;qtp399250480-146;java.lang.Thread;24844;53;31252613168715
+(threadInventory);35;end;qtp399250480-114-acceptor-1@1a59273b-https@17e1051a{SSL,[ssl, http/1.1]}{127.0.0.1:7473};java.lang.Thread;24758;19;31252613671333
+(threadInventory);35;start;qtp399250480-147;java.lang.Thread;24845;54;31252614009965
+(threadInventory);35;end;Scheduler-404161378;java.lang.Thread;24768;30;31252619359128
+(threadInventory);35;end;qtp399250480-116;java.lang.Thread;24760;22;31252680324312
+(threadInventory);35;end;qtp399250480-145;java.lang.Thread;24843;52;31252680424196
+(threadInventory);35;end;qtp399250480-144;java.lang.Thread;24842;51;31252680506514
+(threadInventory);35;end;qtp399250480-112;java.lang.Thread;24756;18;31252680591312
+(threadInventory);35;end;qtp399250480-119;java.lang.Thread;24763;25;31252680672389
+(threadInventory);35;end;qtp399250480-121;java.lang.Thread;24765;27;31252680774714
+(threadInventory);35;end;qtp399250480-146;java.lang.Thread;24844;53;31252680860705
+(threadInventory);35;end;qtp399250480-122;java.lang.Thread;24766;28;31252681010164
+(threadInventory);35;end;qtp399250480-115;java.lang.Thread;24759;21;31252681133206
+(threadInventory);35;end;qtp399250480-123;java.lang.Thread;24767;29;31252681206557
+(threadInventory);35;end;qtp399250480-118;java.lang.Thread;24762;24;31252681306566BoltWorker-4 
+(threadInventory);35;end;qtp399250480-147;java.lang.Thread;24845;54;31252681412882
+(threadInventory);35;start;neo4j.BoltNetworkIO-11;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24847;55;31252707547822
+(threadInventory);35;start;neo4j.BoltNetworkIO-12;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24848;56;31252707750522
+(threadInventory);35;start;neo4j.BoltNetworkIO-13;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24849;57;31252708346422
+(threadInventory);35;start;neo4j.BoltNetworkIO-14;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24850;58;31252708550328
+(threadInventory);35;start;neo4j.BoltNetworkIO-15;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24851;59;31252709120280
+(threadInventory);35;start;neo4j.BoltNetworkIO-16;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24852;60;31252709563076
+(threadInventory);35;start;neo4j.BoltNetworkIO-17;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24853;61;31252710056453
+(threadInventory);35;end;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;11;31252720083628
+(threadInventory);35;end;ForkJoinPool-1-worker-3;java.util.concurrent.ForkJoinWorkerThread;24816;38;31252720243383
+(threadInventory);35;end;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;13;31252720362560
+(threadInventory);35;end;ForkJoinPool-1-worker-1;java.util.concurrent.ForkJoinWorkerThread;24814;36;31252720429435
+(threadInventory);35;end;neo4j.BoltWorker-9 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24834;16;31252720556739
+(threadInventory);35;end;ForkJoinPool-1-worker-4;java.util.concurrent.ForkJoinWorkerThread;24817;39;31252720633977
+(threadInventory);35;end;neo4j.BoltWorker-1 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24743;10;31252720958614
+(threadInventory);35;end;ForkJoinPool-1-worker-2;java.util.concurrent.ForkJoinWorkerThread;24815;37;31252721080581
+(threadInventory);35;end;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;12;31252721168651
+(threadInventory);35;end;neo4j.BoltWorker-8 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24835;46;31252721263811
+(threadInventory);35;end;neo4j.BoltWorker-6 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24833;47;31252721730572
+(threadInventory);35;end;neo4j.BoltWorker-7 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24836;48;31252722223495
+(threadInventory);35;end;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;14;31252722383285
+(threadInventory);35;end;Neo4j UDC Timer;java.util.TimerThread;24733;3;31252727727514
+(threadInventory);35;end;neo4j.FileWatcher-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24739;7;31252774988837
+(threadInventory);35;start;neo4j.PageCacheWorker-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24854;62;31252868789944
+(threadInventory);35;start;neo4j.PageCacheWorker-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24855;63;31252870235999
+(threadInventory);35;start;neo4j.PageCacheWorker-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24856;64;31252871659659
+(threadInventory);35;start;neo4j.PageCacheWorker-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24857;65;31252872637204
+(threadInventory);35;start;neo4j.PageCacheWorker-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24858;66;31252873267290
+(threadInventory);35;start;neo4j.PageCacheWorker-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24859;67;31252873761915
+(threadInventory);35;start;neo4j.PageCacheWorker-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24860;68;31252874356733
+(threadInventory);35;start;neo4j.PageCacheWorker-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24861;69;31252875041599
+(threadInventory);35;start;neo4j.PageCacheWorker-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24862;70;31252875751073
+(threadInventory);35;start;neo4j.PageCacheWorker-11;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24863;71;31252876232346
+(threadInventory);35;start;neo4j.PageCacheWorker-12;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24864;72;31252876846269
+(threadInventory);35;start;neo4j.PageCacheWorker-13;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24865;73;31252877586750
+(threadInventory);35;start;neo4j.PageCacheWorker-14;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24866;74;31252878261993
+(threadInventory);35;start;neo4j.PageCacheWorker-15;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24867;75;31252878869092
+(threadInventory);35;start;neo4j.PageCacheWorker-16;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24868;76;31252879655246
+(threadInventory);35;start;neo4j.PageCacheWorker-17;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24869;77;31252880105554
+(threadInventory);35;start;neo4j.MetricsEvent-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24870;78;31253068113258
+(threadInventory);35;end;Thread-3;java.lang.Thread;24734;4;31253671555032
+(threadInventory);35;end;neo4j.Scheduler-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24730;2;31253697435589
+(threadInventory);35;end;neo4j.TransactionTimeoutMonitor-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24741;8;31253730385006
+(threadInventory);35;end;neo4j.VmPauseMonitor-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24742;9;31253731008808
+(threadInventory);35;end;neo4j.ServerTransactionTimeout-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24755;17;31253731643511
+(threadInventory);35;end;neo4j.CheckPoint-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24775;31;31253732188369
+(threadInventory);35;end;neo4j.StorageMaintenance-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24738;6;31253732885821
+(threadInventory);35;end;neo4j.MetricsEvent-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24870;78;31253733511716
+(threadInventory);35;end;MuninnPageCache[1]-EvictionTask;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24736;5;31253736472736
+(threadInventory);35;end;neo4j.PageCacheWorker-17;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24869;77;31253737290679
+(threadInventory);35;end;neo4j.PageCacheWorker-15;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24867;75;31253737527955
+(threadInventory);35;end;neo4j.PageCacheWorker-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24858;66;31253737643672
+(threadInventory);35;end;neo4j.PageCacheWorker-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24861;69;31253739698117
+(threadInventory);35;end;neo4j.PageCacheWorker-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24860;68;31253739861637
+(threadInventory);35;end;neo4j.PageCacheWorker-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24859;67;31253740776970
+(threadInventory);35;end;neo4j.PageCacheWorker-13;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24865;73;31253741040027
+(threadInventory);35;end;neo4j.PageCacheWorker-14;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24866;74;31253741160155
+(threadInventory);35;end;neo4j.PageCacheWorker-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24855;63;31253741336799
+(threadInventory);35;end;neo4j.PageCacheWorker-11;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24863;71;31253741707582
+(threadInventory);35;end;neo4j.PageCacheWorker-16;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24868;76;31253742252076
+(threadInventory);35;end;neo4j.PageCacheWorker-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24862;70;31253742499095
+(threadInventory);35;end;neo4j.PageCacheWorker-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24854;62;31253742841046
+(threadInventory);35;end;neo4j.PageCacheWorker-12;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24864;72;31253743068034
+(threadInventory);35;end;neo4j.PageCacheWorker-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24857;65;31253743362529
+(threadInventory);35;end;neo4j.PageCacheWorker-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24856;64;31253743907217
+(threadInventory);35;end;Thread-0;java.lang.Thread;24841;50;31253755123460
+########################### 1 ###########################
+########################### 2 ###########################
+(allocationsCounter);35;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;TUPLES;3737;146624
+(allocationsCounter);35;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;ARRAYS;3589;527256;209586
+(allocationsCounter);35;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;TUPLES;2235;88968
+(allocationsCounter);35;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;ARRAYS;1935;277512;107746
+(allocationsCounter);35;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;TUPLES;7426;278360
+(allocationsCounter);35;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;ARRAYS;8023;1175552;466269
+(allocationsCounter);35;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;TUPLES;335;11416
+(allocationsCounter);35;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;ARRAYS;432;65672;26975
+(allocationsCounter);35;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;TUPLES;347;12056
+(allocationsCounter);35;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;ARRAYS;434;65976;27007
+(allocationsCounter);35;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;TUPLES;5931;199440
+(allocationsCounter);35;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;ARRAYS;7791;1186824;490968
+(allocationsCounter);35;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;TUPLES;236;12032
+(allocationsCounter);35;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;ARRAYS;21;1320;254
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;main;java.lang.Thread;24660;7
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;28
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;68
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;17
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;43
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;7
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;2
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;8
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;5
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;11370
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;Unknown;Unknown;0;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;main;java.lang.Thread;24660;2
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;4
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;5
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;5
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;3
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;1588
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;Unknown;Unknown;0;8865
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;main;java.lang.Thread;24660;18198
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.VmPauseMonitor-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24742;2
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;269
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;425
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;367
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;962
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;15155
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;8722
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;5074
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;10989
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;13172
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;236
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;132
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;4834
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;578
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;46217
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-6 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24833;6
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-13;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24849;519
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;Unknown;Unknown;0;3
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;main;java.lang.Thread;24660;453
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.VmPauseMonitor-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24742;12
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;2
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;7
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;9
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;6
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;36
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;117
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;86
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;93
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;49
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;2
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;2
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;37
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;4
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;4292
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;neo4j.BoltNetworkIO-13;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24849;4
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;main;java.lang.Thread;24660;1
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;10
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;9
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;26
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;9
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;3
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;4926
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;6
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;Unknown;Unknown;0;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;main;java.lang.Thread;24660;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;4
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;2
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;3
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;1641
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;Unknown;Unknown;0;4691
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;main;java.lang.Thread;24660;8485
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;122
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;78
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;434
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;323
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;6078
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;3428
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;2080
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;4885
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;6431
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;36
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;1
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;29247
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;8
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;Unknown;Unknown;0;3
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;main;java.lang.Thread;24660;2
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;4
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;3
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;4
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;5
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;50
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;32
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;48
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;23
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;4833
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;main;java.lang.Thread;24660;6
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;10
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;40
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;16
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;65
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;3
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;ForkJoinPool-1-worker-1;java.util.concurrent.ForkJoinWorkerThread;24814;2
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;16461
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;6
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;main;java.lang.Thread;24660;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;3
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;6
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;3
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;6
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;2395
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;Unknown;Unknown;0;19100
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;main;java.lang.Thread;24660;25964
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;215
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;216
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;501
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;1778
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;13350
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-9 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24834;2
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;9735
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;6227
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;12859
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;16705
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;ForkJoinPool-1-worker-1;java.util.concurrent.ForkJoinWorkerThread;24814;4
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;1
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;50
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;103517
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;8
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-10;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24826;10
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;Unknown;Unknown;0;768
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;main;java.lang.Thread;24660;5
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;7
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;8
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;286
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;9
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;246
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;152
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;153
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;88
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;5798
+(accessCounter);35;LOCAL_TUPLE_WRITES;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;main;java.lang.Thread;24660;6
+(accessCounter);35;LOCAL_TUPLE_WRITES;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;10
+(accessCounter);35;LOCAL_TUPLE_WRITES;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;7
+(accessCounter);35;LOCAL_TUPLE_WRITES;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;12
+(accessCounter);35;LOCAL_TUPLE_WRITES;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;8
+(accessCounter);35;LOCAL_TUPLE_WRITES;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;218
+(accessCounter);35;LOCAL_TUPLE_READS;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;main;java.lang.Thread;24660;1619
+(accessCounter);35;LOCAL_TUPLE_READS;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;129
+(accessCounter);35;LOCAL_TUPLE_READS;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;26
+(accessCounter);35;LOCAL_TUPLE_READS;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;69
+(accessCounter);35;LOCAL_TUPLE_READS;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;44
+(accessCounter);35;LOCAL_TUPLE_READS;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;neo4j.BoltWorker-9 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24834;1376
+(accessCounter);35;LOCAL_TUPLE_READS;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;507
+(accessCounter);35;LOCAL_ARRAY_READS;ForkJoinPool.commonPool-worker-2;java.util.concurrent.ForkJoinWorkerThread;24820;main;java.lang.Thread;24660;524
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;2
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;5
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;7
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;3
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;1
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;622
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;main;java.lang.Thread;24660;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;30
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;Unknown;Unknown;0;899
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;main;java.lang.Thread;24660;2217
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;6
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;18
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;1
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;88
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;1507
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;576
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;230
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;554
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;1083
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;2017
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;2
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;16
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;8
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;8
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;10
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;82
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;5
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;7
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;3
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;3
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;660
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;main;java.lang.Thread;24660;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;32
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;Unknown;Unknown;0;913
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;main;java.lang.Thread;24660;2226
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;22
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;32
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;14
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;52
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;1508
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;575
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;230
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;566
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;1093
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;2043
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;1
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;1
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;16
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;8
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;8
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;8
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;87
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;1
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;9
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;main;java.lang.Thread;24660;590
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;341
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;9
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;1
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;9
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;main;java.lang.Thread;24660;590
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;341
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;9
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;1
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;9
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;main;java.lang.Thread;24660;590
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;341
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;9
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;main;java.lang.Thread;24660;3
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;59
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;41
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;45
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;32
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;3
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;10527
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;ForkJoinPool-1-worker-1;java.util.concurrent.ForkJoinWorkerThread;24814;2
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;3
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;1
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;2
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;main;java.lang.Thread;24660;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;7
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;2
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;5
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;4
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;634
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;Unknown;Unknown;0;16263
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;main;java.lang.Thread;24660;24381
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;295
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;175
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;617
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;1424
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;16598
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;50493
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;7428
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;16597
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;19904
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;ForkJoinPool-1-worker-1;java.util.concurrent.ForkJoinWorkerThread;24814;4
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-6;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24818;4
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-7;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24819;46
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;5
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-9;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24824;6
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;main;java.lang.Thread;24660;7
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;8
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;4
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;5
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltWorker-5 [bolt] [/127.0.0.1:54166] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24747;4
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;1827
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;154
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-4;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24812;164
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-5;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24813;120
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-2;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24810;neo4j.BoltNetworkIO-8;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24823;11
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;main;java.lang.Thread;24660;3
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;601
+(accessCounter);35;LOCAL_TUPLE_WRITES;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;ForkJoinPool-1-worker-3;java.util.concurrent.ForkJoinWorkerThread;24816;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;main;java.lang.Thread;24660;1
+(accessCounter);35;LOCAL_ARRAY_WRITES;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;47
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;Unknown;Unknown;0;309
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;main;java.lang.Thread;24660;4888
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;neo4j.FileWatcher-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24739;2
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;neo4j.BoltWorker-3 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24745;6
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;neo4j.BoltWorker-4 [bolt] [/127.0.0.1:54150] ;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24746;24
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;8766
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;qtp399250480-113-acceptor-0@1a4f9a01-http@17dedb52{HTTP/1.1,[http/1.1]}{127.0.0.1:7474};java.lang.Thread;24757;8
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;neo4j.BoltNetworkIO-3;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24811;8
+(accessCounter);35;LOCAL_TUPLE_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;ForkJoinPool-1-worker-3;java.util.concurrent.ForkJoinWorkerThread;24816;2
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;main;java.lang.Thread;24660;86
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;neo4j.BoltWorker-2 [bolt];org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24744;34
+(accessCounter);35;LOCAL_ARRAY_READS;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;neo4j.BoltNetworkIO-1;org.neo4j.kernel.impl.scheduler.GroupedDaemonThreadFactory$1;24749;58
+########################### 3 ###########################
+########################### 4 ###########################

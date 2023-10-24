@@ -98,9 +98,9 @@ public class HWCountersHandler {
         group.readGroup();
         group.resetGroup();
         // scale value
-        long eventCount = group.perfEvents[0].value;
-        long time = group.timeRunningPercentage;
-        long value = eventCount * (time / 100);
+        float eventCount = group.perfEvents[0].value;
+        float time = group.timeRunningPercentage;
+        long value = (long)(eventCount * ((long) time / 100));
         // store to ProfilingData
         return value;
         //ProfilingData.add(thread, eventGroup, value);

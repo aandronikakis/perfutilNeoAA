@@ -160,7 +160,6 @@ public final class MaxineVM {
      */
     public static PerfUtil perfUtil;
 
-    public static boolean UsePerf;
     /**
      * The {@link #usePerf} static variable is a flag which takes its value from the {@link BootImageGenerator#usePerf}
      * Option during {@link BootImageGenerator}. If set to true then it allows MaxineVM to inject the NUMA Profiler

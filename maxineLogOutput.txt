@@ -1,0 +1,2346 @@
+Allocated 2673868800 bytes of memory for object heap
+WARNING: getDiagnosticCommands not implemented
+WARNING: getDiagnosticCommandInfo not implemented
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 1--
+--Before GC   used: 2611089 Kb, free: 46 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 672 ms --
+--After GC    used: 300453 Kb, free: 2310682 Kb, reclaimed: 2310635 Kb --
+--End GC 1--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 2--
+--Before GC   used: 2611114 Kb, free: 21 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 756 ms --
+--After GC    used: 423030 Kb, free: 2188105 Kb, reclaimed: 2188084 Kb --
+--End GC 2--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 3--
+--Before GC   used: 2611126 Kb, free: 9 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 967 ms --
+--After GC    used: 577753 Kb, free: 2033382 Kb, reclaimed: 2033372 Kb --
+--End GC 3--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 4--
+--Before GC   used: 2611097 Kb, free: 38 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 1214 ms --
+--After GC    used: 734762 Kb, free: 1876373 Kb, reclaimed: 1876335 Kb --
+--End GC 4--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 5--
+--Before GC   used: 2611114 Kb, free: 21 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 1328 ms --
+--After GC    used: 845994 Kb, free: 1765141 Kb, reclaimed: 1765119 Kb --
+--End GC 5--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 6--
+--Before GC   used: 2611114 Kb, free: 21 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 1872 ms --
+--After GC    used: 973953 Kb, free: 1637182 Kb, reclaimed: 1637161 Kb --
+--End GC 6--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 7--
+--Before GC   used: 2611073 Kb, free: 62 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2122 ms --
+--After GC    used: 1098993 Kb, free: 1512142 Kb, reclaimed: 1512079 Kb --
+--End GC 7--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 8--
+--Before GC   used: 2611121 Kb, free: 14 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2223 ms --
+--After GC    used: 1195151 Kb, free: 1415984 Kb, reclaimed: 1415969 Kb --
+--End GC 8--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 9--
+--Before GC   used: 2611087 Kb, free: 48 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2257 ms --
+--After GC    used: 1244993 Kb, free: 1366142 Kb, reclaimed: 1366094 Kb --
+--End GC 9--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 10--
+--Before GC   used: 2611073 Kb, free: 62 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3471 ms --
+--After GC    used: 1298501 Kb, free: 1312634 Kb, reclaimed: 1312571 Kb --
+--End GC 10--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 11--
+--Before GC   used: 2611077 Kb, free: 58 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4773 ms --
+--After GC    used: 1349180 Kb, free: 1261955 Kb, reclaimed: 1261897 Kb --
+--End GC 11--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 12--
+--Before GC   used: 2611132 Kb, free: 3 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2097 ms --
+--After GC    used: 1441801 Kb, free: 1169334 Kb, reclaimed: 1169331 Kb --
+--End GC 12--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 13--
+--Before GC   used: 2611081 Kb, free: 54 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2136 ms --
+--After GC    used: 1509808 Kb, free: 1101327 Kb, reclaimed: 1101273 Kb --
+--End GC 13--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 14--
+--Before GC   used: 2611120 Kb, free: 15 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2199 ms --
+--After GC    used: 1558767 Kb, free: 1052368 Kb, reclaimed: 1052352 Kb --
+--End GC 14--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 15--
+--Before GC   used: 2611119 Kb, free: 16 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2331 ms --
+--After GC    used: 1635551 Kb, free: 975584 Kb, reclaimed: 975568 Kb --
+--End GC 15--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 16--
+--Before GC   used: 2611103 Kb, free: 32 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2398 ms --
+--After GC    used: 1700341 Kb, free: 910794 Kb, reclaimed: 910761 Kb --
+--End GC 16--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 17--
+--Before GC   used: 2611125 Kb, free: 10 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2891 ms --
+--After GC    used: 1728673 Kb, free: 882462 Kb, reclaimed: 882451 Kb --
+--End GC 17--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 18--
+--Before GC   used: 2611105 Kb, free: 30 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3208 ms --
+--After GC    used: 1786507 Kb, free: 824628 Kb, reclaimed: 824598 Kb --
+--End GC 18--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 19--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3270 ms --
+--After GC    used: 1831535 Kb, free: 779600 Kb, reclaimed: 779548 Kb --
+--End GC 19--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 20--
+--Before GC   used: 2611119 Kb, free: 16 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3344 ms --
+--After GC    used: 1873620 Kb, free: 737515 Kb, reclaimed: 737498 Kb --
+--End GC 20--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 21--
+--Before GC   used: 2611092 Kb, free: 43 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 7402 ms --
+--After GC    used: 1905421 Kb, free: 705714 Kb, reclaimed: 705671 Kb --
+--End GC 21--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 22--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2747 ms --
+--After GC    used: 1964022 Kb, free: 647113 Kb, reclaimed: 647062 Kb --
+--End GC 22--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 23--
+--Before GC   used: 2611126 Kb, free: 9 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2807 ms --
+--After GC    used: 2016958 Kb, free: 594177 Kb, reclaimed: 594168 Kb --
+--End GC 23--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 24--
+--Before GC   used: 2611134 Kb, free: 1 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2857 ms --
+--After GC    used: 2052820 Kb, free: 558315 Kb, reclaimed: 558313 Kb --
+--End GC 24--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 25--
+--Before GC   used: 2611092 Kb, free: 43 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2890 ms --
+--After GC    used: 2075016 Kb, free: 536119 Kb, reclaimed: 536075 Kb --
+--End GC 25--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 26--
+--Before GC   used: 2611080 Kb, free: 55 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 2944 ms --
+--After GC    used: 2106104 Kb, free: 505031 Kb, reclaimed: 504976 Kb --
+--End GC 26--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 27--
+--Before GC   used: 2611128 Kb, free: 7 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3001 ms --
+--After GC    used: 2146300 Kb, free: 464835 Kb, reclaimed: 464828 Kb --
+--End GC 27--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 28--
+--Before GC   used: 2611132 Kb, free: 3 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3040 ms --
+--After GC    used: 2170667 Kb, free: 440468 Kb, reclaimed: 440464 Kb --
+--End GC 28--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 29--
+--Before GC   used: 2611115 Kb, free: 20 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3908 ms --
+--After GC    used: 2198668 Kb, free: 412467 Kb, reclaimed: 412446 Kb --
+--End GC 29--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 30--
+--Before GC   used: 2611084 Kb, free: 51 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3968 ms --
+--After GC    used: 2231756 Kb, free: 379379 Kb, reclaimed: 379328 Kb --
+--End GC 30--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 31--
+--Before GC   used: 2611084 Kb, free: 51 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4002 ms --
+--After GC    used: 2258928 Kb, free: 352207 Kb, reclaimed: 352156 Kb --
+--End GC 31--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 32--
+--Before GC   used: 2611120 Kb, free: 15 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4002 ms --
+--After GC    used: 2272141 Kb, free: 338994 Kb, reclaimed: 338978 Kb --
+--End GC 32--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 33--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 8290 ms --
+--After GC    used: 2282256 Kb, free: 328879 Kb, reclaimed: 328829 Kb --
+--End GC 33--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 34--
+--Before GC   used: 2611088 Kb, free: 47 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 8321 ms --
+--After GC    used: 2294556 Kb, free: 316579 Kb, reclaimed: 316532 Kb --
+--End GC 34--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 35--
+--Before GC   used: 2611100 Kb, free: 35 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4925 ms --
+--After GC    used: 2305644 Kb, free: 305491 Kb, reclaimed: 305455 Kb --
+--End GC 35--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 36--
+--Before GC   used: 2611116 Kb, free: 19 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3156 ms --
+--After GC    used: 2316929 Kb, free: 294206 Kb, reclaimed: 294186 Kb --
+--End GC 36--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 37--
+--Before GC   used: 2611073 Kb, free: 62 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3199 ms --
+--After GC    used: 2332929 Kb, free: 278206 Kb, reclaimed: 278143 Kb --
+--End GC 37--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 38--
+--Before GC   used: 2611073 Kb, free: 62 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3253 ms --
+--After GC    used: 2346872 Kb, free: 264263 Kb, reclaimed: 264201 Kb --
+--End GC 38--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 39--
+--Before GC   used: 2611128 Kb, free: 7 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3287 ms --
+--After GC    used: 2362626 Kb, free: 248509 Kb, reclaimed: 248502 Kb --
+--End GC 39--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 40--
+--Before GC   used: 2611074 Kb, free: 61 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3320 ms --
+--After GC    used: 2389387 Kb, free: 221748 Kb, reclaimed: 221686 Kb --
+--End GC 40--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 41--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3358 ms --
+--After GC    used: 2412716 Kb, free: 198419 Kb, reclaimed: 198367 Kb --
+--End GC 41--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 42--
+--Before GC   used: 2611116 Kb, free: 19 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3389 ms --
+--After GC    used: 2431650 Kb, free: 179485 Kb, reclaimed: 179465 Kb --
+--End GC 42--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 43--
+--Before GC   used: 2611106 Kb, free: 29 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4149 ms --
+--After GC    used: 2444284 Kb, free: 166851 Kb, reclaimed: 166822 Kb --
+--End GC 43--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 44--
+--Before GC   used: 2611132 Kb, free: 3 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4339 ms --
+--After GC    used: 2453659 Kb, free: 157476 Kb, reclaimed: 157473 Kb --
+--End GC 44--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 45--
+--Before GC   used: 2611099 Kb, free: 36 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4354 ms --
+--After GC    used: 2479994 Kb, free: 131141 Kb, reclaimed: 131104 Kb --
+--End GC 45--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 46--
+--Before GC   used: 2611130 Kb, free: 5 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4399 ms --
+--After GC    used: 2496211 Kb, free: 114924 Kb, reclaimed: 114919 Kb --
+--End GC 46--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 47--
+--Before GC   used: 2611091 Kb, free: 44 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4444 ms --
+--After GC    used: 2504287 Kb, free: 106848 Kb, reclaimed: 106804 Kb --
+--End GC 47--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 48--
+--Before GC   used: 2611103 Kb, free: 32 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9553 ms --
+--After GC    used: 2507771 Kb, free: 103364 Kb, reclaimed: 103331 Kb --
+--End GC 48--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 49--
+--Before GC   used: 2611131 Kb, free: 4 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9471 ms --
+--After GC    used: 2511165 Kb, free: 99970 Kb, reclaimed: 99966 Kb --
+--End GC 49--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 50--
+--Before GC   used: 2611133 Kb, free: 2 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3410 ms --
+--After GC    used: 2513956 Kb, free: 97179 Kb, reclaimed: 97177 Kb --
+--End GC 50--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 51--
+--Before GC   used: 2611108 Kb, free: 27 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3439 ms --
+--After GC    used: 2517044 Kb, free: 94091 Kb, reclaimed: 94064 Kb --
+--End GC 51--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 52--
+--Before GC   used: 2611124 Kb, free: 11 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3444 ms --
+--After GC    used: 2519412 Kb, free: 91723 Kb, reclaimed: 91711 Kb --
+--End GC 52--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 53--
+--Before GC   used: 2611124 Kb, free: 11 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3471 ms --
+--After GC    used: 2522162 Kb, free: 88973 Kb, reclaimed: 88962 Kb --
+--End GC 53--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 54--
+--Before GC   used: 2611122 Kb, free: 13 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3460 ms --
+--After GC    used: 2525398 Kb, free: 85737 Kb, reclaimed: 85723 Kb --
+--End GC 54--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 55--
+--Before GC   used: 2611094 Kb, free: 41 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3505 ms --
+--After GC    used: 2527781 Kb, free: 83354 Kb, reclaimed: 83312 Kb --
+--End GC 55--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 56--
+--Before GC   used: 2611109 Kb, free: 26 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3507 ms --
+--After GC    used: 2530999 Kb, free: 80136 Kb, reclaimed: 80110 Kb --
+--End GC 56--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 57--
+--Before GC   used: 2611127 Kb, free: 8 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3506 ms --
+--After GC    used: 2533597 Kb, free: 77538 Kb, reclaimed: 77530 Kb --
+--End GC 57--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 58--
+--Before GC   used: 2611101 Kb, free: 34 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3953 ms --
+--After GC    used: 2535940 Kb, free: 75195 Kb, reclaimed: 75161 Kb --
+--End GC 58--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 59--
+--Before GC   used: 2611076 Kb, free: 59 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4500 ms --
+--After GC    used: 2538099 Kb, free: 73036 Kb, reclaimed: 72976 Kb --
+--End GC 59--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 60--
+--Before GC   used: 2611123 Kb, free: 12 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4501 ms --
+--After GC    used: 2548458 Kb, free: 62677 Kb, reclaimed: 62665 Kb --
+--End GC 60--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 61--
+--Before GC   used: 2611114 Kb, free: 21 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4508 ms --
+--After GC    used: 2554959 Kb, free: 56176 Kb, reclaimed: 56154 Kb --
+--End GC 61--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 62--
+--Before GC   used: 2611087 Kb, free: 48 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4536 ms --
+--After GC    used: 2560841 Kb, free: 50294 Kb, reclaimed: 50246 Kb --
+--End GC 62--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 63--
+--Before GC   used: 2611081 Kb, free: 54 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 11562 ms --
+--After GC    used: 2565642 Kb, free: 45493 Kb, reclaimed: 45438 Kb --
+--End GC 63--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 64--
+--Before GC   used: 2611082 Kb, free: 53 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9627 ms --
+--After GC    used: 2568436 Kb, free: 42699 Kb, reclaimed: 42645 Kb --
+--End GC 64--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 65--
+--Before GC   used: 2611124 Kb, free: 11 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9198 ms --
+--After GC    used: 2570618 Kb, free: 40517 Kb, reclaimed: 40506 Kb --
+--End GC 65--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 66--
+--Before GC   used: 2611130 Kb, free: 5 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 8794 ms --
+--After GC    used: 2572683 Kb, free: 38452 Kb, reclaimed: 38447 Kb --
+--End GC 66--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 67--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4626 ms --
+--After GC    used: 2574517 Kb, free: 36618 Kb, reclaimed: 36565 Kb --
+--End GC 67--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 68--
+--Before GC   used: 2611125 Kb, free: 10 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3472 ms --
+--After GC    used: 2576326 Kb, free: 34809 Kb, reclaimed: 34799 Kb --
+--End GC 68--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 69--
+--Before GC   used: 2611078 Kb, free: 57 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3534 ms --
+--After GC    used: 2578234 Kb, free: 32901 Kb, reclaimed: 32844 Kb --
+--End GC 69--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 70--
+--Before GC   used: 2611130 Kb, free: 5 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3521 ms --
+--After GC    used: 2580135 Kb, free: 31000 Kb, reclaimed: 30994 Kb --
+--End GC 70--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 71--
+--Before GC   used: 2611111 Kb, free: 24 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3532 ms --
+--After GC    used: 2581756 Kb, free: 29379 Kb, reclaimed: 29355 Kb --
+--End GC 71--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 72--
+--Before GC   used: 2611132 Kb, free: 3 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3570 ms --
+--After GC    used: 2583467 Kb, free: 27668 Kb, reclaimed: 27665 Kb --
+--End GC 72--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 73--
+--Before GC   used: 2611115 Kb, free: 20 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3559 ms --
+--After GC    used: 2585017 Kb, free: 26118 Kb, reclaimed: 26097 Kb --
+--End GC 73--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 74--
+--Before GC   used: 2611129 Kb, free: 6 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3572 ms --
+--After GC    used: 2586466 Kb, free: 24669 Kb, reclaimed: 24662 Kb --
+--End GC 74--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 75--
+--Before GC   used: 2611106 Kb, free: 29 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3619 ms --
+--After GC    used: 2588026 Kb, free: 23109 Kb, reclaimed: 23080 Kb --
+--End GC 75--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 76--
+--Before GC   used: 2611130 Kb, free: 5 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4527 ms --
+--After GC    used: 2589194 Kb, free: 21941 Kb, reclaimed: 21935 Kb --
+--End GC 76--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 77--
+--Before GC   used: 2611082 Kb, free: 53 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4544 ms --
+--After GC    used: 2590330 Kb, free: 20805 Kb, reclaimed: 20752 Kb --
+--End GC 77--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 78--
+--Before GC   used: 2611130 Kb, free: 5 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4541 ms --
+--After GC    used: 2591379 Kb, free: 19756 Kb, reclaimed: 19751 Kb --
+--End GC 78--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 79--
+--Before GC   used: 2611091 Kb, free: 44 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4553 ms --
+--After GC    used: 2592597 Kb, free: 18538 Kb, reclaimed: 18493 Kb --
+--End GC 79--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 80--
+--Before GC   used: 2611093 Kb, free: 42 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4609 ms --
+--After GC    used: 2593804 Kb, free: 17331 Kb, reclaimed: 17288 Kb --
+--End GC 80--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 81--
+--Before GC   used: 2611084 Kb, free: 51 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 10146 ms --
+--After GC    used: 2594612 Kb, free: 16523 Kb, reclaimed: 16472 Kb --
+--End GC 81--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 82--
+--Before GC   used: 2611124 Kb, free: 11 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9508 ms --
+--After GC    used: 2595565 Kb, free: 15570 Kb, reclaimed: 15559 Kb --
+--End GC 82--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 83--
+--Before GC   used: 2611117 Kb, free: 18 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9151 ms --
+--After GC    used: 2596382 Kb, free: 14753 Kb, reclaimed: 14734 Kb --
+--End GC 83--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 84--
+--Before GC   used: 2611102 Kb, free: 33 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9003 ms --
+--After GC    used: 2597258 Kb, free: 13877 Kb, reclaimed: 13843 Kb --
+--End GC 84--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 85--
+--Before GC   used: 2611082 Kb, free: 53 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 8947 ms --
+--After GC    used: 2597910 Kb, free: 13225 Kb, reclaimed: 13172 Kb --
+--End GC 85--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 86--
+--Before GC   used: 2611094 Kb, free: 41 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 8820 ms --
+--After GC    used: 2598827 Kb, free: 12308 Kb, reclaimed: 12266 Kb --
+--End GC 86--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 87--
+--Before GC   used: 2611115 Kb, free: 20 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 6384 ms --
+--After GC    used: 2599370 Kb, free: 11765 Kb, reclaimed: 11745 Kb --
+--End GC 87--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 88--
+--Before GC   used: 2611082 Kb, free: 53 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3484 ms --
+--After GC    used: 2600310 Kb, free: 10825 Kb, reclaimed: 10771 Kb --
+--End GC 88--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 89--
+--Before GC   used: 2611126 Kb, free: 9 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3497 ms --
+--After GC    used: 2600812 Kb, free: 10323 Kb, reclaimed: 10313 Kb --
+--End GC 89--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 90--
+--Before GC   used: 2611116 Kb, free: 19 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3551 ms --
+--After GC    used: 2601311 Kb, free: 9824 Kb, reclaimed: 9805 Kb --
+--End GC 90--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 91--
+--Before GC   used: 2611103 Kb, free: 32 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3677 ms --
+--After GC    used: 2601762 Kb, free: 9373 Kb, reclaimed: 9341 Kb --
+--End GC 91--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 92--
+--Before GC   used: 2611106 Kb, free: 29 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3792 ms --
+--After GC    used: 2602518 Kb, free: 8617 Kb, reclaimed: 8588 Kb --
+--End GC 92--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 93--
+--Before GC   used: 2611094 Kb, free: 41 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3679 ms --
+--After GC    used: 2602888 Kb, free: 8247 Kb, reclaimed: 8205 Kb --
+--End GC 93--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 94--
+--Before GC   used: 2611080 Kb, free: 55 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3676 ms --
+--After GC    used: 2603450 Kb, free: 7685 Kb, reclaimed: 7629 Kb --
+--End GC 94--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 95--
+--Before GC   used: 2611130 Kb, free: 5 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3638 ms --
+--After GC    used: 2603761 Kb, free: 7374 Kb, reclaimed: 7369 Kb --
+--End GC 95--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 96--
+--Before GC   used: 2611121 Kb, free: 14 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4322 ms --
+--After GC    used: 2604120 Kb, free: 7015 Kb, reclaimed: 7000 Kb --
+--End GC 96--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 97--
+--Before GC   used: 2611096 Kb, free: 39 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4582 ms --
+--After GC    used: 2604457 Kb, free: 6678 Kb, reclaimed: 6639 Kb --
+--End GC 97--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 98--
+--Before GC   used: 2611113 Kb, free: 22 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4558 ms --
+--After GC    used: 2604937 Kb, free: 6198 Kb, reclaimed: 6176 Kb --
+--End GC 98--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 99--
+--Before GC   used: 2611081 Kb, free: 54 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4604 ms --
+--After GC    used: 2605200 Kb, free: 5935 Kb, reclaimed: 5880 Kb --
+--End GC 99--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 100--
+--Before GC   used: 2611088 Kb, free: 47 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 6733 ms --
+--After GC    used: 2605956 Kb, free: 5179 Kb, reclaimed: 5132 Kb --
+--End GC 100--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 101--
+--Before GC   used: 2611076 Kb, free: 59 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 10243 ms --
+--After GC    used: 2606668 Kb, free: 4467 Kb, reclaimed: 4408 Kb --
+--End GC 101--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 102--
+--Before GC   used: 2611084 Kb, free: 51 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4775 ms --
+--After GC    used: 2607335 Kb, free: 3800 Kb, reclaimed: 3748 Kb --
+--End GC 102--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 103--
+--Before GC   used: 2611111 Kb, free: 24 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3559 ms --
+--After GC    used: 2607467 Kb, free: 3668 Kb, reclaimed: 3644 Kb --
+--End GC 103--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 104--
+--Before GC   used: 2611115 Kb, free: 20 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3583 ms --
+--After GC    used: 2607604 Kb, free: 3531 Kb, reclaimed: 3511 Kb --
+--End GC 104--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 105--
+--Before GC   used: 2611124 Kb, free: 11 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3585 ms --
+--After GC    used: 2607720 Kb, free: 3415 Kb, reclaimed: 3404 Kb --
+--End GC 105--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 106--
+--Before GC   used: 2611112 Kb, free: 23 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3562 ms --
+--After GC    used: 2607841 Kb, free: 3294 Kb, reclaimed: 3271 Kb --
+--End GC 106--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 107--
+--Before GC   used: 2611105 Kb, free: 30 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3614 ms --
+--After GC    used: 2607958 Kb, free: 3177 Kb, reclaimed: 3146 Kb --
+--End GC 107--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 108--
+--Before GC   used: 2611094 Kb, free: 41 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3620 ms --
+--After GC    used: 2608061 Kb, free: 3074 Kb, reclaimed: 3032 Kb --
+--End GC 108--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 109--
+--Before GC   used: 2611133 Kb, free: 2 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3608 ms --
+--After GC    used: 2608174 Kb, free: 2961 Kb, reclaimed: 2959 Kb --
+--End GC 109--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 110--
+--Before GC   used: 2611118 Kb, free: 17 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3622 ms --
+--After GC    used: 2608359 Kb, free: 2776 Kb, reclaimed: 2758 Kb --
+--End GC 110--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 111--
+--Before GC   used: 2611111 Kb, free: 24 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4481 ms --
+--After GC    used: 2608422 Kb, free: 2713 Kb, reclaimed: 2689 Kb --
+--End GC 111--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 112--
+--Before GC   used: 2611110 Kb, free: 25 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4591 ms --
+--After GC    used: 2608504 Kb, free: 2631 Kb, reclaimed: 2606 Kb --
+--End GC 112--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 113--
+--Before GC   used: 2611128 Kb, free: 7 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4567 ms --
+--After GC    used: 2608614 Kb, free: 2521 Kb, reclaimed: 2513 Kb --
+--End GC 113--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 114--
+--Before GC   used: 2611110 Kb, free: 25 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4580 ms --
+--After GC    used: 2608778 Kb, free: 2357 Kb, reclaimed: 2331 Kb --
+--End GC 114--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 115--
+--Before GC   used: 2611082 Kb, free: 53 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4565 ms --
+--After GC    used: 2608847 Kb, free: 2288 Kb, reclaimed: 2235 Kb --
+--End GC 115--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 116--
+--Before GC   used: 2611087 Kb, free: 48 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 7876 ms --
+--After GC    used: 2608899 Kb, free: 2236 Kb, reclaimed: 2187 Kb --
+--End GC 116--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 117--
+--Before GC   used: 2611075 Kb, free: 60 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9807 ms --
+--After GC    used: 2608944 Kb, free: 2191 Kb, reclaimed: 2130 Kb --
+--End GC 117--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 118--
+--Before GC   used: 2611120 Kb, free: 15 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 6150 ms --
+--After GC    used: 2609049 Kb, free: 2086 Kb, reclaimed: 2071 Kb --
+--End GC 118--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 119--
+--Before GC   used: 2611097 Kb, free: 38 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3651 ms --
+--After GC    used: 2609104 Kb, free: 2031 Kb, reclaimed: 1992 Kb --
+--End GC 119--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 120--
+--Before GC   used: 2611088 Kb, free: 47 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3668 ms --
+--After GC    used: 2609158 Kb, free: 1977 Kb, reclaimed: 1930 Kb --
+--End GC 120--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 121--
+--Before GC   used: 2611078 Kb, free: 57 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3605 ms --
+--After GC    used: 2609226 Kb, free: 1909 Kb, reclaimed: 1852 Kb --
+--End GC 121--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 122--
+--Before GC   used: 2611082 Kb, free: 53 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3599 ms --
+--After GC    used: 2609263 Kb, free: 1872 Kb, reclaimed: 1818 Kb --
+--End GC 122--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 123--
+--Before GC   used: 2611119 Kb, free: 16 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3630 ms --
+--After GC    used: 2609371 Kb, free: 1764 Kb, reclaimed: 1748 Kb --
+--End GC 123--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 124--
+--Before GC   used: 2611099 Kb, free: 36 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3618 ms --
+--After GC    used: 2609405 Kb, free: 1730 Kb, reclaimed: 1693 Kb --
+--End GC 124--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 125--
+--Before GC   used: 2611133 Kb, free: 2 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3611 ms --
+--After GC    used: 2609443 Kb, free: 1692 Kb, reclaimed: 1690 Kb --
+--End GC 125--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 126--
+--Before GC   used: 2611107 Kb, free: 28 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3590 ms --
+--After GC    used: 2609483 Kb, free: 1652 Kb, reclaimed: 1624 Kb --
+--End GC 126--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 127--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4407 ms --
+--After GC    used: 2609541 Kb, free: 1594 Kb, reclaimed: 1542 Kb --
+--End GC 127--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 128--
+--Before GC   used: 2611077 Kb, free: 58 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4588 ms --
+--After GC    used: 2609560 Kb, free: 1575 Kb, reclaimed: 1516 Kb --
+--End GC 128--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 129--
+--Before GC   used: 2611096 Kb, free: 39 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4587 ms --
+--After GC    used: 2609635 Kb, free: 1500 Kb, reclaimed: 1461 Kb --
+--End GC 129--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 130--
+--Before GC   used: 2611107 Kb, free: 28 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4558 ms --
+--After GC    used: 2609652 Kb, free: 1483 Kb, reclaimed: 1454 Kb --
+--End GC 130--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 131--
+--Before GC   used: 2611124 Kb, free: 11 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4580 ms --
+--After GC    used: 2609677 Kb, free: 1458 Kb, reclaimed: 1446 Kb --
+--End GC 131--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 132--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 7685 ms --
+--After GC    used: 2609705 Kb, free: 1430 Kb, reclaimed: 1380 Kb --
+--End GC 132--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 133--
+--Before GC   used: 2611113 Kb, free: 22 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 11073 ms --
+--After GC    used: 2609754 Kb, free: 1381 Kb, reclaimed: 1359 Kb --
+--End GC 133--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 134--
+--Before GC   used: 2611098 Kb, free: 37 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 12307 ms --
+--After GC    used: 2609766 Kb, free: 1369 Kb, reclaimed: 1332 Kb --
+--End GC 134--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 135--
+--Before GC   used: 2611110 Kb, free: 25 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3838 ms --
+--After GC    used: 2609792 Kb, free: 1343 Kb, reclaimed: 1318 Kb --
+--End GC 135--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 136--
+--Before GC   used: 2611072 Kb, free: 63 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3791 ms --
+--After GC    used: 2609863 Kb, free: 1272 Kb, reclaimed: 1208 Kb --
+--End GC 136--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 137--
+--Before GC   used: 2611079 Kb, free: 56 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3789 ms --
+--After GC    used: 2609886 Kb, free: 1249 Kb, reclaimed: 1193 Kb --
+--End GC 137--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 138--
+--Before GC   used: 2611102 Kb, free: 33 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3814 ms --
+--After GC    used: 2609901 Kb, free: 1234 Kb, reclaimed: 1200 Kb --
+--End GC 138--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 139--
+--Before GC   used: 2611117 Kb, free: 18 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3908 ms --
+--After GC    used: 2609925 Kb, free: 1210 Kb, reclaimed: 1192 Kb --
+--End GC 139--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 140--
+--Before GC   used: 2611077 Kb, free: 58 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3835 ms --
+--After GC    used: 2609948 Kb, free: 1187 Kb, reclaimed: 1128 Kb --
+--End GC 140--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 141--
+--Before GC   used: 2611100 Kb, free: 35 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3680 ms --
+--After GC    used: 2609985 Kb, free: 1150 Kb, reclaimed: 1115 Kb --
+--End GC 141--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 142--
+--Before GC   used: 2611073 Kb, free: 62 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3664 ms --
+--After GC    used: 2610032 Kb, free: 1103 Kb, reclaimed: 1040 Kb --
+--End GC 142--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 143--
+--Before GC   used: 2611120 Kb, free: 15 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4332 ms --
+--After GC    used: 2610064 Kb, free: 1071 Kb, reclaimed: 1056 Kb --
+--End GC 143--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 144--
+--Before GC   used: 2611088 Kb, free: 47 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4587 ms --
+--After GC    used: 2610145 Kb, free: 990 Kb, reclaimed: 942 Kb --
+--End GC 144--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.StorageMaintenance-2[id=37] for 65536 bytes --
+--Start GC 145--
+--Before GC   used: 2611105 Kb, free: 30 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4623 ms --
+--After GC    used: 2610190 Kb, free: 945 Kb, reclaimed: 914 Kb --
+--End GC 145--
+--GC requested by thread neo4j.StorageMaintenance-2[id=37] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.Scheduler-1[id=7] for 65536 bytes --
+--GC requested by thread neo4j.Scheduler-1[id=7] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 146--
+--Before GC   used: 2611086 Kb, free: 49 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4600 ms --
+--After GC    used: 2610195 Kb, free: 940 Kb, reclaimed: 891 Kb --
+--End GC 146--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 147--
+--Before GC   used: 2611091 Kb, free: 44 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9175 ms --
+--After GC    used: 2610210 Kb, free: 925 Kb, reclaimed: 880 Kb --
+--End GC 147--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 148--
+--Before GC   used: 2611106 Kb, free: 29 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 10257 ms --
+--After GC    used: 2610226 Kb, free: 909 Kb, reclaimed: 880 Kb --
+--End GC 148--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 149--
+--Before GC   used: 2611122 Kb, free: 13 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9414 ms --
+--After GC    used: 2610235 Kb, free: 900 Kb, reclaimed: 887 Kb --
+--End GC 149--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 150--
+--Before GC   used: 2611131 Kb, free: 4 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9857 ms --
+--After GC    used: 2610248 Kb, free: 887 Kb, reclaimed: 882 Kb --
+--End GC 150--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 151--
+--Before GC   used: 2611080 Kb, free: 55 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9029 ms --
+--After GC    used: 2610259 Kb, free: 876 Kb, reclaimed: 820 Kb --
+--End GC 151--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 152--
+--Before GC   used: 2611091 Kb, free: 44 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9142 ms --
+--After GC    used: 2610270 Kb, free: 865 Kb, reclaimed: 821 Kb --
+--End GC 152--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 153--
+--Before GC   used: 2611102 Kb, free: 33 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 8908 ms --
+--After GC    used: 2610275 Kb, free: 860 Kb, reclaimed: 826 Kb --
+--End GC 153--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 154--
+--Before GC   used: 2611107 Kb, free: 28 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4264 ms --
+--After GC    used: 2610287 Kb, free: 848 Kb, reclaimed: 820 Kb --
+--End GC 154--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 155--
+--Before GC   used: 2611119 Kb, free: 16 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3543 ms --
+--After GC    used: 2610301 Kb, free: 834 Kb, reclaimed: 817 Kb --
+--End GC 155--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 156--
+--Before GC   used: 2611133 Kb, free: 2 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3550 ms --
+--After GC    used: 2610315 Kb, free: 820 Kb, reclaimed: 817 Kb --
+--End GC 156--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 157--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3578 ms --
+--After GC    used: 2610329 Kb, free: 806 Kb, reclaimed: 753 Kb --
+--End GC 157--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 158--
+--Before GC   used: 2611097 Kb, free: 38 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3542 ms --
+--After GC    used: 2610344 Kb, free: 791 Kb, reclaimed: 753 Kb --
+--End GC 158--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 159--
+--Before GC   used: 2611112 Kb, free: 23 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3590 ms --
+--After GC    used: 2610359 Kb, free: 776 Kb, reclaimed: 752 Kb --
+--End GC 159--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 160--
+--Before GC   used: 2611127 Kb, free: 8 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3593 ms --
+--After GC    used: 2610393 Kb, free: 742 Kb, reclaimed: 733 Kb --
+--End GC 160--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 161--
+--Before GC   used: 2611097 Kb, free: 38 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3630 ms --
+--After GC    used: 2610444 Kb, free: 691 Kb, reclaimed: 653 Kb --
+--End GC 161--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 162--
+--Before GC   used: 2611084 Kb, free: 51 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3605 ms --
+--After GC    used: 2610454 Kb, free: 681 Kb, reclaimed: 629 Kb --
+--End GC 162--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 163--
+--Before GC   used: 2611094 Kb, free: 41 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4563 ms --
+--After GC    used: 2610462 Kb, free: 673 Kb, reclaimed: 632 Kb --
+--End GC 163--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 164--
+--Before GC   used: 2611102 Kb, free: 33 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4594 ms --
+--After GC    used: 2610466 Kb, free: 669 Kb, reclaimed: 636 Kb --
+--End GC 164--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 165--
+--Before GC   used: 2611106 Kb, free: 29 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4579 ms --
+--After GC    used: 2610475 Kb, free: 660 Kb, reclaimed: 630 Kb --
+--End GC 165--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 166--
+--Before GC   used: 2611115 Kb, free: 20 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4579 ms --
+--After GC    used: 2610482 Kb, free: 653 Kb, reclaimed: 633 Kb --
+--End GC 166--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 167--
+--Before GC   used: 2611122 Kb, free: 13 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4656 ms --
+--After GC    used: 2610486 Kb, free: 649 Kb, reclaimed: 635 Kb --
+--End GC 167--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 168--
+--Before GC   used: 2611126 Kb, free: 9 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9541 ms --
+--After GC    used: 2610494 Kb, free: 641 Kb, reclaimed: 631 Kb --
+--End GC 168--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.Scheduler-1[id=7] for 65536 bytes --
+--Start GC 169--
+--Before GC   used: 2611134 Kb, free: 1 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 8560 ms --
+--After GC    used: 2610498 Kb, free: 637 Kb, reclaimed: 636 Kb --
+--End GC 169--
+--GC requested by thread neo4j.Scheduler-1[id=7] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 170--
+--Before GC   used: 2611074 Kb, free: 61 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3559 ms --
+--After GC    used: 2610502 Kb, free: 633 Kb, reclaimed: 572 Kb --
+--End GC 170--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 171--
+--Before GC   used: 2611078 Kb, free: 57 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3599 ms --
+--After GC    used: 2610507 Kb, free: 628 Kb, reclaimed: 570 Kb --
+--End GC 171--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 172--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3735 ms --
+--After GC    used: 2610515 Kb, free: 620 Kb, reclaimed: 567 Kb --
+--End GC 172--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 173--
+--Before GC   used: 2611091 Kb, free: 44 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3623 ms --
+--After GC    used: 2610524 Kb, free: 611 Kb, reclaimed: 566 Kb --
+--End GC 173--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 174--
+--Before GC   used: 2611100 Kb, free: 35 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3609 ms --
+--After GC    used: 2610529 Kb, free: 606 Kb, reclaimed: 571 Kb --
+--End GC 174--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 175--
+--Before GC   used: 2611105 Kb, free: 30 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3609 ms --
+--After GC    used: 2610536 Kb, free: 599 Kb, reclaimed: 568 Kb --
+--End GC 175--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 176--
+--Before GC   used: 2611112 Kb, free: 23 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3623 ms --
+--After GC    used: 2610542 Kb, free: 593 Kb, reclaimed: 569 Kb --
+--End GC 176--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 177--
+--Before GC   used: 2611118 Kb, free: 17 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3607 ms --
+--After GC    used: 2610549 Kb, free: 586 Kb, reclaimed: 569 Kb --
+--End GC 177--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 178--
+--Before GC   used: 2611125 Kb, free: 10 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4108 ms --
+--After GC    used: 2610557 Kb, free: 578 Kb, reclaimed: 568 Kb --
+--End GC 178--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 179--
+--Before GC   used: 2611133 Kb, free: 2 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4609 ms --
+--After GC    used: 2610563 Kb, free: 572 Kb, reclaimed: 570 Kb --
+--End GC 179--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.CheckPoint-1[id=36] for 65536 bytes --
+--Start GC 180--
+--Before GC   used: 2611075 Kb, free: 60 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4625 ms --
+--After GC    used: 2610563 Kb, free: 572 Kb, reclaimed: 511 Kb --
+--End GC 180--
+--GC requested by thread neo4j.CheckPoint-1[id=36] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 181--
+--Before GC   used: 2611075 Kb, free: 60 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4825 ms --
+--After GC    used: 2610564 Kb, free: 571 Kb, reclaimed: 510 Kb --
+--End GC 181--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 182--
+--Before GC   used: 2611076 Kb, free: 59 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9562 ms --
+--After GC    used: 2610581 Kb, free: 554 Kb, reclaimed: 495 Kb --
+--End GC 182--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.Scheduler-1[id=7] for 65536 bytes --
+--Start GC 183--
+--Before GC   used: 2611093 Kb, free: 42 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 13838 ms --
+--After GC    used: 2610630 Kb, free: 505 Kb, reclaimed: 462 Kb --
+--End GC 183--
+--GC requested by thread neo4j.Scheduler-1[id=7] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 184--
+--Before GC   used: 2611078 Kb, free: 57 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 8828 ms --
+--After GC    used: 2610664 Kb, free: 471 Kb, reclaimed: 413 Kb --
+--End GC 184--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 185--
+--Before GC   used: 2611112 Kb, free: 23 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 8907 ms --
+--After GC    used: 2610737 Kb, free: 398 Kb, reclaimed: 375 Kb --
+--End GC 185--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--Start GC 186--
+--Before GC   used: 2611121 Kb, free: 14 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9556 ms --
+--After GC    used: 2610797 Kb, free: 338 Kb, reclaimed: 324 Kb --
+--End GC 186--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.BoltNetworkIO-1[id=20] for 65536 bytes --
+--Start GC 187--
+--Before GC   used: 2611117 Kb, free: 18 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9390 ms --
+--After GC    used: 2610806 Kb, free: 329 Kb, reclaimed: 310 Kb --
+--End GC 187--
+--GC requested by thread neo4j.BoltNetworkIO-1[id=20] freed enough--
+--GC requested by thread neo4j.BoltNetworkIO-2[id=21] for 65536 bytes --
+--Start GC 188--
+--Before GC   used: 2611126 Kb, free: 9 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 8920 ms --
+--After GC    used: 2610813 Kb, free: 322 Kb, reclaimed: 313 Kb --
+--End GC 188--
+--GC requested by thread neo4j.BoltNetworkIO-2[id=21] freed enough--
+--GC requested by thread qtp412939563-125[id=32] for 65536 bytes --
+--Start GC 189--
+--Before GC   used: 2611133 Kb, free: 2 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9022 ms --
+--After GC    used: 2610816 Kb, free: 319 Kb, reclaimed: 316 Kb --
+--End GC 189--
+--GC requested by thread qtp412939563-125[id=32] freed enough--
+--GC requested by thread neo4j.CheckPoint-1[id=36] for 65536 bytes --
+--Start GC 190--
+--Before GC   used: 2611072 Kb, free: 63 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4860 ms --
+--After GC    used: 2610784 Kb, free: 351 Kb, reclaimed: 288 Kb --
+--End GC 190--
+--GC requested by thread neo4j.CheckPoint-1[id=36] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] for 65536 bytes --
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] freed enough--
+--GC requested by thread qtp412939563-118[id=25] for 65536 bytes --
+--Start GC 191--
+--Before GC   used: 2611104 Kb, free: 31 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3536 ms --
+--After GC    used: 2610807 Kb, free: 328 Kb, reclaimed: 296 Kb --
+--End GC 191--
+--GC requested by thread qtp412939563-118[id=25] freed enough--
+--GC requested by thread neo4j.ServerTransactionTimeout-2[id=22] for 65536 bytes --
+--Start GC 192--
+--Before GC   used: 2611127 Kb, free: 8 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3539 ms --
+--After GC    used: 2610842 Kb, free: 293 Kb, reclaimed: 284 Kb --
+--End GC 192--
+--GC requested by thread neo4j.ServerTransactionTimeout-2[id=22] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.Scheduler-1[id=7] for 65536 bytes --
+--Start GC 193--
+--Before GC   used: 2611098 Kb, free: 37 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3559 ms --
+--After GC    used: 2610843 Kb, free: 292 Kb, reclaimed: 255 Kb --
+--End GC 193--
+--GC requested by thread neo4j.Scheduler-1[id=7] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--Start GC 194--
+--Before GC   used: 2611099 Kb, free: 36 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3584 ms --
+--After GC    used: 2610862 Kb, free: 273 Kb, reclaimed: 237 Kb --
+--End GC 194--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.ServerTransactionTimeout-2[id=22] for 65536 bytes --
+--GC requested by thread neo4j.ServerTransactionTimeout-2[id=22] freed enough--
+--GC requested by thread neo4j.Scheduler-1[id=7] for 65536 bytes --
+--Start GC 195--
+--Before GC   used: 2611118 Kb, free: 17 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3576 ms --
+--After GC    used: 2610871 Kb, free: 264 Kb, reclaimed: 246 Kb --
+--End GC 195--
+--GC requested by thread neo4j.Scheduler-1[id=7] freed enough--
+--GC requested by thread neo4j.CheckPoint-1[id=36] for 65536 bytes --
+--Start GC 196--
+--Before GC   used: 2611127 Kb, free: 8 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3593 ms --
+--After GC    used: 2610884 Kb, free: 251 Kb, reclaimed: 243 Kb --
+--End GC 196--
+--GC requested by thread neo4j.CheckPoint-1[id=36] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--Start GC 197--
+--Before GC   used: 2611076 Kb, free: 59 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3608 ms --
+--After GC    used: 2610893 Kb, free: 242 Kb, reclaimed: 183 Kb --
+--End GC 197--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] for 65536 bytes --
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] freed enough--
+--GC requested by thread neo4j.StorageMaintenance-2[id=37] for 65536 bytes --
+--GC requested by thread neo4j.StorageMaintenance-2[id=37] freed enough--
+--GC requested by thread neo4j.StorageMaintenance-2[id=37] for 65536 bytes --
+--Start GC 198--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3614 ms --
+--After GC    used: 2610893 Kb, free: 242 Kb, reclaimed: 191 Kb --
+--End GC 198--
+--GC requested by thread neo4j.StorageMaintenance-2[id=37] freed enough--
+--GC requested by thread neo4j.StorageMaintenance-3[id=11] for 65536 bytes --
+--Start GC 199--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4412 ms --
+--After GC    used: 2610894 Kb, free: 241 Kb, reclaimed: 191 Kb --
+--End GC 199--
+--GC requested by thread neo4j.StorageMaintenance-3[id=11] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.ServerTransactionTimeout-2[id=22] for 65536 bytes --
+--Start GC 200--
+--Before GC   used: 2611086 Kb, free: 49 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4595 ms --
+--After GC    used: 2610905 Kb, free: 230 Kb, reclaimed: 180 Kb --
+--End GC 200--
+--GC requested by thread neo4j.ServerTransactionTimeout-2[id=22] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--Start GC 201--
+--Before GC   used: 2611097 Kb, free: 38 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4578 ms --
+--After GC    used: 2610893 Kb, free: 242 Kb, reclaimed: 204 Kb --
+--End GC 201--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.StorageMaintenance-3[id=11] for 65536 bytes --
+--Start GC 202--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4561 ms --
+--After GC    used: 2610894 Kb, free: 241 Kb, reclaimed: 190 Kb --
+--End GC 202--
+--GC requested by thread neo4j.StorageMaintenance-3[id=11] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 203--
+--Before GC   used: 2611086 Kb, free: 49 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4585 ms --
+--After GC    used: 2610893 Kb, free: 242 Kb, reclaimed: 193 Kb --
+--End GC 203--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] for 65536 bytes --
+--Start GC 204--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 7948 ms --
+--After GC    used: 2610893 Kb, free: 242 Kb, reclaimed: 191 Kb --
+--End GC 204--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] freed enough--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] for 65536 bytes --
+--Start GC 205--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 7539 ms --
+--After GC    used: 2610893 Kb, free: 242 Kb, reclaimed: 191 Kb --
+--End GC 205--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] freed enough--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] for 65536 bytes --
+--Start GC 206--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3716 ms --
+--After GC    used: 2610893 Kb, free: 242 Kb, reclaimed: 192 Kb --
+--End GC 206--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] freed enough--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] for 65536 bytes --
+--Start GC 207--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4137 ms --
+--After GC    used: 2610893 Kb, free: 242 Kb, reclaimed: 191 Kb --
+--End GC 207--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] did not free enough--
+Throwing OutOfMemoryError
+--GC requested by thread neo4j.CheckPoint-1[id=36] for 65536 bytes --
+--Start GC 208--
+--Before GC   used: 2611149 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3804 ms --
+--After GC    used: 2610893 Kb, free: 306 Kb, reclaimed: 256 Kb --
+--End GC 208--
+--GC requested by thread neo4j.CheckPoint-1[id=36] freed enough--
+--GC requested by thread qtp412939563-125[id=32] for 65536 bytes --
+--Start GC 209--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3662 ms --
+--After GC    used: 2610893 Kb, free: 242 Kb, reclaimed: 191 Kb --
+--End GC 209--
+--GC requested by thread qtp412939563-125[id=32] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 210--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3613 ms --
+--After GC    used: 2610892 Kb, free: 243 Kb, reclaimed: 193 Kb --
+--End GC 210--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.ServerTransactionTimeout-2[id=22] for 65536 bytes --
+--Start GC 211--
+--Before GC   used: 2611084 Kb, free: 51 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3629 ms --
+--After GC    used: 2610892 Kb, free: 243 Kb, reclaimed: 191 Kb --
+--End GC 211--
+--GC requested by thread neo4j.ServerTransactionTimeout-2[id=22] freed enough--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] for 65536 bytes --
+--Start GC 212--
+--Before GC   used: 2611084 Kb, free: 51 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3647 ms --
+--After GC    used: 2610892 Kb, free: 243 Kb, reclaimed: 192 Kb --
+--End GC 212--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--Start GC 213--
+--Before GC   used: 2611084 Kb, free: 51 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3673 ms --
+--After GC    used: 2610891 Kb, free: 244 Kb, reclaimed: 192 Kb --
+--End GC 213--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread qtp412939563-118[id=25] for 65536 bytes --
+--GC requested by thread qtp412939563-118[id=25] freed enough--
+--GC requested by thread neo4j.Scheduler-1[id=7] for 65536 bytes --
+--Start GC 214--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4428 ms --
+--After GC    used: 2610892 Kb, free: 243 Kb, reclaimed: 191 Kb --
+--End GC 214--
+--GC requested by thread neo4j.Scheduler-1[id=7] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--Start GC 215--
+--Before GC   used: 2611084 Kb, free: 51 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4615 ms --
+--After GC    used: 2610891 Kb, free: 244 Kb, reclaimed: 192 Kb --
+--End GC 215--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--Start GC 216--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4581 ms --
+--After GC    used: 2610892 Kb, free: 243 Kb, reclaimed: 190 Kb --
+--End GC 216--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] for 65536 bytes --
+--Start GC 217--
+--Before GC   used: 2611084 Kb, free: 51 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4584 ms --
+--After GC    used: 2610889 Kb, free: 246 Kb, reclaimed: 195 Kb --
+--End GC 217--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] freed enough--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] for 65536 bytes --
+--Start GC 218--
+--Before GC   used: 2611081 Kb, free: 54 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4765 ms --
+--After GC    used: 2610891 Kb, free: 244 Kb, reclaimed: 190 Kb --
+--End GC 218--
+--GC requested by thread neo4j.VmPauseMonitor-1[id=14] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 219--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 10412 ms --
+--After GC    used: 2610891 Kb, free: 244 Kb, reclaimed: 191 Kb --
+--End GC 219--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--Start GC 220--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9863 ms --
+--After GC    used: 2610891 Kb, free: 244 Kb, reclaimed: 192 Kb --
+--End GC 220--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--Start GC 221--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 9886 ms --
+--After GC    used: 2610891 Kb, free: 244 Kb, reclaimed: 191 Kb --
+--End GC 221--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.ServerTransactionTimeout-2[id=22] for 65536 bytes --
+--Start GC 222--
+--Before GC   used: 2611083 Kb, free: 52 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 5777 ms --
+--After GC    used: 2610893 Kb, free: 242 Kb, reclaimed: 190 Kb --
+--End GC 222--
+--GC requested by thread neo4j.ServerTransactionTimeout-2[id=22] freed enough--
+--GC requested by thread neo4j.StorageMaintenance-3[id=11] for 65536 bytes --
+--Start GC 223--
+--Before GC   used: 2611085 Kb, free: 50 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3575 ms --
+--After GC    used: 2610895 Kb, free: 240 Kb, reclaimed: 190 Kb --
+--End GC 223--
+--GC requested by thread neo4j.StorageMaintenance-3[id=11] freed enough--
+--GC requested by thread neo4j.StorageMaintenance-4[id=37] for 65536 bytes --
+--GC requested by thread neo4j.StorageMaintenance-4[id=37] freed enough--
+--GC requested by thread neo4j.StorageMaintenance-4[id=37] for 65536 bytes --
+--Start GC 224--
+--Before GC   used: 2611087 Kb, free: 48 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3586 ms --
+--After GC    used: 2610894 Kb, free: 241 Kb, reclaimed: 192 Kb --
+--End GC 224--
+--GC requested by thread neo4j.StorageMaintenance-4[id=37] freed enough--
+--GC requested by thread qtp412939563-125[id=32] for 65536 bytes --
+--Start GC 225--
+--Before GC   used: 2611086 Kb, free: 49 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3656 ms --
+--After GC    used: 2610894 Kb, free: 241 Kb, reclaimed: 191 Kb --
+--End GC 225--
+--GC requested by thread qtp412939563-125[id=32] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--Start GC 226--
+--Before GC   used: 2611086 Kb, free: 49 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4202 ms --
+--After GC    used: 2610895 Kb, free: 240 Kb, reclaimed: 191 Kb --
+--End GC 226--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] for 65536 bytes --
+--GC requested by thread neo4j.BoltWorker-5 [bolt] [/127.0.0.1:40930] [id=19] freed enough--
+--GC requested by thread neo4j.StorageMaintenance-5[id=38] for 65536 bytes --
+--Start GC 227--
+--Before GC   used: 2611087 Kb, free: 48 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4106 ms --
+--After GC    used: 2610896 Kb, free: 239 Kb, reclaimed: 190 Kb --
+--End GC 227--
+--GC requested by thread neo4j.StorageMaintenance-5[id=38] freed enough--
+--GC requested by thread neo4j.CheckPoint-1[id=36] for 65536 bytes --
+--Start GC 228--
+--Before GC   used: 2611088 Kb, free: 47 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4276 ms --
+--After GC    used: 2610897 Kb, free: 238 Kb, reclaimed: 191 Kb --
+--End GC 228--
+--GC requested by thread neo4j.CheckPoint-1[id=36] freed enough--
+--GC requested by thread qtp412939563-118[id=25] for 65536 bytes --
+--GC requested by thread qtp412939563-118[id=25] freed enough--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] for 65536 bytes --
+--Start GC 229--
+--Before GC   used: 2611089 Kb, free: 46 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 3892 ms --
+--After GC    used: 2610897 Kb, free: 238 Kb, reclaimed: 192 Kb --
+--End GC 229--
+--GC requested by thread neo4j.TransactionTimeoutMonitor-1[id=13] freed enough--
+--GC requested by thread neo4j.Scheduler-1[id=7] for 65536 bytes --
+--Start GC 230--
+--Before GC   used: 2611089 Kb, free: 46 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 4623 ms --
+--After GC    used: 2610896 Kb, free: 239 Kb, reclaimed: 192 Kb --
+--End GC 230--
+--GC requested by thread neo4j.Scheduler-1[id=7] freed enough--
+--GC requested by thread neo4j.StorageMaintenance-5[id=38] for 65536 bytes --
+--Start GC 231--
+--Before GC   used: 2611088 Kb, free: 47 Kb --
+Visit Region: Code-Runtime-Baseline
+Visit Region: Code-Runtime-Opt
+Visit Region: Immortal
+--During GC   time: 523 ms --
+--After GC    used: 249392 Kb, free: 2361743 Kb, reclaimed: 2361695 Kb --
+--End GC 231--
+--GC requested by thread neo4j.StorageMaintenance-5[id=38] freed enough--

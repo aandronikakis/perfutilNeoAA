@@ -29,6 +29,26 @@ import static com.sun.max.vm.thread.VmThreadMap.THREAD_LOCK;
 
 public class NUMAConfigurations {
 
+
+     /**
+     * This {@link Pointer.Predicate} confirms if an action requested from VmOperation Thread.
+     */
+    public static final Pointer.Predicate vmOperationThreadPredicate = new Pointer.Predicate() {
+        public boolean evaluate(Pointer tla) {
+            VmThread vmThread = VmThread.fromTLA(tla);
+            return vmThread.isVmOperationThread();
+        }
+    };
+
+    /**
+     * Single-Node configuration: set affinity on "local" node for VmOperation Thread. Pin GC to on "local" node.
+     */
+    public static void setLocalNodeAffinityForVmOperationThread() {
+        synchronized (THREAD_LOCK) {
+            VmThreadMap.ACTIVE.forAllThreadLocals(vmOperationThreadPredicate, setLocalNodeAffinityOfThread);
+        }
+    }
+
     /**
      * Single-Node configuration: set affinity on "local" node for all threads.
      */

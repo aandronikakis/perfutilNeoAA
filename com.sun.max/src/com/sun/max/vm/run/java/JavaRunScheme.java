@@ -288,8 +288,8 @@ public class JavaRunScheme extends AbstractVMScheme implements RunScheme {
                 JniFunctions.printJniFunctionTimers();
                 terminateProfilers();
                 //Terminate PerfUtil and read counters
-                perfUtil.cacheMissesPerfEvent.disable();
-                perfUtil.cacheMissesPerfEvent.read();
+                //perfUtil.cacheMissesPerfEvent.disable();
+                //perfUtil.cacheMissesPerfEvent.read();
                 break;
             }
             default: {

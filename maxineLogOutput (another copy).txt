@@ -1,0 +1,2295 @@
+Started VM operation thread
+VM operation Deoptimization submitted by main[id=1] - notifying VM operation thread
+main[id=1] waiting #1 on REQUEST_LOCK for completion of VM operation Deoptimization
+VM operation thread about to run operation Deoptimization submitted by main[id=1]
+VmOperation[Deoptimization]: -- Begin --
+VmOperation[Deoptimization]: Freezing thread(s)
+VmOperation[Deoptimization]: Waiting for thread(s) to freeze
+VmOperation[Deoptimization]: Froze neo4j.Scheduler-1[id=7] in native code
+VmOperation[Deoptimization]: Froze Signal Dispatcher[id=3] in native code
+VmOperation[Deoptimization]: Froze Reference Handler[id=4] in native code
+VmOperation[Deoptimization]: Froze Finalizer[id=5] in native code
+VmOperation[Deoptimization]: Froze main[id=1] in native code
+VmOperation[Deoptimization]: Running operation
+VmOperation[Deoptimization]: Thawing thread(s)
+VmOperation[Deoptimization]: -- End --
+VM operation thread finished operation Deoptimization submitted by main[id=1] and is notifying REQUEST_LOCK waiters
+main[id=1] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  Deoptimization
+VM operation Deoptimization submitted by main[id=1] - done
+WARNING: getDiagnosticCommands not implemented
+WARNING: getDiagnosticCommandInfo not implemented
+VM operation Deoptimization submitted by main[id=1] - notifying VM operation thread
+main[id=1] waiting #1 on REQUEST_LOCK for completion of VM operation Deoptimization
+VM operation thread about to run operation Deoptimization submitted by main[id=1]
+VmOperation[Deoptimization]: -- Begin --
+VmOperation[Deoptimization]: Freezing thread(s)
+VmOperation[Deoptimization]: Waiting for thread(s) to freeze
+VmOperation[Deoptimization]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+VmOperation[Deoptimization]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+VmOperation[Deoptimization]: Froze neo4j.FileWatcher-1[id=12] in native code
+VmOperation[Deoptimization]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+VmOperation[Deoptimization]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+VmOperation[Deoptimization]: Froze Thread-3[id=9] in native code
+VmOperation[Deoptimization]: Froze Neo4j UDC Timer[id=8] in native code
+VmOperation[Deoptimization]: Froze neo4j.Scheduler-1[id=7] in native code
+VmOperation[Deoptimization]: Froze Signal Dispatcher[id=3] in native code
+VmOperation[Deoptimization]: Froze Reference Handler[id=4] in native code
+VmOperation[Deoptimization]: Froze Finalizer[id=5] in native code
+VmOperation[Deoptimization]: Froze main[id=1] in native code
+VmOperation[Deoptimization]: Running operation
+VmOperation[Deoptimization]: Thawing thread(s)
+VmOperation[Deoptimization]: -- End --
+VM operation thread finished operation Deoptimization submitted by main[id=1] and is notifying REQUEST_LOCK waiters
+main[id=1] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  Deoptimization
+VM operation Deoptimization submitted by main[id=1] - done
+VM operation Deoptimization submitted by main[id=1] - notifying VM operation thread
+main[id=1] waiting #1 on REQUEST_LOCK for completion of VM operation Deoptimization
+VM operation thread about to run operation Deoptimization submitted by main[id=1]
+VmOperation[Deoptimization]: -- Begin --
+VmOperation[Deoptimization]: Freezing thread(s)
+VmOperation[Deoptimization]: Waiting for thread(s) to freeze
+VmOperation[Deoptimization]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool.commonPool-worker-1[id=21] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-5 [bolt][id=19] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-4 [bolt][id=18] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-3 [bolt][id=17] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-2 [bolt][id=16] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+VmOperation[Deoptimization]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+VmOperation[Deoptimization]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+VmOperation[Deoptimization]: Froze neo4j.FileWatcher-1[id=12] in native code
+VmOperation[Deoptimization]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+VmOperation[Deoptimization]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+VmOperation[Deoptimization]: Froze Thread-3[id=9] in native code
+VmOperation[Deoptimization]: Froze Neo4j UDC Timer[id=8] in native code
+VmOperation[Deoptimization]: Froze neo4j.Scheduler-1[id=7] in native code
+VmOperation[Deoptimization]: Froze Signal Dispatcher[id=3] in native code
+VmOperation[Deoptimization]: Froze Reference Handler[id=4] in native code
+VmOperation[Deoptimization]: Froze Finalizer[id=5] in native code
+VmOperation[Deoptimization]: Froze main[id=1] in native code
+VmOperation[Deoptimization]: Running operation
+VmOperation[Deoptimization]: Thawing thread(s)
+VmOperation[Deoptimization]: -- End --
+VM operation thread finished operation Deoptimization submitted by main[id=1] and is notifying REQUEST_LOCK waiters
+main[id=1] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  Deoptimization
+VM operation Deoptimization submitted by main[id=1] - done
+VM operation Deoptimization submitted by main[id=1] - notifying VM operation thread
+main[id=1] waiting #1 on REQUEST_LOCK for completion of VM operation Deoptimization
+VM operation thread about to run operation Deoptimization submitted by main[id=1]
+VmOperation[Deoptimization]: -- Begin --
+VmOperation[Deoptimization]: Freezing thread(s)
+VmOperation[Deoptimization]: Waiting for thread(s) to freeze
+VmOperation[Deoptimization]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool.commonPool-worker-1[id=21] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-5 [bolt][id=19] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-4 [bolt][id=18] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-3 [bolt][id=17] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-2 [bolt][id=16] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+VmOperation[Deoptimization]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+VmOperation[Deoptimization]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+VmOperation[Deoptimization]: Froze neo4j.FileWatcher-1[id=12] in native code
+VmOperation[Deoptimization]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+VmOperation[Deoptimization]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+VmOperation[Deoptimization]: Froze Thread-3[id=9] in native code
+VmOperation[Deoptimization]: Froze Neo4j UDC Timer[id=8] in native code
+VmOperation[Deoptimization]: Froze neo4j.Scheduler-1[id=7] in native code
+VmOperation[Deoptimization]: Froze Signal Dispatcher[id=3] in native code
+VmOperation[Deoptimization]: Froze Reference Handler[id=4] in native code
+VmOperation[Deoptimization]: Froze Finalizer[id=5] in native code
+VmOperation[Deoptimization]: Froze main[id=1] in native code
+VmOperation[Deoptimization]: Running operation
+VmOperation[Deoptimization]: Thawing thread(s)
+VmOperation[Deoptimization]: -- End --
+VM operation thread finished operation Deoptimization submitted by main[id=1] and is notifying REQUEST_LOCK waiters
+main[id=1] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  Deoptimization
+VM operation Deoptimization submitted by main[id=1] - done
+VM operation Deoptimization submitted by main[id=1] - notifying VM operation thread
+main[id=1] waiting #1 on REQUEST_LOCK for completion of VM operation Deoptimization
+VM operation thread about to run operation Deoptimization submitted by main[id=1]
+VmOperation[Deoptimization]: -- Begin --
+VmOperation[Deoptimization]: Freezing thread(s)
+VmOperation[Deoptimization]: Waiting for thread(s) to freeze
+VmOperation[Deoptimization]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool.commonPool-worker-1[id=21] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-5 [bolt][id=19] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-4 [bolt][id=18] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-3 [bolt][id=17] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-2 [bolt][id=16] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+VmOperation[Deoptimization]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+VmOperation[Deoptimization]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+VmOperation[Deoptimization]: Froze neo4j.FileWatcher-1[id=12] in native code
+VmOperation[Deoptimization]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+VmOperation[Deoptimization]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+VmOperation[Deoptimization]: Froze Thread-3[id=9] in native code
+VmOperation[Deoptimization]: Froze Neo4j UDC Timer[id=8] in native code
+VmOperation[Deoptimization]: Froze neo4j.Scheduler-1[id=7] in native code
+VmOperation[Deoptimization]: Froze Signal Dispatcher[id=3] in native code
+VmOperation[Deoptimization]: Froze Reference Handler[id=4] in native code
+VmOperation[Deoptimization]: Froze Finalizer[id=5] in native code
+VmOperation[Deoptimization]: Froze main[id=1] in native code
+VmOperation[Deoptimization]: Running operation
+VmOperation[Deoptimization]: Thawing thread(s)
+VmOperation[Deoptimization]: -- End --
+VM operation thread finished operation Deoptimization submitted by main[id=1] and is notifying REQUEST_LOCK waiters
+main[id=1] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  Deoptimization
+VM operation Deoptimization submitted by main[id=1] - done
+VM operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] - notifying VM operation thread
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] waiting #1 on REQUEST_LOCK for completion of VM operation Deoptimization
+VM operation thread about to run operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17]
+VmOperation[Deoptimization]: -- Begin --
+VmOperation[Deoptimization]: Freezing thread(s)
+VmOperation[Deoptimization]: Waiting for thread(s) to freeze
+VmOperation[Deoptimization]: Froze ForkJoinPool.commonPool-worker-2[id=44] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool-1-worker-3[id=42] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool-1-worker-2[id=40] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool-1-worker-1[id=41] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+VmOperation[Deoptimization]: Froze neo4j.CheckPoint-1[id=36] in native code
+VmOperation[Deoptimization]: Froze Scheduler-2084785499[id=35] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-123[id=34] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-122[id=33] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-120[id=31] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-119[id=30] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-118[id=29] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-114[id=25] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-113[id=24] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-112[id=23] in native code
+VmOperation[Deoptimization]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+VmOperation[Deoptimization]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+VmOperation[Deoptimization]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+VmOperation[Deoptimization]: Froze neo4j.FileWatcher-1[id=12] in native code
+VmOperation[Deoptimization]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+VmOperation[Deoptimization]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+VmOperation[Deoptimization]: Froze Thread-3[id=9] in native code
+VmOperation[Deoptimization]: Froze Neo4j UDC Timer[id=8] in native code
+VmOperation[Deoptimization]: Froze neo4j.Scheduler-1[id=7] in native code
+VmOperation[Deoptimization]: Froze Signal Dispatcher[id=3] in native code
+VmOperation[Deoptimization]: Froze Reference Handler[id=4] in native code
+VmOperation[Deoptimization]: Froze Finalizer[id=5] in native code
+VmOperation[Deoptimization]: Froze main[id=1] in native code
+VmOperation[Deoptimization]: Running operation
+VmOperation[Deoptimization]: Thawing thread(s)
+VmOperation[Deoptimization]: -- End --
+VM operation thread finished operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  Deoptimization
+VM operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] - notifying VM operation thread
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for ForkJoinPool.commonPool-worker-2[id=44]
+VmOperation[CollectHeap]: Froze ForkJoinPool.commonPool-worker-2[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for ForkJoinPool-1-worker-3[id=42]
+VmOperation[CollectHeap]: Froze ForkJoinPool-1-worker-3[id=42] in native code
+Building full stack reference map for ForkJoinPool-1-worker-2[id=40]
+VmOperation[CollectHeap]: Froze ForkJoinPool-1-worker-2[id=40] in native code
+Building full stack reference map for ForkJoinPool-1-worker-1[id=41]
+VmOperation[CollectHeap]: Froze ForkJoinPool-1-worker-1[id=41] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building full stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19] in native code
+Building full stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] in native code
+Building full stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] in native code
+Building full stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] in native code
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;15675635761271
+(GC);end;15677537478851
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] - done
+VM operation Deoptimization submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] - notifying VM operation thread
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] waiting #1 on REQUEST_LOCK for completion of VM operation Deoptimization
+VM operation thread about to run operation Deoptimization submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[Deoptimization]: -- Begin --
+VmOperation[Deoptimization]: Freezing thread(s)
+VmOperation[Deoptimization]: Waiting for thread(s) to freeze
+VmOperation[Deoptimization]: Froze ForkJoinPool.commonPool-worker-2[id=44] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool-1-worker-3[id=42] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool-1-worker-2[id=40] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool-1-worker-1[id=41] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+VmOperation[Deoptimization]: Froze neo4j.CheckPoint-1[id=36] in native code
+VmOperation[Deoptimization]: Froze Scheduler-2084785499[id=35] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-123[id=34] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-122[id=33] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-120[id=31] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-119[id=30] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-118[id=29] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-114[id=25] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-113[id=24] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-112[id=23] in native code
+VmOperation[Deoptimization]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+VmOperation[Deoptimization]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+VmOperation[Deoptimization]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+VmOperation[Deoptimization]: Froze neo4j.FileWatcher-1[id=12] in native code
+VmOperation[Deoptimization]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+VmOperation[Deoptimization]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+VmOperation[Deoptimization]: Froze Thread-3[id=9] in native code
+VmOperation[Deoptimization]: Froze Neo4j UDC Timer[id=8] in native code
+VmOperation[Deoptimization]: Froze neo4j.Scheduler-1[id=7] in native code
+VmOperation[Deoptimization]: Froze Signal Dispatcher[id=3] in native code
+VmOperation[Deoptimization]: Froze Reference Handler[id=4] at safepoint
+VmOperation[Deoptimization]: Froze Finalizer[id=5] at safepoint
+VmOperation[Deoptimization]: Froze main[id=1] in native code
+VmOperation[Deoptimization]: Running operation
+VmOperation[Deoptimization]: Thawing thread(s)
+VmOperation[Deoptimization]: -- End --
+VM operation thread finished operation Deoptimization submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] and is notifying REQUEST_LOCK waiters
+Finalizer[id=5]: Thawed from safepoint
+Reference Handler[id=4]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  Deoptimization
+VM operation Deoptimization submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] - done
+VM operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] - notifying VM operation thread
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] waiting #1 on REQUEST_LOCK for completion of VM operation Deoptimization
+VM operation thread about to run operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17]
+VmOperation[Deoptimization]: -- Begin --
+VmOperation[Deoptimization]: Freezing thread(s)
+VmOperation[Deoptimization]: Waiting for thread(s) to freeze
+VmOperation[Deoptimization]: Froze ForkJoinPool.commonPool-worker-2[id=44] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool-1-worker-3[id=42] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool-1-worker-2[id=40] in native code
+VmOperation[Deoptimization]: Froze ForkJoinPool-1-worker-1[id=41] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+VmOperation[Deoptimization]: Froze neo4j.CheckPoint-1[id=36] in native code
+VmOperation[Deoptimization]: Froze Scheduler-2084785499[id=35] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-123[id=34] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-122[id=33] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-120[id=31] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-119[id=30] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-118[id=29] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-114[id=25] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-113[id=24] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-112[id=23] in native code
+VmOperation[Deoptimization]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+VmOperation[Deoptimization]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+VmOperation[Deoptimization]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+VmOperation[Deoptimization]: Froze neo4j.FileWatcher-1[id=12] in native code
+VmOperation[Deoptimization]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+VmOperation[Deoptimization]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+VmOperation[Deoptimization]: Froze Thread-3[id=9] in native code
+VmOperation[Deoptimization]: Froze Neo4j UDC Timer[id=8] in native code
+VmOperation[Deoptimization]: Froze neo4j.Scheduler-1[id=7] in native code
+VmOperation[Deoptimization]: Froze Signal Dispatcher[id=3] in native code
+VmOperation[Deoptimization]: Froze Reference Handler[id=4] in native code
+VmOperation[Deoptimization]: Froze Finalizer[id=5] in native code
+VmOperation[Deoptimization]: Froze main[id=1] in native code
+VmOperation[Deoptimization]: Running operation
+VmOperation[Deoptimization]: Thawing thread(s)
+VmOperation[Deoptimization]: -- End --
+VM operation thread finished operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  Deoptimization
+VM operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] - notifying VM operation thread
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for ForkJoinPool-1-worker-1[id=41]
+VmOperation[CollectHeap]: Froze ForkJoinPool-1-worker-1[id=41] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19] at safepoint
+Building full stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] in native code
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;15778667860839
+(GC);end;15779899990927
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]: Thawed from safepoint
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17]: Thawed from safepoint
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] - notifying VM operation thread
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] at safepoint
+Building full stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] in native code
+Building full stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] in native code
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;15887769160816
+(GC);end;15888928543717
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] resuming after #1neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19]: Thawed from safepoint
+ wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] - done
+VM operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] - notifying VM operation thread
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] waiting #1 on REQUEST_LOCK for completion of VM operation Deoptimization
+VM operation thread about to run operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17]
+VmOperation[Deoptimization]: -- Begin --
+VmOperation[Deoptimization]: Freezing thread(s)
+VmOperation[Deoptimization]: Waiting for thread(s) to freeze
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+VmOperation[Deoptimization]: Froze neo4j.CheckPoint-1[id=36] in native code
+VmOperation[Deoptimization]: Froze Scheduler-2084785499[id=35] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-123[id=34] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-122[id=33] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-120[id=31] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-119[id=30] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-118[id=29] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-114[id=25] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-113[id=24] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-112[id=23] in native code
+VmOperation[Deoptimization]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19] at safepoint
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] at safepoint
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] at safepoint
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+VmOperation[Deoptimization]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+VmOperation[Deoptimization]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+VmOperation[Deoptimization]: Froze neo4j.FileWatcher-1[id=12] in native code
+VmOperation[Deoptimization]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+VmOperation[Deoptimization]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+VmOperation[Deoptimization]: Froze Thread-3[id=9] in native code
+VmOperation[Deoptimization]: Froze Neo4j UDC Timer[id=8] in native code
+VmOperation[Deoptimization]: Froze neo4j.Scheduler-1[id=7] in native code
+VmOperation[Deoptimization]: Froze Signal Dispatcher[id=3] in native code
+VmOperation[Deoptimization]: Froze Reference Handler[id=4] in native code
+VmOperation[Deoptimization]: Froze Finalizer[id=5] in native code
+VmOperation[Deoptimization]: Froze main[id=1] in native code
+VmOperation[Deoptimization]: Running operation
+VmOperation[Deoptimization]: Thawing thread(s)
+VmOperation[Deoptimization]: -- End --
+VM operation thread finished operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]: Thawed from safepoint
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18]: Thawed from safepoint
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19]: Thawed from safepoint
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  Deoptimization
+VM operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] - done
+VM operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] - notifying VM operation thread
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] waiting #1 on REQUEST_LOCK for completion of VM operation Deoptimization
+VM operation thread about to run operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17]
+VmOperation[Deoptimization]: -- Begin --
+VmOperation[Deoptimization]: Freezing thread(s)
+VmOperation[Deoptimization]: Waiting for thread(s) to freeze
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+VmOperation[Deoptimization]: Froze neo4j.CheckPoint-1[id=36] in native code
+VmOperation[Deoptimization]: Froze Scheduler-2084785499[id=35] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-123[id=34] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-122[id=33] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-120[id=31] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-119[id=30] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-118[id=29] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-114[id=25] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-113[id=24] in native code
+VmOperation[Deoptimization]: Froze qtp2079573525-112[id=23] in native code
+VmOperation[Deoptimization]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19] at safepoint
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18] at safepoint
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] in native code
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] at safepoint
+VmOperation[Deoptimization]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+VmOperation[Deoptimization]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+VmOperation[Deoptimization]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+VmOperation[Deoptimization]: Froze neo4j.FileWatcher-1[id=12] in native code
+VmOperation[Deoptimization]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+VmOperation[Deoptimization]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+VmOperation[Deoptimization]: Froze Thread-3[id=9] in native code
+VmOperation[Deoptimization]: Froze Neo4j UDC Timer[id=8] in native code
+VmOperation[Deoptimization]: Froze neo4j.Scheduler-1[id=7] in native code
+VmOperation[Deoptimization]: Froze Signal Dispatcher[id=3] in native code
+VmOperation[Deoptimization]: Froze Reference Handler[id=4] in native code
+VmOperation[Deoptimization]: Froze Finalizer[id=5] in native code
+VmOperation[Deoptimization]: Froze main[id=1] in native code
+VmOperation[Deoptimization]: Running operation
+VmOperation[Deoptimization]: Thawing thread(s)
+VmOperation[Deoptimization]: -- End --
+VM operation thread finished operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56490] [id=18]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]: Thawed from safepoint
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19]: Thawed from safepoint
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  Deoptimization
+VM operation Deoptimization submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56494] [id=17] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] - notifying VM operation thread
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for ForkJoinPool-1-worker-5[id=42]
+VmOperation[CollectHeap]: Froze ForkJoinPool-1-worker-5[id=42] in native code
+Building full stack reference map for ForkJoinPool-1-worker-4[id=41]
+VmOperation[CollectHeap]: Froze ForkJoinPool-1-worker-4[id=41] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] at safepoint
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+Building full stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] in native code
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;16009922434119
+(GC);end;16012804808588
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]: Thawed from safepoint
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] - done
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56498] [id=19]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] - notifying VM operation thread
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19] at safepoint
+Building full stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] in native code
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;16164584318012
+(GC);end;16166378708201
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]: Thawed from safepoint
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19]: Thawed from safepoint
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]: Thawed from safepoint
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] - notifying VM operation thread
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19] at safepoint
+Building full stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] in native code
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;16312296804636
+(GC);end;16313511869322
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]: Thawed from safepoint
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] - notifying VM operation thread
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for ForkJoinPool-1-worker-6[id=41]
+VmOperation[CollectHeap]: Froze ForkJoinPool-1-worker-6[id=41] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19] at safepoint
+Building full stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] in native code
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;16428589578087
+(GC);end;16429789072968
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19]: Thawed from safepoint
+CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] - done
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]: Thawed from safepoint
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] - notifying VM operation thread
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19] at safepoint
+Building full stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] in native code
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;16553709855788
+(GC);end;16554921605247
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19]: Thawed from safepoint
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]: Thawed from safepoint
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] - done
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] - notifying VM operation thread
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] at safepoint
+Building full stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] in native code
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;16678707730471
+(GC);end;16679918520865
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56514] [id=19]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56488] [id=16]: Thawed from safepoint
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56510] [id=17] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] - notifying VM operation thread
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for ForkJoinPool-1-worker-7[id=41]
+VmOperation[CollectHeap]: Froze ForkJoinPool-1-worker-7[id=41] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building full stack reference map for neo4j.BoltWorker-5 [bolt][id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt][id=19] in native code
+Building full stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] in native code
+Building full stack reference map for neo4j.BoltWorker-3 [bolt][id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt][id=17] in native code
+Building full stack reference map for neo4j.BoltWorker-2 [bolt][id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt][id=16] in native code
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;16798609996201
+(GC);end;16799858986151
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56508] [id=18] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] - notifying VM operation thread
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] at safepoint
+Building full stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] in native code
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;16920288921130
+(GC);end;16921539940959
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] - done
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]: Thawed from safepoint
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] - notifying VM operation thread
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building full stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] in native code
+Building partial stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] at safepoint
+Building full stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] in native code
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;17093107036980
+(GC);end;17094372800834
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]: Thawed from safepoint
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] - notifying VM operation thread
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] at safepoint
+Building full stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] in native code
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;17217959318517
+(GC);end;17219187521759
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]: Thawed from safepoint
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] - notifying VM operation thread
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] at safepoint
+Building full stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] in native code
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;17345891001963
+(GC);end;17347126664919
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]: Thawed from safepoint
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] - done
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]: Thawed from safepoint
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] - notifying VM operation thread
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] at safepoint
+Building full stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] in native code
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;17474320304816
+(GC);end;17475576596915
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]: Thawed from safepoint
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] - notifying VM operation thread
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building full stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] in native code
+Building partial stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;17602769132062
+(GC);end;17604015088222
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]: Thawed from safepoint
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]: Thawed from safepoint
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]: Thawed from safepoint
+VM operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] - notifying VM operation thread
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building partial stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] at safepoint
+Building full stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] in native code
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;17733475822638
+(GC);end;17734767532753
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]: Thawed from safepoint
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]: Thawed from safepoint
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] - notifying VM operation thread
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building full stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] in native code
+Building full stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] in native code
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;17865991169552
+(GC);end;17867265569459
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]: Thawed from safepoint
+neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] resuming after #1 wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] - done
+VM operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] - notifying VM operation thread
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] waiting #1 on REQUEST_LOCK for completion of VM operation CollectHeap
+VM operation thread about to run operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: -- Begin --
+VmOperation[CollectHeap]: Freezing thread(s)
+VmOperation[CollectHeap]: Waiting for thread(s) to freeze
+Building full stack reference map for neo4j.BoltNetworkIO-9[id=45]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-9[id=45] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-8[id=40]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-8[id=40] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-7[id=44]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-7[id=44] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-6[id=43]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-6[id=43] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-5[id=39]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-5[id=39] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-4[id=38]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-4[id=38] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-3[id=37]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-3[id=37] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-2[id=21]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-2[id=21] in native code
+Building full stack reference map for neo4j.CheckPoint-1[id=36]
+VmOperation[CollectHeap]: Froze neo4j.CheckPoint-1[id=36] in native code
+Building full stack reference map for Scheduler-2084785499[id=35]
+VmOperation[CollectHeap]: Froze Scheduler-2084785499[id=35] in native code
+Building full stack reference map for qtp2079573525-123[id=34]
+VmOperation[CollectHeap]: Froze qtp2079573525-123[id=34] in native code
+Building full stack reference map for qtp2079573525-122[id=33]
+VmOperation[CollectHeap]: Froze qtp2079573525-122[id=33] in native code
+Building full stack reference map for qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32]
+VmOperation[CollectHeap]: Froze qtp2079573525-121-acceptor-1@7ea1d9ee-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=32] in native code
+Building full stack reference map for qtp2079573525-120[id=31]
+VmOperation[CollectHeap]: Froze qtp2079573525-120[id=31] in native code
+Building full stack reference map for qtp2079573525-119[id=30]
+VmOperation[CollectHeap]: Froze qtp2079573525-119[id=30] in native code
+Building full stack reference map for qtp2079573525-118[id=29]
+VmOperation[CollectHeap]: Froze qtp2079573525-118[id=29] in native code
+Building full stack reference map for qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28]
+VmOperation[CollectHeap]: Froze qtp2079573525-117-acceptor-0@7e96a92f-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=28] in native code
+Building full stack reference map for qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27]
+VmOperation[CollectHeap]: Froze qtp2079573525-116-acceptor-1@7e96a473-http@7c03928a{HTTP/1.1,[http/1.1]}{127.0.0.1:7474}[id=27] in native code
+Building full stack reference map for qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26]
+VmOperation[CollectHeap]: Froze qtp2079573525-115-acceptor-0@7ea1d90f-https@7c08cb02{SSL,[ssl, http/1.1]}{127.0.0.1:7473}[id=26] in native code
+Building full stack reference map for qtp2079573525-114[id=25]
+VmOperation[CollectHeap]: Froze qtp2079573525-114[id=25] in native code
+Building full stack reference map for qtp2079573525-113[id=24]
+VmOperation[CollectHeap]: Froze qtp2079573525-113[id=24] in native code
+Building full stack reference map for qtp2079573525-112[id=23]
+VmOperation[CollectHeap]: Froze qtp2079573525-112[id=23] in native code
+Building full stack reference map for neo4j.ServerTransactionTimeout-1[id=22]
+VmOperation[CollectHeap]: Froze neo4j.ServerTransactionTimeout-1[id=22] in native code
+Building full stack reference map for neo4j.BoltNetworkIO-1[id=20]
+VmOperation[CollectHeap]: Froze neo4j.BoltNetworkIO-1[id=20] in native code
+Building full stack reference map for neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] in native code
+Building partial stack reference map for neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-4 [bolt] [/127.0.0.1:56510] [id=18] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17] at safepoint
+Building partial stack reference map for neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16] at safepoint
+Building full stack reference map for neo4j.BoltWorker-1 [bolt][id=15]
+VmOperation[CollectHeap]: Froze neo4j.BoltWorker-1 [bolt][id=15] in native code
+Building full stack reference map for neo4j.VmPauseMonitor-1[id=14]
+VmOperation[CollectHeap]: Froze neo4j.VmPauseMonitor-1[id=14] in native code
+Building full stack reference map for neo4j.TransactionTimeoutMonitor-1[id=13]
+VmOperation[CollectHeap]: Froze neo4j.TransactionTimeoutMonitor-1[id=13] in native code
+Building full stack reference map for neo4j.FileWatcher-1[id=12]
+VmOperation[CollectHeap]: Froze neo4j.FileWatcher-1[id=12] in native code
+Building full stack reference map for neo4j.StorageMaintenance-1[id=11]
+VmOperation[CollectHeap]: Froze neo4j.StorageMaintenance-1[id=11] in native code
+Building full stack reference map for MuninnPageCache[1]-EvictionTask[id=10]
+VmOperation[CollectHeap]: Froze MuninnPageCache[1]-EvictionTask[id=10] in native code
+Building full stack reference map for Thread-3[id=9]
+VmOperation[CollectHeap]: Froze Thread-3[id=9] in native code
+Building full stack reference map for Neo4j UDC Timer[id=8]
+VmOperation[CollectHeap]: Froze Neo4j UDC Timer[id=8] in native code
+Building full stack reference map for neo4j.Scheduler-1[id=7]
+VmOperation[CollectHeap]: Froze neo4j.Scheduler-1[id=7] in native code
+Building full stack reference map for Signal Dispatcher[id=3]
+VmOperation[CollectHeap]: Froze Signal Dispatcher[id=3] in native code
+Building full stack reference map for Reference Handler[id=4]
+VmOperation[CollectHeap]: Froze Reference Handler[id=4] in native code
+Building full stack reference map for Finalizer[id=5]
+VmOperation[CollectHeap]: Froze Finalizer[id=5] in native code
+Building full stack reference map for main[id=1]
+VmOperation[CollectHeap]: Froze main[id=1] in native code
+VmOperation[CollectHeap]: Running operation
+(GC);start;17998372850787
+(GC);end;17999640384348
+VmOperation[CollectHeap]: Thawing thread(s)
+VmOperation[CollectHeap]: -- End --
+VM operation thread finished operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] and is notifying REQUEST_LOCK waiters
+neo4j.BoltWorker-3 [bolt] [/127.0.0.1:56508] [id=17]: Thawed from safepoint
+neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] resuming after #neo4j.BoltW1orker-4 [bolt] [/127.0.0.1:56510] [id=18]: Thawed from safepoint
+neo4j.BoltWorker-2 [bolt] [/127.0.0.1:56514] [id=16]: Thawed from safepoint
+ wait on REQUEST_LOCK,  completed VM operation  CollectHeap
+VM operation CollectHeap submitted by neo4j.BoltWorker-5 [bolt] [/127.0.0.1:56488] [id=19] - done
+########################### 1 ###########################
+########################### 2 ###########################
+Allocate it now! [ neo4j.BoltNetworkIO-17, 13455 ]
+Allocate it now! [ neo4j.BoltNetworkIO-16, 13454 ]
+Allocate it now! [ neo4j.BoltNetworkIO-15, 13453 ]
+Allocate it now! [ neo4j.BoltNetworkIO-14, 13452 ]
+Allocate it now! [ neo4j.BoltNetworkIO-13, 13451 ]
+Allocate it now! [ neo4j.BoltNetworkIO-12, 13450 ]
+Allocate it now! [ neo4j.BoltNetworkIO-11, 13449 ]
+Allocate it now! [ neo4j.BoltNetworkIO-10, 13448 ]
+Allocate it now! [ neo4j.BoltNetworkIO-1, 12382 ]
+########################### 3 ###########################
+Terminating VM operation thread
+VM operation thread stopped
+########################### 4 ###########################

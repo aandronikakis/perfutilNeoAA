@@ -208,6 +208,20 @@ public class NUMAState {
             public void updateCPI(double cpi) {
                 dualNodeCPI = cpi;
             }
+        },
+        GC_ON_SINGLE_NODE {
+            @Override
+            public void act() {
+                if (NUMALog || logState) {
+                    Log.println("Act as GC-On-Single-Node");
+                }
+                NUMAConfigurations.setLocalNodeAffinityForVmOperationThread();
+            }
+
+            @Override
+            public void updateCPI(double cpi) {
+                singleNodeCPI = cpi;
+            }
         };
 
         public abstract void act();
